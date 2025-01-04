@@ -3,3 +3,4 @@ plugins:
 - jekyll-remote-theme
 title: y=mx+c
 description: A blog about machine learning and data science written Mihai Nadăș.
+author: Mihai Nadăș
