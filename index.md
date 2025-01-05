@@ -1,4 +1,7 @@
-# Frontpage
+---
+layout: page
+title: "Frontpage"
+---
 ## A blog about machine learning and natural language processing
 Hey! I'm a PhD student at Babeș-Bolyai University, working on Small Language Models (SLMs) for Romanian. I'm really into Natural Language Processing (NLP) and Machine Learning (ML).
 
