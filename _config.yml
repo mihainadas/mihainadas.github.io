@@ -1,7 +1,6 @@
 title: "y=mx+c"
 description: "A blog about machine learning and data science written Mihai Nadăș."
-author:
-  name: "Mihai Nadăș"
+author: "Mihai Nadăș"
   # email: "mihai.nadas@ubbcluj.ro"
 header_pages:
   - about.md
