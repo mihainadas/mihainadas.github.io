@@ -7,10 +7,5 @@ theme: minima
 minima:
   skin: auto
   social_links:
-    github: mihainadas
-    x: mihainadas
-    linkedin: mihainadas
-  header_pages:
-    - about.md
-    - index.md
+  - {platform: x, user_url: "https://x.com/mihainadas"}
 google_analytics: G-EHZ4ZE1DV8
