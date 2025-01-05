@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "About myself"
+title: "about myself"
 permalink: /about
 ---
 
