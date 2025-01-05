@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: home
 title: "Frontpage"
 ---
 ## A blog about machine learning and natural language processing
