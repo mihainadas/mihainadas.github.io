@@ -4,7 +4,6 @@ author:
   name: "Mihai Nadăș"
   email: "mihai.nadas@ubbcluj.ro"
 header_pages:
-  - index.md
   - about.md
 theme: minima
 minima:
