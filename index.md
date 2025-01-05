@@ -1,5 +1,6 @@
 ---
 layout: home
+title: "Home"
 ---
 Hey! I'm a PhD student at Babeș-Bolyai University, working on Small Language Models (SLMs) for Romanian. I'm really into Natural Language Processing (NLP) and Machine Learning (ML).
 
