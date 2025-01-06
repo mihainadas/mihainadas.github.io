@@ -9,6 +9,8 @@ As an avid reader and lifelong learner, I find immense value in books that deepe
 ## [Natural Language Processing with Transformers, Revised Edition](https://www.amazon.com/dp/1098136799)
 **Authors**: Lewis Tunstall, Leandro von Werra, Thomas Wolf
 
+![Natural Language Processing with Transformers Book Cover](images/book_covers/nlp_with_transformers.png){: width="200px" height="auto" alt="Book cover showing the title 'Natural Language Processing with Transformers' by Lewis Tunstall, Leandro von Werra, and Thomas Wolf"}
+
 Transformers have redefined the landscape of natural language processing (NLP) since their introduction in 2017. They are now the dominant architecture for achieving state-of-the-art results in various NLP tasks. If you're a data scientist, coder, or AI enthusiast, this practical guide is an excellent resource for mastering transformer models using **Hugging Face Transformers**, one of the most popular Python-based deep learning libraries.
 
 Authored by experts and contributors to Hugging Face Transformers, this book provides a hands-on approach to understanding, building, and applying transformers in real-world applications. Whether it's writing realistic news stories, enhancing search engine queries, or creating humorous chatbots, transformers have proven their versatility and power.
