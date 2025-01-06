@@ -6,7 +6,7 @@ permalink: /books
 
 As an avid reader and lifelong learner, I find immense value in books that deepen my understanding of technology, leadership, and personal development. Below are some titles that have significantly influenced my journey, and I highly recommend them to anyone seeking to expand their knowledge and perspective.
 
-## [DNatural Language Processing with Transformers, Revised Edition](https://www.amazon.com/dp/1098136799)
+## [Natural Language Processing with Transformers, Revised Edition](https://www.amazon.com/dp/1098136799)
 **Authors**: Lewis Tunstall, Leandro von Werra, Thomas Wolf
 
 Transformers have redefined the landscape of natural language processing (NLP) since their introduction in 2017. They are now the dominant architecture for achieving state-of-the-art results in various NLP tasks. If you're a data scientist, coder, or AI enthusiast, this practical guide is an excellent resource for mastering transformer models using **Hugging Face Transformers**, one of the most popular Python-based deep learning libraries.
