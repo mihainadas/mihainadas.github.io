@@ -3,6 +3,7 @@ description: A blog about machine learning and data science written by an ML PhD
 author:
   name: Mihai Nadăș
   email: mihai.nadas@ubbcluj.ro
+
 show_excerpts: true
 
 plugins:
@@ -15,4 +16,7 @@ minima:
   skin: auto
   social_links:
   - { platform: github, user_url: "https://github.com/mihainadas" }
+  - { platform: linkedin, user_url: "https://www.linkedin.com/in/mihainadas/" }
+  - { platform: x, user_url: "https://x.com/mihainadas" }
+
 google_analytics: G-EHZ4ZE1DV8
