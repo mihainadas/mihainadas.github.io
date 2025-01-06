@@ -8,7 +8,7 @@ Hey! 👋 I’m Mihai, a PhD student at Babeș-Bolyai University, specializing i
 
 In this blog, you’ll find a variety of posts ranging from in-depth tutorials on machine learning algorithms to the latest advancements in NLP. I also share insights from my research, including challenges faced and solutions discovered. Whether you’re a beginner or an expert, there’s something here for everyone.
 
-🌐 Language of the Blog
+🌐 Language
 
 While most of the content on this blog will be in English to ensure it is accessible to a global audience, you’ll also find some articles written in Romanian. 🇷🇴 These are intended to support local developers, researchers, and enthusiasts who are particularly interested in Romanian NLP and its applications. My goal is to balance accessibility with relevance, making the blog useful both internationally and within Romania.
 
