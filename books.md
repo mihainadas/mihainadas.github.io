@@ -41,11 +41,11 @@ The book explores both classic machine learning algorithms and modern deep learn
 #### Why I Recommend This Book:
 
 This book is an invaluable resource for several reasons:
-- Comprehensive Framework: It seamlessly integrates Scikit-Learn for traditional machine learning tasks and PyTorch for deep learning, providing a holistic learning experience.
-- Hands-On Examples: The authors provide detailed tutorials and coding examples that cover everything from preprocessing data to deploying models.
-- Cutting-Edge Topics: The book includes coverage of transformers, graph neural networks, GANs, and reinforcement learning, ensuring you stay updated with the latest trends.
-- Best Practices: Gain insights into evaluating and tuning models, ensemble learning, and dimensionality reduction to make your solutions robust and effective.
-- Scalable Learning: Learn how to build models that can handle large-scale data and leverage modern libraries like PyTorch Lightning for efficient experimentation.
+- **Comprehensive Framework**: It seamlessly integrates Scikit-Learn for traditional machine learning tasks and PyTorch for deep learning, providing a holistic learning experience.
+- **Hands-On Examples**: The authors provide detailed tutorials and coding examples that cover everything from preprocessing data to deploying models.
+- **Cutting-Edge Topics**: The book includes coverage of transformers, graph neural networks, GANs, and reinforcement learning, ensuring you stay updated with the latest trends.
+- **Best Practices**: Gain insights into evaluating and tuning models, ensemble learning, and dimensionality reduction to make your solutions robust and effective.
+- **Scalable Learning**: Learn how to build models that can handle large-scale data and leverage modern libraries like PyTorch Lightning for efficient experimentation.
 
 #### What You’ll Learn:
 
