@@ -1,11 +1,9 @@
 ---
 layout: post
-title: "Simple Perceptron"
+title: "Simple Perceptron Notebook"
 date: 2020-01-04 19:00:00 +0200
 tags: machine learning, perceptron
 ---
-# Introducing the “Perceptron Implementation” Notebook
-
 Today we'll dive into the foundational concepts of machine learning with a practical implementation of the perceptron algorithm! 🌟 This notebook builds on Frank Rosenblatt’s seminal 1958 paper, “The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain”, and provides a hands-on guide to understanding and implementing this key algorithm.
 
 What You’ll Find in This Notebook:
@@ -16,7 +14,7 @@ What You’ll Find in This Notebook:
 
 Whether you’re just beginning your machine learning journey or revisiting foundational algorithms, this notebook is designed to help you deepen your understanding of perceptrons.
 
-## 🌐 Available Versions:
+🌐 Available Versions:
 - [Perceptron Notebook - English Version](http://mihainadas.github.io/notebooks/perceptron_en.html)
 - [Perceptron Notebook - Romanian Version](http://mihainadas.github.io/notebooks/perceptron_ro.html)
 
