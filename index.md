@@ -14,4 +14,4 @@ While most of the content on this blog will be in English to ensure it is access
 
 For more information, please visit my [detailed about page](/about). You can also connect with me on [LinkedIn](https://www.linkedin.com) and follow my work on [GitHub](https://github.com).
 
-## Latest Posts
+## /latest posts
