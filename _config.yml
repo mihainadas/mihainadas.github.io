@@ -3,10 +3,13 @@ description: A blog about machine learning and data science written by an ML PhD
 author: Mihai Nadăș
 email: mihai.nadas@ubbcluj.ro
 show_excerpts: true
-theme: minima
+
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
   - jekyll-seo-tag
+
+remote_theme: jekyll/minima
 minima:
   skin: auto
   social_links:
