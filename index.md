@@ -4,7 +4,7 @@ title: "/blog"
 ---
 Hey! 👋 I’m Mihai, a PhD student at Babeș-Bolyai University, specializing in Small Language Models (SLMs) for Romanian. My passion lies in Natural Language Processing (NLP) and Machine Learning (ML).
 
-## A blog about machine learning and natural language processing 🧠💻
+## A blog about machine learning and natural language processing
 
 In this blog, you’ll find a variety of posts ranging from in-depth tutorials on machine learning algorithms to the latest advancements in NLP. I also share insights from my research, including challenges faced and solutions discovered. Whether you’re a beginner or an expert, there’s something here for everyone.
 
