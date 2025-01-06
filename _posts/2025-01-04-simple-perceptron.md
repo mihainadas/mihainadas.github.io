@@ -14,8 +14,10 @@ What You’ll Find in This Notebook:
 
 Whether you’re just beginning your machine learning journey or revisiting foundational algorithms, this notebook is designed to help you deepen your understanding of perceptrons.
 
-🌐 Available Versions:
-- [Perceptron Notebook - English Version](http://mihainadas.github.io/notebooks/perceptron_en.html)
-- [Perceptron Notebook - Romanian Version](http://mihainadas.github.io/notebooks/perceptron_ro.html)
+🌐 Available HTML Versions:
+- [Perceptron Notebook - English Version](http://mihainadas.github.io/notebooks/perceptron_en.html){:target="_blank"}
+- [Perceptron Notebook - Romanian Version](http://mihainadas.github.io/notebooks/perceptron_ro.html){:target="_blank"}
+
+📝 [View the Jupyter Notebook on GitHub](https://github.com/mihainadas/notebooks/blob/main/perceptron.ipynb)
 
 I hope you find this resource both informative and engaging! As always, I welcome feedback and questions—feel free to reach out or comment below. Happy learning! 🚀 ￼
