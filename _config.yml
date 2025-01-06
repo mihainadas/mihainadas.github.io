@@ -1,11 +1,14 @@
-title: "y=mx+c"
-description: "A blog about machine learning and data science written Mihai Nadăș."
-author: "Mihai Nadăș"
-email: "mihai.nadas@ubbcluj.ro"
+title: y=mx+c
+description: A blog about machine learning and data science written by an ML PhD Student.
+author: Mihai Nadăș
+email: mihai.nadas@ubbcluj.ro
 show_excerpts: true
 theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
 minima:
   skin: auto
   social_links:
-  - {platform: x, user_url: "https://x.com/mihainadas"}
+  - { platform: github, user_url: "https://github.com/mihainadas" }
 google_analytics: G-EHZ4ZE1DV8
