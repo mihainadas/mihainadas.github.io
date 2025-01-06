@@ -20,4 +20,4 @@ Whether you’re just beginning your machine learning journey or revisiting foun
 
 📝 [View the Jupyter Notebook on GitHub](https://github.com/mihainadas/notebooks/blob/main/perceptron.ipynb){:target="_blank"}
 
-I hope you find this resource both informative and engaging! As always, I welcome feedback and questions—feel free to reach out or comment below. Happy learning! 🚀 ￼
+I hope you find this resource both informative and engaging! As always, I welcome feedback and questions—feel free to reach out. Happy learning! 🚀 ￼
