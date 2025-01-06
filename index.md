@@ -2,7 +2,7 @@
 layout: home
 title: "/blog"
 ---
-Hey! 👋 I’m Mihai, a PhD student at Babeș-Bolyai University, specializing in Small Language Models (SLMs) for Romanian. My passion lies in Natural Language Processing (NLP) and Machine Learning (ML).
+Hey! 👋 I’m *Mihai*, a PhD student at Babeș-Bolyai University, specializing in Small Language Models (SLMs) for Romanian. My passion lies in Natural Language Processing (NLP) and Machine Learning (ML).
 
 ## A blog about machine learning and natural language processing
 
