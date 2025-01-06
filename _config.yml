@@ -1,7 +1,8 @@
 title: y=mx+c
 description: A blog about machine learning and data science written by an ML PhD Student.
-author: Mihai Nadăș
-email: mihai.nadas@ubbcluj.ro
+author:
+  name: Mihai Nadăș
+  email: mihai.nadas@ubbcluj.ro
 show_excerpts: true
 
 plugins:
