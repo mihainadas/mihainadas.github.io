@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Simple Perceptron Notebook"
-date: 2020-01-04 19:00:00 +0200
+date: 2025-01-04 19:00:00 +0200
 tags: machine learning, perceptron
 ---
+
 The best way to dive into the foundational concepts of machine learning is through a practical implementation of the perceptron algorithm. This notebook builds on Frank Rosenblatt’s seminal 1958 paper, _“The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain”_, and provides a hands-on guide to understanding and implementing this key algorithm.
 
 What You’ll Find in This Notebook:
