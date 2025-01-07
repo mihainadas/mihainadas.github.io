@@ -8,7 +8,7 @@ tags: python, numpy, performance
 When it comes to numerical computations in Python, understanding the performance trade-offs between vectorized operations and traditional loops is crucial. This short notebook explores the efficiency of NumPy against standard Python loops, offering a practical perspective on why NumPy is the go-to library for numerical computing.
 
 ### What You’ll Find in This Notebook:
-- **Performance Metrics**: A detailed analysis of execution times for equivalent operations implemented using NumPy and Python loops.
+- **Performance Metrics**: A quick analysis of execution times for equivalent operations implemented using NumPy and Python loops.
 - **Code Examples**: Side-by-side comparisons of loop-based and vectorized implementations for common operations.
 
 🌐 **Available HTML Versions**:
