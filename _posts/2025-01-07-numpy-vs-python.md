@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "NumPy vs Loops: Performance Analysis"
-date: 2025-01-07 19:00:00 +0200
+date: 2025-01-07 10:00:00 +0200
 tags: python, numpy, performance
 ---
 
