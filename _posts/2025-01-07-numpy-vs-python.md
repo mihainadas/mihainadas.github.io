@@ -12,7 +12,7 @@ When it comes to numerical computations in Python, understanding the performance
 - **Code Examples**: Side-by-side comparisons of loop-based and vectorized implementations for common operations.
 
 🌐 **Available HTML Versions**:
-- [NumPy vs Loops Notebook - English Version](http://mihainadas.github.io/notebooks/numpy_vs_loops.html){:target="_blank"}
+- [NumPy vs Loops Notebook - English Version](http://mihainadas.github.io/notebooks/numpy_vs_python.html){:target="_blank"}
 
 📝 [View the Jupyter Notebook on GitHub](https://github.com/mihainadas/notebooks/blob/main/numpy/numpy_vs_python.ipynb){:target="_blank"}
 
