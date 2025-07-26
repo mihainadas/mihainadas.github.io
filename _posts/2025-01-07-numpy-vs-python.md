@@ -2,7 +2,10 @@
 layout: post
 title: "NumPy vs Loops: Performance Analysis"
 date: 2025-01-07 10:00:00 +0200
-tags: python, numpy, performance
+tags:
+  - python
+  - numpy
+  - performance
 ---
 
 When it comes to numerical computations in Python, understanding the performance trade-offs between vectorized operations and traditional loops is crucial. This short notebook explores the efficiency of NumPy against standard Python loops, offering a practical perspective on why NumPy is the go-to library for numerical computing.
