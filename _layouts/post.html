@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <p class="post-meta">
+      {% if page.post_type %}{{ page.post_type }} · {% endif %}
+      {% if page.published_at %}
+        event dated <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d %B %Y" }}</time>
+        · published here <time class="dt-published" datetime="{{ page.published_at | date_to_xmlschema }}" itemprop="datePublished">{{ page.published_at | date: "%d %B %Y" }}</time>
+      {% else %}
+        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%d %B %Y" }}</time>
+      {% endif %}
+      {% if page.last_modified_at %}
+        · revised <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: "%d %B %Y" }}</time>
+      {% endif %}
+    </p>
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    {% if page.description %}<p class="post-deck">{{ page.description }}</p>{% endif %}
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
