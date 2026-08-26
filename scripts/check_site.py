@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import re
 import sys
+import xml.etree.ElementTree as ET
 from datetime import date
 from pathlib import Path
 
@@ -56,11 +57,13 @@ def check_posts() -> None:
 
 def check_engineering_boundary() -> None:
     for path in ROOT.rglob("*"):
-        if not path.is_file() or path.suffix not in {".html", ".md", ".py", ".yml", ".yaml"}:
+        if not path.is_file() or path.suffix not in {".html", ".md", ".py", ".svg", ".yml", ".yaml"}:
             continue
         if {".git", "_site", "vendor"}.intersection(path.relative_to(ROOT).parts):
             continue
         text = path.read_text(encoding="utf-8")
+        if re.search(r"/(?:Users|private/tmp)/", text):
+            fail(f"private filesystem path in {path.relative_to(ROOT)}")
         if re.search(r"(?i)github\.com/klusai(?:/|$)", text):
             fail(f"stealth repository link in {path.relative_to(ROOT)}")
 
@@ -115,6 +118,9 @@ def check_figure_system() -> None:
         if required not in figure_text:
             fail(f"shared figure include lost required behavior: {required}")
 
+    referenced_assets: set[Path] = set()
+    expected_dimensions: dict[Path, tuple[int, int]] = {}
+    figure_calls = 0
     for path in ROOT.rglob("*.md"):
         if {".git", "_site", "vendor"}.intersection(path.relative_to(ROOT).parts):
             continue
@@ -122,16 +128,84 @@ def check_figure_system() -> None:
             continue
         text = path.read_text(encoding="utf-8")
         for match in re.finditer(r"{%\s*include\s+figure\.html\s+(.*?)%}", text, re.DOTALL):
+            figure_calls += 1
             attributes = dict(re.findall(r'(\w+)=["\']([^"\']*)["\']', match.group(1)))
-            if not attributes.get("src") or not attributes.get("alt"):
-                fail(f"figure in {path.relative_to(ROOT)} requires src and alt")
+            for required in ("src", "alt", "caption", "width", "height"):
+                if not attributes.get(required):
+                    fail(f"figure in {path.relative_to(ROOT)} requires {required}")
+            for dimension in ("width", "height"):
+                if not attributes[dimension].isdigit() or int(attributes[dimension]) <= 0:
+                    fail(f"figure in {path.relative_to(ROOT)} has invalid {dimension}")
             source = attributes["src"]
-            if source.startswith("/") and not (ROOT / source.lstrip("/")).exists():
+            if not source.startswith("/assets/figures/"):
+                fail(f"figure in {path.relative_to(ROOT)} must use a local assets/figures path")
+            asset = ROOT / source.lstrip("/")
+            if not asset.exists():
                 fail(f"figure asset missing for {path.relative_to(ROOT)}: {source}")
+            referenced_assets.add(asset.resolve())
+            expected_dimensions[asset.resolve()] = (int(attributes["width"]), int(attributes["height"]))
+            if path.parent == POSTS:
+                slug = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", path.stem)
+                if not source.startswith(f"/assets/figures/{slug}/"):
+                    fail(f"figure asset is outside the post directory for {path.name}")
             mobile_source = attributes.get("mobile_src")
-            if mobile_source and mobile_source.startswith("/"):
-                if not (ROOT / mobile_source.lstrip("/")).exists():
+            if mobile_source:
+                if not mobile_source.startswith("/assets/figures/"):
+                    fail(f"mobile figure in {path.relative_to(ROOT)} must be local")
+                for dimension in ("mobile_width", "mobile_height"):
+                    value = attributes.get(dimension, "")
+                    if not value.isdigit() or int(value) <= 0:
+                        fail(f"mobile figure in {path.relative_to(ROOT)} requires {dimension}")
+                mobile_asset = ROOT / mobile_source.lstrip("/")
+                if not mobile_asset.exists():
                     fail(f"mobile figure asset missing for {path.relative_to(ROOT)}: {mobile_source}")
+                referenced_assets.add(mobile_asset.resolve())
+                expected_dimensions[mobile_asset.resolve()] = (
+                    int(attributes["mobile_width"]),
+                    int(attributes["mobile_height"]),
+                )
+            for url_field in ("link", "source_url"):
+                value = attributes.get(url_field)
+                if value and not value.startswith("https://"):
+                    fail(f"{url_field} in {path.relative_to(ROOT)} must use HTTPS")
+
+    if figure_calls < 1:
+        fail("shared figure include is not exercised by published content")
+
+    figure_root = ROOT / "assets" / "figures"
+    for asset in figure_root.rglob("*"):
+        if not asset.is_file():
+            continue
+        if asset.resolve() not in referenced_assets:
+            fail(f"orphaned figure asset: {asset.relative_to(ROOT)}")
+        if asset.suffix.lower() != ".svg":
+            continue
+        text = asset.read_text(encoding="utf-8")
+        if re.search(r"(?i)\b(?:klusai|codex|chatgpt)\b|/(?:Users|private/tmp)/", text):
+            fail(f"private label or path in SVG: {asset.relative_to(ROOT)}")
+        try:
+            root = ET.fromstring(text)
+        except ET.ParseError as error:
+            fail(f"invalid SVG XML in {asset.relative_to(ROOT)}: {error}")
+        local_name = lambda value: value.rsplit("}", 1)[-1]
+        if local_name(root.tag) != "svg":
+            fail(f"figure asset is not SVG: {asset.relative_to(ROOT)}")
+        if not root.get("width") or not root.get("height") or not root.get("viewBox"):
+            fail(f"SVG lacks explicit dimensions or viewBox: {asset.relative_to(ROOT)}")
+        expected = expected_dimensions[asset.resolve()]
+        if (root.get("width"), root.get("height")) != tuple(map(str, expected)):
+            fail(f"SVG dimensions do not match its figure include: {asset.relative_to(ROOT)}")
+        child_names = {local_name(node.tag) for node in root.iter()}
+        if not {"title", "desc"}.issubset(child_names):
+            fail(f"SVG lacks a title or description: {asset.relative_to(ROOT)}")
+        if {"script", "foreignObject"}.intersection(child_names):
+            fail(f"active or embedded HTML content in SVG: {asset.relative_to(ROOT)}")
+        for node in root.iter():
+            for name, value in node.attrib.items():
+                if local_name(name) in {"href", "src"} and re.match(r"(?i)https?:", value):
+                    fail(f"remote reference in SVG: {asset.relative_to(ROOT)}")
+                if re.search(r"(?i)url\(\s*['\"]?https?:", value):
+                    fail(f"remote CSS reference in SVG: {asset.relative_to(ROOT)}")
 
     about = (ROOT / "about.md").read_text(encoding="utf-8")
     if "{% include career-thread.html %}" not in about:

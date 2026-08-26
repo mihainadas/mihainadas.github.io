@@ -309,19 +309,18 @@ blockquote {
 .figure-source { display: block; }
 
 .content-figure--wide {
-  left: 50%;
   max-width: 960px;
-  position: relative;
-  transform: translateX(-50%);
   width: min(960px, calc(100vw - 56px));
 }
 
 .career-thread ol {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   list-style: none;
   margin: 0;
 }
+
+.career-thread > h2 { margin: 0 0 1.6rem; }
 
 .career-thread li {
   border-top: 1px solid var(--accent);
@@ -420,7 +419,7 @@ hr { background-color: var(--line); }
   .post-type { margin-top: 0.2rem; }
   .content-figure,
   .career-thread { margin: 2.4rem 0; }
-  .content-figure--wide { left: auto; transform: none; width: 100%; }
+  .content-figure--wide { width: 100%; }
   .career-thread ol { grid-template-columns: 1fr; }
   .career-thread li {
     border-left: 1px solid var(--accent);
@@ -454,9 +453,15 @@ hr { background-color: var(--line); }
   .page { max-width: none; }
   pre,
   code { background: #f2f2f2; border-color: #ccc; color: #111; }
-  .content-figure--wide { left: auto; max-width: 100%; transform: none; width: 100%; }
+  .content-figure--wide { max-width: 100%; width: 100%; }
   .content-figure,
   .career-thread { break-inside: avoid; }
   .career-thread li { border-color: #666; }
   .career-thread li::before { background: #fff; border-color: #333; }
+  .career-thread h2,
+  .career-thread h3 { color: #111; }
+  .career-thread__year,
+  .career-thread li > p:last-child,
+  .career-thread figcaption,
+  .content-figure figcaption { color: #333; }
 }

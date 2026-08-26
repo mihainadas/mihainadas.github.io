@@ -34,3 +34,7 @@ Use the shared include from a page or post:
 For a dense diagram, add `mobile_src`, `mobile_width`, and `mobile_height` to provide a portrait composition below 640 pixels. Optional `source_url` and `source_label` fields add a separate attribution line.
 
 Use a diagram when it clarifies a sequence, system boundary, data flow, artifact relationship, or chronology. Do not turn a short list into boxes merely to break up the page.
+
+For a notebook-derived chart, keep the notebook as the source of truth. Execute it cleanly with fixed seeds and a non-interactive plotting backend, export a deterministic SVG, strip timestamps and local-path metadata, and record the notebook commit in `source_url`/`source_label`. State the principal result in the alternative text; use the caption for the population, runs, units, and interpretation. Keep important numerical conclusions in the prose as well.
+
+The checks require local assets, explicit dimensions, a factual caption, per-post storage, safe SVG content, and a real generated figure. They reject orphaned assets, private filesystem paths, active SVG content, and remote SVG dependencies.

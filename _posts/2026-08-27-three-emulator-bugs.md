@@ -10,6 +10,18 @@ tags: [systems, emulation, testing]
 
 Three merged 86Box fixes touched unrelated subsystems: printer raster output, audio generation, and dynamic-recompiler page bookkeeping. The difficult part in each case was choosing an oracle specific enough to justify the change.
 
+{% include figure.html
+  src="/assets/figures/three-emulator-bugs/test-oracles.svg"
+  mobile_src="/assets/figures/three-emulator-bugs/test-oracles-mobile.svg"
+  alt="Three parallel test paths: a printer failure checked by a completed page, audio faults checked by a deterministic harness, and a restart abort checked by repeated guest restarts."
+  caption="Each regression test supports a different, deliberately narrow claim."
+  width="1200"
+  height="560"
+  mobile_width="320"
+  mobile_height="1110"
+  wide=true
+%}
+
 ## A printer failure needs a completed page
 
 The ESC/P 2 interpreter treated the `ESC .` Print Raster Graphics command as fatal. A Windows 95 Epson LQ-2500 test page reached that command, produced seven malformed PNG pages, and terminated the emulator.

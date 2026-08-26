@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1110" viewBox="0 0 320 1110" role="img" aria-labelledby="title desc">
+  <title id="title">Three emulator failures require three different test oracles</title>
+  <desc id="desc">Printer output is checked with a completed rendered page, audio behavior with a deterministic harness, and memory bookkeeping with repeated guest restarts.</desc>
+  <rect width="320" height="1110" fill="#111719"/>
+  <style>
+    .kicker{fill:#d2a85a;font:600 12px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.8px}
+    .title{fill:#f2f0e8;font:650 20px Inter,Arial,sans-serif}
+    .label{fill:#9ca5a2;font:600 11px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.6px}
+    .body{fill:#d9d9d2;font:14px Inter,Arial,sans-serif}
+    .claim{fill:#f2f0e8;font:600 14px Inter,Arial,sans-serif}
+    .rule{stroke:#3b474a;stroke-width:1}
+    .path{stroke:#d2a85a;stroke-width:2;fill:none}
+    .dot{fill:#111719;stroke:#efc978;stroke-width:2}
+  </style>
+  <text class="kicker" x="22" y="36">TEST STRATEGY</text>
+  <text class="title" x="22" y="68">The oracle changes</text>
+  <text class="title" x="22" y="93">with the subsystem</text>
+  <line class="rule" x1="22" y1="116" x2="298" y2="116"/>
+
+  <g transform="translate(22 151)">
+    <text class="kicker" x="0" y="0">PRINTER</text>
+    <text class="label" x="0" y="31">FAILURE</text>
+    <text class="body" x="0" y="54">Test page terminates the emulator</text>
+    <path class="path" d="M7 71v38"/><circle class="dot" cx="7" cy="90" r="5"/>
+    <text class="label" x="0" y="135">ORACLE</text>
+    <text class="claim" x="0" y="158">One completed rendered page</text>
+    <path class="path" d="M7 175v38"/><circle class="dot" cx="7" cy="194" r="5"/>
+    <text class="label" x="0" y="239">CLAIM</text>
+    <text class="body" x="0" y="262">The reproduced print job succeeds</text>
+  </g>
+  <line class="rule" x1="22" y1="444" x2="298" y2="444"/>
+
+  <g transform="translate(22 479)">
+    <text class="kicker" x="0" y="0">AUDIO</text>
+    <text class="label" x="0" y="31">FAILURE</text>
+    <text class="body" x="0" y="54">Wrong noise and coupled channels</text>
+    <path class="path" d="M7 71v38"/><circle class="dot" cx="7" cy="90" r="5"/>
+    <text class="label" x="0" y="135">ORACLE</text>
+    <text class="claim" x="0" y="158">Deterministic sequence harness</text>
+    <path class="path" d="M7 175v38"/><circle class="dot" cx="7" cy="194" r="5"/>
+    <text class="label" x="0" y="239">CLAIM</text>
+    <text class="body" x="0" y="262">The digital invariant is restored</text>
+  </g>
+  <line class="rule" x1="22" y1="772" x2="298" y2="772"/>
+
+  <g transform="translate(22 807)">
+    <text class="kicker" x="0" y="0">MEMORY</text>
+    <text class="label" x="0" y="31">FAILURE</text>
+    <text class="body" x="0" y="54">Guest restart aborts in recompiler</text>
+    <path class="path" d="M7 71v38"/><circle class="dot" cx="7" cy="90" r="5"/>
+    <text class="label" x="0" y="135">ORACLE</text>
+    <text class="claim" x="0" y="158">Three guest restarts</text>
+    <path class="path" d="M7 175v38"/><circle class="dot" cx="7" cy="194" r="5"/>
+    <text class="label" x="0" y="239">CLAIM</text>
+    <text class="body" x="0" y="262">The motivating remap path survives</text>
+  </g>
+</svg>

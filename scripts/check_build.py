@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 
 
@@ -36,6 +37,52 @@ def json_ld_records(relative: str, text: str) -> list[dict]:
     return records
 
 
+class FigureAudit(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.figures: list[dict] = []
+        self.current: dict | None = None
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        classes = set((values.get("class") or "").split())
+        if tag == "figure" and "content-figure" in classes:
+            self.current = {"images": [], "sources": [], "caption": False}
+            self.figures.append(self.current)
+        elif self.current is not None and tag == "img":
+            self.current["images"].append(values)
+        elif self.current is not None and tag == "source":
+            self.current["sources"].append(values)
+        elif self.current is not None and tag == "figcaption":
+            self.current["caption"] = True
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "figure" and self.current is not None:
+            self.current = None
+
+
+def audit_figures(relative: str, text: str) -> int:
+    parser = FigureAudit()
+    parser.feed(text)
+    for figure in parser.figures:
+        if len(figure["images"]) != 1 or not figure["caption"]:
+            fail(f"content figure lacks one image and caption in {relative}")
+        image = figure["images"][0]
+        if not image.get("alt") or not image.get("src", "").startswith("/assets/figures/"):
+            fail(f"content figure has invalid alt text or source in {relative}")
+        for dimension in ("width", "height"):
+            if not (image.get(dimension) or "").isdigit():
+                fail(f"content figure lacks numeric {dimension} in {relative}")
+        if image.get("loading") != "lazy" or image.get("decoding") != "async":
+            fail(f"content figure lost loading safeguards in {relative}")
+        for source in figure["sources"]:
+            if not source.get("srcset", "").startswith("/assets/figures/"):
+                fail(f"content figure has nonlocal mobile source in {relative}")
+            if not (source.get("width") or "").isdigit() or not (source.get("height") or "").isdigit():
+                fail(f"content figure mobile source lacks dimensions in {relative}")
+    return len(parser.figures)
+
+
 def main() -> int:
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
@@ -46,8 +93,10 @@ def main() -> int:
 
     if about.count('class="career-thread"') != 1:
         fail("About page does not contain exactly one career-thread diagram")
-    if about.count('class="career-thread__year"') != 3:
-        fail("career-thread diagram does not contain its three dated stages")
+    if about.count('class="career-thread__year"') != 4:
+        fail("career-thread diagram does not contain its four stages")
+    if 'id="career-thread-title"' not in about or "Public engineering" not in about:
+        fail("career-thread diagram lost its semantic title or parallel engineering stage")
     if "The operating roles continue alongside the PhD" not in about:
         fail("career-thread diagram lost its factual caption")
 
@@ -78,6 +127,8 @@ def main() -> int:
         fail("homepage does not feature and list the new article")
     if "Three merged 86Box fixes" not in article:
         fail("new article body was not rendered")
+    if audit_figures("2026/08/27/three-emulator-bugs.html", article) != 1:
+        fail("new article does not exercise the shared figure system exactly once")
     if feed.count('<title type="html">Three Emulator Bugs, Three Different Tests</title>') != 1:
         fail("global feed does not contain the new article exactly once")
     for url in (
