@@ -4,10 +4,11 @@ layout: default
 
 <div class="home">
   <section class="hero">
-    <p class="eyebrow">Engineer · PhD researcher · Romanian NLP</p>
+    <p class="eyebrow">Engineer · PhD researcher</p>
     <h1>Small models, controlled data, reproducible systems.</h1>
     <div class="hero-copy">{{ content }}</div>
     <p class="hero-links">
+      <a href="{{ '/engineering/' | relative_url }}">Engineering record</a>
       <a href="{{ '/research/' | relative_url }}">Research map</a>
       <a href="{{ '/notebooks/' | relative_url }}">Executable notebooks</a>
       <a href="https://github.com/mihainadas">GitHub</a>
@@ -30,7 +31,7 @@ layout: default
   </section>
 
   <section class="latest" aria-labelledby="latest-heading">
-    <p class="eyebrow">Research record</p>
+    <p class="eyebrow">Research and engineering record</p>
     <h2 id="latest-heading">Project chronology</h2>
     <ol class="post-list">
       {% for post in site.posts limit:8 %}

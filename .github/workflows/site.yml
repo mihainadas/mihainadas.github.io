@@ -25,4 +25,5 @@ jobs:
       - run: bundle exec jekyll build --strict_front_matter --trace
         env:
           JEKYLL_ENV: production
+      - run: python scripts/check_build.py
       - run: bundle exec htmlproofer ./_site --disable-external --enforce-https
