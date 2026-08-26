@@ -39,9 +39,17 @@ def json_ld_records(relative: str, text: str) -> list[dict]:
 def main() -> int:
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
+    about = read("about/index.html")
     home = read("index.html")
     feed = read("feed.xml")
     sitemap = read("sitemap.xml")
+
+    if about.count('class="career-thread"') != 1:
+        fail("About page does not contain exactly one career-thread diagram")
+    if about.count('class="career-thread__year"') != 3:
+        fail("career-thread diagram does not contain its three dated stages")
+    if "The operating roles continue alongside the PhD" not in about:
+        fail("career-thread diagram lost its factual caption")
 
     home_records = json_ld_records("index.html", home)
     person = next((record for record in home_records if record.get("@type") == "Person"), None)

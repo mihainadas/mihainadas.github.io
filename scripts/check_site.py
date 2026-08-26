@@ -101,9 +101,47 @@ def check_engineering_boundary() -> None:
             fail(f"engineering evidence link missing: {required}")
 
 
+def check_figure_system() -> None:
+    figure = ROOT / "_includes" / "figure.html"
+    if not figure.exists():
+        fail("shared figure include is missing")
+    figure_text = figure.read_text(encoding="utf-8")
+    for required in (
+        'class="content-figure',
+        'alt="{{ include.alt | escape }}"',
+        'loading="lazy"',
+        "<figcaption>",
+    ):
+        if required not in figure_text:
+            fail(f"shared figure include lost required behavior: {required}")
+
+    for path in ROOT.rglob("*.md"):
+        if {".git", "_site", "vendor"}.intersection(path.relative_to(ROOT).parts):
+            continue
+        if path == ROOT / "README.md":
+            continue
+        text = path.read_text(encoding="utf-8")
+        for match in re.finditer(r"{%\s*include\s+figure\.html\s+(.*?)%}", text, re.DOTALL):
+            attributes = dict(re.findall(r'(\w+)=["\']([^"\']*)["\']', match.group(1)))
+            if not attributes.get("src") or not attributes.get("alt"):
+                fail(f"figure in {path.relative_to(ROOT)} requires src and alt")
+            source = attributes["src"]
+            if source.startswith("/") and not (ROOT / source.lstrip("/")).exists():
+                fail(f"figure asset missing for {path.relative_to(ROOT)}: {source}")
+            mobile_source = attributes.get("mobile_src")
+            if mobile_source and mobile_source.startswith("/"):
+                if not (ROOT / mobile_source.lstrip("/")).exists():
+                    fail(f"mobile figure asset missing for {path.relative_to(ROOT)}: {mobile_source}")
+
+    about = (ROOT / "about.md").read_text(encoding="utf-8")
+    if "{% include career-thread.html %}" not in about:
+        fail("About page is missing the career-thread diagram")
+
+
 def main() -> int:
     check_posts()
     check_engineering_boundary()
+    check_figure_system()
     print("site content checks passed")
     return 0
 

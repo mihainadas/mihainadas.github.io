@@ -283,6 +283,77 @@ blockquote {
   padding: 0.85rem 1.15rem;
 }
 
+.content-figure,
+.career-thread { margin: 3rem 0; }
+
+.content-figure picture,
+.content-figure img {
+  background: var(--surface);
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+.content-figure picture { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.content-figure img { border: 0; border-radius: 0; }
+
+.content-figure figcaption,
+.career-thread figcaption {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin-top: 0.8rem;
+}
+
+.figure-source { display: block; }
+
+.content-figure--wide {
+  left: 50%;
+  max-width: 960px;
+  position: relative;
+  transform: translateX(-50%);
+  width: min(960px, calc(100vw - 56px));
+}
+
+.career-thread ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+}
+
+.career-thread li {
+  border-top: 1px solid var(--accent);
+  min-width: 0;
+  padding: 1.5rem 1.5rem 0 0;
+  position: relative;
+}
+
+.career-thread li::before {
+  background: var(--paper);
+  border: 2px solid var(--accent-bright);
+  border-radius: 50%;
+  content: "";
+  height: 0.7rem;
+  left: 0;
+  position: absolute;
+  top: -0.4rem;
+  width: 0.7rem;
+}
+
+.career-thread__year {
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+}
+
+.career-thread h3 { font-size: 1.05rem; margin: 0 0 0.45rem; }
+.career-thread li > p:last-child { color: #aeb6b3; font-size: 0.9rem; line-height: 1.55; margin: 0; }
+
 code {
   background: var(--code);
   border: 1px solid rgba(59, 71, 74, 0.5);
@@ -347,6 +418,17 @@ hr { background-color: var(--line); }
   .post-grid { grid-template-columns: 1fr; }
   .post-list li { gap: 0.2rem; grid-template-columns: 1fr; }
   .post-type { margin-top: 0.2rem; }
+  .content-figure,
+  .career-thread { margin: 2.4rem 0; }
+  .content-figure--wide { left: auto; transform: none; width: 100%; }
+  .career-thread ol { grid-template-columns: 1fr; }
+  .career-thread li {
+    border-left: 1px solid var(--accent);
+    border-top: 0;
+    padding: 0 0 2rem 1.4rem;
+  }
+  .career-thread li::before { left: -0.42rem; top: 0.2rem; }
+  .career-thread li:last-child { padding-bottom: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -372,4 +454,9 @@ hr { background-color: var(--line); }
   .page { max-width: none; }
   pre,
   code { background: #f2f2f2; border-color: #ccc; color: #111; }
+  .content-figure--wide { left: auto; max-width: 100%; transform: none; width: 100%; }
+  .content-figure,
+  .career-thread { break-inside: avoid; }
+  .career-thread li { border-color: #666; }
+  .career-thread li::before { background: #fff; border-color: #333; }
 }

@@ -1,0 +1,26 @@
+<figure class="content-figure{% if include.wide %} content-figure--wide{% endif %}">
+  {% if include.link %}<a href="{{ include.link | escape }}">{% endif %}
+  <picture>
+    {% if include.mobile_src %}
+    <source
+      media="(max-width: 640px)"
+      srcset="{{ include.mobile_src | relative_url | escape }}"
+      {% if include.mobile_width %}width="{{ include.mobile_width | escape }}"{% endif %}
+      {% if include.mobile_height %}height="{{ include.mobile_height | escape }}"{% endif %}>
+    {% endif %}
+    <img
+      src="{{ include.src | relative_url | escape }}"
+      alt="{{ include.alt | escape }}"
+      {% if include.width %}width="{{ include.width | escape }}"{% endif %}
+      {% if include.height %}height="{{ include.height | escape }}"{% endif %}
+      {% unless include.eager %}loading="lazy"{% endunless %}
+      decoding="async">
+  </picture>
+  {% if include.link %}</a>{% endif %}
+  {% if include.caption or include.source_url %}
+  <figcaption>
+    {% if include.caption %}<span>{{ include.caption | escape }}</span>{% endif %}
+    {% if include.source_url %}<span class="figure-source">Source: <a href="{{ include.source_url | escape }}">{{ include.source_label | default: "source" | escape }}</a></span>{% endif %}
+  </figcaption>
+  {% endif %}
+</figure>
