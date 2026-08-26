@@ -3,6 +3,6 @@ layout: home
 title: Engineering notes
 ---
 
-I build and study small language-model systems for Romanian, and I work on emulator correctness, reproducible machine configurations, and the tests that make low-level fixes defensible.
+I started as a software developer and later moved through CTO, operations, and managing-director roles. Today I lead Computacenter Romania. Alongside that role, I am a founding partner and CEO of N13 Ventures and pursue a PhD in artificial intelligence at Babeș-Bolyai University.
 
-The same method carries across both: start with a bounded question, preserve the evidence, build a test that can fail, and state the narrowest result the test supports. This site records that work through engineering notes, research notes, release notes, and clearly marked retrospectives.
+This is where I keep the technical work: small Romanian language models, public emulator fixes, reproducible machine configurations, and notes on what the tests actually show.

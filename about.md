@@ -2,22 +2,20 @@
 layout: page
 title: About
 permalink: /about/
-description: "Mihai Nadăș is an engineer and PhD researcher working on small language models, reproducible systems, and PC emulation."
+description: "Mihai Nadăș is a technology executive, engineer, and PhD researcher working on small language models, reproducible systems, and PC emulation."
 ---
 
-I am an engineer and PhD researcher at Babeș-Bolyai University. My work spans small language models for Romanian and systems problems in PC emulation.
+I am Mihai Dan Nadăș. My papers and open-source work usually appear under the shorter form, Mihai Nadăș.
 
-Both depend on making hidden state visible: data and prompt versions, model and runtime configuration, machine state, device behavior, and acceptance criteria.
+I started as a software developer in 2006, then moved through architecture, project delivery, CTO, operations, and managing-director roles. Today I lead Computacenter Romania. Alongside that role, I am a founding partner and CEO of N13 Ventures. In 2023 I began a PhD in artificial intelligence at Babeș-Bolyai University while continuing that operating work.
 
-My research follows controlled narratives from English generation through English–Romanian translation to compact Romanian models trained from scratch. A parallel line examines Romanian diacritic restoration and open-weight models as evaluators. The [Research page]({{ '/research/' | relative_url }}) maps the papers and released artifacts.
+Research and open source are how I stay close to implementation and test ideas in public. My doctoral work follows controlled narratives from English generation through English–Romanian translation to compact Romanian models trained from scratch. A parallel line examines Romanian diacritic restoration and open-weight models as evaluators. The [Research page]({{ '/research/' | relative_url }}) maps the papers and released artifacts.
 
-Before returning to academia, I spent more than a decade building software, leading teams, and running production projects. That background shapes how I work: define interfaces early, keep provenance, automate checks, write down failure modes, and treat reproducibility as an engineering property rather than a sentence in a paper.
+Outside NLP, I contribute fixes to PC emulation software and maintain experiments around reproducible virtual machines. The public record includes merged upstream changes, focused regression tests, versioned machine definitions, and short experiment reports.
 
-I also build production and research infrastructure for language-model systems: dataset provenance, evaluation harnesses, privacy boundaries, training pipelines, and operational checks.
+Running software organizations changed what I expect from technical work: another person should be able to see what failed, reproduce it, and decide whether the result is sufficient. The projects here are built around that standard.
 
-Outside NLP, I contribute fixes to PC emulation software and maintain experiments around reproducible virtual machines. The same standard applies there: reproduce the failure, identify the narrowest invariant that explains it, and test the change at the boundary where the defect appeared.
-
-This site contains the decisions and experiments that do not fit cleanly into papers or patches. Only released results are described as results; reconstructed notes are marked as retrospectives.
+This site contains the technical record that does not fit cleanly into a CV, paper, or patch. Only released results are described as results; reconstructed notes are marked as retrospectives. It is a personal site and does not speak for either organization. [LinkedIn](https://www.linkedin.com/in/mihainadas) carries the fuller operating history.
 
 ## Elsewhere
 
