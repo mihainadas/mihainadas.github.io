@@ -1,10 +1,13 @@
 <header class="site-header" role="banner">
   <div class="wrapper header-inner">
-    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">Mihai Nadăș<span class="site-mark">/notes</span></a>
+    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">
+      <span>Mihai Nadăș</span><span class="site-mark">/ field notes</span>
+    </a>
     <nav class="site-nav" aria-label="Primary navigation">
+      {% assign current_url = page.url %}
       {% for path in site.header_pages %}
-        {% assign page = site.pages | where: "path", path | first %}
-        {% if page.title %}<a class="page-link" href="{{ page.url | relative_url }}">{{ page.title }}</a>{% endif %}
+        {% assign nav_page = site.pages | where: "path", path | first %}
+        {% if nav_page.title %}<a class="page-link" href="{{ nav_page.url | relative_url }}"{% if nav_page.url == current_url %} aria-current="page"{% endif %}>{{ nav_page.title }}</a>{% endif %}
       {% endfor %}
     </nav>
   </div>

@@ -4,15 +4,32 @@ layout: default
 
 <div class="home">
   <section class="hero">
-    <p class="eyebrow">Engineer · PhD researcher</p>
-    <h1>Small models, controlled data, reproducible systems.</h1>
-    <div class="hero-copy">{{ content }}</div>
-    <p class="hero-links">
-      <a href="{{ '/engineering/' | relative_url }}">Engineering record</a>
-      <a href="{{ '/research/' | relative_url }}">Research map</a>
-      <a href="{{ '/notebooks/' | relative_url }}">Executable notebooks</a>
-      <a href="https://github.com/mihainadas">GitHub</a>
-    </p>
+    <div class="hero-main">
+      <p class="eyebrow">Technology executive · engineer · PhD researcher</p>
+      <h1>Staying close to the implementation.</h1>
+      <div class="hero-copy">{{ content }}</div>
+      <p class="hero-links">
+        <a class="button-primary" href="{{ '/engineering/' | relative_url }}">Selected engineering</a>
+        <a href="{{ '/about/' | relative_url }}">How the threads connect</a>
+      </p>
+    </div>
+    <aside class="work-ledger" aria-labelledby="current-work-heading">
+      <h2 class="ledger-label" id="current-work-heading">Current work</h2>
+      <dl>
+        <div>
+          <dt>Operating</dt>
+          <dd>Managing Director · Computacenter Romania<br>Founding Partner &amp; CEO · N13 Ventures</dd>
+        </div>
+        <div>
+          <dt>Research</dt>
+          <dd>Small Romanian language models<br>Babeș-Bolyai University</dd>
+        </div>
+        <div>
+          <dt>Open source</dt>
+          <dd>PC emulation<br>Reproducible ML systems</dd>
+        </div>
+      </dl>
+    </aside>
   </section>
 
   <section aria-labelledby="selected-heading">
