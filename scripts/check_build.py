@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -23,12 +24,45 @@ def read(relative: str) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def json_ld_records(relative: str, text: str) -> list[dict]:
+    records = []
+    for block in re.findall(
+        r'<script type="application/ld\+json">(.*?)</script>', text, re.DOTALL
+    ):
+        try:
+            records.append(json.loads(block))
+        except json.JSONDecodeError as error:
+            fail(f"invalid JSON-LD in {relative}: {error}")
+    return records
+
+
 def main() -> int:
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
     home = read("index.html")
     feed = read("feed.xml")
     sitemap = read("sitemap.xml")
+
+    home_records = json_ld_records("index.html", home)
+    person = next((record for record in home_records if record.get("@type") == "Person"), None)
+    if not person:
+        fail("homepage is missing Person identity metadata")
+    if person.get("name") != "Mihai Dan Nadăș" or person.get("alternateName") != "Mihai Nadăș":
+        fail("Person identity metadata does not connect the professional and publishing names")
+    for required in (
+        "https://github.com/mihainadas",
+        "https://www.linkedin.com/in/mihainadas",
+        "https://orcid.org/0009-0003-3467-3262",
+    ):
+        if required not in person.get("sameAs", []):
+            fail(f"Person identity metadata is missing {required}")
+
+    article_records = json_ld_records("2026/08/27/three-emulator-bugs.html", article)
+    posting = next(
+        (record for record in article_records if record.get("@type") == "BlogPosting"), None
+    )
+    if not posting or posting.get("author", {}).get("@id") != person.get("@id"):
+        fail("article author metadata does not reference the canonical person identity")
 
     if engineering.count("Three Emulator Bugs, Three Different Tests") != 1:
         fail("engineering record does not contain the new article exactly once")
