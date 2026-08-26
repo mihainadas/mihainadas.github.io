@@ -6,9 +6,10 @@ Research and engineering notes published at [mihainadas.github.io](https://mihai
 
 ```sh
 bundle install
-bundle exec jekyll build --strict_front_matter
-bundle exec htmlproofer ./_site --disable-external --enforce-https
 python3 scripts/check_site.py
+bundle exec jekyll build --strict_front_matter
+python3 scripts/check_build.py
+bundle exec htmlproofer ./_site --disable-external --enforce-https
 ```
 
 The site uses the GitHub Pages dependency set and the bundled Minima release rather than an unpinned theme branch.

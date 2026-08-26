@@ -1,5 +1,5 @@
 title: "Mihai Nadăș"
-description: "Engineering notes on small language models, synthetic data, Romanian NLP, and reproducible evaluation."
+description: "Engineering notes on small language models, reproducible research, systems debugging, and PC emulation."
 url: "https://mihainadas.github.io"
 baseurl: ""
 lang: en
@@ -14,6 +14,7 @@ permalink: /:year/:month/:day/:title.html
 show_excerpts: true
 
 header_pages:
+  - engineering.md
   - research.md
   - notebooks.md
   - archive.md
