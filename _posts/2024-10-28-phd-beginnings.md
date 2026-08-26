@@ -1,35 +1,37 @@
 ---
 layout: post
-title: "Starting a PhD in NLP: Research Directions and Early Decisions"
+title: "Three Decisions at the Start of the PhD"
 date: 2024-10-28 18:00:00 +0200
-tags:
-  - phd-journey
-  - natural-language-processing
-  - romanian-nlp
+last_modified_at: 2026-08-27 10:00:00 +0300
+post_type: retrospective
+description: "A reconstruction of the three early research decisions behind TinyFabulist, and which ones survived contact with the work."
+tags: [phd, natural-language-processing, romanian-nlp]
 ---
 
-A few weeks ago, I officially started my PhD at Babes-Bolyai University. After more than a decade in the IT industry, going back to academia felt both exciting and humbling. I want to use this blog to document the journey as it unfolds.
+> **Retrospective.** This note reconstructs the start of the PhD from the later papers and project record. It was revised in August 2026 rather than presented as an untouched 2024 diary entry.
 
-## Why NLP, and Why Now
+I entered the PhD after more than a decade in software engineering with a tentative thesis direction: controlled synthetic narratives for training and evaluating small language models. Three early decisions shaped the work that followed.
 
-My research sits at the intersection of natural language processing and language model training. Specifically, I am interested in how we can use structured synthetic data to train and evaluate small language models. The field has exploded in the last two years with the rise of large language models, but I believe there is still enormous untapped potential in smaller, more efficient models, especially for languages that are not English.
+## Use narratives with inspectable structure
 
-Romanian is one of those languages. Despite being spoken by roughly 24 million people, Romanian remains underrepresented in NLP research. There are gaps in available corpora, evaluation benchmarks, and even basic tools like reliable diacritic restoration. These gaps are not just academic curiosities; they have practical consequences for anyone building Romanian-language technology.
+Moral fables gave the project a compact unit of text with recognizable components: character, trait, setting, conflict, resolution, and moral. Those fields could be represented before generation and compared with the result afterward.
 
-## The Thesis Direction
+The choice survived, but the rationale became narrower. Fables are not a proxy for language as a whole. They are a tractable domain for studying control, provenance, narrative coherence, and downstream training under known limitations.
 
-My thesis, tentatively titled *Controlled Synthetic Narratives for Training and Evaluating Small Language Models*, will explore a pipeline approach: generating large-scale synthetic text with controlled properties, using it to train compact models, and developing robust evaluation methods that do not rely solely on expensive proprietary APIs.
+## Build English first, then make Romanian central
 
-The "controlled" aspect is key. Rather than scraping the web for training data, I want to generate text with known structure, known difficulty, and known properties. This lets us study what models actually learn, rather than guessing from opaque internet-scale corpora.
+Starting with English made generator comparison easier because model coverage and evaluation resources were stronger. Romanian remained the target that justified the cross-lingual work: parallel literary data, Romanian-specific tokenization, native generation, and diacritic restoration.
 
-## Early Decisions
+That sequence became TF1, TF2, and TF3. The [research map](/research/) now separates their artifacts and claims.
 
-I spent the first few weeks reading broadly and making some foundational choices:
+## Treat evaluation as a system, not a final metric
 
-- **Domain**: Moral fables and short narratives. They have clear structure (characters, conflict, resolution, moral), manageable length, and are culturally interesting across languages.
-- **Languages**: English first (for benchmarking against the wider community), then Romanian (where the contribution is most needed).
-- **Evaluation**: I want to move beyond single-number metrics. LLM-based evaluation, rubric scoring, and human validation will all play a role.
+The initial plan already rejected a single-number evaluation. Grammar, creativity, moral clarity, and adherence measure different properties. Translation later required accuracy, fluency, coherence, style, and cultural adaptation. Romanian model evaluation added tokenization, agreement probes, entity coherence, and rule-based checks.
 
-These early choices will shape everything that follows. I expect some of them to change as I learn more, and that is fine. The point of a PhD is not to have all the answers on day one, but to ask better questions over time.
+The part that changed most was my confidence in model judges. They scale, but they bring position, length, self-preference, calibration, and rubric-sensitivity problems. Judge-panel work therefore became a research question in its own right rather than invisible infrastructure.
 
-I will be sharing more here as the work takes shape. If any of this resonates, or if you are working on similar problems, I would love to hear from you.
+## What I would state differently now
+
+The original framing used “low-resource” too loosely. Romanian has substantial linguistic resources and active research; the relevant shortage depends on the task, license, domain, and quality bar. Literary parallel data and openly documented compact-model pipelines can be scarce even when a language is not absent from multilingual pre-training.
+
+The thesis idea became more conditional: controlled specifications, traceable generation, task-specific evaluation, and compact models form a system whose trade-offs can be measured. The later papers test individual pieces of that system rather than offering a universal recipe.

@@ -1,4 +1,8 @@
-# directories
+# generated directories
+_site/
+.jekyll-cache/
+.sass-cache/
+vendor/
 
 # files
 .DS_Store

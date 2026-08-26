@@ -1,0 +1,34 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- assign page_title = page.title | default: site.title -%}
+  {%- assign page_description = page.description | default: site.description -%}
+  {%- assign canonical_url = page.url | absolute_url -%}
+  {%- assign publication_date = page.published_at | default: page.date -%}
+  <title>{% if page.title %}{{ page_title | escape }} · {{ site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
+  <meta name="description" content="{{ page_description | strip_html | normalize_whitespace | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta property="og:title" content="{{ page_title | escape }}">
+  <meta property="og:description" content="{{ page_description | strip_html | normalize_whitespace | escape }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:site_name" content="{{ site.title | escape }}">
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  {% if page.layout == 'post' %}
+  <meta property="article:published_time" content="{{ publication_date | date_to_xmlschema }}">
+  {% if page.last_modified_at %}<meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ page.title | jsonify }},
+    "description": {{ page_description | jsonify }},
+    "datePublished": {{ publication_date | date_to_xmlschema | jsonify }},
+    "dateModified": {{ page.last_modified_at | default: publication_date | date_to_xmlschema | jsonify }},
+    "mainEntityOfPage": {{ canonical_url | jsonify }},
+    "author": {"@type": "Person", "name": {{ site.author.name | jsonify }}}
+  }</script>
+  {% endif %}
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
+  {%- feed_meta -%}
+</head>

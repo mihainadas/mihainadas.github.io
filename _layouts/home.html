@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<div class="home">
+  <section class="hero">
+    <p class="eyebrow">Engineer · PhD researcher · Romanian NLP</p>
+    <h1>Small models, controlled data, reproducible systems.</h1>
+    <div class="hero-copy">{{ content }}</div>
+    <p class="hero-links">
+      <a href="{{ '/research/' | relative_url }}">Research map</a>
+      <a href="{{ '/notebooks/' | relative_url }}">Executable notebooks</a>
+      <a href="https://github.com/mihainadas">GitHub</a>
+    </p>
+  </section>
+
+  <section aria-labelledby="selected-heading">
+    <p class="eyebrow">Selected work</p>
+    <h2 id="selected-heading">Start here</h2>
+    <div class="post-grid">
+      {% assign featured_posts = site.posts | where: "featured", true %}
+      {% for post in featured_posts limit:4 %}
+      <article class="post-card">
+        <p class="post-meta">{% if post.published_at %}event {{ post.date | date: "%d %b %Y" }} · published {{ post.published_at | date: "%d %b %Y" }}{% else %}{{ post.date | date: "%d %b %Y" }}{% endif %}{% if post.post_type %} · {{ post.post_type }}{% endif %}</p>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <p>{{ post.description | default: post.excerpt | strip_html | truncate: 180 }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="latest" aria-labelledby="latest-heading">
+    <p class="eyebrow">Research record</p>
+    <h2 id="latest-heading">Project chronology</h2>
+    <ol class="post-list">
+      {% for post in site.posts limit:8 %}
+      <li>
+        <span class="post-date">{% if post.published_at %}event {% endif %}{{ post.date | date: "%d %b %Y" }}</span>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        {% if post.post_type %}<span class="post-type">{{ post.post_type }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+    <p><a href="{{ '/archive/' | relative_url }}">Browse the complete archive →</a></p>
+  </section>
+</div>

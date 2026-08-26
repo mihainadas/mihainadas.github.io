@@ -1,49 +1,46 @@
 ---
 layout: post
-title: "The TinyFabulist Idea: Structured Synthetic Narratives"
+title: "Why TinyFabulist Starts with a Specification"
 date: 2025-02-03 16:00:00 +0200
-tags:
-  - synthetic-data
-  - language-models
-  - natural-language-processing
+last_modified_at: 2026-08-27 10:00:00 +0300
+post_type: research note
+description: "The six-slot story specification behind TinyFabulist and the control it provides over generation and evaluation."
+tags: [synthetic-data, language-models, system-design]
 ---
 
-After months of reading and planning, I have started building the first major component of my thesis work. I am calling it **TinyFabulist** -- a pipeline for generating large-scale synthetic moral fables using open language models.
+TinyFabulist separates the story requested from the story generated. That boundary is the core of the system.
 
-## Why Fables
-
-The choice of domain is deliberate. Moral fables have several properties that make them ideal for studying synthetic text generation:
-
-- **Clear structure**: Every fable has characters, a setting, a conflict, a resolution, and a moral. This structure can be specified in advance and verified afterward.
-- **Bounded length**: Fables are naturally short (200-500 words), which makes them tractable for smaller language models to both generate and learn from.
-- **Cultural universality**: The fable tradition spans cultures and languages, which matters for my later goal of extending this work to Romanian.
-- **Evaluability**: You can assess a fable along multiple meaningful dimensions -- grammatical correctness, creativity, moral clarity, and adherence to the given prompt.
-
-## The YAML Approach
-
-The core idea behind TinyFabulist is to separate **story specification** from **story generation**. Instead of prompting a model with a vague instruction like "write a fable," I define story elements in structured YAML files:
+An early design used open-ended prompts—effectively “write a moral fable about _x_.” The output could be read, but adherence was hard to define because the request contained little structure. I replaced it with a six-slot specification: character, trait, setting, conflict, resolution, and moral.
 
 ```yaml
-characters:
-  - name: a clever fox
-    role: protagonist
-  - name: a proud eagle
-    role: antagonist
-setting: a dense mountain forest
-conflict: competition for the same territory
-moral: wisdom prevails over strength
+character: fox
+trait: clever
+setting: mountain forest
+conflict: competition for territory
+resolution: negotiation
+moral: wisdom can outperform strength
 ```
 
-These YAML elements are then composed into structured prompts that give the language model clear constraints. The result is text that is synthetic but controlled -- I know exactly what the model was asked to produce, which makes evaluation meaningful.
+The exact schema in the released work contains the project fields and controlled vocabularies; this compact example shows the interface, not a verbatim dataset record.
 
-## Why Open Models
+## What the specification buys
 
-A deliberate choice in TinyFabulist is to use only open-weight language models for generation. This is partly about reproducibility -- anyone should be able to regenerate the dataset -- but also about studying how different model families handle the same structured prompts. Do Llama and Qwen produce fables with different stylistic tendencies? Does Mistral follow moral constraints more faithfully than Phi? These are empirically testable questions when you have structured inputs.
+**Traceability.** A generated story can be stored with the request, prompt, model, and decoding configuration that produced it.
 
-## The Road to Scale
+**Adherence checks.** An evaluator can ask whether the requested elements appear and play the intended roles. Without the specification, the same judgment becomes an impression.
 
-My initial experiments have been small -- a few hundred fables, testing different prompt templates and models. But the pipeline is designed for scale. The YAML-based approach means I can combinatorially generate thousands of unique story specifications, and the Docker-based infrastructure means I can distribute generation across multiple machines.
+**Controlled variation.** Changing one field while holding the others fixed supports comparisons that unconstrained prompts do not.
 
-The target is ambitious: three million fables. That number is not arbitrary. It is large enough to serve as a meaningful pre-training or fine-tuning corpus, while still being fully reproducible from the structured specifications.
+**Regeneration.** Failed or disputed outputs can be rerun from their original inputs rather than reverse-engineered from prose.
 
-I will write more about the technical details of the pipeline and early results in upcoming posts. For now, I am excited to have moved from planning to building.
+## Why YAML
+
+YAML was chosen as an authoring format because it is readable in code review and maps cleanly to the dictionaries used by the prompt builder. Its role is mundane but useful: provide a typed boundary between combinatorial specification and natural-language realization.
+
+The cost is rigidity. A finite slot system can over-represent the designer's ontology, generate formulaic combinations, and miss narrative forms that do not fit its fields. Increasing the combination count does not remove that bias.
+
+## The scale target
+
+Three million stories was large enough to support model and corpus analysis and later training experiments. Quality still required a separate evaluation design and, ultimately, a downstream use in TF3.
+
+The later [TF1 release note](/2025/04/29/tf1-arxiv-release.html) records what was actually released and measured. This note preserves the earlier design question: what must be known before generation if the result is meant to be auditable?

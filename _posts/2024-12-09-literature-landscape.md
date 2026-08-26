@@ -1,41 +1,46 @@
 ---
 layout: post
-title: "Navigating the NLP Literature Landscape"
+title: "Papers That Changed the TinyFabulist Design"
 date: 2024-12-09 14:00:00 +0200
-tags:
-  - phd-journey
-  - natural-language-processing
-  - machine-learning
+last_modified_at: 2026-08-27 10:00:00 +0300
+post_type: retrospective
+description: "A literature note organized around design changes rather than a generic reading workflow."
+tags: [synthetic-data, evaluation, language-models]
 ---
 
-Two months into the PhD, and my reading list has grown faster than my ability to process it. Literature review is the unglamorous backbone of research, and I wanted to share some notes on how I have been approaching it.
+> **Retrospective.** The first version discussed “the literature” without citing any literature. This revision records the papers that changed concrete design decisions.
 
-## The Scale of the Problem
+## Synthetic data needs a downstream test
 
-The pace of NLP research is staggering. ArXiv alone sees hundreds of new NLP papers per month, and that does not count workshop papers, technical reports, or blog posts that often contain important results. Staying current while building deep understanding of foundational work is a genuine challenge.
+[Self-Instruct](https://arxiv.org/abs/2212.10560) showed how a model can bootstrap instruction data from a small seed set. [Textbooks Are All You Need](https://arxiv.org/abs/2306.11644) made a stronger quality-over-volume argument in code. Neither implies that generated data is useful merely because it is large.
 
-I have been organizing my reading around three main threads that map to my thesis:
+For TinyFabulist, that moved the target from “generate many stories” to “store enough structure and provenance to test what the stories are useful for.” The later TF3 stage—training compact Romanian models—became the downstream test that the first-generation work lacked.
 
-1. **Synthetic data generation with LLMs** -- How are researchers using language models to create training data? What quality controls exist? Where does synthetic data outperform or underperform human-written data?
-2. **Small language model training** -- What architectures, training recipes, and data strategies work best for models under 1B parameters? How do these models perform on languages other than English?
-3. **LLM-based evaluation** -- How are language models being used as judges and evaluators? What are the known biases, and how can multi-judge panels mitigate them?
+## Diversity must be designed and measured
 
-## Key Patterns I Have Noticed
+Model-generated corpora can inherit narrow phrasing, preferences, and errors from their generators. Using several model families reduces dependence on one generator, but family count is only a proxy for output diversity.
 
-Several themes keep recurring across the papers I have read so far:
+We retained generator identity and specification fields in each record, then added reference-free diversity and readability measures alongside model-based scores. Those records make output diversity open to direct analysis.
 
-**Data quality matters more than quantity.** Multiple papers demonstrate that carefully curated or filtered synthetic data can outperform larger but noisier datasets. This reinforces my plan to use structured, controlled generation rather than open-ended prompting.
+## Model judges are measurements with failure modes
 
-**Evaluation is the bottleneck.** Many papers propose new generation methods but rely on weak evaluation: a single GPT-4 call, or only automated metrics like BLEU or ROUGE. The community is increasingly aware of this gap, with several groups proposing multi-evaluator frameworks and rubric-based assessment.
+[MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) made model-based judging operational at scale. [Large Language Models are not Fair Evaluators](https://arxiv.org/abs/2305.17926) documented order sensitivity in comparative evaluation. Those papers changed how I treated judge output: not as a label, but as a measurement produced by another model and prompt.
 
-**Low-resource languages are afterthoughts.** Most synthetic data work targets English, Chinese, or a handful of other high-resource languages. When Romanian appears at all, it is usually as one line in a multilingual benchmark table, not as a first-class research target.
+The design consequence was multi-dimensional rubrics, stored justifications, model-family separation between generators and judges where possible, and a later validation program for open-weight panels. Human arbitration remains necessary for cases that matter most.
 
-## Tools and Workflow
+## Romanian is task-specific, not uniformly “low-resource”
 
-On the practical side, I have settled on a reading workflow that works for me: Zotero for reference management, Markdown notes for paper summaries, and a simple tagging system that maps papers to thesis threads. Nothing revolutionary, but consistency matters more than sophistication here.
+Romanian has mature corpora, tools, and research communities. Scarcity appears unevenly: literary parallel text, licensed high-quality corpora, robust diacritic restoration under noise, and openly documented compact-model pipelines pose different constraints.
 
-I have also started tracking which papers cite each other, which helps me identify the intellectual lineages and community clusters within each thread. The synthetic data and LLM-evaluation communities overlap more than I initially expected, which is encouraging for my thesis plan.
+That observation narrowed TF2 from generic machine translation to English–Romanian literary translation, and it turned diacritics from a side note into its own evaluation line.
 
-## What Comes Next
+## The reading workflow that survived
 
-Over the next couple of months, I plan to move from reading to building. The first concrete project will focus on synthetic narrative generation -- taking the theoretical grounding from the literature and turning it into a working pipeline. I will share more about that as it takes shape.
+I still use Zotero and Markdown notes, but the durable unit is a decision record:
+
+- claim made by the paper;
+- evidence and experimental boundary;
+- assumption relevant to my system;
+- design change, rejected change, or unresolved question.
+
+I kept literature notes that led to a design change, a rejected change, or a question for the next experiment.
