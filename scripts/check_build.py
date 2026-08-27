@@ -90,6 +90,26 @@ def main() -> int:
     home = read("index.html")
     feed = read("feed.xml")
     sitemap = read("sitemap.xml")
+    theme_script = read("assets/theme.js")
+
+    theme_bootstrap = home.find('window.localStorage.getItem("mihainadas-theme")')
+    stylesheet = home.find('/assets/main.css')
+    if theme_bootstrap < 0 or stylesheet < 0 or theme_bootstrap > stylesheet:
+        fail("theme preference is not applied before the stylesheet")
+    if 'id="theme-preference"' not in home:
+        fail("homepage is missing the theme preference control")
+    for value, label in (("system", "System"), ("light", "Light"), ("dark", "Dark")):
+        if f'<option value="{value}">{label}</option>' not in home:
+            fail(f"theme preference control is missing its {label} option")
+    for required in (
+        'window.matchMedia("(prefers-color-scheme: dark)")',
+        'window.localStorage.setItem(storageKey, preference)',
+        'window.localStorage.removeItem(storageKey)',
+        'root.setAttribute("data-theme", preference)',
+        'root.removeAttribute("data-theme")',
+    ):
+        if required not in theme_script:
+            fail(f"theme script lost required behavior: {required}")
 
     if about.count('class="career-thread"') != 1:
         fail("About page does not contain exactly one career-thread diagram")

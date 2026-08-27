@@ -2,6 +2,26 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f4ec" id="theme-color">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var preference;
+      root.classList.add("theme-capable");
+      try {
+        preference = window.localStorage.getItem("mihainadas-theme");
+      } catch (error) {
+        preference = null;
+      }
+      if (preference === "light" || preference === "dark") {
+        root.setAttribute("data-theme", preference);
+      }
+      var dark = preference === "dark" ||
+        (preference !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.getElementById("theme-color").setAttribute("content", dark ? "#0b0f10" : "#f7f4ec");
+    }());
+  </script>
   {%- assign page_title = page.title | default: site.title -%}
   {%- assign page_description = page.description | default: site.description -%}
   {%- assign canonical_url = page.url | absolute_url -%}
@@ -45,6 +65,7 @@
   {% assign asset_version = site.github.build_revision %}
   {% unless asset_version %}{% assign asset_version = site.time | date: '%s' %}{% endunless %}
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}?v={{ asset_version }}">
+  <script src="{{ '/assets/theme.js' | relative_url }}?v={{ asset_version }}" defer></script>
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
   {%- feed_meta -%}
 </head>
