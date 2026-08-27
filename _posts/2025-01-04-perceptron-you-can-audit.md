@@ -14,11 +14,11 @@ tags: [machine-learning, perceptron, notebooks]
 
 The original version did run, but it told a cleaner story than its outputs supported. It said a hand-picked boundary separated the data when it classified only part of the training set, and it claimed convergence one epoch before the mistake table reached zero. Neither error changes the perceptron algorithm. Both weaken trust in the notebook.
 
-The revised version is intentionally smaller.
+I rebuilt the notebook around the disagreement between its prose and saved output.
 
 ## The construction
 
-An integer \(x_1\) becomes one of two points:
+An integer \(x_1\) is sampled without replacement from 1 through 100 and becomes one of two points:
 
 \[
 x_2 = \begin{cases}
@@ -35,17 +35,14 @@ w_1x_1 + w_2x_2 + b \ge 0.
 
 This is a toy problem with a known linear separator. That is useful here: the update rule can be inspected without confusing algorithmic behavior with data quality.
 
-## What changed
+## The repair
 
-The repaired notebook now:
+The data construction now uses equal-size classes and a local seeded generator; four points, two from each class, are held out before training. The training trace and reporting layer were repaired separately:
 
-- constructs equal-size classes with a local seeded random generator;
-- holds out four points, two from each class;
-- records one row per epoch—mistakes, weights, and bias—instead of attaching the last sample to the whole epoch;
-- asserts the final training and held-out accuracy;
-- renders deterministic plots rather than relying on a live widget in static HTML;
-- states the decision-line slope and intercept correctly;
-- describes the returned separator as _a_ separator, not an optimum.
+- one row now represents one epoch, with its mistake count, weights, and bias;
+- the notebook asserts both training and held-out accuracy;
+- deterministic plots replace the live widget that disappeared from static HTML;
+- the text reports the line's slope and intercept correctly and calls it _a_ separator, not an optimum.
 
 The implementation remains direct Python. There is no estimator abstraction hiding the update:
 
@@ -58,7 +55,7 @@ for x1, x2, label in data:
     bias += update
 ```
 
-This fence is abbreviated but executable in the context of the notebook. The repository test runs the complete notebook from a clean kernel and fails on cell errors or warnings written to standard error.
+The repository test runs the complete notebook from a clean kernel and fails on cell errors or warnings written to standard error.
 
 ## The actual result
 
@@ -67,6 +64,14 @@ On the fixed 20-point construction, the learned boundary classifies all 16 train
 The perceptron convergence theorem gives the right boundary for the conclusion: linearly separable data leads to a finite number of updates. It does not guarantee a unique separator, a maximum margin, or useful behavior when the classes overlap.
 
 - [Rendered notebook](https://mihainadas.github.io/notebooks/perceptron_en.html)
-- [Source and execution test](https://github.com/mihainadas/notebooks)
+- [Source at the executed revision](https://github.com/mihainadas/notebooks/blob/63389f88cf80c901e1ff409477a461261cc0f9ec/perceptron/perceptron.ipynb)
+- [Execution test](https://github.com/mihainadas/notebooks/blob/63389f88cf80c901e1ff409477a461261cc0f9ec/scripts/test_notebooks.py)
 
-Revisiting the notebook reinforced a simple rule: the prose and saved output must agree, even in a teaching example.
+The saved trace makes the correction visible:
+
+| Epoch | Mistakes | \(w_1\) | \(w_2\) | Bias |
+| ---: | ---: | ---: | ---: | ---: |
+| 1 | 8 | -0.440 | 0.340 | -0.040 |
+| 2 | 0 | -0.440 | 0.340 | -0.040 |
+
+The learned parameters stay fixed after epoch 1; convergence is reportable at epoch 2, when the first zero-mistake pass completes.

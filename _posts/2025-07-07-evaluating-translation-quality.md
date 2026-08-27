@@ -4,36 +4,30 @@ title: "When BLEU and a Literary Rubric Answer Different Questions"
 date: 2025-07-07 10:00:00 +0300
 last_modified_at: 2026-08-27 10:00:00 +0300
 post_type: research note
-description: "Why TF2 keeps a reproducible overlap metric and a five-dimensional literary rubric instead of collapsing quality into one score."
+description: "Why TF2 reports an overlap metric and a five-dimensional literary rubric instead of collapsing quality into one score."
 tags: [evaluation, translation, natural-language-processing]
 ---
 
-[BLEU](https://aclanthology.org/P02-1040/) measures n-gram overlap with one or more references. It is reproducible, cheap, and useful for corpus-level comparison. It also cannot tell whether a low-overlap literary translation made a valid stylistic choice or lost the source meaning.
+Agreement is easy to summarize. The useful cases are the ones where lexical overlap and literary judgment pull in different directions.
+
+[BLEU](https://aclanthology.org/P02-1040/) measures n-gram overlap with one or more references. It is inexpensive and useful for corpus-level comparison. The TF2 paper does not publish an implementation signature, tokenizer, casing, or smoothing configuration, so its BLEU values should be read as reported overlap results, not as independently reproducible measurements from this post.
 
 TF2 therefore reports BLEU and a five-dimensional rubric separately. The two instruments expose different properties.
 
-## The five dimensions
+## Five questions, kept separate
 
-**Accuracy** asks whether meaning, events, and relationships survive translation.
+The rubric asks whether meaning, events, and relationships survive; whether the Romanian reads naturally; whether the narrative remains connected; what happened to tone and rhythm; and whether idiom, politeness, names, and moral framing work in Romanian.
 
-**Fluency** asks whether the target reads as grammatical, natural Romanian.
+Scoring each dimension from 1 to 5 keeps a polished average from hiding a changed moral or broken character relationship. In the TF2 comparisons, the untuned baseline sometimes corrupted the animal itself—rendering “skunk” as *Fumeg*—while the fine-tuned model preserved *sconcs*. No aggregate overlap score can explain that error as clearly as the text does.
 
-**Coherence** tracks logical and narrative continuity across sentences.
+## Disagreement is a diagnostic
 
-**Style** examines tone, imagery, rhythm, and genre rather than grammaticality alone.
+A low BLEU score can reflect legitimate rephrasing or a substantive error. A strong style score is equally incomplete when accuracy is weak. When the instruments disagree, the next step is inspection: locate the wording or meaning change, see which rubric dimensions moved, compare judges, and send consequential cases to human review.
 
-**Cultural and pragmatic adaptation** covers idiom, politeness, names, and framing whose literal transfer can be wrong in use.
+TF2 stores per-dimension justifications and the judge, prompt, schema, and decoding configuration behind them. The Romanian references are synthetic silver data, so BLEU measures consistency with a strong machine translation, not distance from a human-authored gold text.
 
-Scoring each dimension from 1 to 5 makes trade-offs visible. A literal translation may score high on accuracy and lower on style; a polished adaptation can reverse that profile.
+## Reading the profile
 
-## The judge is part of the protocol
+A model's result is a profile: where it trades accuracy for style, where BLEU and rubric scores diverge, how stable the judgment is across evaluator families, and whether the ranking survives human inspection.
 
-Model-based scoring adds its own uncertainty. TF2 stores per-dimension justifications and uses several judges rather than one opaque aggregate. Judge identity, prompt, schema, and decoding configuration belong in the experiment record.
-
-Human review remains the reference for disputed or consequential cases; proprietary-model agreement supplies a comparison point.
-
-## Reading the result
-
-A stronger TF2 result is not “model A has the highest quality.” It is a profile: where models trade accuracy for style, where BLEU and rubric scores disagree, how stable judgments are across evaluators, and whether the ranking survives human inspection.
-
-The [TF2 release note](/2025/09/09/tf2-preprint-release.html) describes the artifacts and the bounded near-parity claim. This note describes the measurement boundary underneath it.
+The [TF2 release note](/2025/09/09/tf2-preprint-release.html) carries the system-level numbers. The error worth remembering here is the animal that changed species: a fluent sentence can still be the wrong translation.

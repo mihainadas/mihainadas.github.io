@@ -8,39 +8,35 @@ description: "The six-slot story specification behind TinyFabulist and the contr
 tags: [synthetic-data, language-models, system-design]
 ---
 
-TinyFabulist separates the story requested from the story generated. That boundary is the core of the system.
-
-An early design used open-ended prompts—effectively “write a moral fable about _x_.” The output could be read, but adherence was hard to define because the request contained little structure. I replaced it with a six-slot specification: character, trait, setting, conflict, resolution, and moral.
+Before TinyFabulist asks a model to write, it records what the story must contain. The first public TF1 row was rendered from these values:
 
 ```yaml
-character: fox
-trait: clever
-setting: mountain forest
-conflict: competition for territory
-resolution: negotiation
-moral: wisdom can outperform strength
+character: firefly
+trait: persuasive
+setting: canyon
+challenge: betrayal by a friend
+outcome: a lesson is documented for future generations
+teaching: timely help earns lasting loyalty
 ```
 
-The exact schema in the released work contains the project fields and controlled vocabularies; this compact example shows the interface, not a verbatim dataset record.
+The rendered prompt separately asks for age group B, ages 4–7. The [released row](https://huggingface.co/datasets/klusai/ds-tf1-en-3m) records the prompt text, prompt hash, model, token counts, 38.98-second inference time, host, generation time, and pipeline version.
 
-## What the specification buys
+An earlier design used prompts close to “write a moral fable about _x_.” They produced readable stories and almost no defensible way to say whether a story followed the request. The six fields separate the requested story from the generated one.
 
-**Traceability.** A generated story can be stored with the request, prompt, model, and decoding configuration that produced it.
+## What becomes observable
 
-**Adherence checks.** An evaluator can ask whether the requested elements appear and play the intended roles. Without the specification, the same judgment becomes an impression.
+The design ideal stores a story beside its structured request and execution settings. The public TF1 row takes a narrower form: the rendered prompt embeds the request, while model and generation metadata sit in separate columns. An evaluator can still check whether the firefly remains persuasive, whether the rabbit’s absence counts as betrayal, and whether the ending supports lasting loyalty.
 
-**Controlled variation.** Changing one field while holding the others fixed supports comparisons that unconstrained prompts do not.
-
-**Regeneration.** Failed or disputed outputs can be rerun from their original inputs rather than reverse-engineered from prose.
+The stored input also makes controlled variation and regeneration possible. Change the outcome while keeping the other five fields fixed; or rerun a disputed output from its original request instead of reconstructing that request from prose.
 
 ## Why YAML
 
-YAML was chosen as an authoring format because it is readable in code review and maps cleanly to the dictionaries used by the prompt builder. Its role is mundane but useful: provide a typed boundary between combinatorial specification and natural-language realization.
+YAML was chosen because it is readable in code review and maps cleanly to the dictionaries used by the prompt builder. Its role is mundane: keep combinatorial specification separate from natural-language realization.
 
 The cost is rigidity. A finite slot system can over-represent the designer's ontology, generate formulaic combinations, and miss narrative forms that do not fit its fields. Increasing the combination count does not remove that bias.
 
 ## The scale target
 
-Three million stories was large enough to support model and corpus analysis and later training experiments. Quality still required a separate evaluation design and, ultimately, a downstream use in TF3.
+Three million stories became the project target for corpus analysis and later training experiments; it was not a quality threshold. Reaching the count still left evaluation and downstream utility to be tested separately.
 
-The later [TF1 release note](/2025/04/29/tf1-arxiv-release.html) records what was actually released and measured. This note preserves the earlier design question: what must be known before generation if the result is meant to be auditable?
+The generated story exposes the value and the limit. It keeps the firefly, canyon, and timely-help moral, but softens “betrayal by a friend” into a rabbit stranded in a cave. The specification makes that drift inspectable. It also reveals the ontology we chose: another set of fields would ask different questions of the same story.

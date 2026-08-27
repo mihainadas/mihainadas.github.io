@@ -4,15 +4,15 @@ title: "What Breaks When Fable Generation Reaches Millions"
 date: 2025-03-10 10:00:00 +0200
 last_modified_at: 2026-08-27 10:00:00 +0300
 post_type: engineering note
-description: "The batching, retry, provenance, and storage decisions required to turn TinyFabulist from a prompt prototype into a corpus pipeline."
+description: "The public provenance record and the retry design reconstructed after TinyFabulist moved from prompt prototype to corpus pipeline."
 tags: [synthetic-data, language-models, infrastructure]
 ---
 
 At prototype scale, a failed generation is a bad example. At three million items, it is a data-accounting problem.
 
-The TinyFabulist generation path has three boundaries: a combinatorial engine produces structured story specifications; a prompt builder renders those fields into model input; model workers return text plus inference metadata.
+The prototype could be restarted by hand. The corpus pipeline could not. A combinatorial engine produced story specifications, a prompt builder rendered them, and model workers returned text with inference metadata. Recovery had to preserve the identity of the story across all three steps.
 
-## Keep the record before optimizing the worker
+## Identity comes before throughput
 
 Each output needs a stable story identifier and enough provenance to answer four questions later:
 
@@ -21,22 +21,13 @@ Each output needs a stable story identifier and enough provenance to answer four
 - Did the first attempt succeed?
 - Which validation and evaluation versions touched it?
 
-JSONL was a practical storage format because records remain streamable and can be repartitioned without loading the corpus into memory. The schema matters more than the file extension: generation output, operational status, and later scores must not overwrite one another.
+JSONL was a practical storage format because records remain streamable and can be repartitioned without loading the corpus into memory. The [TF1 paper](https://arxiv.org/abs/2504.20605) documents the resulting provenance fields. In the fuller design, generation output, operational status, and later scores should occupy distinct fields so re-evaluation cannot overwrite generation history.
 
-## Batch for utilization, isolate for recovery
+## The retry design
 
-Sequential requests leave accelerators idle. Batching improves utilization, but a batch must not become the unit of identity. If one response fails validation, the pipeline retries that record rather than discarding or silently regenerating its neighbours.
+Sequential requests leave accelerators idle. Batching improves utilization, but a batch should not become the unit of identity. If one response fails validation, the safe design retries that record rather than discarding or silently regenerating its neighbours.
 
-The pipeline distinguishes six operational failure classes:
-
-- transport or worker failure;
-- timeout;
-- out-of-memory condition;
-- empty or truncated response;
-- structurally invalid output;
-- completed output that fails content checks.
-
-Those categories have different remedies. An out-of-memory failure, for example, usually requires a smaller batch, a smaller model, or a different quantization before retrying.
+The recommended attempt ledger distinguishes a vanished worker, timeout, out-of-memory event, empty response, malformed output, and failed content check. Those cases should not share a blind retry policy. The public TF1 paper and dataset expose story-level provenance, but they do not expose this attempt ledger; this section records the design rule, not a claim about a released schema.
 
 ## Multi-model generation complicates comparison
 
@@ -44,8 +35,8 @@ Several model families receive equivalent specifications so the corpus does not 
 
 The comparison therefore belongs to versioned experiment records, not model-family folklore. The [TF1 paper](https://arxiv.org/abs/2504.20605) reports the ten-model comparison and its hardware/cost assumptions.
 
-## Claims removed from the first draft
+## The number I could not defend
 
-The original note estimated that “creative reinterpretation” occurred in roughly 5–10% of outputs without defining the sample, annotator, or criterion. That number is gone. An observation becomes a result only when its denominator and measurement procedure are recorded.
+The first draft said “creative reinterpretation” appeared in roughly 5–10% of outputs. I had no recorded sample, annotator, or definition for the category. The percentage had the shape of a result and none of the machinery behind one, so I removed it.
 
-The engineering outcome of the scaling work was less glamorous and more useful: every story could be traced from specification through generation and later evaluation, and failures could be resumed without making successful records ambiguous.
+At three million items, the operational requirement is two identities: the requested story and each attempt to produce it. The public release documents the first; a future pipeline release would need to expose the second.

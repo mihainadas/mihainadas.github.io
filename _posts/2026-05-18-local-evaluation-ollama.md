@@ -11,24 +11,15 @@ redirect_from: /2026/02/03/local-inference-ollama.html
 tags: [tools, evaluation, language-models]
 ---
 
-My first version of this note was dated before one of its named models existed and mixed the OpenAI-compatible API with Ollama's native request shape. This revision starts from the client contract and keeps the research conclusions narrower.
+A local judge can return valid JSON and still be scientifically useless. Before reaching that harder problem, my first client managed two simpler mistakes: it was dated before the named model existed, and it mixed Ollama’s native API with the OpenAI-compatible request shape.
 
-The client contract uses Ollama's native `/api/chat` endpoint. Native structured output belongs in the `format` field, not `response_format`; streaming must be disabled if the caller expects one JSON document; and the returned message content is still a JSON string that needs parsing and validation.
+The corrected client uses Ollama’s native `/api/chat` endpoint. Structured output belongs in `format`, not `response_format`. Streaming is off because the caller expects one document. The content inside the response is still a JSON string, so transport success, JSON parsing, and schema validation are separate checks.
 
 ## The client
 
 ```python
-import json
 import requests
-
-schema = {
-    "type": "object",
-    "properties": {
-        "grammar_score": {"type": "integer", "minimum": 1, "maximum": 10},
-        "grammar_justification": {"type": "string"},
-    },
-    "required": ["grammar_score", "grammar_justification"],
-}
+from examples.ollama_response import SCORE_SCHEMA, parse_scores
 
 response = requests.post(
     "http://localhost:11434/api/chat",
@@ -38,21 +29,17 @@ response = requests.post(
             {"role": "system", "content": "Return a grammar score and brief justification."},
             {"role": "user", "content": "The text to evaluate."},
         ],
-        "format": schema,
+        "format": SCORE_SCHEMA,
         "stream": False,
         "options": {"temperature": 0, "seed": 42},
     },
-    timeout=120,
+    timeout=(10, 120),
 )
 response.raise_for_status()
-scores = json.loads(response.json()["message"]["content"])
-
-assert set(schema["required"]) <= scores.keys()
-assert 1 <= scores["grammar_score"] <= 10
-assert isinstance(scores["grammar_justification"], str)
+scores = parse_scores(response.json())
 ```
 
-The code fence is syntax-checked in the site build. The request shape follows Ollama's [structured-output documentation](https://docs.ollama.com/capabilities/structured-outputs). A production client should validate the full schema with a library such as `jsonschema` or Pydantic, record the Ollama and model digest, and distinguish transport retries from invalid model output.
+The request shape follows Ollama’s [structured-output documentation](https://docs.ollama.com/capabilities/structured-outputs). The [parser](/examples/ollama_response.py) declares an object schema with no extra properties. Its build-time tests cover success, a malformed envelope, invalid inner JSON, scalar JSON, and an out-of-range score. `jsonschema` is pinned in the site’s example requirements.
 
 ## Version the model, not only the family
 
@@ -73,4 +60,4 @@ For judge panels, I record at least:
 - input identifier and content hash;
 - raw response before aggregation.
 
-Local inference improves cost control, access, and inspectability. The client solves transport and parsing; judge validity still depends on agreement with humans, sensitivity to the rubric, and bias under the target task.
+The integration test stops at schema validation. Judge validity begins with a human-rated slice and perturbation suite; neither belongs to this client. The digest identifies the model file that produced the document.

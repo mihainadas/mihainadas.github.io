@@ -1,41 +1,37 @@
 ---
 layout: post
-title: "A Validation Plan for Open-Weight Judge Panels"
+title: "Decision Gates for an Open-Weight Judge Panel"
 date: 2026-02-24 13:00:00 +0200
 last_modified_at: 2026-08-27 10:00:00 +0300
-post_type: experiment plan
-description: "How an open-weight judge panel should be validated before its aggregate scores are treated as research evidence."
+post_type: method note
+description: "The locked tests and unresolved decisions that stand between an open-weight judge panel and research use."
 tags: [evaluation, language-models, methodology]
 ---
 
-This design asks under what conditions a panel of open-weight models can provide useful evaluation across generation, translation, and Romanian-native text.
+A panel is not safer because it has more model names in it. If three related judges share the same preference, averaging them turns correlated error into a confident decimal.
 
-> **Status, August 2026.** Validation remains in progress. This note records the planned comparisons and does not report a panel-level result.
+> **Status, August 2026.** Validation remains in progress. Candidate checkpoints, sample size, aggregation, and numerical thresholds are unresolved. This is a gate document, not a runnable protocol or a result.
 
-Single-judge evaluation concentrates bias, version risk, and access cost. A panel can reduce that dependence only if its members make meaningfully different errors and the aggregation rule is defined before results are inspected.
+The current decision record separates what is already locked from what still blocks execution:
 
-## Constraints on panel composition
+| Decision | Locked | Unresolved |
+| --- | --- | --- |
+| Tasks | TF1 adherence/grammar; TF2 translation; TF3 Romanian generation | sampling weight per task |
+| Order test | every pair scored as A/B and B/A; both raw records retained | acceptable reversal rate |
+| Human slice | stratify clear successes, clear failures, and judge disagreements | sample size, rater count, adjudication |
+| Family test | repeat the conclusion after replacing one judge family | candidate checkpoints and tolerance |
+| Aggregation | expose per-judge distributions before any panel statistic | rule, interval, decision threshold |
 
-**Family diversity.** Closely related checkpoints may share training data, preferences, and failure modes. Model count is not independence.
+Until the right-hand column is filled and preregistered, the work stays a method study.
 
-**Separation from generators.** A judge from the same family as the generator can introduce self-preference. Where full separation is impossible, the overlap must be reported and tested.
+## The first test is literal
 
-**Task coverage.** TF1 grammar/adherence, TF2 literary translation, and TF3 Romanian generation use different rubrics. A reusable panel must demonstrate transfer rather than assume it.
+Take one TF2 source and two candidate translations. Score them as A/B, then send the same pair as B/A. Keep both raw responses. A reversal is an observed failure, not noise to hide inside a mean. [Wang et al.](https://arxiv.org/abs/2305.17926) is why this swap sits at the entrance to the protocol.
 
-## Define disagreement before aggregation
+The next run replaces one judge family and repeats the conclusion. Every checkpoint carries its family, quantization, prompt template, digest, and relationship to the generator. Agreement on TF1 grammar does not grant that checkpoint a vote on TF2 translation or TF3 Romanian generation.
 
-Mean scores can hide a judge that systematically uses a different scale. Majority vote discards distance. An arbiter introduces another model and another bias source.
+## What would stop publication
 
-The validation record therefore needs per-judge distributions, pairwise agreement, rank correlations, disagreement thresholds, and the exact rule that maps individual outputs to a panel decision.
+The result stops if order swaps, harmless formatting changes, or family replacement move the substantive ranking beyond the threshold still missing from the table. Human ratings cover clear successes, clear failures, and model disagreements; their own disagreement stays visible. Per-judge distributions, pairwise agreement, weighted kappa, rank correlation, confidence intervals, and invalid outputs appear before the aggregate.
 
-## Reference comparisons
-
-Three comparisons serve different purposes:
-
-1. **Human ratings** on stratified samples, including easy cases and known disagreements.
-2. **Proprietary-model baselines** for continuity with earlier work—not as ground truth.
-3. **Perturbation tests** for order, length, style, and family cues that should not change the substantive judgment.
-
-Work such as [MT-Bench](https://arxiv.org/abs/2306.05685) and [Large Language Models are not Fair Evaluators](https://arxiv.org/abs/2305.17926) motivates these checks. The target result is not “open panels are better.” It is a map of tasks and conditions under which their error is acceptable for a stated use.
-
-Until that validation is complete, panel scores remain experimental annotations.
+[MT-Bench](https://arxiv.org/abs/2306.05685) supplies continuity with earlier judge work. The remaining blockers are mundane and decisive: named checkpoints, sample size, raters, aggregation rule, and numerical thresholds.

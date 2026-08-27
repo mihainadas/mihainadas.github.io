@@ -125,7 +125,7 @@ def main() -> int:
         fail("engineering record does not contain the new article exactly once")
     if home.count("/2026/08/27/three-emulator-bugs.html") != 2:
         fail("homepage does not feature and list the new article")
-    if "Three merged 86Box fixes" not in article:
+    if "The hard part was not landing three fixes" not in article:
         fail("new article body was not rendered")
     if audit_figures("2026/08/27/three-emulator-bugs.html", article) != 1:
         fail("new article does not exercise the shared figure system exactly once")

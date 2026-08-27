@@ -10,37 +10,26 @@ tags: [synthetic-data, evaluation, language-models]
 
 > **Retrospective.** The first version discussed “the literature” without citing any literature. This revision records the papers that changed concrete design decisions.
 
-## Synthetic data needs a downstream test
+## Volume needs a downstream consequence
 
-[Self-Instruct](https://arxiv.org/abs/2212.10560) showed how a model can bootstrap instruction data from a small seed set. [Textbooks Are All You Need](https://arxiv.org/abs/2306.11644) made a stronger quality-over-volume argument in code. Neither implies that generated data is useful merely because it is large.
+[Self-Instruct](https://arxiv.org/abs/2212.10560) was the first paper in this review that changed a field in the TinyFabulist schema. It showed that a model could expand a small seed collection into instruction data; retaining the seed and generation path therefore mattered as much as retaining the final text. [Textbooks Are All You Need](https://arxiv.org/abs/2306.11644) made the quality-over-volume case in code generation. Neither paper gave us permission to call a large collection useful merely because it was readable.
 
-For TinyFabulist, that moved the target from “generate many stories” to “store enough structure and provenance to test what the stories are useful for.” The later TF3 stage—training compact Romanian models—became the downstream test that the first-generation work lacked.
+TinyFabulist changed in response. Each story retained its specification and generation history, and TF3 became a downstream test: train compact Romanian models and inspect what they learn from the resulting resources.
 
-## Diversity must be designed and measured
+## Generator count is only a starting point
 
-Model-generated corpora can inherit narrow phrasing, preferences, and errors from their generators. Using several model families reduces dependence on one generator, but family count is only a proxy for output diversity.
+Several model families reduce reliance on one generator's recurring style and errors. They do not demonstrate diverse output. The public corpus therefore keeps generator identity and the rendered prompt that embeds the specification; its prompt hash can join later readability, diversity, or judge records. A later analysis can change the metric without losing the generation record.
 
-We retained generator identity and specification fields in each record, then added reference-free diversity and readability measures alongside model-based scores. Those records make output diversity open to direct analysis.
+## A score needs an audit trail
 
-## Model judges are measurements with failure modes
+[MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) made model judging operational at scale. [Large Language Models are not Fair Evaluators](https://arxiv.org/abs/2305.17926) showed that presentation order could alter comparative judgments.
 
-[MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) made model-based judging operational at scale. [Large Language Models are not Fair Evaluators](https://arxiv.org/abs/2305.17926) documented order sensitivity in comparative evaluation. Those papers changed how I treated judge output: not as a label, but as a measurement produced by another model and prompt.
+That evidence changed the evaluation record. Scores remained attached to the judge, prompt, rubric, justification, and input order that produced them. Multi-dimensional rubrics replaced a single quality number, and generator–judge family overlap became something to disclose and test. More judges help only when their errors provide different information.
 
-The design consequence was multi-dimensional rubrics, stored justifications, model-family separation between generators and judges where possible, and a later validation program for open-weight panels. Human arbitration remains necessary for cases that matter most.
+## Romanian needed a narrower question
 
-## Romanian is task-specific, not uniformly “low-resource”
+Romanian has substantial corpora, tools, and an active research community. The constraints differ by task: licensed literary parallel text, restoration under noisy diacritics, and openly documented compact-model pipelines present different shortages.
 
-Romanian has mature corpora, tools, and research communities. Scarcity appears unevenly: literary parallel text, licensed high-quality corpora, robust diacritic restoration under noise, and openly documented compact-model pipelines pose different constraints.
+That distinction narrowed TF2 to English–Romanian literary translation and turned diacritic restoration into its own research line. The papers mattered because they changed fields, metrics, and experiments—not because they made the bibliography longer.
 
-That observation narrowed TF2 from generic machine translation to English–Romanian literary translation, and it turned diacritics from a side note into its own evaluation line.
-
-## The reading workflow that survived
-
-I still use Zotero and Markdown notes, but the durable unit is a decision record:
-
-- claim made by the paper;
-- evidence and experimental boundary;
-- assumption relevant to my system;
-- design change, rejected change, or unresolved question.
-
-I kept literature notes that led to a design change, a rejected change, or a question for the next experiment.
+The margin note beside Wang et al. is shorter than the summary: “store order; run A/B and B/A; decide the rejection threshold before seeing reversals.” A paper stays in my working notes when it changes a field, metric, experiment, or explicit rejection.

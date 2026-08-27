@@ -1,35 +1,31 @@
 ---
 layout: post
-title: "What Each TinyFabulist Stage Establishes"
+title: "The Artifact Chain Behind TinyFabulist"
 date: 2026-04-14 11:00:00 +0300
 last_modified_at: 2026-08-27 10:00:00 +0300
 post_type: research note
-description: "A snapshot of the TF1 generation, TF2 translation, TF3 training, and evaluation threads—and the claims that do not transfer between them."
+description: "How TF1 generation, TF2 translation, and TF3 training connect—and where the evidence stops at each handoff."
 tags: [synthetic-data, language-models, evaluation]
 ---
 
-TinyFabulist is easier to understand as three experiments connected by artifacts, not as one model or one dataset.
+The three-million-item Romanian corpus is TF3 output, not TF3 training input. Reversing that arrow is the provenance mistake this map is meant to prevent.
 
-## TF1 establishes controlled generation at scale
+| Stage | Starts with | Produces | Strongest reported evidence |
+| --- | --- | --- | --- |
+| TF1 | six-slot fable specifications | three million English fables | ten-model comparison; 100 prompts per model |
+| TF2 | TF1 English fables and 15K GPT-o3 Romanian silver references | 15K tuning set, three-million-pair corpus, 1B/4B/12B adapters | 12B rubric score 4.43 → 4.83; BLEU 0.0214 → 0.0926 |
+| TF3 | translated Romanian training text | 51.65M teacher, 26.45M student, three million direct-Romanian fables | teacher cross-entropy ≈0.89 and perplexity ≈2.43; agreement, entity, and grammar probes |
 
-Six-slot specifications become English fables through several open-weight generators. The released [TF1-EN-3M dataset](https://huggingface.co/datasets/klusai/ds-tf1-en-3m) retains generation provenance and evaluation signals. The [paper](https://arxiv.org/abs/2504.20605) compares ten models and reports the quality–cost trade-off under its hardware assumptions.
+## Follow one record through the chain
 
-TF1 leaves two questions open for later stages: whether the corpus supports Romanian training and how closely model-judge scores track human ratings.
+A TF1 record begins with a structured request, becomes an English fable, and keeps its prompt, model, decoding setup, and generation metadata. The [TF1-EN-3M release](https://huggingface.co/datasets/klusai/ds-tf1-en-3m) contains three million such records; the [paper](https://arxiv.org/abs/2504.20605) compares ten generators on 100 prompts each.
 
-## TF2 establishes a translation pipeline and cost comparison
+TF2 takes the English text as source material. GPT-o3 supplies 15,000 Romanian silver references, of which 12,000 train the adapters. The tuned models then support the [three-million-pair release](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-3m). That order explains why the 15K set, scale corpus, and model checkpoints need different names. The [TF2 paper](https://arxiv.org/abs/2509.07829v4) records the 4.43-to-4.83 rubric change and the BLEU comparison.
 
-TF2 creates a [15K reference set](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-15k), a [three-million-pair corpus](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-3m), and a fine-tuned 12B model. The [paper](https://arxiv.org/abs/2509.07829) evaluates literary translation with BLEU and a five-dimensional rubric.
+TF3 consumes translated Romanian training text and starts a 51.65M-parameter model from random weights. Compression yields a separate 26.45M student. Only after training does the pipeline generate three million new fables directly in Romanian. The [TF3 paper](https://arxiv.org/abs/2601.10410) carries the tokenizer, training, compression, and probe results.
 
-TF2's evidence covers translated fables and the tested systems; native Romanian literature and other translation domains remain outside its scope.
+## The breakpoints
 
-## TF3 establishes from-scratch training and compression
+A good TF1 judge score says little about translation fidelity. A strong TF2 translation score does not validate the TF3 student. Low TF3 validation loss does not certify the generated corpus as natural Romanian. The synthetic-data survey ([arXiv](https://arxiv.org/abs/2503.14023)) and current judge work exist because every arrow introduces a new measurement problem.
 
-TF3 trains a 51.65M-parameter Romanian model, compresses it to a 26.45M-parameter student, and uses the pipeline for Romanian-native generation. The [paper](https://arxiv.org/abs/2601.10410) documents tokenization, packing, training, compression, and evaluation.
-
-TF3 evaluates synthetic narratives within a compact, domain-specific pipeline, leaving general-purpose Romanian and broad natural corpora outside the experiment.
-
-## Evaluation remains the cross-cutting uncertainty
-
-Every stage depends on measurements that have their own failure modes. The synthetic-data survey ([arXiv](https://arxiv.org/abs/2503.14023)), judge-panel design, and Romanian diacritics work make those assumptions explicit rather than hiding evaluation behind one number.
-
-The maintained version of this map lives at [/research/](/research/). This dated snapshot remains in the archive because it records the point at which the three stages first formed a complete pipeline.
+The maintained map lives at [/research/](/research/); this snapshot preserves the provenance order that readers most often reverse.

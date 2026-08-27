@@ -8,30 +8,30 @@ description: "The tokenizer, architecture, packing, checkpoint, and attribution 
 tags: [language-models, romanian-nlp, training]
 ---
 
-TF3 trains a compact Romanian language model from random initialization. The point is attribution: when the corpus and training path are documented, later behavior can be related to those inputs more directly than after fine-tuning an internet-scale multilingual model.
+Unigram produced sequences 11% longer than BPE and still won the tokenizer decision. That result overturned the easy efficiency argument and forced the TF3 design to say what it valued: Romanian morphological behavior, not the shortest sequence at any cost.
 
-Tokenization, filtering, sequence packing, architecture, schedule, precision, and checkpoint selection still shape a model trained from scratch.
+TF3 trains a compact Romanian model from random initialization. A documented corpus and training path improve attribution, but tokenization, filtering, packing, architecture, schedule, and checkpoint selection still determine what the experiment means.
 
 ## Tokenization is a measured decision
 
-Romanian morphology and diacritics can create token inflation under a tokenizer trained mainly on other languages. TF3 therefore trains Romanian-specific BPE and Unigram candidates and compares their vocabulary coverage and sequence-length behavior.
+TF3 trained 32,000-token BPE and Unigram candidates on the project corpus. BPE averaged 304.89 tokens per sentence and Unigram 340.35. The paper chose Unigram after manual segmentation inspection and downstream Romanian diagnostics; the length table alone favored BPE. It publishes neither a paired segmentation example nor a standalone morphology score, so that part of the decision remains qualitative.
 
-A lower fertility is useful only if the vocabulary does not simply memorize the corpus or damage rare forms. The tokenizer is versioned with its training data and normalization rules.
+That is a research trade-off, not evidence that Unigram is universally better for Romanian. The tokenizer, training text, and normalization rules are versioned together so the choice can be inspected later.
 
 ## The architecture is intentionally small
 
-The main TF3 model is a 51.65M-parameter LLaMA-style decoder. That size permits repeated training and ablation within the project budget while remaining large enough to test whether narrative and Romanian agreement signals emerge.
+The main model is a 51.65M-parameter LLaMA-style decoder trained on roughly one billion tokens in 2,048-token blocks. The size keeps repeated training and ablation within budget while leaving enough capacity to test narrative and Romanian agreement signals.
 
 The later 26.45M-parameter student is a separate compression result, not the original model rounded down.
 
-## Pack sequences, preserve document boundaries
+## Packing buys compute, not evidence
 
-Naive padding wastes a large fraction of compute on short stories. Packing improves utilization by concatenating examples into fixed-length training sequences. The implementation must still mark boundaries so the model is not trained to treat the end of one fable and the start of another as ordinary continuation.
+Naive padding spends compute on empty positions. Packing the short narratives into fixed-length blocks improves utilization, but it also changes the stream seen by the model. The block size and separator tokens therefore belong in the experiment record, not in an invisible data-loader default.
 
 ## Checkpoint selection
 
-Training loss alone cannot select the final model. TF3 records intrinsic validation loss alongside Romanian agreement probes, generation samples, entity coherence, and grammar checks. Checkpoints support learning-curve analysis and make regressions visible.
+Near 27,000 training steps, the reported teacher reached cross-entropy around 0.89 and perplexity around 2.43. Those numbers describe prediction on the held-out distribution; they do not establish fluency, agreement, or useful generation by themselves. TF3 records them alongside Romanian agreement probes, samples, entity coherence, and grammar checks.
 
-The first draft of this note described “early observations” without publishing a curve or checkpoint table. Those claims have been removed. The [TF3 paper](https://arxiv.org/abs/2601.10410) is the result record; this post is the design record that preceded it.
+The first draft of this note described “early observations” without a curve or checkpoint table. I removed them. The [TF3 paper](https://arxiv.org/abs/2601.10410) is the result record; this is the design record.
 
-The experiment asks which Romanian structures a compact model learns from controlled synthetic narrative data. General-purpose capability is outside its scope.
+The later model results carry a measured sequence penalty and a qualitative tokenizer rationale. Both belong in the record.

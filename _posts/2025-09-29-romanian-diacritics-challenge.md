@@ -8,13 +8,13 @@ description: "Why Romanian diacritic restoration needs context-sensitive example
 tags: [romanian-nlp, evaluation, natural-language-processing]
 ---
 
-Romanian uses **ă**, **â**, **î**, **ș**, and **ț**. Removing them does more than alter typography: `fata` may correspond to _fata_ (“the girl”) or _fața_ (“the face”), and the surrounding sentence determines which restoration is correct.
+`fata` can mean _the girl_ or become `fața`, _the face_. A replacement table cannot decide which one a sentence needs.
 
-That ambiguity makes automatic diacritic restoration a sequence problem rather than a character-replacement table.
+Romanian uses **ă**, **â**, **î**, **ș**, and **ț**, but restoration is a sequence problem: context chooses the mark, and the system must leave every unrelated character alone.
 
 ## The denominator problem
 
-Most characters in Romanian text are not diacritizable. Overall character accuracy can therefore remain high when a system misses the positions the task exists to restore.
+Most characters in Romanian text are not diacritizable. In a 100-character sentence with five missing marks, returning the input unchanged gives 95% overall character accuracy and 0% restoration accuracy. That is an illustrative denominator, not a benchmark result, but it shows how the headline number can reward doing nothing.
 
 A useful evaluation separates:
 
@@ -24,7 +24,16 @@ A useful evaluation separates:
 - diacritic error rate;
 - unwanted changes to characters that should remain untouched.
 
-The last measure is especially important for generative models. A fluent output that silently rewrites a name or fixes unrelated spelling has violated a restoration-only contract.
+For the two primary measures, let \(P\) be character positions whose case-normalized, unaccented input is one of `a`, `i`, `s`, or `t`, including uppercase and legacy cedilla forms. Let \(U\) contain every other position. With an aligned clean reference:
+
+\[
+A_P = \frac{\#\{i \in P : \hat{y}_i = y_i\}}{|P|}, \qquad
+E_U = \frac{\#\{i \in U : \hat{y}_i \ne x_i\}}{|U|}.
+\]
+
+The first score tests every place where a mark may be needed, including candidates that should remain plain. The second counts edits outside that candidate set. Insertions and deletions fail the aligned scorer. An empty \(P\) or \(U\) returns no score for that denominator instead of dividing by zero. The [executable implementation](/examples/diacritics_metrics.py) is covered by uppercase, empty-set, correct-restoration, and alignment tests in the site build.
+
+The last measure is especially important for generative models. A fluent output that silently rewrites a surname, normalizes a URL, or fixes unrelated spelling has violated a restoration-only contract.
 
 ## Clean text is the easy regime
 
@@ -40,6 +49,6 @@ A benchmark that strips diacritics from clean text tests only one slice of that 
 
 ## Why compare model classes
 
-Prompted LLMs require no task-specific training but bring latency, cost, and uncontrolled-edit risks. Character-level and encoder-based systems are faster and easier to constrain. Fine-tuned small generative models may handle noise and joint normalization better, but they must justify their inference cost and demonstrate that they do not hallucinate changes.
+Prompted LLMs require no task-specific training but bring latency, cost, and uncontrolled-edit risks. Character-level and encoder-based systems offer simpler constrained decoding and are expected to have lower latency; the deployment benchmark must measure that assumption on the target hardware. Fine-tuned small generative models may handle noise and joint normalization better, but they must justify their inference cost and unwanted edits.
 
-The [InnoComp study](https://arxiv.org/abs/2511.13182) establishes prompted-model baselines. The later fine-tuning note defines the comparison needed to move from clean accuracy to application-specific robustness.
+The [InnoComp study](https://arxiv.org/abs/2511.13182) supplies prompted-model baselines. The later fine-tuning study must test whether robustness repays the latency and unwanted edits. Its two primary denominators are accuracy at diacritizable positions and changes outside them.

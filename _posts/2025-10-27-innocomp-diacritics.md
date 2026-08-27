@@ -10,24 +10,34 @@ redirect_from: /2025/11/17/innocomp-diacritics.html
 tags: [romanian-nlp, evaluation, conference]
 ---
 
-I presented our comparison of large language models for Romanian diacritic restoration at InnoComp 2025, held in Cluj-Napoca on 22–24 October.
+Romanian diacritic restoration looks easy when most of the characters being counted never needed restoration. In our InnoComp comparison, that innocent denominator helped an echo baseline reach 0.8100.
 
 > **Publication update, January 2026.** The paper appears in Springer **Communications in Computer and Information Science**, volume 2794—not LNCS. The [published chapter](https://doi.org/10.1007/978-3-032-12481-4_4) and [arXiv preprint](https://arxiv.org/abs/2511.13182) are now available.
 
-## The comparison
+## Prompting moved the ranking
 
-The study evaluates several proprietary and open models under prompt templates ranging from zero-shot instructions to more elaborate multi-shot prompts. It contributes a controlled comparison—the same Romanian corpus, restoration task, and evaluation definitions across model and prompt combinations—rather than a new restoration model.
+The study uses eight task evaluators and aggregates them into a total average score (TAS). For each system, the maximum TAS (MTAS) selects its best prompt configuration across zero-shot through three-shot prompting. GPT-4o reached an MTAS of 0.9639, 19% above the echo baseline.
 
-The strongest proprietary models achieved high restoration accuracy. Open models varied more widely, which makes model choice and prompt sensitivity part of the result rather than implementation noise.
+| System | MTAS |
+| --- | ---: |
+| GPT-4o | 0.9639 |
+| GPT-4 | 0.9350 |
+| Gemini 1.0 Pro | 0.9108 |
+| Llama 3 70B | 0.8735 |
+| Echo baseline | 0.8100 |
+| Llama 3 8B | 0.7663 |
+| RoLlama 2 7B | 0.6463 |
 
-## The error that accuracy hides
+Model size did not determine the outcome, and prompt choice was not a cosmetic detail: GPT-4o improved by 1.66% from the two-shot to the three-shot setup.
 
-Most Romanian characters do not need a diacritic. A model can therefore achieve a high character-level score while still failing on the positions that matter. Restoration evaluation needs to isolate diacritizable words and characters and track unwanted edits to text that should have remained unchanged.
+## Where the remaining errors collect
 
-This becomes especially important for generative systems. A restored sentence that silently rewrites a name or non-diacritical character may look fluent while violating the task.
+Most Romanian characters do not need a diacritic. A system can therefore score well while missing the positions the task exists to restore. In the error analysis, misplaced **â** accounted for 21.3% of all errors. Separately, the authors estimate that rule-aware post-processing could eliminate up to 19% of the remaining mistakes. Sentence-initial capitals and final syllables were also recurring trouble spots.
 
-## Scope of the study
+Generative systems add another failure: they can rewrite text outside the restoration target. A fluent sentence that changes a name or non-diacritical character has still violated the contract.
 
-The paper establishes comparative baselines under the tested conditions. Production choices still require latency, cost, privacy, and robustness measurements on historical spelling, OCR noise, and informal text.
+## What the study is good for
 
-Those gaps motivate the next phase: compare prompted LLMs with lightweight supervised baselines and fine-tuned small models under explicit noise conditions. Deployment ranking must include the failure modes and constraints of the target application, not only clean-benchmark accuracy.
+The comparison supplies prompted-model baselines on two 1,000-item datasets. It does not decide which system belongs in a keyboard, an OCR cleanup pipeline, or a private document workflow. Those choices also need latency, cost, privacy, unwanted-edit, and noisy-text measurements.
+
+I presented the work at InnoComp 2025 in Cluj-Napoca on 22–24 October. GPT-4o led at 0.9639. The echo baseline’s 0.8100 changed the next experiment: diacritizable-position accuracy and unwanted-edit rate became primary measures.

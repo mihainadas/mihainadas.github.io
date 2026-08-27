@@ -8,11 +8,11 @@ description: "A first-year PhD retrospective focused on the decisions, delays, a
 tags: [phd, research-practice]
 ---
 
-The visible first-year output was straightforward to list: the synthetic-data survey, TF1 and TF2 preprints, public datasets, and an LLM-judge survey in progress. The useful lessons came from decisions that do not appear in that list.
+The public record of my first PhD year is tidy: the [synthetic-data survey](https://arxiv.org/abs/2503.14023), [TF1](https://arxiv.org/abs/2504.20605), [TF2](https://arxiv.org/abs/2509.07829v4), released datasets, and an LLM-judge survey in progress. The year itself was not tidy. The expensive lessons arrived while generation logs were filling and the evaluation rubric was still moving.
 
 ## I delayed evaluation too long
 
-Generation was concrete and rewarding: prompts produced stories, logs filled, the corpus grew. Evaluation felt like the stage that could be designed afterward. That was backwards.
+Generation was concrete and rewarding: prompts produced stories, logs filled, the corpus grew. Evaluation felt like a stage I could design afterward. I was wrong.
 
 Once millions of items exist, changing the rubric, judge protocol, or stored provenance becomes expensive. The second half of the year moved evaluation requirements closer to schema design: every output needed the fields required for later attribution and re-scoring.
 
@@ -20,7 +20,7 @@ Once millions of items exist, changing the rubric, judge protocol, or stored pro
 
 Words such as “quality,” “diversity,” and “adherence” were harmless in early discussion and dangerous in a paper. Each needed an operational definition, denominator, and failure analysis.
 
-The TF1 experience changed how I write experiment plans. If I cannot state what would falsify a claim or how a measurement could mislead, the experiment is not ready to scale.
+TF1 changed how I write experiment plans. I removed an early diversity claim based on a guessed percentage because the pipeline did not yet measure the thing the sentence asserted. If I cannot state what would falsify a claim or how a measurement could mislead, the experiment is not ready to scale.
 
 ## Engineering habits transferred; production assumptions did not
 
@@ -36,4 +36,4 @@ Releasing data through Hugging Face and papers through arXiv exposed naming, lic
 
 The work did not need more parallel threads. It needed a closed loop: TF2 resources into TF3 training, and a validation protocol for the evaluators used across all three stages.
 
-The strongest change after year one was therefore editorial as much as technical: plans, observations, measurements, and validated findings had to stop sharing the same voice.
+For the next run, I propose a preflight check that fails unless the rubric version, provenance record, and invalid-output status are present.

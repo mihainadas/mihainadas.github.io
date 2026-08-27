@@ -10,27 +10,27 @@ redirect_from: /2025/03/31/synthetic-data-survey.html
 tags: [synthetic-data, natural-language-processing, research]
 ---
 
-Our survey of synthetic text and code generation appeared on arXiv on 18 March 2025. The paper was later published in IEEE Access; this note uses the preprint date rather than backdating the journal publication.
+An instruction generated from a seed example, an automatically repaired program, and an augmented classification record can all be called synthetic data. They cannot be accepted by the same test.
+
+That was the organizing problem behind our survey of LLM-generated synthetic text and code, first released on arXiv on 18 March 2025 and later published in *IEEE Access*.
 
 - [Preprint](https://arxiv.org/abs/2503.14023)
 - [IEEE record](https://doi.org/10.1109/ACCESS.2025.3589503)
 
-## The organizing problem
+## Two items, incompatible tests
 
-“Synthetic data” was already too broad to be a useful category on its own. A generated instruction, an automatically repaired program, and an augmented low-resource classification example have different failure modes and different verification options.
+[Self-Instruct](https://arxiv.org/abs/2212.10560) grows instruction data from seed tasks, then filters generated instructions for validity and similarity. Its output still needs semantic review: a plausible instruction–answer pair can be self-consistent and wrong.
 
-We organized the literature along three operational questions:
+[WizardCoder](https://arxiv.org/abs/2306.08568) evolves code instructions to increase complexity. Code offers an extra gate: parsing, execution, unit tests, and static analysis can reject failures that fluent explanations would miss. Passing tests is still evidence about the tested behavior, not proof that the program matches every intended requirement.
 
-1. **How is the data produced?** Prompting, retrieval-augmented generation, iterative refinement, and feedback-driven pipelines make different assumptions about source material and validation.
-2. **How is quality controlled?** Text often relies on model or human judgments; code can add execution, tests, and static analysis.
-3. **What happens downstream?** More synthetic examples do not automatically improve a model. Utility depends on diversity, correctness, task fit, and the relationship between generator and learner.
+Both pipelines generate new training material. Their acceptable evidence differs because one artifact is primarily interpreted and the other can also be executed.
 
-The paper's useful boundary is the failure section: factual error, stylistic homogenization, bias amplification, weak evaluation, and recursive training on generated material. These are not footnotes. They determine whether a pipeline creates signal or scales noise.
+The survey is a narrative synthesis of 64 references available by early 2025, not a systematic review with exhaustive retrieval guarantees. We used three questions across that literature: how an item was produced, how it was checked, and what downstream result justified producing it.
 
-## What changed in my work
+## What changed in TinyFabulist
 
-The survey pushed TinyFabulist toward explicit provenance and multi-dimensional evaluation. A generated story is stored with the specification, prompt, generator, and decoding configuration that produced it, supporting failure tracing and alternative filters.
+The survey moved generation history into the TinyFabulist record. In the public TF1 schema, the rendered prompt embeds the story specification; separate columns retain the generator, token counts, timing, host, pipeline version, and raw output. The paper and code describe the global decoding setup. The prompt hash provides the join point for later filters and evaluator versions.
 
-It also made one gap clearer: controlled, domain-specific generation was less developed than general instruction synthesis. Moral narratives gave us a bounded structure in which requested characters, conflict, resolution, and moral could be compared with the output.
+It also clarified why moral narratives were useful for this work. Character, trait, setting, challenge, outcome, and teaching provide requested elements that can be compared with the generated text. The domain is deliberately narrow; that structure makes control and adherence inspectable.
 
-The survey covers work available in early 2025, so its model and method inventory will age. The organizing questions—generation, verification, downstream utility, and provenance—should remain useful for longer.
+The concrete change was a public record with rendered prompt, prompt hash, generator, generation metadata, pipeline version, and raw output. The survey’s categories will age; the hash lets future checks attach new evaluation records without rewriting the generation row.
