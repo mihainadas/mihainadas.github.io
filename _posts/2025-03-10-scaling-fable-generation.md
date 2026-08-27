@@ -2,7 +2,7 @@
 layout: post
 title: "What Breaks When Fable Generation Reaches Millions"
 date: 2025-03-10 10:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: engineering note
 description: "The public provenance record and the retry design reconstructed after TinyFabulist moved from prompt prototype to corpus pipeline."
 tags: [synthetic-data, language-models, infrastructure]

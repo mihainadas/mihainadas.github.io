@@ -2,7 +2,7 @@
 layout: post
 title: "Why TinyFabulist Starts with a Specification"
 date: 2025-02-03 16:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: research note
 description: "The six-slot story specification behind TinyFabulist and the control it provides over generation and evaluation."
 tags: [synthetic-data, language-models, system-design]
@@ -19,7 +19,7 @@ outcome: a lesson is documented for future generations
 teaching: timely help earns lasting loyalty
 ```
 
-The rendered prompt separately asks for age group B, ages 4–7. The [released row](https://huggingface.co/datasets/klusai/ds-tf1-en-3m) records the prompt text, prompt hash, model, token counts, 38.98-second inference time, host, generation time, and pipeline version.
+The rendered prompt separately asks for age group B, ages 4–7. The released row described in the [TF1 paper](https://arxiv.org/abs/2504.20605) records the prompt text, prompt hash, model, token counts, 38.98-second inference time, host, generation time, and pipeline version.
 
 An earlier design used prompts close to “write a moral fable about _x_.” They produced readable stories and almost no defensible way to say whether a story followed the request. The six fields separate the requested story from the generated one.
 

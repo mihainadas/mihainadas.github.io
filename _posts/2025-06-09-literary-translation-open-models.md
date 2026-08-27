@@ -2,7 +2,7 @@
 layout: post
 title: "Why TF2 Chose Translation Before Romanian-Native Generation"
 date: 2025-06-09 12:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: research note
 description: "The decision to use controlled English fables as source material for Romanian literary translation."
 tags: [translation, synthetic-data, romanian-nlp]
@@ -26,6 +26,6 @@ TF3 later adds Romanian-native generation, which lets the two regimes be studied
 
 ## The experimental path
 
-TF2 uses a [15K silver-reference set](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-15k) for instruction tuning and evaluation, then builds a [three-million-pair corpus](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-3m) at scale. Open models are compared with larger proprietary systems under corpus metrics and a five-dimensional rubric.
+TF2 uses a 15K silver-reference set for instruction tuning and evaluation, then builds a three-million-pair corpus at scale. The [paper](https://arxiv.org/abs/2509.07829v4) records both artifacts and compares open models with larger proprietary systems under corpus metrics and a five-dimensional rubric.
 
 The [TF2 paper](https://arxiv.org/abs/2509.07829) separates the 15K set, the large corpus, and the fine-tuned model. The 15K Romanian references are model-generated silver data, not human literary translations. Pairing makes their relationship to the English source inspectable; it does not remove translationese or turn synthetic references into a human standard.

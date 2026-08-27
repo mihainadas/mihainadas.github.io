@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img">
+  <title>Romanian diacritic restoration under increasing noise</title>
+  <desc>A line chart of word accuracy for dictionary, BiLSTM, ByT5, and Qwen3 LoRA systems from clean to highly corrupted text.</desc>
+  <rect width="1200" height="680" rx="28" fill="#111719"/>
+  <text x="70" y="70" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="18" font-weight="700">WORD ACCURACY · CRAWLER-1000</text>
+  <g font-family="system-ui, sans-serif">
+    <line x1="110" y1="140" x2="110" y2="545" stroke="#536064"/><line x1="110" y1="545" x2="860" y2="545" stroke="#536064"/>
+    <g stroke="#283336"><line x1="110" y1="140" x2="860" y2="140"/><line x1="110" y1="241" x2="860" y2="241"/><line x1="110" y1="343" x2="860" y2="343"/><line x1="110" y1="444" x2="860" y2="444"/></g>
+    <g fill="#9ca5a2" font-size="14"><text x="82" y="145">100</text><text x="88" y="246">75</text><text x="88" y="348">50</text><text x="88" y="449">25</text><text x="96" y="550">0</text><text x="150" y="580">clean</text><text x="365" y="580">low</text><text x="570" y="580">medium</text><text x="790" y="580">high</text></g>
+    <polyline points="175,165 390,172 605,216 820,260" fill="none" stroke="#efc978" stroke-width="5"/>
+    <polyline points="175,155 390,346 605,368 820,396" fill="none" stroke="#e87979" stroke-width="5"/>
+    <polyline points="175,173 390,235 605,265 820,299" fill="none" stroke="#8bb5ff" stroke-width="5"/>
+    <polyline points="175,347 390,330 605,360 820,393" fill="none" stroke="#b9d98d" stroke-width="5"/>
+    <g fill="#111719" stroke-width="4"><g stroke="#efc978"><circle cx="175" cy="165" r="7"/><circle cx="390" cy="172" r="7"/><circle cx="605" cy="216" r="7"/><circle cx="820" cy="260" r="7"/></g><g stroke="#e87979"><circle cx="175" cy="155" r="7"/><circle cx="390" cy="346" r="7"/><circle cx="605" cy="368" r="7"/><circle cx="820" cy="396" r="7"/></g><g stroke="#8bb5ff"><circle cx="175" cy="173" r="7"/><circle cx="390" cy="235" r="7"/><circle cx="605" cy="265" r="7"/><circle cx="820" cy="299" r="7"/></g><g stroke="#b9d98d"><circle cx="175" cy="347" r="7"/><circle cx="390" cy="330" r="7"/><circle cx="605" cy="360" r="7"/><circle cx="820" cy="393" r="7"/></g></g>
+    <rect x="910" y="140" width="225" height="300" rx="16" fill="#1b2427"/>
+    <g font-size="16"><circle cx="940" cy="185" r="6" fill="#efc978"/><text x="960" y="191" fill="#d9d9d2">Dictionary</text><circle cx="940" cy="239" r="6" fill="#e87979"/><text x="960" y="245" fill="#d9d9d2">BiLSTM 2.4M</text><circle cx="940" cy="293" r="6" fill="#8bb5ff"/><text x="960" y="299" fill="#d9d9d2">ByT5</text><circle cx="940" cy="347" r="6" fill="#b9d98d"/><text x="960" y="353" fill="#d9d9d2">Qwen3 LoRA</text></g>
+    <text x="940" y="403" fill="#9ca5a2" font-size="14">PRELIMINARY</text>
+    <text x="70" y="632" fill="#9ca5a2" font-size="17">Clean winner: BiLSTM 96.23 · High-noise winner: dictionary 70.31</text>
+  </g>
+</svg>

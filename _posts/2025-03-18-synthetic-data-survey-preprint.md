@@ -2,8 +2,9 @@
 layout: post
 title: "A Map of LLM-Generated Synthetic Data"
 date: 2025-03-18 14:00:00 +0200
-published_at: 2026-08-27 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+published_at: 2026-08-27
+feed_date: "2026-08-27"
+last_modified_at: 2026-08-27
 post_type: release note
 description: "The research map behind our survey of LLM-generated synthetic text and code, released as an arXiv preprint on 18 March 2025."
 redirect_from: /2025/03/31/synthetic-data-survey.html

@@ -2,8 +2,9 @@
 layout: post
 title: "TF3-RO: Training and Compressing a Romanian Model from Scratch"
 date: 2026-01-15 16:02:00 +0200
-published_at: 2026-08-27 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+published_at: 2026-08-27
+feed_date: "2026-08-27"
+last_modified_at: 2026-08-27
 post_type: release note
 description: "The tokenizer, 51.65M-parameter model, compressed student, and Romanian-native generation pipeline released with TF3-RO."
 featured: true

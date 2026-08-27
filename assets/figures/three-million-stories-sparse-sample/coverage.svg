@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="610" viewBox="0 0 1200 610" role="img">
+  <title>Coverage orders in a six-slot story corpus</title>
+  <desc>One trillion possible full specifications narrow to three million generated stories, while individual values and value pairs receive much denser expected coverage.</desc>
+  <rect width="1200" height="610" rx="28" fill="#111719"/>
+  <text x="70" y="72" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="18" font-weight="700" letter-spacing="2">COVERAGE HAS AN ORDER</text>
+  <text x="70" y="126" fill="#f2f0e8" font-family="system-ui, sans-serif" font-size="34" font-weight="700">Six slots × 100 values each</text>
+  <line x1="70" y1="163" x2="1130" y2="163" stroke="#3b474a"/>
+  <g font-family="system-ui, sans-serif">
+    <rect x="70" y="205" width="1060" height="90" rx="12" fill="#1b2427"/>
+    <text x="100" y="242" fill="#9ca5a2" font-size="16">FULL SPECIFICATIONS</text>
+    <text x="100" y="278" fill="#f2f0e8" font-size="28" font-weight="700">1,000,000,000,000 possible</text>
+    <rect x="70" y="325" width="750" height="90" rx="12" fill="#202b2e"/>
+    <text x="100" y="362" fill="#9ca5a2" font-size="16">GENERATED ROWS</text>
+    <text x="100" y="398" fill="#efc978" font-size="28" font-weight="700">3,000,000  ·  0.0003% at most</text>
+    <rect x="70" y="445" width="500" height="100" rx="12" fill="#263336"/>
+    <text x="100" y="482" fill="#9ca5a2" font-size="16">FIRST ORDER</text>
+    <text x="100" y="521" fill="#b9d98d" font-size="28" font-weight="700">≈ 30,000 / value</text>
+    <rect x="600" y="445" width="530" height="100" rx="12" fill="#263336"/>
+    <text x="630" y="482" fill="#9ca5a2" font-size="16">SECOND ORDER</text>
+    <text x="630" y="521" fill="#8bb5ff" font-size="28" font-weight="700">≈ 300 / cross-slot pair</text>
+  </g>
+  <text x="1130" y="584" text-anchor="end" fill="#77817f" font-family="ui-monospace, monospace" font-size="14">BALANCED-SAMPLING EXPECTATION</text>
+</svg>

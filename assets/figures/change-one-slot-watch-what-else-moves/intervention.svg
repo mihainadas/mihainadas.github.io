@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img">
+  <title>Paired interventions measure response and leakage</title>
+  <desc>Character interventions show full response and verifier-sensitive moral leakage, while moral interventions show high semantic response, lower verbatim response, and little character leakage.</desc>
+  <rect width="1200" height="650" rx="28" fill="#111719"/>
+  <text x="68" y="70" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="18" font-weight="700">CHANGE ONE SLOT · HOLD THE OTHERS FIXED</text>
+  <g font-family="system-ui, sans-serif">
+    <text x="68" y="133" fill="#9ca5a2" font-size="16">INTERVENTION</text><text x="388" y="133" fill="#9ca5a2" font-size="16">REQUESTED RESPONSE</text><text x="800" y="133" fill="#9ca5a2" font-size="16">UNWANTED LEAKAGE</text>
+    <rect x="68" y="165" width="1064" height="175" rx="16" fill="#1b2427"/>
+    <text x="100" y="215" fill="#f2f0e8" font-size="26" font-weight="700">Character A → B</text>
+    <text x="100" y="250" fill="#9ca5a2" font-size="16">200 matched pairs</text>
+    <rect x="388" y="196" width="330" height="93" rx="12" fill="#1e3029"/>
+    <text x="418" y="232" fill="#9ca5a2" font-size="15">character changed</text>
+    <text x="418" y="270" fill="#b9d98d" font-size="28" font-weight="700">100%  [98.1, 100]</text>
+    <rect x="800" y="196" width="300" height="93" rx="12" fill="#29282a"/>
+    <text x="830" y="232" fill="#9ca5a2" font-size="15">moral-realization verdict changed</text>
+    <text x="830" y="270" fill="#efc978" font-size="28" font-weight="700">4.0–18.5%</text>
+    <rect x="68" y="370" width="1064" height="200" rx="16" fill="#1b2427"/>
+    <text x="100" y="420" fill="#f2f0e8" font-size="26" font-weight="700">Moral A → B</text>
+    <text x="100" y="455" fill="#9ca5a2" font-size="16">200 matched pairs</text>
+    <rect x="388" y="401" width="330" height="125" rx="12" fill="#28302a"/>
+    <text x="418" y="437" fill="#9ca5a2" font-size="15">semantic response</text>
+    <text x="418" y="473" fill="#b9d98d" font-size="26" font-weight="700">87.5–98%</text>
+    <text x="418" y="506" fill="#efc978" font-size="17">verbatim: 33.5% [27.3, 40.3]</text>
+    <rect x="800" y="401" width="300" height="125" rx="12" fill="#29282a"/>
+    <text x="830" y="437" fill="#9ca5a2" font-size="15">character realization disturbed</text>
+    <text x="830" y="478" fill="#8bb5ff" font-size="27" font-weight="700">0.5%</text>
+    <text x="830" y="509" fill="#9ca5a2" font-size="15">[0.1, 2.8]</text>
+  </g>
+  <text x="68" y="616" fill="#9ca5a2" font-family="ui-monospace, monospace" font-size="14">THESIS-ONLY · TWO OF SIX SLOTS · ONE 4-BIT GENERATOR</text>
+</svg>

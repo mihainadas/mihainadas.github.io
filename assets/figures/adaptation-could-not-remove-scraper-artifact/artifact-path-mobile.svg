@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="990" viewBox="0 0 320 990" role="img">
+  <title>Observed path of a web scraper artifact through adaptation</title>
+  <desc>Mobile provenance path from suspected scraped text through a checkpoint and LoRA adaptation to an output that retains the artifact.</desc>
+  <rect width="320" height="990" rx="20" fill="#111719"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="22" y="42" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="11" font-weight="700">ONE OBSERVED ARTIFACT</text>
+    <rect x="22" y="72" width="276" height="150" rx="14" fill="#20282a"/><text x="42" y="108" fill="#9ca5a2" font-size="12">SUSPECTED SOURCE</text><text x="42" y="148" fill="#f2f0e8" font-size="20" font-weight="700">scraped web text</text><text x="42" y="184" fill="#d9d9d2" font-size="14">templates · iframe helpers</text>
+    <path d="M160 235 V268" stroke="#76878a" stroke-width="3"/><path d="M150 258 L160 270 L170 258" fill="none" stroke="#76878a" stroke-width="3"/>
+    <rect x="22" y="284" width="276" height="168" rx="14" fill="#242225"/><text x="42" y="320" fill="#9ca5a2" font-size="12">BASE CHECKPOINT</text><text x="42" y="360" fill="#f2f0e8" font-size="20" font-weight="700">LLMic_v2 3B</text><text x="42" y="400" fill="#efc978" font-family="ui-monospace, monospace" font-size="15">autoResizeIframe</text><text x="42" y="430" fill="#9ca5a2" font-size="13">word accuracy 0.00%</text>
+    <path d="M160 465 V498" stroke="#76878a" stroke-width="3"/><path d="M150 488 L160 500 L170 488" fill="none" stroke="#76878a" stroke-width="3"/>
+    <rect x="22" y="514" width="276" height="165" rx="14" fill="#1d2926"/><text x="42" y="550" fill="#9ca5a2" font-size="12">ADAPTATION</text><text x="42" y="590" fill="#f2f0e8" font-size="20" font-weight="700">LoRA rank 16</text><text x="42" y="630" fill="#d9d9d2" font-size="15">10,000 steps · 2× schedule</text>
+    <path d="M160 692 V725" stroke="#76878a" stroke-width="3"/><path d="M150 715 L160 727 L170 715" fill="none" stroke="#76878a" stroke-width="3"/>
+    <rect x="22" y="741" width="276" height="165" rx="14" fill="#2a2020" stroke="#6f4848"/><text x="42" y="777" fill="#9ca5a2" font-size="12">OUTPUT</text><text x="42" y="817" fill="#efc978" font-size="21" font-weight="700">artifact remains</text><text x="42" y="857" fill="#9ca5a2" font-size="13">word accuracy 1.45%</text>
+    <text x="22" y="950" fill="#f2f0e8" font-size="15" font-weight="700">Decision: reject or quarantine.</text>
+  </g>
+</svg>

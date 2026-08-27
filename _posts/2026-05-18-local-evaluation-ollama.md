@@ -2,8 +2,9 @@
 layout: post
 title: "A Defensive Ollama Client for Local Judge Inference"
 date: 2026-05-18 16:00:00 +0300
-published_at: 2026-08-27 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+published_at: 2026-08-27
+feed_date: "2026-08-27"
+last_modified_at: 2026-08-27
 post_type: engineering note
 description: "A corrected native Ollama API example with schema-constrained output, non-streaming responses, timeouts, parsing, and validation."
 featured: true

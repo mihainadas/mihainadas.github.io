@@ -2,7 +2,7 @@
 layout: post
 title: "Three Decisions at the Start of the PhD"
 date: 2024-10-28 18:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A reconstruction of the three early research decisions behind TinyFabulist, and which ones survived contact with the work."
 tags: [phd, natural-language-processing, romanian-nlp]

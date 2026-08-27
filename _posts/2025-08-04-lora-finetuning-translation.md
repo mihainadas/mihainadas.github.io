@@ -2,7 +2,7 @@
 layout: post
 title: "What LoRA Changes in the TF2 Translation System"
 date: 2025-08-04 14:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: engineering note
 description: "The role of low-rank adaptation, quantization, and the 15K reference set in TF2."
 tags: [language-models, translation, fine-tuning]

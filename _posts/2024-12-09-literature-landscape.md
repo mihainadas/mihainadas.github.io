@@ -2,7 +2,7 @@
 layout: post
 title: "Papers That Changed the TinyFabulist Design"
 date: 2024-12-09 14:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A literature note organized around design changes rather than a generic reading workflow."
 tags: [synthetic-data, evaluation, language-models]

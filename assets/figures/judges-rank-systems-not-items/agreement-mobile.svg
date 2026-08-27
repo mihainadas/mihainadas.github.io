@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1030" viewBox="0 0 320 1030" role="img">
+  <title>Judge agreement differs by unit of analysis</title>
+  <desc>Mobile diagram showing weak item agreement, strong ranking agreement, and an unrun human gate.</desc>
+  <rect width="320" height="1030" rx="20" fill="#111719"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="22" y="43" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="11" font-weight="700">ONE PANEL · TWO UNITS</text>
+    <rect x="22" y="72" width="276" height="255" rx="14" fill="#242225"/>
+    <text x="42" y="112" fill="#f2f0e8" font-size="21" font-weight="700">Individual items</text>
+    <text x="42" y="155" fill="#9ca5a2" font-size="13">Krippendorff α</text><text x="42" y="191" fill="#efc978" font-size="24" font-weight="700">−.34 to +.12</text>
+    <text x="42" y="232" fill="#9ca5a2" font-size="13">mean weighted κ</text><text x="42" y="268" fill="#efc978" font-size="24" font-weight="700">−.02 to +.15</text>
+    <text x="42" y="302" fill="#d9d9d2" font-size="14">weak label agreement</text>
+    <path d="M160 341 V378" stroke="#76878a" stroke-width="3"/><path d="M150 368 L160 380 L170 368" fill="none" stroke="#76878a" stroke-width="3"/>
+    <rect x="22" y="393" width="276" height="270" rx="14" fill="#1d2926"/>
+    <text x="42" y="433" fill="#f2f0e8" font-size="21" font-weight="700">System ranking</text>
+    <text x="42" y="477" fill="#9ca5a2" font-size="13">paper protocol</text><text x="42" y="514" fill="#b9d98d" font-size="24" font-weight="700">ρ .93 · τ .78</text>
+    <text x="42" y="558" fill="#9ca5a2" font-size="13">composition analysis</text><text x="42" y="595" fill="#b9d98d" font-size="24" font-weight="700">ρ .952 · τ .822</text>
+    <text x="42" y="637" fill="#d9d9d2" font-size="14">useful aggregate ordering</text>
+    <path d="M160 677 V714" stroke="#76878a" stroke-width="3" stroke-dasharray="6 6"/><path d="M150 704 L160 716 L170 704" fill="none" stroke="#76878a" stroke-width="3"/>
+    <rect x="22" y="729" width="276" height="232" rx="14" fill="#20282a" stroke="#6c5b39"/>
+    <text x="42" y="770" fill="#f2f0e8" font-size="21" font-weight="700">Human gate</text>
+    <text x="42" y="815" fill="#9ca5a2" font-size="14">human judgments</text><text x="42" y="858" fill="#efc978" font-size="25" font-weight="700">3,588 → 255</text>
+    <text x="42" y="887" fill="#9ca5a2" font-size="13">85 cases × 3 people</text>
+    <text x="42" y="917" fill="#efc978" font-size="16" font-weight="700">NOT YET RUN</text>
+  </g>
+</svg>

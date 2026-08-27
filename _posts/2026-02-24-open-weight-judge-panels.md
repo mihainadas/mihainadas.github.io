@@ -2,7 +2,7 @@
 layout: post
 title: "Decision Gates for an Open-Weight Judge Panel"
 date: 2026-02-24 13:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: method note
 description: "The locked tests and unresolved decisions that stand between an open-weight judge panel and research use."
 tags: [evaluation, language-models, methodology]
@@ -10,7 +10,7 @@ tags: [evaluation, language-models, methodology]
 
 A panel is not safer because it has more model names in it. If three related judges share the same preference, averaging them turns correlated error into a confident decimal.
 
-> **Status, August 2026.** Validation remains in progress. Candidate checkpoints, sample size, aggregation, and numerical thresholds are unresolved. This is a gate document, not a runnable protocol or a result.
+> **Status, 27 August 2026.** This note preserves the gate before execution. The later study fixed the panel, ran the cross-stage benchmark and bias audit, and left human anchoring explicitly undone. [The results note separates the model-ranking evidence from the missing human-validation step]({{ '/2026/08/27/judges-rank-systems-not-items.html' | relative_url }}).
 
 The current decision record separates what is already locked from what still blocks execution:
 
@@ -22,7 +22,7 @@ The current decision record separates what is already locked from what still blo
 | Family test | repeat the conclusion after replacing one judge family | candidate checkpoints and tolerance |
 | Aggregation | expose per-judge distributions before any panel statistic | rule, interval, decision threshold |
 
-Until the right-hand column is filled and preregistered, the work stays a method study.
+The right-hand column records what still blocked execution when this gate was written. The subsequent study resolved the model, sample, and aggregation choices; the human-arbitration gate remains open.
 
 ## The first test is literal
 

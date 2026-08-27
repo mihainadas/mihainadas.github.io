@@ -2,7 +2,7 @@
 layout: post
 title: "One Year In: The Decisions Behind the Output"
 date: 2025-10-27 20:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A first-year PhD retrospective focused on the decisions, delays, and failures behind the papers and datasets."
 tags: [phd, research-practice]

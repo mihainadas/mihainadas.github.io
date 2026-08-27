@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img">
+  <title>Bootstrap design follows comparison structure</title>
+  <desc>Independent samples are resampled separately, matched items are resampled as intact pairs, and a missing item record prevents a paired confidence interval.</desc>
+  <rect width="1200" height="650" rx="28" fill="#111719"/>
+  <text x="64" y="70" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="18" font-weight="700" letter-spacing="2">THE INTERVAL BELONGS TO THE COMPARISON</text>
+  <g font-family="system-ui, sans-serif">
+    <rect x="64" y="118" width="514" height="330" rx="18" fill="#1b2427"/>
+    <text x="96" y="160" fill="#f2f0e8" font-size="25" font-weight="700">Different stories</text>
+    <text x="96" y="194" fill="#9ca5a2" font-size="17">TF1 · disjoint model samples</text>
+    <rect x="96" y="233" width="180" height="58" rx="8" fill="#273336"/>
+    <rect x="330" y="233" width="180" height="58" rx="8" fill="#273336"/>
+    <text x="186" y="269" text-anchor="middle" fill="#d9d9d2" font-size="17">sample A</text>
+    <text x="420" y="269" text-anchor="middle" fill="#d9d9d2" font-size="17">sample B</text>
+    <path d="M186 299 V345 M420 299 V345" stroke="#8bb5ff" stroke-width="3"/>
+    <text x="303" y="379" text-anchor="middle" fill="#8bb5ff" font-size="20" font-weight="700">resample independently</text>
+    <text x="303" y="414" text-anchor="middle" fill="#9ca5a2" font-size="16">then subtract the means</text>
+    <rect x="622" y="118" width="514" height="330" rx="18" fill="#1b2427"/>
+    <text x="654" y="160" fill="#f2f0e8" font-size="25" font-weight="700">Same items</text>
+    <text x="654" y="194" fill="#9ca5a2" font-size="17">TF2 · matched system outputs</text>
+    <g fill="#273336">
+      <rect x="654" y="226" width="450" height="46" rx="7"/><rect x="654" y="282" width="450" height="46" rx="7"/><rect x="654" y="338" width="450" height="46" rx="7"/>
+    </g>
+    <g fill="#d9d9d2" font-size="16">
+      <text x="677" y="256">item 17</text><text x="825" y="256">system A</text><text x="992" y="256">system B</text>
+      <text x="677" y="312">item 42</text><text x="825" y="312">system A</text><text x="992" y="312">system B</text>
+      <text x="677" y="368">item 91</text><text x="825" y="368">system A</text><text x="992" y="368">system B</text>
+    </g>
+    <text x="879" y="418" text-anchor="middle" fill="#b9d98d" font-size="20" font-weight="700">resample intact rows</text>
+    <rect x="64" y="488" width="1072" height="100" rx="14" fill="#2a2020" stroke="#6f4848"/>
+    <text x="96" y="529" fill="#efc978" font-size="18" font-weight="700">NO PER-ITEM OUTPUTS</text>
+    <text x="96" y="563" fill="#d9d9d2" font-size="19">A mean cannot reconstruct covariance. Stop: no paired interval, no parity claim.</text>
+  </g>
+</svg>

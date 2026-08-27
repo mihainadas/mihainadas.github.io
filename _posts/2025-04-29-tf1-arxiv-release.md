@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "TF1-EN-3M: From Six Slots to Three Million Fables"
-date: 2025-04-29 10:15:00 +0300
-published_at: 2026-08-27 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+date: 2025-04-29 13:15:28 +0300
+published_at: 2026-08-27
+feed_date: "2026-08-27"
+last_modified_at: 2026-08-27
 post_type: release note
 description: "What TF1-EN-3M released, what the ten-model comparison measured, and where reproducibility still has boundaries."
 featured: true
@@ -16,7 +17,7 @@ Six structured fields became three million English fables at a reported generati
 > **Version note.** This retrospective was published here in August 2026. Cost and evaluation details below follow [arXiv v2](https://arxiv.org/abs/2504.20605v2), submitted in May 2026, rather than the shorter 2025 submission.
 
 - [Paper](https://arxiv.org/abs/2504.20605)
-- [Dataset](https://huggingface.co/datasets/klusai/ds-tf1-en-3m)
+- [Paper and release record](https://arxiv.org/abs/2504.20605)
 
 TF1-EN-3M was first submitted to arXiv on 29 April 2025. The release combines the dataset, generation and evaluation code, and the paper describing the pipeline.
 

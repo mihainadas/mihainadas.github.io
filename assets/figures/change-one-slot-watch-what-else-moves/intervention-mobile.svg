@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1110" viewBox="0 0 320 1110" role="img">
+  <title>Paired interventions measure response and leakage</title>
+  <desc>Character interventions show full response and verifier-sensitive moral leakage; moral interventions show high semantic response and little character leakage.</desc>
+  <rect width="320" height="1110" rx="20" fill="#111719"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="22" y="42" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="11" font-weight="700">CHANGE ONE SLOT</text>
+    <text x="22" y="72" fill="#f2f0e8" font-size="20" font-weight="700">Watch what else moves</text>
+    <rect x="22" y="105" width="276" height="430" rx="14" fill="#1b2427"/>
+    <text x="42" y="148" fill="#f2f0e8" font-size="21" font-weight="700">Character A → B</text><text x="42" y="178" fill="#9ca5a2" font-size="13">200 matched pairs</text>
+    <rect x="42" y="211" width="236" height="125" rx="10" fill="#1e3029"/>
+    <text x="60" y="245" fill="#9ca5a2" font-size="13">REQUESTED RESPONSE</text><text x="60" y="285" fill="#b9d98d" font-size="24" font-weight="700">100%</text><text x="60" y="316" fill="#d9d9d2" font-size="14">[98.1, 100]</text>
+    <rect x="42" y="356" width="236" height="135" rx="10" fill="#29282a"/>
+    <text x="60" y="390" fill="#9ca5a2" font-size="13">MORAL LEAKAGE</text><text x="60" y="430" fill="#efc978" font-size="24" font-weight="700">4.0–18.5%</text><text x="60" y="461" fill="#d9d9d2" font-size="14">verifier-dependent</text>
+    <rect x="22" y="565" width="276" height="455" rx="14" fill="#1b2427"/>
+    <text x="42" y="608" fill="#f2f0e8" font-size="21" font-weight="700">Moral A → B</text><text x="42" y="638" fill="#9ca5a2" font-size="13">200 matched pairs</text>
+    <rect x="42" y="671" width="236" height="145" rx="10" fill="#28302a"/>
+    <text x="60" y="705" fill="#9ca5a2" font-size="13">SEMANTIC RESPONSE</text><text x="60" y="745" fill="#b9d98d" font-size="24" font-weight="700">87.5–98%</text><text x="60" y="782" fill="#efc978" font-size="13">verbatim 33.5%</text>
+    <rect x="42" y="836" width="236" height="145" rx="10" fill="#29282a"/>
+    <text x="60" y="870" fill="#9ca5a2" font-size="13">CHARACTER LEAKAGE</text><text x="60" y="910" fill="#8bb5ff" font-size="24" font-weight="700">0.5%</text><text x="60" y="947" fill="#9ca5a2" font-size="13">[0.1, 2.8]</text>
+    <text x="22" y="1068" fill="#77817f" font-family="ui-monospace, monospace" font-size="10">THESIS-ONLY · 2 OF 6 SLOTS</text>
+  </g>
+</svg>

@@ -2,7 +2,7 @@
 layout: post
 title: "The Artifact Chain Behind TinyFabulist"
 date: 2026-04-14 11:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: research note
 description: "How TF1 generation, TF2 translation, and TF3 training connect—and where the evidence stops at each handoff."
 tags: [synthetic-data, language-models, evaluation]
@@ -18,9 +18,9 @@ The three-million-item Romanian corpus is TF3 output, not TF3 training input. Re
 
 ## Follow one record through the chain
 
-A TF1 record begins with a structured request, becomes an English fable, and keeps its prompt, model, decoding setup, and generation metadata. The [TF1-EN-3M release](https://huggingface.co/datasets/klusai/ds-tf1-en-3m) contains three million such records; the [paper](https://arxiv.org/abs/2504.20605) compares ten generators on 100 prompts each.
+A TF1 record begins with a structured request, becomes an English fable, and keeps its prompt, model, decoding setup, and generation metadata. The [TF1 paper and release record](https://arxiv.org/abs/2504.20605) describes three million such records and compares ten generators on 100 prompts each.
 
-TF2 takes the English text as source material. GPT-o3 supplies 15,000 Romanian silver references, of which 12,000 train the adapters. The tuned models then support the [three-million-pair release](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-3m). That order explains why the 15K set, scale corpus, and model checkpoints need different names. The [TF2 paper](https://arxiv.org/abs/2509.07829v4) records the 4.43-to-4.83 rubric change and the BLEU comparison.
+TF2 takes the English text as source material. GPT-o3 supplies 15,000 Romanian silver references, of which 12,000 train the adapters. The tuned models then support the three-million-pair release. That order explains why the 15K set, scale corpus, and model checkpoints need different names. The [TF2 paper](https://arxiv.org/abs/2509.07829v4) records the artifacts, the 4.43-to-4.83 rubric change, and the BLEU comparison.
 
 TF3 consumes translated Romanian training text and starts a 51.65M-parameter model from random weights. Compression yields a separate 26.45M student. Only after training does the pipeline generate three million new fables directly in Romanian. The [TF3 paper](https://arxiv.org/abs/2601.10410) carries the tokenizer, training, compression, and probe results.
 

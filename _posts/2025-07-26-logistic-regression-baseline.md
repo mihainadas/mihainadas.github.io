@@ -2,8 +2,9 @@
 layout: post
 title: "A Logistic-Regression Baseline Worth Keeping"
 date: 2025-07-26 10:00:00 +0300
-published_at: 2026-08-27 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+published_at: 2026-08-27
+feed_date: "2026-08-27"
+last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A July 2025 notebook repaired to make scaling, class semantics, stratification, and uncertainty explicit."
 tags: [machine-learning, scikit-learn, notebooks]

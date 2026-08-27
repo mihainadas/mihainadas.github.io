@@ -2,7 +2,7 @@
 layout: post
 title: "Romanian Diacritics: The Errors Hidden by Overall Accuracy"
 date: 2025-09-29 17:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: research note
 description: "Why Romanian diacritic restoration needs context-sensitive examples, task-specific denominators, and a measure of unwanted edits."
 tags: [romanian-nlp, evaluation, natural-language-processing]

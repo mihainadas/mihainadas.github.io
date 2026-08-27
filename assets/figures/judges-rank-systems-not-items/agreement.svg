@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img">
+  <title>Judge agreement differs by unit of analysis</title>
+  <desc>Weak agreement on individual items leads to strong aggregate rank agreement under the tested protocol, but a planned human arbitration gate remains unrun.</desc>
+  <rect width="1200" height="630" rx="28" fill="#111719"/>
+  <text x="66" y="72" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="18" font-weight="700">ONE PANEL · TWO UNITS OF USE</text>
+  <g font-family="system-ui, sans-serif">
+    <rect x="66" y="122" width="326" height="380" rx="18" fill="#242225"/>
+    <text x="98" y="166" fill="#f2f0e8" font-size="24" font-weight="700">Individual items</text>
+    <text x="98" y="205" fill="#9ca5a2" font-size="16">Krippendorff α</text>
+    <text x="98" y="254" fill="#efc978" font-size="34" font-weight="700">−0.34 to +0.12</text>
+    <text x="98" y="310" fill="#9ca5a2" font-size="16">mean weighted κ</text>
+    <text x="98" y="359" fill="#efc978" font-size="34" font-weight="700">−0.02 to +0.15</text>
+    <line x1="98" y1="405" x2="360" y2="405" stroke="#4c4245"/>
+    <text x="98" y="447" fill="#d9d9d2" font-size="18">Weak label-level agreement</text>
+    <path d="M411 312 H477" stroke="#76878a" stroke-width="3"/><path d="M466 301 L479 312 L466 323" fill="none" stroke="#76878a" stroke-width="3"/>
+    <rect x="496" y="122" width="326" height="380" rx="18" fill="#1d2926"/>
+    <text x="528" y="166" fill="#f2f0e8" font-size="24" font-weight="700">System ranking</text>
+    <text x="528" y="205" fill="#9ca5a2" font-size="16">TF1 paper protocol</text>
+    <text x="528" y="254" fill="#b9d98d" font-size="34" font-weight="700">ρ .93 · τ .78</text>
+    <text x="528" y="310" fill="#9ca5a2" font-size="16">full-panel composition</text>
+    <text x="528" y="359" fill="#b9d98d" font-size="34" font-weight="700">ρ .952 · τ .822</text>
+    <line x1="528" y1="405" x2="790" y2="405" stroke="#405049"/>
+    <text x="528" y="447" fill="#d9d9d2" font-size="18">Useful aggregate ordering</text>
+    <path d="M841 312 H907" stroke="#76878a" stroke-width="3" stroke-dasharray="7 7"/><path d="M896 301 L909 312 L896 323" fill="none" stroke="#76878a" stroke-width="3"/>
+    <rect x="926" y="122" width="208" height="380" rx="18" fill="#20282a" stroke="#6c5b39"/>
+    <text x="958" y="166" fill="#f2f0e8" font-size="24" font-weight="700">Human gate</text>
+    <text x="958" y="221" fill="#d9d9d2" font-size="18">Human judgments:</text>
+    <text x="958" y="266" fill="#efc978" font-size="29" font-weight="700">3,588 → 255</text>
+    <text x="958" y="318" fill="#9ca5a2" font-size="16">85 cases × 3 annotators</text>
+    <line x1="958" y1="365" x2="1102" y2="365" stroke="#4f493b"/>
+    <text x="958" y="411" fill="#efc978" font-size="17" font-weight="700">NOT YET RUN</text>
+  </g>
+  <text x="66" y="571" fill="#9ca5a2" font-family="system-ui, sans-serif" font-size="17">Measured: panel ranking. Not measured: human-grounded item acceptance.</text>
+</svg>

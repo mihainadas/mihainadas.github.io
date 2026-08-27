@@ -2,7 +2,7 @@
 layout: post
 title: "A Perceptron You Can Audit"
 date: 2025-01-04 19:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A January 2025 perceptron notebook rebuilt around inspectable updates, deterministic data, and explicit limits."
 featured: true

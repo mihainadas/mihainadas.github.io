@@ -2,7 +2,7 @@
 layout: post
 title: "The 546× Speedup That Wasn't One Number"
 date: 2025-01-07 10:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: retrospective
 description: "Why a one-shot NumPy benchmark was not publishable, and the small protocol that replaced it."
 redirect_from: /2025/01/07/numpy-vs-python.html

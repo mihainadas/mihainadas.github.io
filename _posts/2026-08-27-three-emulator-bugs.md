@@ -2,6 +2,7 @@
 layout: post
 title: "Three Emulator Bugs, Three Different Tests"
 date: 2026-08-27 00:00:00 +0300
+feed_date: "2026-08-27 00:00:00 +0300"
 post_type: engineering note
 description: "Printer output, audio hardware, and memory bookkeeping needed different tests—and the same discipline about what each fix established."
 featured: true

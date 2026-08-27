@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="1110" viewBox="0 0 320 1110" role="img">
+  <title>Bootstrap design follows comparison structure</title>
+  <desc>Mobile diagram of independent, paired, and blocked bootstrap cases.</desc>
+  <rect width="320" height="1110" rx="20" fill="#111719"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="22" y="43" fill="#d2a85a" font-family="ui-monospace, monospace" font-size="11" font-weight="700">THE COMPARISON SETS THE METHOD</text>
+    <rect x="22" y="75" width="276" height="330" rx="14" fill="#1b2427"/>
+    <text x="42" y="118" fill="#f2f0e8" font-size="22" font-weight="700">Different stories</text>
+    <text x="42" y="151" fill="#9ca5a2" font-size="14">TF1 · disjoint samples</text>
+    <rect x="42" y="191" width="104" height="62" rx="7" fill="#273336"/><rect x="174" y="191" width="104" height="62" rx="7" fill="#273336"/>
+    <text x="94" y="229" text-anchor="middle" fill="#d9d9d2" font-size="14">sample A</text><text x="226" y="229" text-anchor="middle" fill="#d9d9d2" font-size="14">sample B</text>
+    <path d="M94 264 V305 M226 264 V305" stroke="#8bb5ff" stroke-width="3"/>
+    <text x="160" y="339" text-anchor="middle" fill="#8bb5ff" font-size="17" font-weight="700">resample separately</text>
+    <text x="160" y="371" text-anchor="middle" fill="#9ca5a2" font-size="14">then subtract means</text>
+    <rect x="22" y="435" width="276" height="400" rx="14" fill="#1b2427"/>
+    <text x="42" y="478" fill="#f2f0e8" font-size="22" font-weight="700">Same items</text>
+    <text x="42" y="511" fill="#9ca5a2" font-size="14">TF2 · matched outputs</text>
+    <g fill="#273336"><rect x="42" y="550" width="236" height="57" rx="7"/><rect x="42" y="621" width="236" height="57" rx="7"/><rect x="42" y="692" width="236" height="57" rx="7"/></g>
+    <g fill="#d9d9d2" font-size="13"><text x="58" y="584">item 17</text><text x="132" y="584">A</text><text x="218" y="584">B</text><text x="58" y="655">item 42</text><text x="132" y="655">A</text><text x="218" y="655">B</text><text x="58" y="726">item 91</text><text x="132" y="726">A</text><text x="218" y="726">B</text></g>
+    <text x="160" y="790" text-anchor="middle" fill="#b9d98d" font-size="17" font-weight="700">resample intact rows</text>
+    <rect x="22" y="865" width="276" height="190" rx="14" fill="#2a2020" stroke="#6f4848"/>
+    <text x="42" y="909" fill="#efc978" font-size="13" font-weight="700">NO PER-ITEM OUTPUTS</text>
+    <text x="42" y="950" fill="#d9d9d2" font-size="15">A mean cannot recover</text><text x="42" y="977" fill="#d9d9d2" font-size="15">covariance.</text>
+    <text x="42" y="1020" fill="#efc978" font-size="15" font-weight="700">No paired interval.</text>
+  </g>
+</svg>

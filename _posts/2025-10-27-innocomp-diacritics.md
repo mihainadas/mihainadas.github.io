@@ -2,8 +2,9 @@
 layout: post
 title: "What the Diacritics Study Measured at InnoComp 2025"
 date: 2025-10-27 19:00:00 +0200
-published_at: 2026-08-27 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+published_at: 2026-08-27
+feed_date: "2026-08-27"
+last_modified_at: 2026-08-27
 post_type: research note
 description: "A bounded account of the Romanian diacritic-restoration comparison presented at InnoComp 2025."
 redirect_from: /2025/11/17/innocomp-diacritics.html

@@ -2,8 +2,9 @@
 layout: post
 title: "TF2: Open Models for English–Romanian Literary Translation"
 date: 2025-09-09 18:07:00 +0300
-published_at: 2026-08-27 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+published_at: 2026-08-27
+feed_date: "2026-08-27"
+last_modified_at: 2026-08-27
 post_type: release note
 description: "The model family, 15K silver-reference set, and three-million-pair corpus released with the TF2 preprint."
 featured: true
@@ -17,8 +18,7 @@ The 15K and three-million-pair releases must not be called one dataset. The firs
 
 - [Journal article](https://doi.org/10.3389/frai.2026.1807431)
 - [Versioned preprint](https://arxiv.org/abs/2509.07829v4)
-- [Three-million-pair corpus](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-3m)
-- [Curated 15K set](https://huggingface.co/datasets/klusai/ds-tf2-en-ro-15k)
+- [Versioned preprint and artifact record](https://arxiv.org/abs/2509.07829v4)
 
 ## Two sets, two jobs
 

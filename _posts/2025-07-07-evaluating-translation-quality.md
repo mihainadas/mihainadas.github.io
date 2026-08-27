@@ -2,7 +2,7 @@
 layout: post
 title: "When BLEU and a Literary Rubric Answer Different Questions"
 date: 2025-07-07 10:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: research note
 description: "Why TF2 reports an overlap metric and a five-dimensional literary rubric instead of collapsing quality into one score."
 tags: [evaluation, translation, natural-language-processing]

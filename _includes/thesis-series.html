@@ -1,0 +1,13 @@
+{% assign thesis_posts = site.posts | where: "series", "controlled-synthetic-narratives" | sort: "series_order" %}
+<aside class="series-note" aria-labelledby="thesis-series-heading">
+  <p class="series-note__label">Thesis evidence series</p>
+  <h2 id="thesis-series-heading">Controlled synthetic narratives</h2>
+  <ol>
+    {% for series_post in thesis_posts %}
+      <li{% if series_post.url == page.url %} aria-current="page"{% endif %}>
+        {% if series_post.url == page.url %}<span>{{ series_post.title }}</span>{% else %}<a href="{{ series_post.url | relative_url }}">{{ series_post.title }}</a>{% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+  <p>The series begins with the proposal-stage thesis synthesis and traces each result to published, accepted, or thesis-only evidence.</p>
+</aside>

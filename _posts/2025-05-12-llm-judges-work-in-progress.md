@@ -2,7 +2,7 @@
 layout: post
 title: "Treating LLM Judges as Measurement Instruments"
 date: 2025-05-12 15:00:00 +0300
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: research note
 description: "The A/B swap test and evaluation record required before model-judge scores reach the corpus."
 tags: [evaluation, language-models, research]

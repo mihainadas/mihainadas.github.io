@@ -420,6 +420,31 @@ blockquote {
   padding: 0.85rem 1.15rem;
 }
 
+.series-note {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  margin: 4rem 0 1rem;
+  padding: 1.35rem 1.45rem 1.15rem;
+}
+
+.series-note__label {
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+}
+
+.series-note h2 { font-size: 1.35rem; margin: 0 0 1rem; }
+.series-note ol { margin: 0 0 1rem 1.3rem; }
+.series-note li { color: var(--muted); padding: 0.2rem 0 0.2rem 0.25rem; }
+.series-note li[aria-current="page"] { color: var(--ink); font-weight: 650; }
+.series-note a { text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+.series-note > p:last-child { border-top: 1px solid var(--line); color: var(--copy-muted); font-size: 0.86rem; margin: 1rem 0 0; padding-top: 0.9rem; }
+
 .content-figure,
 .career-thread { margin: 3rem 0; }
 

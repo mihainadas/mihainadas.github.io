@@ -2,17 +2,19 @@
 layout: post
 title: "What Must Be Fixed Before the Diacritics Comparison"
 date: 2026-03-17 14:00:00 +0200
-last_modified_at: 2026-08-27 10:00:00 +0300
+last_modified_at: 2026-08-27
 post_type: method note
 description: "The locked measures and unresolved design choices for comparing Romanian diacritic-restoration systems."
 tags: [romanian-nlp, language-models, evaluation]
 ---
 
+> **Status, 27 August 2026.** The comparison described here has now run. [The results separate the clean-text winner from the model that survives corrupted input]({{ '/2026/08/27/small-model-diacritics-noise.html' | relative_url }}); [a second note records the single-checkpoint contamination failure]({{ '/2026/08/27/adaptation-could-not-remove-scraper-artifact.html' | relative_url }}).
+
 A 7B decoder has no place behind a keyboard if a constrained character model restores the same marks faster and with fewer unwanted edits. The generative system has to earn its latency.
 
 The first draft used an unsupported novelty claim and hinted at a result without publishing the table. I removed both.
 
-> **Status, August 2026.** The comparison is not ready to run. Candidate checkpoints, dataset versions, split sizes, corruption rates, latency budgets, and acceptance thresholds remain open.
+> **Original status, March 2026.** The comparison was not ready to run. Candidate checkpoints, dataset versions, split sizes, corruption rates, latency budgets, and acceptance thresholds remained open.
 
 The parts already fixed are narrower. Prompted InnoComp baselines, constrained character or sequence models, and fine-tuned 1B–8B decoders will use identical splits. Corruption happens after the split. Each result carries the corpus license, extraction date, normalization, and deduplication record.
 
