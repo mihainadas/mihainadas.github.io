@@ -1,59 +1,41 @@
 ---
 layout: post
-title: "Designing Open-Weight Judge Panels for Text Evaluation"
+title: "A Validation Plan for Open-Weight Judge Panels"
 date: 2026-02-24 13:00:00 +0200
-tags:
-  - evaluation
-  - language-models
-  - natural-language-processing
+last_modified_at: 2026-08-27 10:00:00 +0300
+post_type: experiment plan
+description: "How an open-weight judge panel should be validated before its aggregate scores are treated as research evidence."
+tags: [evaluation, language-models, methodology]
 ---
 
-One of the questions I have been exploring this year is whether a carefully designed panel of open-weight language models can serve as a reliable, reusable evaluation system across different text generation tasks. This post describes the methodology and rationale behind this work, which is still in progress.
+This design asks under what conditions a panel of open-weight models can provide useful evaluation across generation, translation, and Romanian-native text.
 
-## The Problem with Single-Model Evaluation
+> **Status, August 2026.** Validation remains in progress. This note records the planned comparisons and does not report a panel-level result.
 
-The most common approach to LLM-based evaluation is to use a single powerful model -- typically GPT-4 or a comparable proprietary system -- as the sole judge. This works well enough for many purposes, but it has limitations:
+Single-judge evaluation concentrates bias, version risk, and access cost. A panel can reduce that dependence only if its members make meaningfully different errors and the aggregation rule is defined before results are inspected.
 
-- **Single point of failure.** If the judge model has a systematic bias, every evaluation inherits that bias.
-- **Cost and access.** Proprietary API calls add up, especially at scale. Access terms can change without notice.
-- **Reproducibility.** Proprietary models are versioned opaquely. Results from GPT-4 in January may not match GPT-4 in June.
+## Constraints on panel composition
 
-The alternative I am exploring is a **panel of diverse open-weight judges**: multiple models from different families that evaluate independently, with scores aggregated through majority vote or averaging.
+**Family diversity.** Closely related checkpoints may share training data, preferences, and failure modes. Model count is not independence.
 
-## Design Principles
+**Separation from generators.** A judge from the same family as the generator can introduce self-preference. Where full separation is impossible, the overlap must be reported and tested.
 
-Three principles guide the panel design:
+**Task coverage.** TF1 grammar/adherence, TF2 literary translation, and TF3 Romanian generation use different rubrics. A reusable panel must demonstrate transfer rather than assume it.
 
-### Family Diversity
+## Define disagreement before aggregation
 
-The judges must come from different model families. If all three judges are Llama variants, their biases are likely correlated and the panel adds little value over a single model. By drawing from distinct families (e.g., Granite, EXAONE), the biases are less likely to align, and aggregated scores are more robust.
+Mean scores can hide a judge that systematically uses a different scale. Majority vote discards distance. An arbiter introduces another model and another bias source.
 
-### Independence from Generators
+The validation record therefore needs per-judge distributions, pairwise agreement, rank correlations, disagreement thresholds, and the exact rule that maps individual outputs to a panel decision.
 
-The judge models must not come from the same family as the models that generated the text being evaluated. This prevents self-preference bias -- the well-documented tendency for models to rate outputs from similar architectures more favorably.
+## Reference comparisons
 
-### Task Transferability
+Three comparisons serve different purposes:
 
-The panel should work across different evaluation tasks without redesigning it from scratch. My thesis involves three distinct tasks:
+1. **Human ratings** on stratified samples, including easy cases and known disagreements.
+2. **Proprietary-model baselines** for continuity with earlier work—not as ground truth.
+3. **Perturbation tests** for order, length, style, and family cues that should not change the substantive judgment.
 
-1. **TF1**: Evaluating English fable generation (grammar, creativity, moral clarity, adherence)
-2. **TF2**: Evaluating EN-RO literary translation (accuracy, fluency, coherence, style, cultural adaptation)
-3. **TF3**: Evaluating Romanian native generation (the same TF1 dimensions, applied to Romanian text)
+Work such as [MT-Bench](https://arxiv.org/abs/2306.05685) and [Large Language Models are not Fair Evaluators](https://arxiv.org/abs/2305.17926) motivates these checks. The target result is not “open panels are better.” It is a map of tasks and conditions under which their error is acceptable for a stated use.
 
-A panel that requires different judges for each task would be impractical. The hypothesis is that a single diverse panel, given appropriate rubrics, can handle all three.
-
-## What "Works" Means
-
-Evaluating an evaluation system is inherently circular, so the validation approach matters. I am using several complementary methods:
-
-**Inter-judge agreement.** How often do the panel members agree? High agreement on clear cases and meaningful disagreement on ambiguous cases is the desired pattern.
-
-**Correlation with proprietary baselines.** Do panel scores correlate with scores from GPT-4? This is not the gold standard (GPT-4 has its own biases), but large discrepancies warrant investigation.
-
-**Human arbitration.** For a subset of cases where the panel disagrees with the proprietary baseline, human evaluators adjudicate. This is the most expensive validation step but the most informative.
-
-## What I Am Not Claiming
-
-This work is in progress, and I want to be clear about its scope. I am not claiming that open-weight panels are universally better than proprietary judges. The question is more nuanced: under what conditions can a reusable open-weight panel provide evaluation quality that is sufficient for research purposes?
-
-The answer likely depends on the task, the rubric quality, and the specific models in the panel. I will share results when the investigation is complete and the paper is ready.
+Until that validation is complete, panel scores remain experimental annotations.

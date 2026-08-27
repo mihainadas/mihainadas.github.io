@@ -1,40 +1,39 @@
 ---
 layout: post
-title: "One Year In: PhD Reflections and What Comes Next"
+title: "One Year In: The Decisions Behind the Output"
 date: 2025-10-27 20:00:00 +0200
-tags:
-  - phd-journey
+last_modified_at: 2026-08-27 10:00:00 +0300
+post_type: retrospective
+description: "A first-year PhD retrospective focused on the decisions, delays, and failures behind the papers and datasets."
+tags: [phd, research-practice]
 ---
 
-A year ago I started my PhD. It feels like a good moment to step back and reflect on what has happened, what I have learned, and where things are heading.
+The visible first-year output was straightforward to list: the synthetic-data survey, TF1 and TF2 preprints, public datasets, and an LLM-judge survey in progress. The useful lessons came from decisions that do not appear in that list.
 
-## What Got Done
+## I delayed evaluation too long
 
-The numbers are easy to list: two arXiv preprints (TF1 and TF2), one published survey in IEEE Access, two HuggingFace dataset releases, and thousands of lines of pipeline code. I started writing a survey on LLM-based evaluation that is still in progress.
+Generation was concrete and rewarding: prompts produced stories, logs filled, the corpus grew. Evaluation felt like the stage that could be designed afterward. That was backwards.
 
-But the numbers do not capture the harder-to-measure things. I have gotten much better at reading papers critically, at designing experiments before running them, and at writing technical prose that communicates clearly. I have also gotten comfortable with the uncomfortable truth that research is mostly about dead ends, failed experiments, and ideas that do not pan out.
+Once millions of items exist, changing the rubric, judge protocol, or stored provenance becomes expensive. The second half of the year moved evaluation requirements closer to schema design: every output needed the fields required for later attribution and re-scoring.
 
-## What Surprised Me
+## Scale amplified vague definitions
 
-**The pace of the field.** When I started in October 2024, Llama 3 was the model everyone was talking about. A year later, the landscape has shifted several times. Keeping up with the field while making progress on my own work requires deliberate choices about what to follow and what to ignore.
+Words such as “quality,” “diversity,” and “adherence” were harmless in early discussion and dangerous in a paper. Each needed an operational definition, denominator, and failure analysis.
 
-**How much engineering a PhD involves.** I expected the PhD to be primarily about ideas and analysis. In practice, a significant fraction of my time goes to infrastructure: building pipelines, managing data, debugging distributed systems, and optimizing inference. The engineering is not separate from the research -- it enables the research -- but it was more than I anticipated.
+The TF1 experience changed how I write experiment plans. If I cannot state what would falsify a claim or how a measurement could mislead, the experiment is not ready to scale.
 
-**The value of writing.** Writing papers, blog posts, and notes has been the single most effective tool for clarifying my thinking. Ideas that seem clear in my head often reveal gaps and inconsistencies when I try to write them down. This blog has been part of that process.
+## Engineering habits transferred; production assumptions did not
 
-## What I Would Do Differently
+Interfaces, resumability, idempotent processing, versioned configuration, and structured logs transferred directly from industry. They made the research pipeline easier to audit.
 
-I would start evaluating earlier. In the TF1 project, I spent a long time building the generation pipeline before seriously thinking about evaluation. When I finally built the evaluation framework, it revealed issues that required changes to the generation approach. In TF2, I developed generation and evaluation in parallel, which worked much better.
+The production instinct to optimize for delivery could work against research. A pipeline that completes quickly but cannot explain a surprising result has failed its main customer. I had to make room for slower comparisons, preserved intermediate artifacts, and experiments whose outcome was “this design does not support the claim.”
 
-I would also be more systematic about tracking experiment configurations from the start. My early experiments used ad hoc parameter tracking that made it hard to reproduce results later. I have since settled on a structured approach with YAML configuration files and timestamped artifact directories.
+## Public artifacts forced useful precision
 
-## What Comes Next
+Releasing data through Hugging Face and papers through arXiv exposed naming, licensing, schema, and documentation decisions to readers outside the project. That pressure improved the work. It also made chronology important: a release note must not predate the thing it says is available.
 
-The second year has several concrete goals:
+## The next-year constraint
 
-- **TF3**: Training a compact Romanian language model from scratch on synthetic data. The architecture and tokenizer design are already underway.
-- **Diacritics paper**: Formalizing my investigation of LLMs for Romanian diacritic restoration. I will be presenting this at InnoComp 2025 in a few weeks.
-- **LLM judges survey**: Completing and submitting the evaluation survey.
-- **Thesis writing**: Starting the thesis document itself, integrating the papers into a coherent narrative.
+The work did not need more parallel threads. It needed a closed loop: TF2 resources into TF3 training, and a validation protocol for the evaluators used across all three stages.
 
-A year in, I am more excited about the work than when I started. The questions have gotten sharper, the tools have gotten better, and the path forward is clearer. That feels like progress.
+The strongest change after year one was therefore editorial as much as technical: plans, observations, measurements, and validated findings had to stop sharing the same voice.

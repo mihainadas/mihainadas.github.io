@@ -1,45 +1,45 @@
 ---
 layout: post
-title: "The Romanian Diacritics Challenge: Why It Still Matters"
+title: "Romanian Diacritics: The Errors Hidden by Overall Accuracy"
 date: 2025-09-29 17:00:00 +0300
-tags:
-  - romanian-nlp
-  - natural-language-processing
+last_modified_at: 2026-08-27 10:00:00 +0300
+post_type: research note
+description: "Why Romanian diacritic restoration needs context-sensitive examples, task-specific denominators, and a measure of unwanted edits."
+tags: [romanian-nlp, evaluation, natural-language-processing]
 ---
 
-While working on TF2, I kept encountering a problem that every Romanian NLP researcher knows well: diacritics. In this post, I want to explain why automatic diacritic restoration (ADR) remains an important and surprisingly tricky problem.
+Romanian uses **ă**, **â**, **î**, **ș**, and **ț**. Removing them does more than alter typography: `fata` may correspond to _fata_ (“the girl”) or _fața_ (“the face”), and the surrounding sentence determines which restoration is correct.
 
-## The Five Characters
+That ambiguity makes automatic diacritic restoration a sequence problem rather than a character-replacement table.
 
-Romanian uses five diacritical characters: **ă**, **â**, **î**, **ș**, and **ț**. These are not decorative -- they change meaning. The word "fata" means "the girl," but "fața" means "the face." "Tara" is not a word, but "țara" means "the country." Omitting diacritics creates genuine ambiguity.
+## The denominator problem
 
-Despite this, much of the Romanian text on the internet lacks correct diacritics. There are several reasons:
+Most characters in Romanian text are not diacritizable. Overall character accuracy can therefore remain high when a system misses the positions the task exists to restore.
 
-- Many Romanian keyboards historically did not have convenient diacritic input
-- The 1993 orthographic reform changed the standard forms (replacing î with â in some positions), creating a period of inconsistency
-- Social media and informal writing culture normalize diacritic-free text
-- OCR and digitization of older documents often drops or mangles diacritics
+A useful evaluation separates:
 
-The result is a large body of Romanian digital text with missing, incorrect, or inconsistent diacritics.
+- word and character accuracy over all text;
+- accuracy restricted to diacritizable words or positions;
+- per-character precision, recall, and F1 for ă, â, î, ș, and ț;
+- diacritic error rate;
+- unwanted changes to characters that should remain untouched.
 
-## Why ADR Is Not Solved
+The last measure is especially important for generative models. A fluent output that silently rewrites a name or fixes unrelated spelling has violated a restoration-only contract.
 
-On clean benchmark datasets, automatic diacritic restoration can reach very high accuracy -- above 99% word accuracy with models like RoBERT (a Romanian BERT variant). This might suggest the problem is solved.
+## Clean text is the easy regime
 
-But benchmarks are misleading. They typically evaluate on clean text where diacritics have been artificially stripped. Real-world text has additional noise: typos, inconsistent casing, mixed orthographic conventions (pre-1993 and post-1993 forms in the same document), and foreign words. On noisy text, performance drops significantly.
+Prior Romanian work has shown strong supervised restoration on standard corpora; see [Romanian Diacritics Restoration Using Recurrent Neural Networks](https://arxiv.org/abs/2009.02743). The deployment question is broader:
 
-There is also the problem of what "accuracy" means. A model that restores 99% of words correctly still makes errors on 1% of words. In a 1,000-word document, that is 10 errors -- enough to be noticeable and annoying to a native speaker. And the errors are not random; they tend to cluster around ambiguous words and uncommon proper nouns.
+- OCR errors and keyboard typos;
+- mixed presence of correct and missing diacritics;
+- inconsistent casing;
+- historical orthography, including â/î conventions;
+- names, code, URLs, and multilingual fragments that must not be rewritten.
 
-## Connection to Language Modeling
+A benchmark that strips diacritics from clean text tests only one slice of that problem.
 
-Diacritic restoration is interesting from a language modeling perspective because it requires understanding context. The correct diacritization of an ambiguous word depends on the sentence around it. This makes ADR a useful probe for how well a model understands Romanian syntax and semantics.
+## Why compare model classes
 
-It also connects to my broader thesis work. If I am training a Romanian language model on translated fables (TF2) or generating Romanian text from scratch (TF3), the model needs to handle diacritics correctly. Evaluating diacritics is part of evaluating the model.
+Prompted LLMs require no task-specific training but bring latency, cost, and uncontrolled-edit risks. Character-level and encoder-based systems are faster and easier to constrain. Fine-tuned small generative models may handle noise and joint normalization better, but they must justify their inference cost and demonstrate that they do not hallucinate changes.
 
-## What I Plan to Do
-
-I have been investigating how current LLMs handle Romanian diacritics -- both as a standalone restoration task and as an implicit capability within generation and translation. The initial results are mixed: larger models handle diacritics well in clean contexts but struggle with the noisy, real-world cases that matter most.
-
-I plan to write up these findings more formally. The goal is not to claim a new state of the art on the clean benchmark, but to understand when and why LLMs fail at diacritics and what that tells us about their Romanian language understanding.
-
-More on this in a future post.
+The [InnoComp study](https://arxiv.org/abs/2511.13182) establishes prompted-model baselines. The later fine-tuning note defines the comparison needed to move from clean accuracy to application-specific robustness.
