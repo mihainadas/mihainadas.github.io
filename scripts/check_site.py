@@ -23,6 +23,14 @@ ARTIFACT_DATES = {
     "2025-09-09-tf2-preprint-release.md": date(2025, 9, 9),
     "2026-01-15-tf3-romanian-microfiction.md": date(2026, 1, 15),
 }
+THESIS_SERIES = (
+    "2025-04-29-three-million-stories-sparse-sample.md",
+    "2026-05-02-interval-belongs-to-comparison.md",
+    "2026-08-22-judges-rank-systems-not-items.md",
+    "2026-08-27-change-one-slot-watch-what-else-moves.md",
+    "2026-08-27-small-model-diacritics-noise.md",
+    "2026-08-27-adaptation-could-not-remove-scraper-artifact.md",
+)
 
 
 def fail(message: str) -> None:
@@ -53,6 +61,48 @@ def check_posts() -> None:
         actual = date.fromisoformat(filename[:10])
         if actual < earliest:
             fail(f"{filename} predates its artifact")
+
+
+def front_matter_value(text: str, key: str) -> str | None:
+    match = re.search(rf"(?m)^{re.escape(key)}:\s*(.+?)\s*$", text)
+    return match.group(1).strip("\"'") if match else None
+
+
+def check_thesis_series() -> None:
+    orders: list[int] = []
+    forbidden = re.compile(
+        r"\b(?:delve(?:s|d)?|game[- ]changing|transformative|pivotal|"
+        r"unlock(?:s|ed|ing)?|seamless(?:ly)?|rapidly evolving landscape)\b|"
+        r"^## Why this matters\s*$",
+        re.IGNORECASE | re.MULTILINE,
+    )
+    for filename in THESIS_SERIES:
+        path = POSTS / filename
+        if not path.exists():
+            fail(f"thesis-series post missing: {filename}")
+        text = path.read_text(encoding="utf-8")
+        if front_matter_value(text, "series") != "controlled-synthetic-narratives":
+            fail(f"thesis-series metadata missing in {filename}")
+        order = front_matter_value(text, "series_order")
+        if order is None or not order.isdigit():
+            fail(f"thesis-series order is invalid in {filename}")
+        orders.append(int(order))
+        status = front_matter_value(text, "evidence_status")
+        if status not in {"published-analysis", "thesis-analysis", "accepted", "thesis-only"}:
+            fail(f"thesis-series evidence status is invalid in {filename}")
+        if "{% include thesis-series.html %}" not in text:
+            fail(f"thesis-series navigation missing in {filename}")
+        if not re.search(r"> \*\*(?:Archive note|Evidence status)\.", text):
+            fail(f"visible chronology or evidence note missing in {filename}")
+        if forbidden.search(text):
+            fail(f"AI-smell phrase in thesis series: {filename}")
+
+        historical = date.fromisoformat(filename[:10]) < date(2026, 8, 27)
+        if historical and front_matter_value(text, "published_at") is None:
+            fail(f"backdated thesis-series post lacks a publication timestamp: {filename}")
+
+    if sorted(orders) != list(range(1, len(THESIS_SERIES) + 1)) or len(set(orders)) != len(orders):
+        fail("thesis-series order must be unique and contiguous")
 
 
 def check_engineering_boundary() -> None:
@@ -214,6 +264,7 @@ def check_figure_system() -> None:
 
 def main() -> int:
     check_posts()
+    check_thesis_series()
     check_engineering_boundary()
     check_figure_system()
     print("site content checks passed")

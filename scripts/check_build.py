@@ -5,12 +5,22 @@ from __future__ import annotations
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
+from datetime import datetime
 from html.parser import HTMLParser
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "_site"
+THESIS_POSTS = (
+    ("2025/04/29/three-million-stories-sparse-sample.html", "Three Million Stories Are Still a Sparse Sample"),
+    ("2026/05/02/interval-belongs-to-comparison.html", "The Interval Belongs to the Comparison"),
+    ("2026/08/27/judges-rank-systems-not-items.html", "The Panel Was Weak on Items and Useful for Ranking Systems"),
+    ("2026/08/27/change-one-slot-watch-what-else-moves.html", "Change One Slot, Watch What Else Moves"),
+    ("2026/08/27/small-model-diacritics-noise.html", "The 2.4M-Parameter Model Won—Until the Text Got Noisy"),
+    ("2026/08/27/adaptation-could-not-remove-scraper-artifact.html", "Ten Thousand Adaptation Steps Could Not Remove One Scraper Artifact"),
+)
 
 
 def fail(message: str) -> None:
@@ -35,6 +45,42 @@ def json_ld_records(relative: str, text: str) -> list[dict]:
         except json.JSONDecodeError as error:
             fail(f"invalid JSON-LD in {relative}: {error}")
     return records
+
+
+def atom_entry(feed: str, title: str) -> str:
+    match = re.search(
+        rf"<entry.*?<title type=\"html\">{re.escape(title)}</title>.*?</entry>",
+        feed,
+        re.DOTALL,
+    )
+    if not match:
+        fail(f"feed entry missing: {title}")
+    return match.group(0)
+
+
+def audit_feed_chronology(feed: str) -> None:
+    try:
+        root = ET.fromstring(feed)
+    except ET.ParseError as error:
+        fail(f"invalid Atom feed: {error}")
+    namespace = {"atom": "http://www.w3.org/2005/Atom"}
+    feed_updated_text = root.findtext("atom:updated", namespaces=namespace)
+    if not feed_updated_text:
+        fail("feed lacks an updated timestamp")
+    feed_updated = datetime.fromisoformat(feed_updated_text)
+    published_dates: list[datetime] = []
+    for entry in root.findall("atom:entry", namespace):
+        published_text = entry.findtext("atom:published", namespaces=namespace)
+        updated_text = entry.findtext("atom:updated", namespaces=namespace)
+        if not published_text or not updated_text:
+            fail("feed entry lacks published or updated timestamp")
+        published = datetime.fromisoformat(published_text)
+        updated = datetime.fromisoformat(updated_text)
+        if published > feed_updated or updated > feed_updated:
+            fail("feed entry timestamp is later than the feed update")
+        published_dates.append(published)
+    if published_dates != sorted(published_dates, reverse=True):
+        fail("feed entries are not ordered by publication timestamp")
 
 
 class FigureAudit(HTMLParser):
@@ -91,6 +137,8 @@ def main() -> int:
     feed = read("feed.xml")
     sitemap = read("sitemap.xml")
     theme_script = read("assets/theme.js")
+    research = read("research/index.html")
+    audit_feed_chronology(feed)
 
     theme_bootstrap = home.find('window.localStorage.getItem("mihainadas-theme")')
     stylesheet = home.find('/assets/main.css')
@@ -151,12 +199,30 @@ def main() -> int:
         fail("new article does not exercise the shared figure system exactly once")
     if feed.count('<title type="html">Three Emulator Bugs, Three Different Tests</title>') != 1:
         fail("global feed does not contain the new article exactly once")
+    judge_entry = atom_entry(feed, "The Panel Was Weak on Items and Useful for Ranking Systems")
+    if "<published>2026-08-27T09:11:56+03:00</published>" not in judge_entry:
+        fail("feed publishes the judge retrospective under its event date")
     for url in (
         "https://mihainadas.github.io/engineering/",
         "https://mihainadas.github.io/2026/08/27/three-emulator-bugs.html",
     ):
         if sitemap.count(url) != 1:
             fail(f"sitemap does not contain {url} exactly once")
+
+    for relative, title in THESIS_POSTS:
+        rendered = read(relative)
+        if title not in rendered:
+            fail(f"thesis-series title was not rendered in {relative}")
+        if rendered.count('class="series-note"') != 1:
+            fail(f"thesis-series navigation missing in {relative}")
+        if audit_figures(relative, rendered) != 1:
+            fail(f"thesis-series figure missing or duplicated in {relative}")
+        public_url = f"https://mihainadas.github.io/{relative}"
+        if sitemap.count(public_url) != 1:
+            fail(f"sitemap does not contain {public_url} exactly once")
+        if title not in research:
+            fail(f"research index is missing thesis-series title: {title}")
+        atom_entry(feed, title)
 
     for relative, text in (
         ("engineering/index.html", engineering),
@@ -170,9 +236,12 @@ def main() -> int:
         ):
             fail(f"private program reference in generated page: {relative}")
 
-    for path in SITE.rglob("*.html"):
-        if re.search(r"(?i)github\.com/klusai(?:/|$)", path.read_text(encoding="utf-8")):
-            fail(f"stealth repository link in generated page: {path.relative_to(SITE)}")
+    for path in SITE.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in {".html", ".xml", ".svg", ".js", ".css"}:
+            continue
+        text = path.read_text(encoding="utf-8")
+        if re.search(r"(?i)\bklusai\b|github\.com/klusai(?:/|$)|huggingface\.co/(?:datasets|models|spaces)/klusai(?:/|$)", text):
+            fail(f"stealth program reference in generated artifact: {path.relative_to(SITE)}")
 
     print("generated site checks passed")
     return 0
