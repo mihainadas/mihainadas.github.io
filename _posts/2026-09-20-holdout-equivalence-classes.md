@@ -7,11 +7,13 @@ description: "An arithmetic benchmark can be string-disjoint and still repeat a 
 tags: [evaluation, arithmetic, reproducibility, experimental-design]
 ---
 
-An exact-overlap check admitted two of 300 benchmark additions whose operand-swapped twins were present in training. The strings differed. The arithmetic tasks did not.
+CalcGPT is a small GPT-2-style language model for controlled arithmetic experiments. It represents addition and subtraction problems as text, trains on a subset of those problems, and evaluates on tasks held out from training. The current work is not trying to publish a headline accuracy yet. It is defining what "held out" must mean before an accuracy can support a generalization claim.
 
-For addition, training on `12+34` and testing on `34+12` does not support the same generalization claim as testing an unseen operand pair. The [CalcGPT reproducibility branch](https://github.com/mihainadas/calcgpt/pull/2) now treats a holdout as a sample of semantic groups rather than a sample of formatted equations.
+That definition is less obvious than exact string matching. Addition is commutative: `12+34` and `34+12` are different strings but the same arithmetic fact. Testing on one after training on the other does not provide the same evidence as testing an unseen operand pair.
 
-That change is small in code. Its useful part is deciding what counts as the same task, then carrying that decision through splitting, benchmark sampling, and artifact records.
+An audit of the 300-task benchmark found two additions whose operand-swapped twins were present in training. The exact-overlap check had passed because the strings differed. The arithmetic tasks did not.
+
+The [CalcGPT reproducibility branch](https://github.com/mihainadas/calcgpt/pull/2) now treats a holdout as a sample of semantic groups rather than a sample of formatted equations. The code change is small. Its useful part is deciding what counts as the same task, then carrying that decision through splitting, benchmark sampling, and artifact records.
 
 ## Define sameness before shuffling
 
