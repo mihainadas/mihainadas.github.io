@@ -5,6 +5,7 @@ date: 2025-06-09 12:00:00 +0300
 last_modified_at: 2026-08-27
 post_type: research note
 description: "The decision to use controlled English fables as source material for Romanian literary translation."
+context_reviewed: 2026-09-20
 tags: [translation, synthetic-data, romanian-nlp]
 ---
 

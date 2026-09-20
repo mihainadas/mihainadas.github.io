@@ -5,10 +5,13 @@ date: 2025-10-27 20:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A first-year PhD retrospective focused on the decisions, delays, and failures behind the papers and datasets."
+context_reviewed: 2026-09-20
 tags: [phd, research-practice]
 ---
 
-The public record of my first PhD year is tidy: the [synthetic-data survey](https://arxiv.org/abs/2503.14023), [TF1](https://arxiv.org/abs/2504.20605), [TF2](https://arxiv.org/abs/2509.07829v4), released datasets, and an LLM-judge survey in progress. The year itself was not tidy. The expensive lessons arrived while generation logs were filling and the evaluation rubric was still moving.
+The public record of my first PhD year is tidy: the [synthetic-data survey](https://arxiv.org/abs/2503.14023), [TF1](https://arxiv.org/abs/2504.20605), [TF2](https://arxiv.org/abs/2509.07829v4), released datasets, and an LLM-judge survey in progress.
+
+The year itself was not tidy. The expensive lessons arrived while generation logs were filling and the evaluation rubric was still moving.
 
 ## I delayed evaluation too long
 

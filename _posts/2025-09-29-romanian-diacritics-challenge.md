@@ -5,12 +5,13 @@ date: 2025-09-29 17:00:00 +0300
 last_modified_at: 2026-08-27
 post_type: research note
 description: "Why Romanian diacritic restoration needs context-sensitive examples, task-specific denominators, and a measure of unwanted edits."
+context_reviewed: 2026-09-20
 tags: [romanian-nlp, evaluation, natural-language-processing]
 ---
 
-`fata` can mean _the girl_ or become `fața`, _the face_. A replacement table cannot decide which one a sentence needs.
+Romanian diacritic restoration receives text written without some or all diacritic marks and must reconstruct the intended spelling without changing anything else. The task looks like character replacement until one unmarked form has several valid readings.
 
-Romanian uses **ă**, **â**, **î**, **ș**, and **ț**, but restoration is a sequence problem: context chooses the mark, and the system must leave every unrelated character alone.
+`fata` can mean _the girl_ or become `fața`, _the face_. A replacement table cannot decide which one a sentence needs. Romanian uses **ă**, **â**, **î**, **ș**, and **ț**, but restoration is a sequence problem: context chooses the mark, and the system must leave every unrelated character alone.
 
 ## The denominator problem
 

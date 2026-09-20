@@ -9,8 +9,11 @@ post_type: release note
 description: "The model family, 15K silver-reference set, and three-million-pair corpus released with the TF2 preprint."
 featured: true
 redirect_from: /2025/09/01/tf2-preprint-release.html
+context_reviewed: 2026-09-20
 tags: [translation, dataset-release, romanian-nlp, language-models]
 ---
+
+TF2 extends TinyFabulist from English generation into English-Romanian literary translation. The release includes tuning data, adapted open models, evaluation records, and a large translated corpus, but those artifacts were produced at different stages and should not be treated as one dataset.
 
 The 15K and three-million-pair releases must not be called one dataset. The first is a controlled set of synthetic silver references; the second is the scale artifact. They answer different questions and carry different guarantees.
 

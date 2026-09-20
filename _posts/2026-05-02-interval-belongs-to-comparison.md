@@ -7,11 +7,14 @@ feed_date: "2026-08-27 09:11:56 +0300"
 last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "Why two model gaps require different bootstrap designs—and why one missing record prevents an interval altogether."
+context_reviewed: 2026-09-20
 tags: [evaluation, statistics, language-models]
 series: controlled-synthetic-narratives
 series_order: 3
 evidence_status: thesis-analysis
 ---
+
+The TinyFabulist studies compare generators, translators, and evaluators under different sampling designs. Some systems are scored on separate story samples; others are scored on the same held-out items. A confidence interval must preserve whichever relation produced the scores.
 
 A score has no pairing structure. A comparison does.
 

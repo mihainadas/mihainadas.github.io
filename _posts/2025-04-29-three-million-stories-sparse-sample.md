@@ -7,11 +7,14 @@ feed_date: "2026-08-27 09:11:56 +0300"
 last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "What a three-million-row corpus covers when six slots each have one hundred possible values."
+context_reviewed: 2026-09-20
 tags: [synthetic-data, experimental-design, language-models]
 series: controlled-synthetic-narratives
 series_order: 1
 evidence_status: thesis-analysis
 ---
+
+TF1 is a controlled synthetic-data project: each English fable begins from six selected story fields, then a generator renders the combination into prose. The release contains three million stories, which is large as a corpus but small relative to the specification space.
 
 Three million sounds exhaustive until it is divided by a trillion.
 

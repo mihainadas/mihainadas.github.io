@@ -7,6 +7,7 @@ feed_date: "2026-08-27"
 last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A July 2025 notebook repaired to make scaling, class semantics, stratification, and uncertainty explicit."
+context_reviewed: 2026-09-20
 tags: [machine-learning, scikit-learn, notebooks]
 ---
 

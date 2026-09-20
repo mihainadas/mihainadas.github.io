@@ -5,8 +5,11 @@ date: 2025-08-04 14:00:00 +0300
 last_modified_at: 2026-08-27
 post_type: engineering note
 description: "The role of low-rank adaptation, quantization, and the 15K reference set in TF2."
+context_reviewed: 2026-09-20
 tags: [language-models, translation, fine-tuning]
 ---
+
+TF2 adapts open-weight language models for English-Romanian literary translation. It uses a 15,000-pair synthetic silver set for tuning and controlled evaluation, then uses the adapted system to produce a separate three-million-pair corpus.
 
 TF2 trains its adapters on 12,000 pairs from the synthetic 15K silver set. The three-million-pair corpus is produced later. Reversing those two steps would make the system appear to train on its own output.
 

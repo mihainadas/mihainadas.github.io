@@ -6,10 +6,13 @@ last_modified_at: 2026-08-27
 post_type: retrospective
 description: "Why a one-shot NumPy benchmark was not publishable, and the small protocol that replaced it."
 redirect_from: /2025/01/07/numpy-vs-python.html
+context_reviewed: 2026-09-20
 tags: [python, numpy, performance, notebooks]
 ---
 
 > **Retrospective.** The benchmark first appeared in January 2025. It was rebuilt and re-executed in August 2026.
+
+The notebook compares one dot product written as a Python loop over NumPy-backed values with `numpy.dot` on the same arrays. It was meant to show how moving a complete numerical operation into compiled library code changes runtime as the vector grows.
 
 The 546× speedup was a formatting error wrapped around a benchmarking error. The saved notebook printed “NumPy is 545.88 times faster”; the paragraph underneath said 5.45×. Both came from one call to `time.time()`.
 

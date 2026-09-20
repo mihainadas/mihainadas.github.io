@@ -7,11 +7,14 @@ last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "Romanian diacritic restoration changes winners when clean benchmark text gives way to typos and OCR-like corruption."
 featured: true
+context_reviewed: 2026-09-20
 tags: [romanian-nlp, evaluation, small-models]
 series: controlled-synthetic-narratives
 series_order: 5
 evidence_status: thesis-only
 ---
+
+Romanian diacritic restoration is a constrained text-repair task: insert the intended marks while preserving every unrelated character. This experiment compared a dictionary system, a 2.4M-parameter BiLSTM, ByT5, and adapted or prompted language models on both clean text and controlled corruption.
 
 On clean Romanian, a 2.4M-parameter BiLSTM reached 96.23% word accuracy. Under heavy corruption it fell to 36.76%. The dictionary baseline finished at 70.31%.
 

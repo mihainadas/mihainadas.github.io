@@ -5,8 +5,11 @@ date: 2025-07-07 10:00:00 +0300
 last_modified_at: 2026-08-27
 post_type: research note
 description: "Why TF2 reports an overlap metric and a five-dimensional literary rubric instead of collapsing quality into one score."
+context_reviewed: 2026-09-20
 tags: [evaluation, translation, natural-language-processing]
 ---
+
+TF2 compares English-Romanian literary translations against synthetic Romanian reference texts and against a five-dimensional model-judge rubric. The two evaluations are not interchangeable: one measures surface overlap, while the other asks about meaning, fluency, coherence, style, and cultural adaptation.
 
 Agreement is easy to summarize. The useful cases are the ones where lexical overlap and literary judgment pull in different directions.
 

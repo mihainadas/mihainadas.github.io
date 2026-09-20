@@ -9,8 +9,11 @@ post_type: engineering note
 description: "A corrected native Ollama API example with schema-constrained output, non-streaming responses, timeouts, parsing, and validation."
 featured: true
 redirect_from: /2026/02/03/local-inference-ollama.html
+context_reviewed: 2026-09-20
 tags: [tools, evaluation, language-models]
 ---
+
+The evaluation pipeline runs some open-weight judge models locally through Ollama so prompts, model files, and raw responses can remain under experimental control. The client's job is narrow: send one rubric request and return a document that can be parsed and validated before any score is trusted.
 
 A local judge can return valid JSON and still be scientifically useless. Before reaching that harder problem, my first client managed two simpler mistakes: it was dated before the named model existed, and it mixed Ollama’s native API with the OpenAI-compatible request shape.
 

@@ -8,12 +8,13 @@ last_modified_at: 2026-08-27
 post_type: release note
 description: "The research map behind our survey of LLM-generated synthetic text and code, released as an arXiv preprint on 18 March 2025."
 redirect_from: /2025/03/31/synthetic-data-survey.html
+context_reviewed: 2026-09-20
 tags: [synthetic-data, natural-language-processing, research]
 ---
 
 An instruction generated from a seed example, an automatically repaired program, and an augmented classification record can all be called synthetic data. They cannot be accepted by the same test.
 
-That was the organizing problem behind our survey of LLM-generated synthetic text and code, first released on arXiv on 18 March 2025 and later published in *IEEE Access*.
+That was the organizing problem behind our survey of LLM-generated synthetic text and code across tasks and domains, first released on arXiv on 18 March 2025 and later published in *IEEE Access*.
 
 - [Preprint](https://arxiv.org/abs/2503.14023)
 - [IEEE record](https://doi.org/10.1109/ACCESS.2025.3589503)

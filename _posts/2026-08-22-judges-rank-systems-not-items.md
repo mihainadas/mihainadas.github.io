@@ -7,15 +7,18 @@ feed_date: "2026-08-27 09:11:56 +0300"
 last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "An open-weight judge panel was weak at item-level agreement yet useful for ranking systems in one fixed protocol."
+context_reviewed: 2026-09-20
 tags: [evaluation, open-models, language-models]
 series: controlled-synthetic-narratives
 series_order: 4
 evidence_status: accepted
 ---
 
-The three panel members disagreed on individual scores. After median aggregation, the panel's TF1 system ranking tracked o4-mini at Spearman \(\rho=0.93\) and Kendall \(\tau=0.78\).
+The TinyFabulist evaluation study tested whether three open-weight language models could replace a proprietary judge when comparing story-generation and translation systems. The panel scored individual outputs, then its median scores were used to rank the systems.
 
-Those results concern different units of analysis. The first tests item-level labels; the second tests whether an aggregated instrument orders systems similarly to a proprietary comparator. The fixed panel combined Granite 4.1 30B, EXAONE 3.5 32B, and Granite 3.3 8B. Across three tasks it ran 6,180 evaluations, with another 900 bias reruns. Item-level agreement remained weak: Krippendorff's alpha ranged from −0.34 to +0.12, and mean weighted kappa from −0.02 to +0.15.
+Those two uses require different evidence. Item-level agreement asks whether the judges assign similar labels to the same output. Rank agreement asks whether their aggregated scores order whole systems similarly.
+
+The three panel members disagreed on individual scores. After median aggregation, the panel's TF1 system ranking tracked o4-mini at Spearman \(\rho=0.93\) and Kendall \(\tau=0.78\). The fixed panel combined Granite 4.1 30B, EXAONE 3.5 32B, and Granite 3.3 8B. Across three tasks it ran 6,180 evaluations, with another 900 bias reruns. Item-level agreement remained weak: Krippendorff's alpha ranged from −0.34 to +0.12, and mean weighted kappa from −0.02 to +0.15.
 
 > **Evidence status.** The panel study was accepted by the thesis cutoff. The human-arbitration protocol remains proposal-stage and has not run.
 

@@ -6,11 +6,14 @@ feed_date: "2026-08-27 09:11:56 +0300"
 last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "One Romanian checkpoint kept emitting a web-page token after supervised adaptation, turning contamination into a model-selection failure."
+context_reviewed: 2026-09-20
 tags: [romanian-nlp, data-quality, language-models]
 series: controlled-synthetic-narratives
 series_order: 6
 evidence_status: thesis-only
 ---
+
+A Romanian diacritic-restoration study compared several pretrained checkpoints before and after task-specific adaptation. The first screening question was operational: does the base model produce ordinary Romanian text that an adapter can plausibly refine?
 
 The model was asked to restore Romanian diacritics. It answered with `autoResizeIframe`.
 

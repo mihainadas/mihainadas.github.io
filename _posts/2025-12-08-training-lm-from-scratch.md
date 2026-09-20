@@ -5,12 +5,15 @@ date: 2025-12-08 11:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: engineering note
 description: "The tokenizer, architecture, packing, checkpoint, and attribution decisions that preceded TF3-RO."
+context_reviewed: 2026-09-20
 tags: [language-models, romanian-nlp, training]
 ---
 
+TF3 asks whether a compact Romanian language model can be trained from documented data rather than adapted from a multilingual checkpoint. Before training, the project had to choose a tokenizer, architecture, packing scheme, and evidence record that would keep later model claims attributable to the released pipeline.
+
 Unigram produced sequences 11% longer than BPE and still won the tokenizer decision. That result overturned the easy efficiency argument and forced the TF3 design to say what it valued: Romanian morphological behavior, not the shortest sequence at any cost.
 
-TF3 trains a compact Romanian model from random initialization. A documented corpus and training path improve attribution, but tokenization, filtering, packing, architecture, schedule, and checkpoint selection still determine what the experiment means.
+Training from random initialization makes the corpus and training path visible, but tokenization, filtering, packing, architecture, schedule, and checkpoint selection still determine what the experiment means.
 
 ## Tokenization is a measured decision
 

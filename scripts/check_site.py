@@ -31,11 +31,37 @@ THESIS_SERIES = (
     "2026-08-27-small-model-diacritics-noise.md",
     "2026-08-27-adaptation-could-not-remove-scraper-artifact.md",
 )
+MIN_OPENING_PARAGRAPH_WORDS = 12
+MIN_OPENING_TOTAL_WORDS = 60
 
 
 def fail(message: str) -> None:
     print(f"ERROR: {message}", file=sys.stderr)
     raise SystemExit(1)
+
+
+def opening_prose_paragraphs(text: str) -> tuple[str, ...]:
+    """Return substantive prose paragraphs before the first level-two heading."""
+
+    parts = text.split("---", 2)
+    body = parts[2] if len(parts) == 3 else ""
+    opening = re.split(r"(?m)^##\s+", body, maxsplit=1)[0]
+    opening = re.sub(r"```.*?```|~~~.*?~~~", "", opening, flags=re.DOTALL)
+    opening = re.sub(r"{%.*?%}|<!--.*?-->", "", opening, flags=re.DOTALL)
+    opening = re.sub(r"\\\[.*?\\\]", "", opening, flags=re.DOTALL)
+
+    paragraphs: list[str] = []
+    for block in re.split(r"\n\s*\n", opening):
+        lines = []
+        for line in block.splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith((">", "- ", "* ", "|")):
+                continue
+            lines.append(stripped)
+        paragraph = " ".join(lines)
+        if len(re.findall(r"\b[\w'-]+\b", paragraph)) >= MIN_OPENING_PARAGRAPH_WORDS:
+            paragraphs.append(paragraph)
+    return tuple(paragraphs)
 
 
 def check_posts() -> None:
@@ -47,6 +73,20 @@ def check_posts() -> None:
             fail(f"insecure internal link in {path.name}")
         if re.search(r"(?i)happy (coding|learning)!|excited to share", text):
             fail(f"promotional stock phrase in {path.name}")
+
+        reviewed = front_matter_value(text, "context_reviewed")
+        try:
+            date.fromisoformat(reviewed or "")
+        except ValueError:
+            fail(f"context_reviewed must be an ISO date in {path.name}")
+
+        opening = opening_prose_paragraphs(text)
+        opening_words = sum(len(re.findall(r"\b[\w'-]+\b", paragraph)) for paragraph in opening)
+        if len(opening) < 2 or opening_words < MIN_OPENING_TOTAL_WORDS:
+            fail(
+                f"opening context is too thin in {path.name}: "
+                f"need two prose paragraphs and {MIN_OPENING_TOTAL_WORDS} words before the first H2"
+            )
 
         for index, match in enumerate(re.finditer(r"```python\n(.*?)```", text, re.DOTALL), start=1):
             try:

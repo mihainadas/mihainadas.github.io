@@ -5,8 +5,13 @@ date: 2025-05-12 15:00:00 +0300
 last_modified_at: 2026-08-27
 post_type: research note
 description: "The A/B swap test and evaluation record required before model-judge scores reach the corpus."
+context_reviewed: 2026-09-20
 tags: [evaluation, language-models, research]
 ---
+
+TinyFabulist produces more stories and translations than a human team can inspect item by item. The project therefore uses language models as evaluators for properties such as grammar, adherence, and translation quality, but only after treating each judge as a fallible measurement instrument.
+
+This note defines the minimum record for pairwise judging. Its first concern is presentation-order bias: whether the same two answers receive a different preference when their labels are swapped.
 
 The first acceptance test for a pairwise judge uses the same two answers twice. One request presents A/B; the other presents B/A. Both raw records survive. If the preferred answer changes, that judge–task combination has failed before aggregation.
 

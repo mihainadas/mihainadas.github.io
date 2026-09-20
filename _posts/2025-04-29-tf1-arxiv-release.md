@@ -9,8 +9,11 @@ post_type: release note
 description: "What TF1-EN-3M released, what the ten-model comparison measured, and where reproducibility still has boundaries."
 featured: true
 redirect_from: /2025/04/21/tf1-arxiv-release.html
+context_reviewed: 2026-09-20
 tags: [synthetic-data, dataset-release, language-models]
 ---
+
+TF1-EN-3M is the first large TinyFabulist release. It starts from six-field story specifications, renders them into prompts, compares candidate generators, and publishes three million English fables with generation provenance.
 
 Six structured fields became three million English fables at a reported generation cost of $405.76. That number—about $0.1353 per thousand stories—is useful only together with the model choice, evaluation trade-off, and April 2025 endpoint prices behind it.
 

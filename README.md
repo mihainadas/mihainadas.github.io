@@ -2,6 +2,12 @@
 
 Research and engineering notes published at [mihainadas.github.io](https://mihainadas.github.io/).
 
+## Editorial opening contract
+
+Every post must make sense to a reader who arrives without the repository, paper, or previous post open. Before the first level-two heading, use at least two substantive prose paragraphs to identify the project or system, explain its purpose, and state the technical question or minimum setup needed to understand the result. Do not open with an unexplained metric, acronym, incident, benchmark, or artifact. Keep the context specific; generic scene-setting does not satisfy the contract.
+
+After a cold-reader review, add `context_reviewed: YYYY-MM-DD` to the front matter. `scripts/check_site.py` enforces the marker and the minimum opening structure. The check cannot decide whether an explanation is accurate or useful, so the marker records the required editorial judgment rather than replacing it.
+
 ## Local checks
 
 ```sh

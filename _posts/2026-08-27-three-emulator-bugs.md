@@ -6,8 +6,11 @@ feed_date: "2026-08-27 00:00:00 +0300"
 post_type: engineering note
 description: "Printer output, audio hardware, and memory bookkeeping needed different tests—and the same discipline about what each fix established."
 featured: true
+context_reviewed: 2026-09-20
 tags: [systems, emulation, testing]
 ---
+
+86Box emulates historical PC hardware, so one release can touch devices whose failures have little in common. This note follows three merged fixes in its printer, audio, and dynamic-recompiler subsystems and asks what evidence was sufficient for each one.
 
 The hard part was not landing three fixes. It was finding a test that could fail for one reason. Printer raster output, audio generation, and dynamic-recompiler page bookkeeping each needed a different oracle.
 

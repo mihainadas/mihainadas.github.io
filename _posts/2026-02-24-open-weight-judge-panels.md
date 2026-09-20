@@ -5,8 +5,11 @@ date: 2026-02-24 13:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: method note
 description: "The locked tests and unresolved decisions that stand between an open-weight judge panel and research use."
+context_reviewed: 2026-09-20
 tags: [evaluation, language-models, methodology]
 ---
+
+TinyFabulist uses model judges across English story generation, literary translation, and Romanian-native text. Replacing one proprietary evaluator with several open-weight models would improve inspectability only if the panel's errors, order sensitivity, and family overlap were measured.
 
 A panel is not safer because it has more model names in it. If three related judges share the same preference, averaging them turns correlated error into a confident decimal.
 

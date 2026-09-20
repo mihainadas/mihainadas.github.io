@@ -5,10 +5,13 @@ date: 2026-03-17 14:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: method note
 description: "The locked measures and unresolved design choices for comparing Romanian diacritic-restoration systems."
+context_reviewed: 2026-09-20
 tags: [romanian-nlp, language-models, evaluation]
 ---
 
 > **Status, 27 August 2026.** The comparison described here has now run. [The results separate the clean-text winner from the model that survives corrupted input]({{ '/2026/08/27/small-model-diacritics-noise.html' | relative_url }}); [a second note records the single-checkpoint contamination failure]({{ '/2026/08/27/adaptation-could-not-remove-scraper-artifact.html' | relative_url }}).
+
+This planned comparison asks which model class should restore Romanian diacritics in two operating settings: a latency-sensitive keyboard path and a slower archive-cleanup path. Prompted models, constrained sequence systems, and fine-tuned decoders must use the same data splits and corruption process before their scores can be compared.
 
 A 7B decoder has no place behind a keyboard if a constrained character model restores the same marks faster and with fewer unwanted edits. The generative system has to earn its latency.
 

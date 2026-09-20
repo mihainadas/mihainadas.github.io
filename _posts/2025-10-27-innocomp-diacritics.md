@@ -8,8 +8,11 @@ last_modified_at: 2026-08-27
 post_type: research note
 description: "A bounded account of the Romanian diacritic-restoration comparison presented at InnoComp 2025."
 redirect_from: /2025/11/17/innocomp-diacritics.html
+context_reviewed: 2026-09-20
 tags: [romanian-nlp, evaluation, conference]
 ---
+
+The InnoComp 2025 study compared prompted language models on Romanian diacritic restoration, the task of recovering missing marks while preserving the rest of the text. Two 1,000-item datasets and eight evaluators produced one aggregate score per prompt configuration.
 
 Romanian diacritic restoration looks easy when most of the characters being counted never needed restoration. In our InnoComp comparison, that innocent denominator helped an echo baseline reach 0.8100.
 

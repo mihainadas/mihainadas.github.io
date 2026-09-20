@@ -5,6 +5,7 @@ date: 2025-02-03 16:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: research note
 description: "The six-slot story specification behind TinyFabulist and the control it provides over generation and evaluation."
+context_reviewed: 2026-09-20
 tags: [synthetic-data, language-models, system-design]
 ---
 

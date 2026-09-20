@@ -5,8 +5,11 @@ date: 2025-03-10 10:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: engineering note
 description: "The public provenance record and the retry design reconstructed after TinyFabulist moved from prompt prototype to corpus pipeline."
+context_reviewed: 2026-09-20
 tags: [synthetic-data, language-models, infrastructure]
 ---
+
+TinyFabulist turns structured story specifications into generated fables while retaining the prompt and model provenance needed for later evaluation. The prototype established that one specification could become one inspectable story. TF1 changed the operating scale to three million outputs from several model families.
 
 At prototype scale, a failed generation is a bad example. At three million items, it is a data-accounting problem.
 

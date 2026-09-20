@@ -7,11 +7,14 @@ last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "A paired intervention test separates response to a requested field from leakage into a field that should stay fixed."
 featured: true
+context_reviewed: 2026-09-20
 tags: [synthetic-data, evaluation, experimental-design]
 series: controlled-synthetic-narratives
 series_order: 2
 evidence_status: thesis-only
 ---
+
+TinyFabulist generates a story from a six-field specification that names its character, trait, setting, challenge, outcome, and teaching. The intervention experiment asks whether changing one requested field changes only that field in the output or leaks into a field held constant.
 
 Changing only the protagonist disturbed the unchanged moral in 4.0% to 18.5% of matched pairs, depending on the semantic verifier. Changing the moral almost never displaced the protagonist: specified-character realization changed in 0.5% of pairs [0.1%, 2.8%].
 

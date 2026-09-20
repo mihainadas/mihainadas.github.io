@@ -5,10 +5,15 @@ date: 2024-12-09 14:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A literature note organized around design changes rather than a generic reading workflow."
+context_reviewed: 2026-09-20
 tags: [synthetic-data, evaluation, language-models]
 ---
 
 > **Retrospective.** The first version discussed “the literature” without citing any literature. This revision records the papers that changed concrete design decisions.
+
+TinyFabulist is a research pipeline for generating controlled fables and retaining enough provenance to evaluate how well each story follows its specification. The project touches synthetic-data generation, model comparison, evaluation, and Romanian-language resources, so a generic list of related papers would not explain why any one source mattered.
+
+This note organizes the literature by the decisions it changed. Each paper below altered a schema field, an evaluation record, or the boundary of an experiment. Papers that supplied background without changing the design remain in the bibliography rather than becoming sections here.
 
 ## Volume needs a downstream consequence
 

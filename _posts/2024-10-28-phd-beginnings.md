@@ -5,6 +5,7 @@ date: 2024-10-28 18:00:00 +0200
 last_modified_at: 2026-08-27
 post_type: retrospective
 description: "A reconstruction of the three early research decisions behind TinyFabulist, and which ones survived contact with the work."
+context_reviewed: 2026-09-20
 tags: [phd, natural-language-processing, romanian-nlp]
 ---
 

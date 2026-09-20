@@ -7,10 +7,13 @@ post_type: retrospective
 description: "A January 2025 perceptron notebook rebuilt around inspectable updates, deterministic data, and explicit limits."
 featured: true
 redirect_from: /2025/01/04/simple-perceptron.html
+context_reviewed: 2026-09-20
 tags: [machine-learning, perceptron, notebooks]
 ---
 
 > **Retrospective.** The original notebook was written in January 2025. I rebuilt and re-executed it in August 2026 after finding that its prose overstated two results.
+
+The notebook is a small teaching experiment: implement the perceptron update directly, train it on two linearly separable classes, and keep every weight change visible. Its value depends less on the final accuracy than on whether the saved trace, plots, and prose describe the same run.
 
 The original version did run, but it told a cleaner story than its outputs supported. It said a hand-picked boundary separated the data when it classified only part of the training set, and it claimed convergence one epoch before the mistake table reached zero. Neither error changes the perceptron algorithm. Both weaken trust in the notebook.
 

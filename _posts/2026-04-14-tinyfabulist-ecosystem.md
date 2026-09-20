@@ -5,8 +5,11 @@ date: 2026-04-14 11:00:00 +0300
 last_modified_at: 2026-08-27
 post_type: research note
 description: "How TF1 generation, TF2 translation, and TF3 training connect—and where the evidence stops at each handoff."
+context_reviewed: 2026-09-20
 tags: [synthetic-data, language-models, evaluation]
 ---
+
+TinyFabulist is a three-stage artifact chain rather than one dataset or model. TF1 generates controlled English fables, TF2 translates and adapts models with Romanian silver data, and TF3 trains and compresses a Romanian model before generating directly in Romanian.
 
 The three-million-item Romanian corpus is TF3 output, not TF3 training input. Reversing that arrow is the provenance mistake this map is meant to prevent.
 

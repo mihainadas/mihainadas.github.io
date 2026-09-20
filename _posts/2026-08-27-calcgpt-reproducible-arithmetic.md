@@ -4,11 +4,14 @@ title: "Defining a Reproducible Arithmetic Experiment in CalcGPT"
 date: 2026-08-27 12:00:00 +0300
 post_type: engineering note
 description: "What semantic holdouts, versioned artifacts, and a predeclared representation ablation can establish—and what they cannot."
+context_reviewed: 2026-09-20
 tags: [language-models, arithmetic, reproducibility, testing]
 ---
 
 CalcGPT began as a small GPT-2-style model trained to complete arithmetic
-expressions. The current [pull request](https://github.com/mihainadas/calcgpt/pull/2)
+expressions.
+
+The current [pull request](https://github.com/mihainadas/calcgpt/pull/2)
 does not make the model larger or publish a new score. It narrows the experiment:
 record which arithmetic tasks enter each split, define what counts as an unseen
 task, and bind later results to versioned data and model artifacts.

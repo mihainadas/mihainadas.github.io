@@ -9,8 +9,11 @@ post_type: release note
 description: "The tokenizer, 51.65M-parameter model, compressed student, and Romanian-native generation pipeline released with TF3-RO."
 featured: true
 redirect_from: /2026/01/05/tf3-romanian-microfiction.html
+context_reviewed: 2026-09-20
 tags: [language-models, romanian-nlp, synthetic-data]
 ---
+
+TF3-RO is the third TinyFabulist stage. It uses Romanian text produced through the earlier translation pipeline to train a compact model from random initialization, compresses that model, and then generates a new corpus directly in Romanian.
 
 TF3-RO chose a tokenizer that made sequences longer, trained a 51.65M-parameter teacher from random weights, and compressed it to a 26.45M-parameter student. Those numbers describe three separate decisions; collapsing them into “a small Romanian model” loses the experiment.
 
