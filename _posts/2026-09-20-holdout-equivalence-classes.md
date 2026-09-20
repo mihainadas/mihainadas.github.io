@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "A Holdout Is a Set of Equivalence Classes"
-date: 2026-09-20 10:42:00 +0300
+date: 2026-09-20 10:35:01 +0300
 post_type: research note
 description: "An arithmetic benchmark can be string-disjoint and still repeat a training fact. Sampling semantic groups makes the exclusion rule explicit."
 tags: [evaluation, arithmetic, reproducibility, experimental-design]
