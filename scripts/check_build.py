@@ -191,8 +191,11 @@ def main() -> int:
 
     if engineering.count("Three Emulator Bugs, Three Different Tests") != 1:
         fail("engineering record does not contain the new article exactly once")
-    if home.count("/2026/08/27/three-emulator-bugs.html") != 2:
-        fail("homepage does not feature and list the new article")
+    selected = re.search(
+        r'<section aria-labelledby="selected-heading">(.*?)</section>', home, re.DOTALL
+    )
+    if not selected or selected.group(1).count("/2026/08/27/three-emulator-bugs.html") != 1:
+        fail("homepage does not feature the selected engineering article exactly once")
     if "The hard part was not landing three fixes" not in article:
         fail("new article body was not rendered")
     if audit_figures("2026/08/27/three-emulator-bugs.html", article) != 1:
