@@ -1,0 +1,9 @@
+{% assign connection = site.data.strategy.connections | where: 'slug', page.slug | first %}
+{% if connection %}
+<aside class="strategy-context" aria-labelledby="strategy-context-heading">
+  <p class="eyebrow">The business question</p>
+  <h2 id="strategy-context-heading">{{ connection.question | escape }}</h2>
+  <p>{{ connection.limit | escape }}</p>
+  <a href="{{ '/business/#operating-advantage' | relative_url }}">Part of {{ site.data.strategy.name | downcase }} →</a>
+</aside>
+{% endif %}

@@ -1,0 +1,13 @@
+Deep Research Needs an Evidence Budget. An audio pilot from Mihai Nadăș’s field notes.
+
+This edition uses a synthetic voice. It is not a recording of Mihai speaking. This short pilot adapts the opening of the published article; the full article contains the research references.
+
+A deep-research agent turns a question into a report by searching, reading sources, keeping evidence, and deciding when to stop. Consider using one to compare three software vendors for a regulated workflow. The report may be fluent and well organized. Before choosing a vendor, though, someone still needs to check where each important claim came from.
+
+That is the problem the research process needs to solve: make the path from a source to a decision inspectable. A useful agent must find the relevant material, read it, resolve conflicts and duplicates, and show what remains uncertain. More searches or a longer report do not establish that it has done those jobs.
+
+The article proposes separate budgets for discovery, inspection, verification, and synthesis. Discovery asks whether we have looked in the right places. Inspection asks whether we have actually read the sources. Verification asks which claims need another check. Synthesis asks whether the final report separates findings from assumptions and unresolved questions.
+
+This is an operating model to test in a business workflow. It is not a claim that research benchmarks have already validated vendor due diligence.
+
+The full article is called Deep Research Needs an Evidence Budget, on Mihai Nadăș’s website. Its sources and limitations are available alongside the text.

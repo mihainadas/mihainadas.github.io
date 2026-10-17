@@ -39,6 +39,16 @@
 .evidence-grid p { font-size: 0.85rem; }
 .home-business { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3.5rem; border-bottom: 1px solid var(--line); padding-bottom: 2rem; margin: -1rem 0 3.5rem; }
 .home-business h2 { font-size: 2.65rem; }
+.strategy-thesis { border-left: 3px solid var(--accent); padding: 0.5rem 0 0.5rem 2rem; margin: 0 0 3.5rem; }
+.strategy-thesis h2 { font: 450 clamp(2rem, 4vw, 3rem)/1.1 Newsreader, Georgia, serif; }
+.strategy-thesis > p { max-width: 78ch; font-size: 0.9rem; }
+.strategy-thesis .strategy-statement { font-size: 1.12rem; line-height: 1.6; }
+.strategy-paths { display: flex; flex-wrap: wrap; gap: 0.3rem 1.7rem; font-size: 0.8rem; }
+.strategy-paths a { display: inline-flex; align-items: center; min-height: 44px; }
+.strategy-context, .article-audio { border: 1px solid var(--line); padding: 1.5rem; margin: 2.5rem 0; background: var(--surface); }
+.strategy-context h2 { font: 450 1.65rem/1.2 Newsreader, Georgia, serif; }
+.strategy-context p, .strategy-context a, .article-audio p, .article-audio a { font-size: 0.82rem; }
+.article-audio audio { display: block; width: 100%; margin: 1rem 0; }
 .home-business > div > p:not(.eyebrow) { font-size: 0.93rem; }
 .home-business .latest-business { font-size: 0.78rem; border-top: 1px solid var(--line); padding-top: 0.8rem; }
 .resume-heading { border-bottom: 2px solid var(--accent); padding-bottom: 2rem; margin-bottom: 2rem; }
@@ -65,6 +75,7 @@
 .profile-identities a { display: inline-flex; align-items: center; min-height: 44px; }
 .resume-boundary { font-size: 0.75rem; color: var(--muted); padding-top: 1.5rem; border-top: 1px solid var(--line); margin-top: 1rem; }
 @media (max-width: 760px) {
+  .strategy-thesis { padding-left: 1.1rem; }
   .decision-row, .home-business, .resume-columns { grid-template-columns: 1fr; gap: 1rem; }
   .engagement-grid, .evidence-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .engagement-grid h3 { font-size: 1.65rem; }

@@ -1,0 +1,11 @@
+{
+  "name": "The operating advantage",
+  "thesis": "When software becomes easier to build, the strategic question shifts: which combination of customer access, workflow knowledge, useful data, and organizational capability can turn it into an advantage?",
+  "basis": "A working editorial thesis, informed by David Teece’s research on profiting from innovation and complementary assets. It is a question to test, not a claim that AI creates an automatic moat.",
+  "source": "https://www.sciencedirect.com/science/article/pii/0048733386900272",
+  "connections": [
+    {"slug": "deep-research-needs-evidence-budget", "question": "Can the organization inspect the evidence behind an AI-assisted decision?", "limit": "An evidence budget is a proposed control, not a measured improvement in decision quality."},
+    {"slug": "merging-lora-removes-branch-not-parameters", "question": "Which cost actually changes when a model implementation changes?", "limit": "Removing an inference branch does not establish total workflow savings."},
+    {"slug": "three-emulator-bugs", "question": "How do we test the behavior that a system is supposed to preserve?", "limit": "These fixes demonstrate a debugging method, not a client transformation outcome."}
+  ]
+}

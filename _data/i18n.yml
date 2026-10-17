@@ -4,6 +4,11 @@ en:
   content: Content
   primary: Primary navigation
   theme: Theme
+  appearance: Appearance
+  reading_light: Choose your reading light.
+  system_help: Follow your device
+  light_help: Warm paper, clear ink
+  dark_help: A quieter page after hours
   system: System
   light: Light
   dark: Dark
@@ -23,6 +28,11 @@ ro:
   content: Conținut
   primary: Navigare principală
   theme: Temă
+  appearance: Aspect
+  reading_light: Alege lumina pentru lectură.
+  system_help: Urmează setarea dispozitivului
+  light_help: Hârtie caldă, cerneală clară
+  dark_help: O pagină discretă seara
   system: Sistem
   light: Luminos
   dark: Întunecat

@@ -15,9 +15,10 @@ Confirmed by Mihai on 17 October 2026. This is the canonical agreement for futur
 
 - At most one new original post per run, and at most three posts with front-matter dates in the current Europe/Bucharest Monday-to-Sunday week. Count book reviews and applied-paper essays too. If the week already has three, make no repository changes. Do not evade the cap through Pages, date manipulation, or a second publishing route.
 - With capacity, publish one fully evidenced, gated post. If required evidence, authorization, or checks are missing, do not publish a substitute that pretends to pass; explain the blocker. A draft is not a publication.
-- The default topic source remains meaningful public `mihainadas` GitHub activity since the previous post, broadening to seven days if needed. Exclude this blog's own maintenance, branch creation, formatting-only work, dependency noise, private work, and sensitive details.
+- Business drives topic selection: choose a narrow decision about AI, software-led differentiation, investment, operating capability, or oversight. Use “The operating advantage” as the working editorial thread described in `docs/professional-operations.md`, not as a proven proprietary theory. Engineering, research, applied papers, and books provide distinct evidence and perspectives, not separate content silos.
+- Review meaningful public `mihainadas` GitHub activity since the previous post, broadening to seven days if needed, as an evidence source rather than a mandatory topic priority. Exclude this blog's maintenance, branch creation, formatting-only work, dependency noise, private work, and sensitive details.
 - Prefer completed owned work: merged changes, shipped features, resolved bugs, reproducible experiments, and useful notebooks. Cite the public commits, pull requests, issues, repositories, documentation, or original papers that support the claims.
-- Choose one narrow question, not a weekly roundup. Compare subjects across the archive. If activity is thin, deepen a specific question from an earlier post using current primary sources; do not pad or paraphrase the old article.
+- Choose one narrow question, not a weekly roundup. Compare subjects across the archive. Public owned work, an earlier note, or current primary research may supply the evidence. A technical article must remain technically useful; do not append a generic business moral or force every research finding into a commercial claim.
 - Books and applied-paper essays are eligible only when they meet their own evidence and approval gates and have a distinct useful angle. Do not switch the scheduler into automatic book-review production or expand its scope merely because those sections exist.
 
 ## Voice and editorial judgment
@@ -40,8 +41,8 @@ Confirmed by Mihai on 17 October 2026. This is the canonical agreement for futur
 
 ## Business purpose and professional record
 
-- The site also supports consulting, advisory, and board-role enquiries. Connect research and engineering to software-led differentiation, AI investment economics, operating models, threats, opportunities, and oversight. Use `docs/professional-operations.md` for the reader paths, evidence boundaries, and commissioning queue.
-- Keep the public GitHub-activity-first topic priority. A business essay can develop a distinct decision question from that work or from earlier notes and current primary research when activity is thin. It counts as an original post, uses `post_type: business note`, and must pass the same cadence, evidence, opening, and editorial gates. Do not substitute generic industry predictions for evidence.
+- The site's organizing purpose is to demonstrate useful strategic judgment for consulting, advisory, and board-role enquiries. Connect research and engineering to software-led differentiation, AI investment economics, operating models, threats, opportunities, and oversight. Use `docs/professional-operations.md` for reader paths, evidence boundaries, and commissioning briefs. Demonstrate cross-functional judgment through evidence, not “rare executive” self-praise.
+- A business essay develops a distinct decision question supported by public owned work, earlier notes, or current primary research. It counts as an original post, uses `post_type: business note`, and must pass the same cadence, evidence, opening, and editorial gates. Do not substitute generic industry predictions for evidence.
 - Explain the business decision in plain English before technical detail. Separate reported study findings, their applicability limits, and proposed business tests. Software becoming easier to produce does not itself prove a productivity gain, return on investment, competitive advantage, or a measured client result. Sector lenses are questions, not fabricated industry case studies.
 - Keep engagement invitations distinct from promises of availability, employer representation, guaranteed outcomes, independence, or appointments. Use the approved LinkedIn contact route unless Mihai supplies another public channel. No automated outreach or job/board applications are authorized.
 - The résumé uses `_data/profile.json` for HTML and a generated PDF, with evidence links and a genuine factual-review date. Read the professional operations guide before changing career facts. Do not invent credentials, completed degrees, responsibilities, impact numbers, endorsements, or referee permission. Preserve the confirmed ongoing PhD status and historical executive-board distinction.
@@ -83,6 +84,8 @@ Confirmed by Mihai on 17 October 2026. This is the canonical agreement for futur
 
 ## Verification and release gate
 
+Article narration follows `docs/audio-operations.md`. Synthetic audio needs a real listening review, exact transcript, source freshness checks, disclosure in speech and metadata, verified hosting, and actual platform links. No inactive player or invented podcast feed is published. A one-off pilot budget is not permission for recurring generation, account creation, terms acceptance, voice cloning, or paid subscriptions. Narration disclosure is required even though articles do not discuss writing assistance.
+
 Use the repository-local bundle. If missing or incomplete, run `BUNDLE_PATH=vendor/bundle bundle install`. Run all of:
 
 ```sh
@@ -92,6 +95,8 @@ python3 scripts/check_build.py
 python3 -m unittest discover -s tests
 BUNDLE_PATH=vendor/bundle bundle exec htmlproofer ./_site --disable-external --enforce-https
 node --check assets/site.js
+node --check assets/theme.js
+node --test tests/theme.test.cjs
 git diff --check
 ```
 

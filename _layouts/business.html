@@ -8,6 +8,15 @@ layout: default
     <div class="professional-intro">{{ content }}</div>
     <p class="professional-actions"><a class="button-primary" href="{{ '/work-with-me/' | relative_url }}">Discuss an engagement</a><a href="{{ '/resume/' | relative_url }}">Professional record →</a></p>
   </header>
+  <section class="strategy-thesis" id="operating-advantage" aria-labelledby="strategy-heading">
+    <p class="eyebrow">The editorial thread</p>
+    <h2 id="strategy-heading">{{ site.data.strategy.name }}</h2>
+    <p class="strategy-statement">{{ site.data.strategy.thesis | escape }}</p>
+    <p>David Teece’s <a href="{{ site.data.strategy.source }}">Profiting from technological innovation (1986)</a> asks why an innovator does not necessarily capture the value of an innovation. One answer is complementary assets: the capabilities and routes to market needed to make the invention useful and commercially viable.</p>
+    <p>That is a useful lens for AI and more accessible software development. A company may be able to buy the same model or generate similar code as its competitors. The harder question is whether it can combine those tools with something customers value and competitors cannot readily obtain.</p>
+    <p class="scope-note">{{ site.data.strategy.basis | escape }} The argument weakens where the complements are easy to copy, do not affect customer choice, or cost more to maintain than the value they create. Sometimes buying a standard solution is the right decision.</p>
+    <div class="strategy-paths"><a href="#differentiation">What to own →</a><a href="#investment">What to test →</a><a href="#oversight">What to govern →</a></div>
+  </section>
   <section aria-labelledby="business-questions" class="business-questions">
     <p class="eyebrow">Three decision lenses</p>
     <h2 id="business-questions">Start with what needs to change.</h2>

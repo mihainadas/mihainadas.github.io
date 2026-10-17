@@ -77,6 +77,21 @@ class PlatformTests(unittest.TestCase):
     def test_current_professional_record_passes(self):
         self.assertEqual(validate_professional(self.root)['name'], 'Mihai Dan Nadăș')
 
+    def test_strategy_requires_a_primary_source(self):
+        self.update_data('strategy', lambda data: data.update(source=''))
+        with self.assertRaisesRegex(ValueError, 'primary source'):
+            validate_professional(self.root)
+
+    def test_strategy_connections_need_real_evidence(self):
+        self.update_data('strategy', lambda data: data['connections'][0].update(slug='not-a-post'))
+        with self.assertRaisesRegex(ValueError, 'real article'):
+            validate_professional(self.root)
+
+    def test_strategy_connections_preserve_limitations(self):
+        self.update_data('strategy', lambda data: data['connections'][0].update(limit=''))
+        with self.assertRaisesRegex(ValueError, 'limitation'):
+            validate_professional(self.root)
+
     def test_changed_profile_requires_pdf_regeneration(self):
         self.update_data('profile', lambda data: data.update(headline='A changed headline'))
         with self.assertRaisesRegex(ValueError, 'resume is stale'):

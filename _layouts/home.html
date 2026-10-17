@@ -7,11 +7,11 @@ layout: default
 <div class="home">
   <section class="hero">
     <div class="hero-main">
-      <p class="eyebrow">Engineering · AI research · business</p>
-      <h1>From systems<br>to <em>decisions.</em></h1>
+      <p class="eyebrow">{{ site.data.strategy.name }}</p>
+      <h1>Software gets easier.<br><em>Advantage doesn’t.</em></h1>
       <div class="hero-copy">{{ content }}</div>
       <p class="hero-links">
-        <a class="button-primary" href="#recent-heading">Read the latest</a>
+        <a class="button-primary" href="{{ '/business/#operating-advantage' | relative_url }}">Explore the argument</a>
         <a href="{{ '/work-with-me/' | relative_url }}">Work with me →</a>
       </p>
     </div>
@@ -32,12 +32,12 @@ layout: default
   </aside>
 
   <section class="home-business" aria-labelledby="home-business-heading">
-    <div><p class="eyebrow">The business side</p><h2 id="home-business-heading">What changes<br>when building gets easier?</h2></div>
-    <div><p>More software is not an advantage by itself. The question is which capability a company should own, how AI changes the work, and what evidence justifies the investment.</p><p><a class="text-link" href="{{ '/business/' | relative_url }}">Explore AI &amp; business →</a><a class="text-link" href="{{ '/resume/' | relative_url }}">My professional record →</a></p>{% assign latest_business = site.posts | where: 'post_type', 'business note' | first %}{% if latest_business %}<p class="latest-business">Latest business essay · <a href="{{ latest_business.url | relative_url }}">{{ latest_business.title | escape }}</a></p>{% endif %}</div>
+    <div><p class="eyebrow">Strategy, tested against the work</p><h2 id="home-business-heading">What should your<br>company own?</h2></div>
+    <div><p>{{ site.data.strategy.thesis | escape }}</p><p>This is the thread connecting the business questions, engineering experiments, research, and reading shelf. The methods are public. Their business applicability still has to be tested.</p><p><a class="text-link" href="{{ '/business/' | relative_url }}">Explore AI &amp; business →</a><a class="text-link" href="{{ '/resume/' | relative_url }}">My professional record →</a></p>{% assign latest_business = site.posts | where: 'post_type', 'business note' | first %}{% if latest_business %}<p class="latest-business">Latest business essay · <a href="{{ latest_business.url | relative_url }}">{{ latest_business.title | escape }}</a></p>{% endif %}</div>
   </section>
 
   <section aria-labelledby="threads-heading" class="thread-section">
-    <div class="section-heading"><h2 id="threads-heading">Follow a thread</h2><a href="{{ '/lab-notebooks/' | relative_url }}">Executable notebooks →</a></div>
+    <div class="section-heading"><h2 id="threads-heading">Go beneath the strategy</h2><a href="{{ '/lab-notebooks/' | relative_url }}">Executable notebooks →</a></div>
     <div class="thread-grid">
       {% for thread in site.data.threads %}
       {% assign thread_posts = site.posts | where: "post_type", thread.post_type %}

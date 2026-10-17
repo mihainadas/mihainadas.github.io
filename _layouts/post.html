@@ -29,9 +29,12 @@ layout: default
   </header>
 
   {% if page.post_type == 'book review' %}{% include book-review-meta.html %}{% endif %}
+  {% include article-audio.html %}
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
+
+  {% include strategy-context.html %}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
   {% include reader-feedback.html %}

@@ -1,5 +1,5 @@
 title: "Mihai Nadăș"
-description: "Technical notes from Mihai Nadăș, a technology executive, engineer, and PhD researcher working on small language models and PC emulation."
+description: "AI, software-led differentiation, and business decisions. Mihai Nadăș connects technology leadership to public engineering work and language-model research."
 url: "https://mihainadas.github.io"
 baseurl: ""
 lang: en
@@ -14,9 +14,9 @@ permalink: /:year/:month/:day/:title.html
 show_excerpts: true
 
 header_pages:
+  - business.md
   - engineering.md
   - research.md
-  - business.md
   - library.md
   - about.md
 

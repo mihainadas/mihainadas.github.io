@@ -125,3 +125,9 @@ Use a diagram when it clarifies a sequence, system boundary, data flow, artifact
 For a notebook-derived chart, keep the notebook as the source of truth. Execute it cleanly with fixed seeds and a non-interactive plotting backend, export a deterministic SVG, strip timestamps and local-path metadata, and record the notebook commit in `source_url`/`source_label`. State the principal result in the alternative text; use the caption for the population, runs, units, and interpretation. Keep important numerical conclusions in the prose as well.
 
 The checks require local assets, explicit dimensions, a factual caption, per-post storage, safe SVG content, and a real generated figure. They reject orphaned assets, private filesystem paths, active SVG content, and remote SVG dependencies.
+
+## Strategy and audio maintenance
+
+Business is the organizing lens, with `_data/strategy.json` connecting the homepage, business hub, and a small set of explicitly qualified article links. Follow `docs/professional-operations.md`; public source checks reject unresolved evidence or missing limitations. Career data and the résumé retain their separate factual-review and regeneration gates.
+
+Article audio is optional and inactive until a real episode is registered. Read `docs/audio-operations.md` before generation or distribution. `scripts/prepare_narration.py` only prepares requests; it never spends or publishes. The ordinary source gate checks source/transcript hashes and listening-review metadata, while build checks prevent empty players. Run `node --test tests/theme.test.cjs` for appearance persistence, keyboard dismissal, storage denial, and cross-tab synchronization in addition to the normal Python suite. Verify actual browser behavior and listening quality separately.

@@ -32,14 +32,26 @@
         </nav>
       </details>
       <a class="header-language" href="{{ alternate_url | relative_url }}" lang="{{ ui.switch_lang }}" hreflang="{{ ui.switch_lang }}">{{ ui.switch }}</a>
-      <label class="theme-control" for="theme-preference">
-        <span class="sr-only">{{ ui.theme }}</span>
-        <select id="theme-preference" name="theme-preference">
-          <option value="system">{{ ui.system }}</option>
-          <option value="light">{{ ui.light }}</option>
-          <option value="dark">{{ ui.dark }}</option>
-        </select>
-      </label>
+      <div class="theme-control">
+        <button class="theme-trigger" id="theme-trigger" type="button" aria-expanded="false" aria-controls="theme-panel" aria-label="{{ ui.appearance }}">
+          {% include theme-icon.html mode="system" %}{% include theme-icon.html mode="light" %}{% include theme-icon.html mode="dark" %}
+        </button>
+        <div class="theme-panel" id="theme-panel" hidden>
+          <fieldset id="theme-preference">
+            <legend>{{ ui.appearance }}</legend>
+            <p class="theme-hint">{{ ui.reading_light }}</p>
+            {% assign modes = 'system,light,dark' | split: ',' %}
+            {% for mode in modes %}{% assign help_key = mode | append: '_help' %}
+            <label class="theme-choice">
+              <input type="radio" name="theme" value="{{ mode }}"{% if mode == 'system' %} checked{% endif %}>
+              {% include theme-icon.html mode=mode %}
+              <span><strong>{{ ui[mode] }}</strong><small>{{ ui[help_key] }}</small></span>
+              <span class="theme-check" aria-hidden="true">✓</span>
+            </label>
+            {% endfor %}
+          </fieldset>
+        </div>
+      </div>
     </div>
   </div>
 </header>

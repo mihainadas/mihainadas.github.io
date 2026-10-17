@@ -16,10 +16,12 @@ try:
     from scripts.check_books import check_books
     from scripts.check_media import validate_media
     from scripts.check_professional import validate_professional
+    from scripts.check_audio import validate_audio
 except ModuleNotFoundError:
     from check_books import check_books
     from check_media import validate_media
     from check_professional import validate_professional
+    from check_audio import validate_audio
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -578,6 +580,7 @@ def main() -> int:
     try:
         validate_media(ROOT)
         validate_professional(ROOT)
+        validate_audio(ROOT)
     except (ValueError, KeyError, OSError) as error:
         fail(str(error))
     check_books(ROOT, fail)

@@ -1,6 +1,18 @@
 # Business writing and professional record
 
-Confirmed direction, 17 October 2026: the site should help readers understand Mihai's research and engineering, and give prospective consulting clients, founders, investors, and board nomination teams a credible way to assess fit. Commercial positioning must come from the work, not invented authority.
+Confirmed direction, 17 October 2026: business drives the site. Research, engineering, applied papers, and books are interwoven evidence for prospective consulting clients, founders, investors, and board nomination teams assessing Mihai's judgment. Commercial positioning must come from the work, not invented authority.
+
+## The operating advantage
+
+This is a working editorial thesis, not a new academic theory or a proven universal law: when software becomes easier to build, investigate the combination of customer access, workflow knowledge, useful lawful data, organizational capability, and execution that could turn it into a durable advantage. Use `_data/strategy.json` for shared public wording and selected, carefully qualified article connections.
+
+The selected research foundation is David Teece’s [Profiting from technological innovation (1986)](https://www.sciencedirect.com/science/article/pii/0048733386900272): innovation does not automatically deliver returns to its inventor, and complementary assets affect who captures value. This fits a cross-industry executive and operating perspective better than treating every company as a platform.
+
+Alternatives considered: Ben Thompson’s [Aggregation Theory](https://stratechery.com/2015/aggregation-theory/) is especially useful for platforms controlling the customer relationship and aggregating commoditized supply; it is too narrow as the whole site's organizing lens. [Modularity Theory](https://www.christenseninstitute.org/theory/modularity/) helps ask where interfaces are predictable enough to buy components, and where interdependencies justify integration. Keep both as supporting lenses, not interchangeable names for the selected framework. [Dynamic capabilities](https://www.davidjteece.com/dynamic-capabilities) can inform adaptation and reconfiguration; do not conflate it with ordinary operating efficiency.
+
+Each commissioned business article should identify a decision, the proposed source of value, the complement that might be scarce, a buy/build/partner alternative, and what evidence could disprove the claim. These are editorial questions, not a compulsory five-part template. Sometimes a standard purchased service is best. Complements that are easy to obtain, irrelevant to customer choice, or too costly to maintain do not establish a moat. Research benchmarks and emulator fixes are evidence of methods, not client ROI.
+
+Publish a full introductory strategy essay through the normal post route when cadence allows. The short landing-page thesis is positioning, not a workaround for the three-post cap. No new original essay is authorized this already-full week. Future runs are business-led, replacing the former GitHub-first priority while retaining public activity review as a valuable source.
 
 ## Reader paths
 
@@ -9,7 +21,7 @@ Confirmed direction, 17 October 2026: the site should help readers understand Mi
 - `/resume/`: selected professional record with role sources and papers. `_data/profile.json` is shared by HTML and PDF. The two-page PDF is selective, not a complete history or a vacancy-specific application.
 - Books remains the reading shelf. A selection is not a review; paid links do not determine the editorial choice.
 
-Keep five English primary destinations: Engineering, Research, Business, Library, About. Archive remains in the footer/homepage; résumé belongs under About and engagement enquiries under Business. Do not crowd the header again.
+Keep five English primary destinations: Business, Engineering, Research, Library, About. Archive remains in the footer/homepage; résumé belongs under About and engagement enquiries under Business. Do not crowd the header again.
 
 ## Career evidence and maintenance
 

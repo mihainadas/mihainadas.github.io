@@ -57,6 +57,15 @@ def validate_professional(root=ROOT):
     for theme in business['themes']:
         if not theme['posts'] or not set(theme['posts']).issubset(slugs):
             raise ValueError(f'business evidence does not resolve: {theme["id"]}')
+    strategy = json.loads((root / '_data/strategy.json').read_text(encoding='utf-8'))
+    if not all(strategy.get(key) for key in ('name', 'thesis', 'basis', 'source')) or not strategy['source'].startswith('https://'):
+        raise ValueError('strategy thread needs a stated basis and primary source')
+    connections = strategy['connections']
+    if len({item['slug'] for item in connections}) != len(connections):
+        raise ValueError('duplicate strategy connection')
+    for item in connections:
+        if item['slug'] not in slugs or not item['question'] or not item['limit']:
+            raise ValueError('strategy connection needs a real article, question, and limitation')
     record = json.loads((root / '_data/resume_build.json').read_text(encoding='utf-8'))
     if record['reviewed'] != profile['reviewed'] or set(record['inputs']) != RESUME_INPUTS:
         raise ValueError('resume build record does not describe the current profile and inputs')
@@ -66,7 +75,7 @@ def validate_professional(root=ROOT):
     pdf = root / 'assets/downloads/mihai-nadas-resume.pdf'
     if hashlib.sha256(pdf.read_bytes()).hexdigest() != record['pdf_sha256'] or not pdf.read_bytes().startswith(b'%PDF-'):
         raise ValueError('resume PDF is missing, corrupt, or differs from its reviewed build')
-    for name in ('profile', 'business', 'media'):
+    for name in ('profile', 'business', 'media', 'strategy'):
         text = (root / f'_data/{name}.json').read_text(encoding='utf-8')
         if '\u2014' in text or re.search(r'\b(?:TODO|FIXME|XXX)\b|lorem ipsum', text, re.I):
             raise ValueError(f'{name}: publication prose contains an em dash or placeholder')

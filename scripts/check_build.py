@@ -484,8 +484,24 @@ def main() -> int:
     if 'id="theme-preference"' not in home:
         fail("homepage is missing the theme preference control")
     for value, label in (("system", "System"), ("light", "Light"), ("dark", "Dark")):
-        if f'<option value="{value}">{label}</option>' not in home:
-            fail(f"theme preference control is missing its {label} option")
+        if not re.search(rf'<input type="radio" name="theme" value="{value}"[^>]*>', home) or f'<strong>{label}</strong>' not in home:
+            fail(f"theme preference control is missing its labelled {label} radio")
+    for required in ('id="theme-trigger"', 'aria-controls="theme-panel"', 'aria-expanded="false"', 'id="theme-panel" hidden', '<legend>Appearance</legend>'):
+        if required not in home:
+            fail(f"appearance control lost its accessible contract: {required}")
+    if '<select id="theme-preference"' in home:
+        fail('legacy appearance selector is still present')
+    if 'id="operating-advantage"' not in read('business/index.html') or 'The operating advantage' not in home:
+        fail('business-led editorial thread is missing')
+    audio = json.loads((ROOT / '_data/audio.json').read_text(encoding='utf-8'))
+    for episode in audio['episodes']:
+        rendered = read(episode['article_url'].lstrip('/'))
+        if 'class="article-audio"' not in rendered or 'preload="none"' not in rendered or episode['audio_url'] not in rendered:
+            fail('a registered audio edition lost its player or enclosure')
+    if not audio['episodes']:
+        for document in SITE.rglob('*.html'):
+            if 'class="article-audio"' in document.read_text(encoding='utf-8'):
+                fail('an inactive audio player is published without a verified episode')
     for required in (
         'window.matchMedia("(prefers-color-scheme: dark)")',
         'window.localStorage.setItem(storageKey, preference)',

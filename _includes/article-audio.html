@@ -1,0 +1,13 @@
+{% assign episode = site.data.audio.episodes | where: 'article_url', page.url | first %}
+{% if episode %}
+<section class="article-audio" aria-labelledby="audio-heading">
+  <p class="eyebrow">Audio edition · {{ episode.duration_label | escape }}</p>
+  <h2 id="audio-heading">Listen to this article</h2>
+  <p>Synthetic narration using a stock voice, not Mihai’s voice. Adapted for listening; the article retains the source links and technical detail.</p>
+  <audio controls preload="none" aria-label="{{ page.title | escape }}: audio edition">
+    <source src="{{ episode.audio_url | escape }}" type="audio/mpeg">
+    <a href="{{ episode.audio_url | escape }}">Download the audio edition</a>
+  </audio>
+  <p><a href="{{ episode.transcript | relative_url }}">Read the spoken transcript</a>{% if episode.spotify_url %} · <a href="{{ episode.spotify_url | escape }}">Spotify</a>{% endif %}{% if episode.apple_url %} · <a href="{{ episode.apple_url | escape }}">Apple Podcasts</a>{% endif %}</p>
+</section>
+{% endif %}
