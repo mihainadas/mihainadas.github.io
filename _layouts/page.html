@@ -1,7 +1,8 @@
 ---
 layout: default
 ---
+{% include locale.html %}
 <article class="page{% if page.wide %} page--wide{% endif %}">
-  <header><h1 class="page-heading">{{ page.title | escape }}</h1></header>
+  <header><h1 class="page-heading">{{ page.title | escape }}</h1>{% include language-note.html %}</header>
   <div class="page-body">{{ content }}</div>
 </article>

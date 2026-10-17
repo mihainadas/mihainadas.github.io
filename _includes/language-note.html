@@ -1,0 +1,6 @@
+{% if alternate_exact %}
+<p class="language-note">
+  {% if current_lang == 'ro' %}Altă ediție:{% else %}Other edition:{% endif %}
+  <a href="{{ alternate_url | relative_url }}" lang="{{ ui.switch_lang }}" hreflang="{{ ui.switch_lang }}">{{ ui.switch }}</a>.
+</p>
+{% endif %}

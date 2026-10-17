@@ -82,7 +82,7 @@
       var contents = document.createElement("details");
       contents.className = "article-contents";
       var summary = document.createElement("summary");
-      summary.textContent = "On this page";
+      summary.textContent = document.documentElement.lang === "ro" ? "În acest articol" : "On this page";
       contents.appendChild(summary);
       var links = document.createElement("ul");
       headings.forEach(function (heading) {

@@ -1,0 +1,14 @@
+{% assign current_lang = page.lang | default: site.lang | default: 'en' %}
+{% assign ui = site.data.i18n[current_lang] %}
+{% assign language_home = '/' %}{% if current_lang == 'ro' %}{% assign language_home = '/ro/' %}{% endif %}
+{% assign alternate_url = ui.switch_home %}
+{% assign alternate_exact = false %}
+{% assign translation_peers = '' | split: ',' %}
+{% if page.translation_key %}
+  {% assign documents = site.pages | concat: site.posts %}
+  {% assign translation_peers = documents | where: 'translation_key', page.translation_key %}
+  {% for peer in translation_peers %}
+    {% assign peer_lang = peer.lang | default: site.lang %}
+    {% if peer_lang != current_lang %}{% assign alternate_url = peer.url %}{% assign alternate_exact = true %}{% endif %}
+  {% endfor %}
+{% endif %}

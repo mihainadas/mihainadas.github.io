@@ -1,0 +1,27 @@
+---
+layout: default
+---
+{% include locale.html %}
+<article class="post h-entry" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="post-header">
+    <a class="section-back" href="{{ '/ro/#note' | relative_url }}">← Note în română</a>
+    <p class="post-meta">{{ page.article_kind }} · ediție în română</p>
+    <h1 class="post-title p-name" itemprop="headline">{{ page.title | escape }}</h1>
+    <p class="post-deck">{{ page.description }}</p>
+    {% include language-note.html %}
+    <p class="edition-note">Ediție verificată la <time datetime="{{ page.translation_reviewed }}">{{ page.translation_reviewed | date: "%d.%m.%Y" }}</time>. Păstrează exemplele, sursele și limitele articolului original.</p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">{{ content }}</div>
+  {% include reader-feedback.html %}
+  <nav class="post-continuation" aria-label="Lecturi în continuare">
+    <h2>Continuă lectura</h2>
+    <ul>
+      {% assign romanian_notes = site.pages | where: 'layout', 'translated-post' | sort: 'title' %}
+      {% for note in romanian_notes %}{% unless note.url == page.url %}
+      <li><a href="{{ note.url | relative_url }}">{{ note.title }}</a><span>{{ note.description }}</span></li>
+      {% endunless %}{% endfor %}
+      <li><a href="{{ '/ro/cercetare/' | relative_url }}">Cercetarea mea, explicată în română →</a></li>
+      <li><a href="{{ page.translation_source_url | relative_url }}" lang="en" hreflang="en">Articolul original în engleză →</a></li>
+    </ul>
+  </nav>
+</article>

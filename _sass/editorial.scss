@@ -25,6 +25,19 @@
 .site-mark { font-family: Manrope, sans-serif; font-size: 0.78rem; margin-left: 0.25rem; }
 .site-header { border-top: 3px solid var(--ink); }
 .site-nav .page-link { font-weight: 550; }
+.header-language { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.8rem; color: var(--ink); text-decoration: none; }
+.header-language:visited { color: var(--ink); }
+.header-language:hover { color: var(--accent); }
+.language-note { font-size: 0.82rem; color: var(--muted); margin: 1rem 0 0; }
+.edition-note { font-size: 0.76rem; color: var(--muted); max-width: 64ch; margin: 0.8rem 0 0; }
+.reader-feedback { border-top: 1px solid var(--line); max-width: 72ch; padding-top: 1.5rem; margin-top: 3rem; }
+.reader-feedback h2 { font-size: 1.2rem; margin: 0 0 0.7rem; }
+.reader-feedback p { font-size: 0.9rem; color: var(--copy-muted); margin-bottom: 0.5rem; }
+.reader-feedback > a { font-size: 0.87rem; display: inline-flex; align-items: center; min-height: 44px; }
+.romanian-intro { max-width: 68ch; font-size: 1.08rem; }
+.romanian-research { background: var(--surface); border-left: 3px solid var(--accent); padding: 1.4rem 1.6rem; margin: 2rem 0 3rem; }
+.romanian-research h2 { margin-top: 0; }
+.romanian-research p { max-width: 64ch; }
 .theme-control select { border-radius: 0; background-color: transparent; }
 
 .page-heading, .post-title, .hero h1,
@@ -148,6 +161,7 @@
   .research-feature h2 { font-size: 3rem; }
 }
 @media (max-width: 640px) {
+  .header-language { display: none; }
   .site-title { font-size: 1.2rem; }
   .hero { padding-top: 0; }
   .hero .eyebrow { font-size: 0.57rem; }
@@ -167,6 +181,7 @@
   .hero-links a, .text-link, .thread h3 a { transition: color 150ms ease, background-color 150ms ease; }
 }
 @media print {
+  .reader-feedback { display: none; }
   .hero-art, .research-feature figure { display: none; }
   .hero, .research-feature, .work-ledger { display: block; }
   .hero h1 em, .thread-number { color: #333; }

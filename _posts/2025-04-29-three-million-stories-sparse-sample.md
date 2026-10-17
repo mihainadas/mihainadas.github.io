@@ -4,10 +4,11 @@ title: "Three Million Stories Are Still a Sparse Sample"
 date: 2025-04-29 13:15:28 +0300
 published_at: 2026-08-27 09:11:56 +0300
 feed_date: "2026-08-27 09:11:56 +0300"
-last_modified_at: 2026-08-27 09:11:56 +0300
+last_modified_at: 2026-10-17 13:42:57 +0300
 post_type: research note
 description: "What a three-million-row corpus covers when six slots each have one hundred possible values."
-context_reviewed: 2026-09-20
+context_reviewed: 2026-10-17
+editorial_reviewed: 2026-10-17
 math: true
 tags: [synthetic-data, experimental-design, language-models]
 series: controlled-synthetic-narratives
@@ -15,11 +16,11 @@ series_order: 1
 evidence_status: thesis-analysis
 ---
 
-TF1 is a controlled synthetic-data project: each English fable begins from six selected story fields, then a generator renders the combination into prose. The release contains three million stories, which is large as a corpus but small relative to the specification space.
+TinyFabulist's TF1 project generates English fables from six selected story fields. A specification chooses the ingredients; a language model turns them into prose. The release contains three million stories. To use that corpus for an experiment, I first need to know which combinations it actually represents.
 
 Three million sounds exhaustive until it is divided by a trillion.
 
-TF1 constructs a prompt from six slots—character, trait, setting, challenge, outcome, and teaching—with one hundred values available in each. That makes \\(100^6\\), or one trillion, possible specifications. The released three-million-story corpus occupies at most 0.0003% of that grid.
+The six slots are character, trait, setting, challenge, outcome, and teaching, with one hundred values available in each. That makes \\(100^6\\), or one trillion, possible specifications. The released three-million-story corpus occupies at most 0.0003% of that grid.
 
 > **Archive note.** This is an August 2026 analysis of the [April 2025 TF1 release](https://arxiv.org/abs/2504.20605). The date marks the artifact being examined; the argument was added to this journal later.
 
@@ -41,9 +42,9 @@ If the sampler is balanced, each individual value appears about 30,000 times: a 
 
 The sixth-order combination is different. Even with no duplicate rows, the corpus leaves 999,997,000,000 possible specifications unseen. A claim that the data “covers the design space” would confuse a large row count with dense joint coverage.
 
-The distinction changes which questions the corpus can answer. It can support statements about marginal balance: whether every setting is represented, for example. It can support planned pairwise checks, such as whether one character is unusually associated with one moral. It cannot show that every plausible interaction among all six fields has been exercised.
+That leaves useful work to do. Check whether every setting is represented, or whether one character is unusually associated with one moral. Those are questions about individual fields and pairs. Asking whether every interaction among all six fields has been exercised is a much larger demand.
 
-## Coverage is a claim with an order
+## Ask which combinations the experiment needs
 
 The useful question is not whether the corpus is large. It is: coverage of what?
 

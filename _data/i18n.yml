@@ -1,0 +1,38 @@
+en:
+  menu: Menu
+  skip: Skip to content
+  content: Content
+  primary: Primary navigation
+  theme: Theme
+  system: System
+  light: Light
+  dark: Dark
+  switch: Română
+  switch_lang: ro
+  switch_home: /ro/
+  footer: Technology leadership, engineering, and AI research.
+  external: External links
+  notebooks: Notebooks
+  feed: RSS
+  contents: On this page
+  og_locale: en_US
+  image_alt: "Mihai Nadăș: field notes on engineering, AI research, and applied papers."
+ro:
+  menu: Meniu
+  skip: Sari la conținut
+  content: Conținut
+  primary: Navigare principală
+  theme: Temă
+  system: Sistem
+  light: Luminos
+  dark: Întunecat
+  switch: English
+  switch_lang: en
+  switch_home: /
+  footer: Management tehnologic, inginerie și cercetare în inteligență artificială.
+  external: Alte resurse
+  notebooks: Caiete interactive (EN)
+  feed: RSS (EN)
+  contents: În acest articol
+  og_locale: ro_RO
+  image_alt: "Mihai Nadăș: note despre inginerie, cercetare și aplicațiile ei."

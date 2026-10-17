@@ -4,20 +4,27 @@ title: Research
 math: true
 permalink: /research/
 description: "A map of Mihai Nadăș's work on TinyFabulist, Romanian NLP, and open-weight evaluation."
+lang: en
+translation_key: research
+editorial_reviewed: 2026-10-17
 ---
+
+TinyFabulist is my research program on small language models and synthetic stories. The work follows a complete path: specify an English story, translate it into Romanian, then train a compact model to generate Romanian text. Each stage leaves a different question to test, from whether a story follows its instructions to whether an evaluator recognizes a good translation.
+
+The map below separates the published artifacts from the arguments I am developing in the thesis. You can follow the papers for the full methods, or start with the linked notes for one experiment at a time. The recurring question is practical: which property did we actually measure, and what can that measurement support?
 
 ## TinyFabulist
 
 TinyFabulist is a three-stage research program built around controlled synthetic narratives.
 
-### TF1 — generation
+### TF1: generation
 
 Structured six-slot specifications are expanded into prompts and passed to open-weight generators no larger than 8B parameters. The released artifact is a three-million-story English corpus with generation metadata and evaluation signals.
 
 - [Paper: TF1-EN-3M](https://arxiv.org/abs/2504.20605)
 - The paper records the dataset schema, generation pipeline, and public release.
 
-### TF2 — English–Romanian translation
+### TF2: English–Romanian translation
 
 TF2 turns selected TF1 stories into English–Romanian parallel resources and tests how far a fine-tuned open model can narrow the gap to much larger systems at lower inference cost. The project separates the 15K reference set, the three-million-pair corpus, and the released model; they serve different purposes.
 
@@ -25,7 +32,7 @@ TF2 turns selected TF1 stories into English–Romanian parallel resources and te
 - [Versioned preprint](https://arxiv.org/abs/2509.07829v4)
 - The article distinguishes the full three-million-pair corpus from the curated 15K tuning and evaluation set.
 
-### TF3 — compact Romanian models
+### TF3: compact Romanian models
 
 TF3 covers tokenizer construction, from-scratch pre-training, compression, evaluation, and Romanian-native generation. The current paper distinguishes the 51.65M-parameter model from the 26.45M-parameter compressed student; neither number should be reduced to “a 50M model” without context.
 
@@ -46,7 +53,7 @@ The current proposal-stage thesis joins the three systems under a measurement qu
 
 {% assign thesis_posts = site.posts | where: "series", "controlled-synthetic-narratives" | sort: "series_order" %}
 {% for post in thesis_posts %}
-- [{{ post.title }}]({{ post.url | relative_url }}) — {{ post.description }}
+- [{{ post.title }}]({{ post.url | relative_url }}): {{ post.description }}
 {% endfor %}
 
 ## Reproducibility

@@ -2,18 +2,20 @@
 layout: post
 title: "Merging LoRA Removes a Branch, Not Parameters"
 date: 2026-10-16 09:32:53 +0300
+last_modified_at: 2026-10-17 13:42:57 +0300
 post_type: research note
 description: "A merged LoRA checkpoint removes adapter computation at inference, but it stores a full dense model and preserves only the low-rank origin of the update."
-context_reviewed: 2026-10-16
+context_reviewed: 2026-10-17
+editorial_reviewed: 2026-10-17
 math: true
 tags: [language-models, lora, deployment, reproducibility]
 ---
 
-TF2 adapts open-weight language models for English-Romanian literary translation. Instead of changing every backbone parameter during training, it learns rank-32 LoRA updates for selected attention and feed-forward projections. The released system then serves merged weights, so an inference runtime can load an ordinary model without a separate adapter path.
+TinyFabulist's TF2 system adapts open-weight language models for English-Romanian literary translation. It uses LoRA, short for low-rank adaptation: training small added matrices while keeping the model's original weights fixed. For TF2, those updates have rank 32 and target selected attention and feed-forward projections.
 
-My earlier note on [the TF2 adapter](/2025/08/04/lora-finetuning-translation.html) described the update as \\(W' = W + (\alpha/r)BA\\) and separated that adaptation from later quantization. One phrase still needs a sharper boundary: merging does not turn the full model into a low-rank model, and it does not make the deployed checkpoint contain only the adapter parameters.
+A small adapter is useful during training, but the deployed model is another matter. TF2 merges the learned update into the original weights before serving it. My earlier note on [the TF2 adapter](/2025/08/04/lora-finetuning-translation.html) described the update as \\(W' = W + (\alpha/r)BA\\) and separated that adaptation from later quantization. One phrase still needs a sharper boundary: merging does not turn the full model into a low-rank model, and it does not make the deployed checkpoint contain only the adapter parameters.
 
-This note follows one adapted matrix from training to deployment. In exact arithmetic, the merged and unmerged forms compute the same linear map. They differ in storage, serving flexibility, and numerical behavior once finite precision or quantization enters the path. Keeping those properties separate prevents "parameter-efficient" from becoming an ambiguous claim about training, checkpoints, and inference at once.
+Follow one adapted matrix from training to deployment and the trade-off becomes concrete. In exact arithmetic, the merged and unmerged forms compute the same linear map. They differ in storage, serving flexibility, and numerical behavior once finite precision or quantization enters the path. Keeping those properties separate prevents "parameter-efficient" from becoming an ambiguous claim about training, checkpoints, and inference at once.
 
 ## The update is low-rank, not the resulting layer
 
@@ -77,7 +79,7 @@ The cost is flexibility. A shared base plus several small adapters can switch ta
 
 Merging is therefore deployment repackaging. It trades adapter identity and switching for a simpler inference graph. Compression would require a separate operation such as quantization, pruning, or a smaller architecture.
 
-## Floating point weakens the word identical
+## Where the algebra meets floating point
 
 The algebra does not promise bitwise equality on a computer. The unmerged path evaluates \\(W_0x + sB(Ax)\\); the merged path first rounds the entries of \\(W_0 + sBA\\), then multiplies the rounded matrix by \\(x\\). Floating-point addition and multiplication can round at different points even when both paths use the same nominal dtype.
 
@@ -118,4 +120,4 @@ A merged artifact needs a different record:
 
 The adapter recipe explains how the task-specific difference was encoded. The merged checkpoint records the exact dense product that was deployed. One cannot substitute for the other after quantization or when the original base revision disappears.
 
-LoRA saves training state and task-specific storage because it represents the update with two small matrices. Merging spends that separability to recover the base model's ordinary inference graph. The deployed matrix still has \\(dk\\) values; only its difference from the frozen base came through a rank-\\(r\\) path.
+LoRA saves training state and task-specific storage because it represents the update with two small matrices. Merging trades that separability for the base model's ordinary inference graph. The deployed matrix still has \\(dk\\) values; only its difference from the frozen base came through a rank-\\(r\\) path.

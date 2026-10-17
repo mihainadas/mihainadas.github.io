@@ -2,15 +2,19 @@
 layout: post
 title: "NFC Cannot Fix the Wrong Diacritic"
 date: 2026-10-05 09:35:34 +0300
+last_modified_at: 2026-10-17 13:42:57 +0300
 post_type: engineering note
 description: "Unicode normalization joins composed and decomposed Romanian letters, but legacy cedillas require a separate, language-aware policy."
-context_reviewed: 2026-10-05
+context_reviewed: 2026-10-17
+editorial_reviewed: 2026-10-17
+lang: en
+translation_key: romanian-unicode
 tags: [romanian-nlp, unicode, evaluation, data-quality]
 ---
 
-Romanian diacritic restoration takes text with missing marks and reconstructs the intended spelling while preserving everything else. Modern Romanian uses **ș** and **ț**, with a comma below. Older software and converted corpora often contain the similar-looking cedilla characters **ş** and **ţ** instead. An evaluator therefore has to decide whether those legacy forms are equivalent Romanian spellings or output-contract violations.
+Romanian diacritic restoration takes text with missing marks and reconstructs the intended spelling while preserving everything else. Modern Romanian uses **ș** and **ț**, with a comma below. Older software and converted corpora often contain the similar-looking cedilla characters **ş** and **ţ** instead. A system importing customer records or scoring restored text has to decide what to do with those older forms. Should it accept them as the same letters, or flag them because modern Romanian output was required?
 
-My earlier note on [restoration metrics](/2025/09/29/romanian-diacritics-challenge.html) included legacy cedilla forms among the positions that may need repair. That choice requires more than calling a Unicode normalization function. Normalization can reconcile a precomposed **ț** with a sequence made from `t` and a combining comma below. It does not change a cedilla into a comma.
+Unicode normalization gives equivalent encodings a consistent representation. Its NFC form can compose a base letter and a combining mark into one character. My earlier note on [restoration metrics](/2025/09/29/romanian-diacritics-challenge.html) included legacy cedillas among the positions that may need repair, but that repair needs a separate rule. Normalization can reconcile a precomposed **ț** with a sequence made from `t` and a combining comma below. It does not change a cedilla into a comma.
 
 This note isolates the boundary with four encodings of `fața`, meaning _the face_. Two use the modern comma below and two use the legacy cedilla. NFC reduces four code-point sequences to two Unicode strings, not one. A Romanian-specific mapping can join the remaining pair, but it must be an explicit language and evaluation policy.
 
@@ -104,7 +108,7 @@ The function must not be presented as general Unicode cleanup. U+015F is valid T
 
 Byte decoding belongs before both steps. If an ISO-8859-2 byte stream was decoded with the wrong character encoding, Unicode normalization cannot reconstruct the lost byte interpretation. A replacement character such as U+FFFD is evidence that the pipeline crossed that boundary without enough information.
 
-## One score cannot express both policies
+## Measure spelling and output format separately
 
 Suppose the reference contains `fața știe`, while a system returns `faţa ştie`. Three comparisons answer three different questions:
 
@@ -149,4 +153,4 @@ invalid byte decode  -> rejected or recorded, never guessed
 
 The test should cover uppercase **Ș/Ț**, lowercase **ș/ț**, both combining marks, and mixed strings. It should also assert that unrelated characters and string length at the grapheme level are preserved. A restoration pipeline that changes punctuation, URLs, or names has a different failure from one that chooses the wrong Romanian mark.
 
-The narrow result is that Unicode normalization and Romanian legacy repair solve different equivalence problems. NFC gives canonically equivalent strings one representation. A language-aware table can then apply the historical cedilla-to-comma decision. Keeping those steps separate makes the data policy visible, the evaluator reproducible, and a strict modern-output requirement measurable.
+For a Romanian-only import, the sequence is small: decode correctly, apply NFC, then apply the declared legacy-character mapping. For a multilingual field, keep the language boundary explicit. Two letters that look almost identical are enough to make an otherwise reasonable cleanup rule change the wrong text.

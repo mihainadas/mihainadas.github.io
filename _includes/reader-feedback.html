@@ -1,0 +1,12 @@
+{% capture feedback_subject %}Blog: {{ page.title }}{% endcapture %}
+<aside class="reader-feedback" aria-label="{% if current_lang == 'ro' %}Părerea cititorului{% else %}Reader feedback{% endif %}">
+  {% if current_lang == 'ro' %}
+  <h2>Ce ar merita explicat mai clar?</h2>
+  <p>Spune-mi unde ai pierdut firul sau ce exemplu ar fi ajutat. Corecturile și contraexemplele sunt binevenite.</p>
+  <a href="mailto:{{ site.author.email }}?subject={{ feedback_subject | strip | uri_escape }}">Scrie-mi un e-mail →</a>
+  {% else %}
+  <h2>Where did I lose you?</h2>
+  <p>If a paragraph was unclear, tell me which one. Corrections and counterexamples are welcome.</p>
+  <a href="mailto:{{ site.author.email }}?subject={{ feedback_subject | strip | uri_escape }}">Send me an email →</a>
+  {% endif %}
+</aside>

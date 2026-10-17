@@ -3,16 +3,18 @@ layout: post
 title: "Three Emulator Bugs, Three Different Tests"
 date: 2026-08-27 00:00:00 +0300
 feed_date: "2026-08-27 00:00:00 +0300"
+last_modified_at: 2026-10-17 13:42:57 +0300
 post_type: engineering note
-description: "Printer output, audio hardware, and memory bookkeeping needed different tests—and the same discipline about what each fix established."
+description: "Printer output, audio hardware, and memory bookkeeping needed different tests, and the same discipline about what each fix established."
 featured: true
-context_reviewed: 2026-09-20
+context_reviewed: 2026-10-17
+editorial_reviewed: 2026-10-17
 tags: [systems, emulation, testing]
 ---
 
-86Box emulates historical PC hardware, so one release can touch devices whose failures have little in common. This note follows three merged fixes in its printer, audio, and dynamic-recompiler subsystems and asks what evidence was sufficient for each one.
+86Box emulates historical PC hardware, including the printers, sound devices, and memory behavior that old operating systems expect. Three merged fixes covered very different failures: a print job that terminated the emulator, incorrect audio generation, and an aborted Windows 95 restart. The shared question was how to show that each repair worked.
 
-The hard part was not landing three fixes. It was finding a test that could fail for one reason. Printer raster output, audio generation, and dynamic-recompiler page bookkeeping each needed a different oracle.
+The hard part was not landing three fixes. It was finding a test that could fail for one reason. Printer raster output, audio generation, and dynamic-recompiler page bookkeeping each needed a different oracle: a concrete way to decide whether the output or state was correct.
 
 {% include figure.html
   src="/assets/figures/three-emulator-bugs/test-oracles.svg"
@@ -50,8 +52,8 @@ A Windows 95 soft restart on a VIA VT82C496G machine could abort inside the new 
 
 The correction deletes only two assignments, so the state transition and regression path carry most of the explanation. Three successful restarts exercise the path that motivated the change. They say nothing about remapping paths the test never enters.
 
-## What carries across subsystems
+## Choosing the test was part of the repair
 
 These fixes used a rendered page, a deterministic harness, and a repeated guest lifecycle. In each case the reviewable unit was the same: reproduce the failure, name the violated invariant, make the smallest correction, rerun the original path, and state what the test did not cover.
 
-One completed page, a 262,143-state harness, and three successful restarts are the evidence records; each remains limited to its reproduced path.
+A longer test run would not replace those choices. The useful next test is the one that reaches a failure the current evidence cannot see.

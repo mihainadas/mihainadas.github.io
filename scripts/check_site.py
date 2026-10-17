@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import hashlib
 import json
 import re
 import sys
@@ -162,6 +163,111 @@ def check_posts() -> None:
 def front_matter_value(text: str, key: str) -> str | None:
     match = re.search(rf"(?m)^{re.escape(key)}:\s*(.+?)\s*$", text)
     return match.group(1).strip("\"'") if match else None
+
+
+def language_source_signature(text: str) -> str:
+    """Fingerprint content and material declarations, not review-only metadata."""
+    parts = text.split("---", 2)
+    content = [
+        front_matter_value(text, "title"),
+        front_matter_value(text, "description"),
+        front_matter_value(text, "evidence_status"),
+        front_matter_value(text, "math"),
+        front_matter_value(text, "post_type"),
+        parts[2] if len(parts) == 3 else text,
+    ]
+    return hashlib.sha256(json.dumps(content, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
+
+
+def localized_sources(root: Path) -> list[Path]:
+    return sorted(set(root.glob("*.md")) | set((root / "_posts").glob("*.md")) | set((root / "ro").rglob("*.md")))
+
+
+def source_url(path: Path, text: str, root: Path) -> str:
+    if path.parent == root / "_posts":
+        stamp = front_matter_value(text, "date")
+        if not stamp or not re.match(r"\d{4}-\d{2}-\d{2}", stamp):
+            fail(f"translation source lacks a valid post date: {path.name}")
+        return f"/{stamp[:10].replace('-', '/')}/{path.stem[11:]}.html"
+    return front_matter_value(text, "permalink") or "/"
+
+
+def check_localization(root: Path | None = None) -> None:
+    root = root or ROOT
+    records = {}
+    groups = {}
+    for path in localized_sources(root):
+        text = path.read_text(encoding="utf-8")
+        if not text.startswith("---\n") or not front_matter_value(text, "layout"):
+            continue
+        records[path] = text
+        lang = front_matter_value(text, "lang") or "en"
+        if lang not in {"en", "ro"}:
+            fail(f"unsupported page language in {path.relative_to(root)}")
+        key = front_matter_value(text, "translation_key")
+        if key:
+            peers = groups.setdefault(key, {})
+            if lang in peers:
+                fail(f"duplicate {lang} edition for {key}")
+            peers[lang] = path
+        reviewed = front_matter_value(text, "editorial_reviewed")
+        post_date = front_matter_value(text, "date") or ""
+        if path.parent == root / "_posts" and post_date[:10] >= "2026-10-17" and not reviewed:
+            fail(f"new post requires a completed editorial review: {path.name}")
+        if reviewed:
+            try:
+                review_date = date.fromisoformat(reviewed)
+            except ValueError:
+                fail(f"invalid editorial review date in {path.name}")
+            if review_date > datetime.now(ZoneInfo("Europe/Bucharest")).date():
+                fail(f"editorial review is future-dated in {path.name}")
+            if "—" in text:
+                fail(f"em dash in editorially reviewed file: {path.name}")
+
+    for key, peers in groups.items():
+        if set(peers) != {"en", "ro"}:
+            fail(f"translation group {key} must contain exactly one English and one Romanian edition")
+        if not front_matter_value(records[peers["ro"]], "translation_source"):
+            fail(f"Romanian edition lacks its English source: {key}")
+
+    for path, text in records.items():
+        reference = front_matter_value(text, "translation_source")
+        if not reference:
+            continue
+        relative = Path(reference)
+        if relative.is_absolute() or ".." in relative.parts:
+            fail(f"unsafe translation source in {path.name}")
+        source = root / relative
+        if source not in records or (front_matter_value(records[source], "lang") or "en") != "en":
+            fail(f"translation source is missing or not English: {path.name}")
+        original = records[source]
+        key = front_matter_value(text, "translation_key")
+        if not key or key != front_matter_value(original, "translation_key") or groups[key].get("ro") != path:
+            fail(f"translation pair does not match its declared source: {path.name}")
+        if front_matter_value(text, "translation_source_url") != source_url(source, original, root):
+            fail(f"translation points to the wrong original URL: {path.name}")
+        if front_matter_value(text, "translation_source_sha256") != language_source_signature(original):
+            fail(f"translation is stale; review it against the changed English source: {path.name}")
+        for field in ("context_reviewed", "translation_reviewed", "editorial_reviewed"):
+            try:
+                stamp = date.fromisoformat(front_matter_value(text, field) or "")
+            except ValueError:
+                fail(f"{field} must record a completed review in {path.name}")
+            if stamp > datetime.now(ZoneInfo("Europe/Bucharest")).date():
+                fail(f"future review date in {path.name}")
+        paragraphs = opening_prose_paragraphs(text)
+        if len(paragraphs) < 2 or sum(len(re.findall(r"\b[\w'-]+\b", p)) for p in paragraphs) < MIN_OPENING_TOTAL_WORDS:
+            fail(f"translation opening lacks standalone context: {path.name}")
+        error = math_markup_error(text)
+        if error or (contains_math(text) and front_matter_value(text, "math") != "true"):
+            fail(f"translation math declaration or delimiters are invalid: {path.name}")
+        original_body, translated_body = original.split("---", 2)[2], text.split("---", 2)[2]
+        urls = lambda body: set(re.findall(r'https://[^\s<>"\)\]]+', body))
+        if not urls(original_body).issubset(urls(translated_body)):
+            fail(f"translation dropped a public source link: {path.name}")
+        fences = lambda body: re.findall(r"```.*?```", body, re.DOTALL)
+        if fences(original_body) != fences(translated_body):
+            fail(f"translation changed or omitted a code/output block: {path.name}")
 
 
 def check_thesis_series() -> None:
@@ -461,6 +567,7 @@ def check_figure_system() -> None:
 
 def main() -> int:
     check_posts()
+    check_localization()
     check_thesis_series()
     check_math_system()
     check_current_work()

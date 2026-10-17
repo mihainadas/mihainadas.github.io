@@ -2,20 +2,41 @@
 layout: post
 title: "Deep Research Needs an Evidence Budget"
 date: 2026-10-17 12:58:00 +0300
+last_modified_at: 2026-10-17 13:42:57 +0300
 post_type: applied research note
 description: "Deep-research agents need explicit budgets for discovery, inspection, verification, and stopping before their reports can support business decisions."
 context_reviewed: 2026-10-17
+editorial_reviewed: 2026-10-17
+lang: en
+translation_key: evidence-budget
 series: applied-paper-notes
 tags: [agents, retrieval, evaluation, decision-support, business]
 ---
 
-A deep-research agent is a system that turns an open question into a report by planning searches, reading sources, retaining intermediate evidence, and deciding when to stop. That makes it relevant to vendor due diligence, market mapping, regulatory scans, incident reviews, and other business tasks where the answer cannot be copied from one document.
+A deep-research agent turns a question into a report by searching, reading sources, keeping evidence, and deciding when to stop. Consider using one to compare three software vendors for a regulated workflow. The report may be fluent and well organized. Before choosing a vendor, though, someone still needs to check where each important claim came from.
 
-The operational goal is not a longer response. It is a defensible evidence path from the question to the decision. A useful system must find enough of the relevant record, inspect the sources it finds, resolve conflicts and duplicates, and expose the remaining uncertainty. A fluent report can fail at any one of those steps.
+That is the problem I want the research process to solve: make the path from a source to a decision inspectable. A useful agent must find the relevant material, read it, resolve conflicts and duplicates, and show what remains uncertain. More searches or a longer report do not establish that it has done those jobs.
 
-Recent work on search agents approaches this problem through different training methods and benchmarks. Across those differences, a common design constraint emerges: token and tool-call limits are not enough. The system also needs an evidence budget that says how much discovery, inspection, verification, and synthesis a task deserves.
+The papers below study different parts of this process. I use them to build a practical design proposal: give discovery, inspection, verification, and synthesis their own evidence budgets. This is an operating model to test in a business workflow, not a claim that the cited benchmarks have already validated vendor due diligence.
 
-## Search is only the discovery layer
+## Start with a decision someone has to defend
+
+For the vendor comparison, the request needs a decision date, a hierarchy of acceptable sources, and a stopping rule. Otherwise the agent has no reliable way to distinguish a finished investigation from a polished draft.
+
+The discovery budget might require official product documentation, security and privacy materials, contractual terms, public incident records, and the relevant regulator's guidance. The inspection budget requires the actual documents to be opened, dated, and quoted at the point supporting each claim. The verification budget assigns a second source or reviewer to claims about certifications, data location, breach history, and contractual liability. The synthesis budget produces both a comparison and an exception register.
+
+The resulting artifact should contain at least:
+
+1. the exact question and decision date;
+2. the search plan and sources consulted;
+3. an evidence ledger linking claims to inspected passages;
+4. a contradiction and missing-information queue;
+5. the inclusion, exclusion, and stopping rules;
+6. the recommendation, with assumptions kept separate from findings.
+
+The intended benefit is faster human review. A reviewer can concentrate on weak evidence and judgment calls instead of reconstructing the entire browsing session. The same record gives the next run a place to check which sources or facts changed.
+
+## Finding a page is different from reading it
 
 [Search-R1](https://arxiv.org/abs/2503.09516) and [ReSearch](https://arxiv.org/abs/2503.19470) train language models to interleave reasoning with multiple search calls. The point is not simply to attach a search API. The policy learns when a knowledge gap justifies a query and how retrieved material should change the next reasoning step.
 
@@ -38,7 +59,7 @@ An evidence budget can be recorded as four related limits.
 
 The budgets do not have to be fixed counts. A low-risk product comparison may permit one strong primary source per specification. A regulatory interpretation may require the rule text, the effective date, the responsible authority, later amendments, and jurisdiction-specific guidance. The important property is that the allocation follows the consequence of being wrong.
 
-This framing also makes cost discussion more useful. A team can ask whether another ten searches add coverage, whether another source inspection resolves a material uncertainty, or whether the synthesis stage is consuming tokens without adding evidence. Counting all tool calls together hides those differences.
+Separate budgets also make the cost discussion concrete. A team can ask whether another ten searches add coverage, whether another source inspection resolves a material uncertainty, or whether the synthesis stage is consuming tokens without adding evidence. Counting all tool calls together hides those differences.
 
 ## Stopping is a claim about coverage
 
@@ -62,23 +83,6 @@ The agent can then stop because the declared coverage test is satisfied, not bec
 
 None of those benchmark results transfers automatically to procurement or compliance. The lesson is structural. A business acceptance test should preserve separate axes for source validity, factual support, required coverage, contradiction handling, citation placement, and presentation. If the organization collapses them into one score, a gain on formatting can conceal a loss on evidence.
 
-## A due-diligence run as a controlled artifact
-
-Consider a team comparing three software vendors for a regulated workflow. A useful research request is more specific than "compare the vendors." It defines the decision, the evidence hierarchy, and the stopping conditions.
-
-The discovery budget might require official product documentation, security and privacy materials, contractual terms, public incident records, and the relevant regulator's guidance. The inspection budget requires the actual documents to be opened, dated, and quoted at the point supporting each claim. The verification budget assigns a second source or reviewer to claims about certifications, data location, breach history, and contractual liability. The synthesis budget produces both a comparison and an exception register.
-
-The resulting artifact should contain at least:
-
-1. the exact question and decision date;
-2. the search plan and sources consulted;
-3. an evidence ledger linking claims to inspected passages;
-4. a contradiction and missing-information queue;
-5. the inclusion, exclusion, and stopping rules;
-6. the recommendation, with assumptions kept separate from findings.
-
-That record makes human review faster. A reviewer can concentrate on weak evidence and judgment calls instead of reconstructing the entire browsing session. It also makes refreshes cheaper because the next run can identify which sources or facts changed.
-
 ## Build the smallest loop that exposes failure
 
 [OpenSeeker](https://arxiv.org/abs/2603.15594) generates difficult questions by traversing a web graph and obscuring entities that would permit keyword shortcuts. It also uses retrospective summarization to compress older observations while keeping recent evidence in detail. Both ideas are useful beyond model training: test cases should require real evidence traversal, and memory compression should preserve provenance rather than only conclusions.
@@ -95,4 +99,4 @@ Each extracted claim receives a source URL, retrieval time, quoted or structured
 
 This design can use one model, several models, or deterministic tools. [SFR-DeepResearch](https://arxiv.org/abs/2509.06283) is a useful reminder that the control surface can remain small. Adding roles does not repair an undefined evidence standard.
 
-The evidence budget will not make web research certain. Sources can be wrong, inaccessible, coordinated, or outdated. It does make uncertainty visible at the level where a decision owner can act on it. The report is no longer judged by how much research it resembles. It is judged by what was searched, what was inspected, what was verified, and why the process stopped.
+At review time, start with a material claim and try to follow it back to an inspected source. Then check the unresolved questions and the reason the agent stopped. If that trail is missing, the report is not ready to support the decision, however convincing its prose.

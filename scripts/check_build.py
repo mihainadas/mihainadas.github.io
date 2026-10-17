@@ -22,7 +22,7 @@ THESIS_POSTS = (
     ("2026/05/02/interval-belongs-to-comparison.html", "The Interval Belongs to the Comparison"),
     ("2026/08/27/judges-rank-systems-not-items.html", "The Panel Was Weak on Items and Useful for Ranking Systems"),
     ("2026/08/27/change-one-slot-watch-what-else-moves.html", "Change One Slot, Watch What Else Moves"),
-    ("2026/08/27/small-model-diacritics-noise.html", "The 2.4M-Parameter Model Won—Until the Text Got Noisy"),
+    ("2026/08/27/small-model-diacritics-noise.html", "When Noisy Text Changes the Winning Model"),
     ("2026/08/27/adaptation-could-not-remove-scraper-artifact.html", "Ten Thousand Adaptation Steps Could Not Remove One Scraper Artifact"),
 )
 
@@ -174,7 +174,7 @@ def published_sources() -> list[tuple[datetime, Path, str]]:
 def audit_math_pages() -> None:
     loader = f'<script defer src="{MATHJAX_SOURCE}"></script>'
     math_pages = 0
-    sources = [source for _, source, _ in published_sources()] + [p for p in sorted(ROOT.glob("*.md")) if front_matter_value(p.read_text(encoding="utf-8"), "layout")]
+    sources = [source for _, source, _ in published_sources()] + [p for p in sorted(list(ROOT.glob("*.md")) + list((ROOT / "ro").rglob("*.md"))) if front_matter_value(p.read_text(encoding="utf-8"), "layout")]
     for source in sources:
         source_text = source.read_text(encoding="utf-8")
         post_date = front_matter_value(source_text, "date")
@@ -212,6 +212,73 @@ def audit_math_pages() -> None:
 
     if math_pages < 1:
         fail("generated site has no declared math pages")
+
+
+class LanguageMetadata(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.lang = None
+        self.canonicals = []
+        self.alternates = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        if tag == "html":
+            self.lang = values.get("lang")
+        if tag == "link" and values.get("rel") == "canonical":
+            self.canonicals.append(values.get("href"))
+        if tag == "link" and values.get("rel") == "alternate" and values.get("hreflang"):
+            self.alternates.append((values["hreflang"], values.get("href")))
+
+
+def audit_localized_html(text: str, lang: str, canonical: str, alternates: dict[str, str]) -> None:
+    metadata = LanguageMetadata()
+    metadata.feed(text)
+    if metadata.lang != lang or metadata.canonicals != [canonical]:
+        fail("localized page has a missing language or incorrect self-canonical URL")
+    if len(metadata.alternates) != len(alternates) or dict(metadata.alternates) != alternates:
+        fail("localized page lacks exact reciprocal language metadata")
+
+
+def audit_localized_pages(feed: str, sitemap: str) -> None:
+    english_sources = list(ROOT.glob("*.md")) + list(POSTS.glob("*.md"))
+    editions = sorted((ROOT / "ro").rglob("*.md"))
+    notes = []
+    for edition in editions:
+        source_text = edition.read_text(encoding="utf-8")
+        reference = front_matter_value(source_text, "translation_source")
+        if not reference:
+            continue
+        original = ROOT / reference
+        if original not in english_sources:
+            fail(f"localized page has an invalid English source: {edition.name}")
+        original_text = original.read_text(encoding="utf-8")
+        english_url = front_matter_value(source_text, "translation_source_url")
+        romanian_url = front_matter_value(source_text, "permalink")
+        alternates = {"en": "https://mihainadas.github.io" + english_url, "ro": "https://mihainadas.github.io" + romanian_url}
+        for lang, url in (("en", english_url), ("ro", romanian_url)):
+            relative = url.lstrip("/") + ("index.html" if url.endswith("/") else "")
+            rendered = read(relative)
+            audit_localized_html(rendered, lang, alternates[lang], alternates)
+            counterpart = romanian_url if lang == "en" else english_url
+            if 'class="language-note"' not in rendered or f'href="{counterpart}"' not in rendered:
+                fail(f"exact language switch is missing in {relative}")
+            if sitemap.count(alternates[lang]) != 1:
+                fail(f"localized URL is missing or duplicated in the sitemap: {relative}")
+        rendered_ro = read(romanian_url.strip("/") + "/index.html")
+        if front_matter_value(source_text, "layout") == "translated-post":
+            notes.append(front_matter_value(source_text, "title"))
+            if "Ce ar merita explicat mai clar?" not in rendered_ro or "Where did I lose you?" in rendered_ro:
+                fail("Romanian article feedback is not localized")
+            posting = next((item for item in json_ld_records(romanian_url, rendered_ro) if item.get("@type") == "BlogPosting"), {})
+            if posting.get("inLanguage") != "ro" or posting.get("translationOfWork", {}).get("url") != alternates["en"]:
+                fail("Romanian article lost its language or source-work metadata")
+            if alternates["ro"] in feed:
+                fail("Romanian edition was duplicated in the English feed")
+    landing = read("ro/index.html")
+    audit_localized_html(landing, "ro", "https://mihainadas.github.io/ro/", {})
+    if len(notes) < 2 or any(escape(title, quote=False) not in landing for title in notes):
+        fail("Romanian landing page lost a published edition")
 
 
 class PageAssets(HTMLParser):
@@ -267,6 +334,7 @@ def main() -> int:
     audit_feed_chronology(feed)
     audit_math_pages()
     audit_editorial_assets(home)
+    audit_localized_pages(feed, sitemap)
 
     issue_numbers = [int(value) for value in re.findall(r'data-issue="(\d+)"', papers)]
     groups = json.loads((ROOT / "_data" / "papers.json").read_text(encoding="utf-8"))

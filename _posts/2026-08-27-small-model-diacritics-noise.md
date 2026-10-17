@@ -1,24 +1,25 @@
 ---
 layout: post
-title: "The 2.4M-Parameter Model Won—Until the Text Got Noisy"
+title: "When Noisy Text Changes the Winning Model"
 date: 2026-08-27 09:11:56 +0300
 feed_date: "2026-08-27 09:11:56 +0300"
-last_modified_at: 2026-08-27 09:11:56 +0300
+last_modified_at: 2026-10-17 13:42:57 +0300
 post_type: research note
 description: "Romanian diacritic restoration changes winners when clean benchmark text gives way to typos and OCR-like corruption."
 featured: true
-context_reviewed: 2026-09-20
+context_reviewed: 2026-10-17
+editorial_reviewed: 2026-10-17
 tags: [romanian-nlp, evaluation, small-models]
 series: controlled-synthetic-narratives
 series_order: 5
 evidence_status: thesis-only
 ---
 
-Romanian diacritic restoration is a constrained text-repair task: insert the intended marks while preserving every unrelated character. This experiment compared a dictionary system, a 2.4M-parameter BiLSTM, ByT5, and adapted or prompted language models on both clean text and controlled corruption.
+Romanian diacritic restoration puts missing marks back into text without changing its other characters. A system that works on edited prose may face a different job when the input contains typos or scanning errors. This experiment compared a dictionary, a small bidirectional recurrent network called a BiLSTM, the byte-level text model ByT5, and adapted or prompted language models under both conditions.
 
 On clean Romanian, a 2.4M-parameter BiLSTM reached 96.23% word accuracy. Under heavy corruption it fell to 36.76%. The dictionary baseline finished at 70.31%.
 
-The input distribution, not the parameter count, chose the winner. “Best model” changed when the test text began to resemble a noisy keyboard or OCR pipeline rather than an edited corpus.
+The test input changed the winner. Once the text began to resemble typing mistakes or optical character recognition (OCR) output, the clean-text ranking stopped being a useful deployment guide.
 
 > **Evidence status.** This comparison is preliminary thesis work and a manuscript in preparation. It has not been peer reviewed. ByT5 used 50,000 training pairs, so its result is not a budget-matched architecture comparison.
 

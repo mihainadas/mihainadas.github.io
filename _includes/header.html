@@ -8,26 +8,33 @@
 {% endif %}
 <header class="site-header" role="banner">
   <div class="wrapper header-inner">
-    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">
-      <span>Mihai Nadăș</span><span class="site-mark">/ field notes</span>
+    <a class="site-title" rel="author" href="{{ language_home | relative_url }}">
+      <span>Mihai Nadăș</span><span class="site-mark">/ {% if current_lang == 'ro' %}note de lucru{% else %}field notes{% endif %}</span>
     </a>
     <div class="header-actions">
       <details class="navigation" open>
-        <summary aria-controls="primary-navigation">Menu</summary>
-        <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
+        <summary aria-controls="primary-navigation">{{ ui.menu }}</summary>
+        <nav class="site-nav" id="primary-navigation" aria-label="{{ ui.primary }}">
+          {% if current_lang == 'ro' %}
+          <a class="page-link" href="{{ '/ro/cercetare/' | relative_url }}"{% if page.translation_key == 'research' %} aria-current="page"{% endif %}>Cercetare</a>
+          <a class="page-link" href="{{ '/ro/#note' | relative_url }}">Note în română</a>
+          {% else %}
           {% for path in site.header_pages %}
             {% assign nav_page = site.pages | where: "path", path | first %}
             {% if nav_page.title %}<a class="page-link" href="{{ nav_page.url | relative_url }}"{% if nav_page.url == section_url %} aria-current="{% if page.url == nav_page.url %}page{% else %}true{% endif %}"{% endif %}>{{ nav_page.nav_title | default: nav_page.title }}</a>{% endif %}
           {% endfor %}
           <a class="page-link mobile-resource" href="{{ '/lab-notebooks/' | relative_url }}">Notebooks</a>
+          {% endif %}
+          <a class="page-link mobile-resource" href="{{ alternate_url | relative_url }}" lang="{{ ui.switch_lang }}" hreflang="{{ ui.switch_lang }}">{{ ui.switch }}</a>
         </nav>
       </details>
+      <a class="header-language" href="{{ alternate_url | relative_url }}" lang="{{ ui.switch_lang }}" hreflang="{{ ui.switch_lang }}">{{ ui.switch }}</a>
       <label class="theme-control" for="theme-preference">
-        <span class="sr-only">Theme</span>
+        <span class="sr-only">{{ ui.theme }}</span>
         <select id="theme-preference" name="theme-preference">
-          <option value="system">System</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
+          <option value="system">{{ ui.system }}</option>
+          <option value="light">{{ ui.light }}</option>
+          <option value="dark">{{ ui.dark }}</option>
         </select>
       </label>
     </div>
