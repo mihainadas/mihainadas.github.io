@@ -8,6 +8,7 @@ description: "A January 2025 perceptron notebook rebuilt around inspectable upda
 featured: true
 redirect_from: /2025/01/04/simple-perceptron.html
 context_reviewed: 2026-09-20
+math: true
 tags: [machine-learning, perceptron, notebooks]
 ---
 
@@ -21,20 +22,20 @@ I rebuilt the notebook around the disagreement between its prose and saved outpu
 
 ## The construction
 
-An integer \(x_1\) is sampled without replacement from 1 through 100 and becomes one of two points:
+An integer \\(x_1\\) is sampled without replacement from 1 through 100 and becomes one of two points:
 
-\[
+\\[
 x_2 = \begin{cases}
 x_1 & \text{for even } x_1 \\
 2x_1 & \text{for odd } x_1.
 \end{cases}
-\]
+\\]
 
 Points on the first line receive class 0; points on the second receive class 1. The classifier predicts class 1 when
 
-\[
+\\[
 w_1x_1 + w_2x_2 + b \ge 0.
-\]
+\\]
 
 This is a toy problem with a known linear separator. That is useful here: the update rule can be inspected without confusing algorithmic behavior with data quality.
 
@@ -72,7 +73,7 @@ The perceptron convergence theorem gives the right boundary for the conclusion: 
 
 The saved trace makes the correction visible:
 
-| Epoch | Mistakes | \(w_1\) | \(w_2\) | Bias |
+| Epoch | Mistakes | \\(w_1\\) | \\(w_2\\) | Bias |
 | ---: | ---: | ---: | ---: | ---: |
 | 1 | 8 | -0.440 | 0.340 | -0.040 |
 | 2 | 0 | -0.440 | 0.340 | -0.040 |

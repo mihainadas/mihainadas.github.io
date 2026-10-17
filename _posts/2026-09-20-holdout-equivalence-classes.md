@@ -5,6 +5,7 @@ date: 2026-09-20 10:35:01 +0300
 post_type: research note
 description: "An arithmetic benchmark can be string-disjoint and still repeat a training fact. Sampling semantic groups makes the exclusion rule explicit."
 context_reviewed: 2026-09-20
+math: true
 tags: [evaluation, arithmetic, reproducibility, experimental-design]
 ---
 
@@ -50,9 +51,9 @@ The benchmark sampler in [`lib/benchmark.py`](https://github.com/mihainadas/calc
 
 For a magnitude bucket containing `n` possible operand values, unordered addition has
 
-\[
+\\[
 \frac{n(n+1)}{2}
-\]
+\\]
 
 groups. Canonical nonnegative subtraction has the same count, because each task satisfies `left >= right`. The combined bucket therefore has `n(n + 1)` semantic groups.
 

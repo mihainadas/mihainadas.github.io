@@ -534,17 +534,11 @@ pre {
 
 pre code { background: transparent; border: 0; color: var(--pre-ink); padding: 0; }
 
-.equation {
-  margin: 1.5rem 0;
-  overflow-x: auto;
-  text-align: center;
-}
+mjx-container[jax="CHTML"] { color: var(--ink); }
 
-.equation code {
-  display: inline-block;
-  font-size: 1.02rem;
-  padding: 0.55rem 0.9rem;
-  white-space: nowrap;
+mjx-container[jax="CHTML"][display="true"] {
+  margin: 1.6rem 0 !important;
+  max-width: 100%;
 }
 
 .highlight,
@@ -707,6 +701,7 @@ hr { background-color: var(--line); }
   .page { max-width: none; }
   pre,
   code { background: #f2f2f2; border-color: #ccc; color: #111; }
+  mjx-container[jax="CHTML"] { color: #111; }
   .content-figure--wide { max-width: 100%; width: 100%; }
   .content-figure,
   .career-thread { break-inside: avoid; }

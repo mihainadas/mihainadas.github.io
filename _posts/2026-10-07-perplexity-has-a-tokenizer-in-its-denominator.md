@@ -5,6 +5,7 @@ date: 2026-10-07 09:32:43 +0300
 post_type: research note
 description: "Token-level perplexity changes when the same text is split into a different number of tokens, even if its total likelihood does not."
 context_reviewed: 2026-10-07
+math: true
 tags: [language-models, tokenization, evaluation, experimental-design]
 ---
 
@@ -16,17 +17,17 @@ This note isolates the denominator. Perplexity exponentiates average negative lo
 
 ## The average is over tokens
 
-For a token sequence \(x_1, \ldots, x_T\), let the total negative log-likelihood be
+For a token sequence \\(x_1, \ldots, x_T\\), let the total negative log-likelihood be
 
-\[
+\\[
 L = -\sum_{t=1}^{T}\log p(x_t \mid x_{<t}).
-\]
+\\]
 
-Token-level cross-entropy is \(L/T\), and perplexity is
+Token-level cross-entropy is \\(L/T\\), and perplexity is
 
-\[
+\\[
 \operatorname{PPL} = \exp(L/T).
-\]
+\\]
 
 The [Hugging Face perplexity guide](https://huggingface.co/docs/transformers/perplexity) gives this definition and states the comparison constraint directly: tokenization affects perplexity. The exponent does not remove that dependence. It only maps average log loss back to the model's token scale.
 
@@ -37,9 +38,9 @@ Consider one text with total negative log-likelihood 12 nats under two determini
 | coarse | 6 | 12 | 2 | 7.39 |
 | fine | 12 | 12 | 1 | 2.72 |
 
-Both factorizations assign the complete text probability \(e^{-12}\), about \(6.14 \times 10^{-6}\). The finer tokenization reports much lower perplexity because the same loss is divided by twice as many prediction events.
+Both factorizations assign the complete text probability \\(e^{-12}\\), about \\(6.14 \times 10^{-6}\\). The finer tokenization reports much lower perplexity because the same loss is divided by twice as many prediction events.
 
-The comparison can reverse the likelihood ordering. A model with total NLL 10 over five tokens has perplexity 7.39. Another with total NLL 12 over ten tokens has perplexity 3.32. The second perplexity is lower, but its probability for the complete text is also lower: \(e^{-12}\) rather than \(e^{-10}\). The token scales differ, so the two averages do not rank the texts on a common unit.
+The comparison can reverse the likelihood ordering. A model with total NLL 10 over five tokens has perplexity 7.39. Another with total NLL 12 over ten tokens has perplexity 3.32. The second perplexity is lower, but its probability for the complete text is also lower: \\(e^{-12}\\) rather than \\(e^{-10}\\). The token scales differ, so the two averages do not rank the texts on a common unit.
 
 ## TF3 fixes the tokenizer before reporting perplexity
 
@@ -53,15 +54,15 @@ The tokenizer is more than a list of strings. The original [SentencePiece paper]
 
 ## Normalize by a shared text unit
 
-When two systems score the same normalized text, total negative log-likelihood remains additive across their token factorizations. It can be divided by a unit outside either tokenizer. For a text containing \(C\) declared characters,
+When two systems score the same normalized text, total negative log-likelihood remains additive across their token factorizations. It can be divided by a unit outside either tokenizer. For a text containing \\(C\\) declared characters,
 
-\[
+\\[
 \text{bits per character} = \frac{L}{C\log 2}.
-\]
+\\]
 
 Bits per byte uses the byte length in the denominator instead. Either can support a cross-tokenizer comparison if both systems score the same underlying sequence and the unit is defined identically. Bytes avoid ambiguity about what counts as a Unicode character, while characters can be easier to interpret for a fixed normalization and encoding contract.
 
-The contract matters for Romanian. Precomposed `ț` and `t` followed by a combining comma can be different code-point counts while representing canonically equivalent text. The evaluation should specify whether \(C\) counts raw code points, NFC-normalized code points, grapheme clusters, or UTF-8 bytes. Applying different normalization inside two tokenizers would mean they are no longer scoring the same input object.
+The contract matters for Romanian. Precomposed `ț` and `t` followed by a combining comma can be different code-point counts while representing canonically equivalent text. The evaluation should specify whether \\(C\\) counts raw code points, NFC-normalized code points, grapheme clusters, or UTF-8 bytes. Applying different normalization inside two tokenizers would mean they are no longer scoring the same input object.
 
 This normalization does not make unlike corpora comparable. A restricted synthetic domain can be more predictable than open-domain prose regardless of the denominator. It also does not turn likelihood into a complete generation-quality measure. It only removes the token count as one source of scale mismatch.
 
@@ -71,15 +72,15 @@ The denominator is not the only protocol choice. A finite-context model cannot c
 
 The official perplexity guide recommends a strided sliding window for fixed-length models. Overlapping context is supplied to the model, but only the newly scored targets contribute to the loss. Each target must be counted once. The guide's GPT-2 example changes from perplexity 19.44 with disjoint 1,024-token chunks to 16.44 with a stride of 512. The model and tokenizer are unchanged; the available context changes the numerator.
 
-Packed training data adds a related boundary choice. The evaluation record should say whether prediction continues across document boundaries, whether an end-of-sequence token separates records, and which first token in each segment is unscored because it has no left context in the batch. These choices alter the set of conditional probabilities included in \(L\).
+Packed training data adds a related boundary choice. The evaluation record should say whether prediction continues across document boundaries, whether an end-of-sequence token separates records, and which first token in each segment is unscored because it has no left context in the batch. These choices alter the set of conditional probabilities included in \\(L\\).
 
-Corpus aggregation must retain the same weighting rule. If document \(i\) contributes loss \(L_i\) over \(T_i\) valid targets, token-weighted perplexity is
+Corpus aggregation must retain the same weighting rule. If document \\(i\\) contributes loss \\(L_i\\) over \\(T_i\\) valid targets, token-weighted perplexity is
 
-\[
+\\[
 \exp\left(\frac{\sum_i L_i}{\sum_i T_i}\right).
-\]
+\\]
 
-Averaging the per-document losses \(L_i/T_i\) instead gives every document equal weight. The two agree only when the documents have equal scored lengths or happen to have the same mean loss. Batch boundaries should not silently choose the estimand.
+Averaging the per-document losses \\(L_i/T_i\\) instead gives every document equal weight. The two agree only when the documents have equal scored lengths or happen to have the same mean loss. Batch boundaries should not silently choose the estimand.
 
 ## Report enough to reconstruct the fraction
 

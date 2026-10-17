@@ -5,6 +5,7 @@ date: 2026-10-02 09:34:00 +0300
 post_type: research note
 description: "Repeated judge calls measure within-item variation. They do not turn one held-out item into several independent test cases."
 context_reviewed: 2026-10-02
+math: true
 tags: [evaluation, statistics, language-models, experimental-design]
 ---
 
@@ -36,7 +37,7 @@ Enumerating both empirical bootstrap distributions gives:
 | score row | 12 | 0.540 | [0.000, 2.083] |
 | item | 4 | 0.935 | [-0.500, 3.000] |
 
-The row analysis reduces the standard error by a factor of about \(\sqrt{3}\), exactly what would happen if three perfect copies had tripled the sample size. They did not. The narrower interval is manufactured by the independence assumption.
+The row analysis reduces the standard error by a factor of about \\(\sqrt{3}\\), exactly what would happen if three perfect copies had tripled the sample size. They did not. The narrower interval is manufactured by the independence assumption.
 
 This is a compact instance of [pseudoreplication](https://doi.org/10.2307/1942661): repeated measurements are analyzed as independent replicates even though they belong to the same experimental unit. Stochastic judge outputs make the copies less obvious, but they do not remove the shared item.
 
@@ -52,13 +53,13 @@ SciPy's [`bootstrap` documentation](https://docs.scipy.org/doc/scipy/reference/g
 
 For balanced repeats, the simplest item-level estimator is:
 
-\[
+\\[
 d_i = \frac{1}{R}\sum_{r=1}^{R}(s_{Air} - s_{Bir}),
 \qquad
 \hat{\Delta} = \frac{1}{N}\sum_{i=1}^{N} d_i.
-\]
+\\]
 
-Compute one mean difference \(d_i\) per item, then bootstrap the \(N\) item differences. Every item receives equal weight. Three calls refine the estimate for item \(i\); they do not change \(N\).
+Compute one mean difference \\(d_i\\) per item, then bootstrap the \\(N\\) item differences. Every item receives equal weight. Three calls refine the estimate for item \\(i\\); they do not change \\(N\\).
 
 ## The target determines whether calls are resampled
 

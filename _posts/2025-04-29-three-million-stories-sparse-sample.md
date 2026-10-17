@@ -8,6 +8,7 @@ last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "What a three-million-row corpus covers when six slots each have one hundred possible values."
 context_reviewed: 2026-09-20
+math: true
 tags: [synthetic-data, experimental-design, language-models]
 series: controlled-synthetic-narratives
 series_order: 1
@@ -18,7 +19,7 @@ TF1 is a controlled synthetic-data project: each English fable begins from six s
 
 Three million sounds exhaustive until it is divided by a trillion.
 
-TF1 constructs a prompt from six slots—character, trait, setting, challenge, outcome, and teaching—with one hundred values available in each. That makes \(100^6\), or one trillion, possible specifications. The released three-million-story corpus occupies at most 0.0003% of that grid.
+TF1 constructs a prompt from six slots—character, trait, setting, challenge, outcome, and teaching—with one hundred values available in each. That makes \\(100^6\\), or one trillion, possible specifications. The released three-million-story corpus occupies at most 0.0003% of that grid.
 
 > **Archive note.** This is an August 2026 analysis of the [April 2025 TF1 release](https://arxiv.org/abs/2504.20605). The date marks the artifact being examined; the argument was added to this journal later.
 

@@ -13,6 +13,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "_site"
+POSTS = ROOT / "_posts"
+MATHJAX_SOURCE = "https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"
 THESIS_POSTS = (
     ("2025/04/29/three-million-stories-sparse-sample.html", "Three Million Stories Are Still a Sparse Sample"),
     ("2026/05/02/interval-belongs-to-comparison.html", "The Interval Belongs to the Comparison"),
@@ -129,6 +131,46 @@ def audit_figures(relative: str, text: str) -> int:
     return len(parser.figures)
 
 
+def front_matter_value(text: str, key: str) -> str | None:
+    match = re.search(rf"(?m)^{re.escape(key)}:\s*(.+?)\s*$", text)
+    return match.group(1).strip("\"'") if match else None
+
+
+def audit_math_pages() -> None:
+    loader = f'<script defer src="{MATHJAX_SOURCE}"></script>'
+    math_pages = 0
+    for source in sorted(POSTS.glob("*.md")):
+        source_text = source.read_text(encoding="utf-8")
+        post_date = front_matter_value(source_text, "date")
+        if not post_date or not re.fullmatch(r"\d{4}-\d{2}-\d{2}.*", post_date):
+            fail(f"post date is missing or invalid in {source.name}")
+        date_part = post_date[:10].replace("-", "/")
+        slug = source.stem[11:]
+        relative = f"{date_part}/{slug}.html"
+        rendered = read(relative)
+        declared_math = front_matter_value(source_text, "math") == "true"
+        if declared_math:
+            math_pages += 1
+            if rendered.count(loader) != 1:
+                fail(f"MathJax loader missing or duplicated in {relative}")
+            if not re.search(r"(?<!\\)\\(?:\(|\[)", rendered):
+                fail(f"Markdown did not preserve math delimiters in {relative}")
+            display_openings = len(re.findall(r"(?<!\\)\\\[", rendered))
+            display_closings = len(re.findall(r"(?<!\\)\\\]", rendered))
+            intact_displays = len(
+                re.findall(r"<p>\s*\\\[.*?\\\]\s*</p>", rendered, re.DOTALL)
+            )
+            if display_openings != display_closings or display_openings != intact_displays:
+                fail(f"Markdown split or damaged display math in {relative}")
+        elif loader in rendered:
+            fail(f"MathJax loaded on a page without mathematics: {relative}")
+        if 'class="equation"' in rendered:
+            fail(f"legacy code-styled equation remains in {relative}")
+
+    if math_pages < 1:
+        fail("generated site has no declared math pages")
+
+
 def main() -> int:
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
@@ -139,6 +181,7 @@ def main() -> int:
     theme_script = read("assets/theme.js")
     research = read("research/index.html")
     audit_feed_chronology(feed)
+    audit_math_pages()
 
     theme_bootstrap = home.find('window.localStorage.getItem("mihainadas-theme")')
     stylesheet = home.find('/assets/main.css')

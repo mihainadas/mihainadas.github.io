@@ -5,6 +5,7 @@ date: 2026-10-14 09:33:01 +0300
 post_type: research note
 description: "Choosing a classifier cutoff on the final test labels turns evaluation noise into an optimistic result, even when the score order contains no signal."
 context_reviewed: 2026-10-14
+math: true
 tags: [machine-learning, evaluation, model-selection, experimental-design]
 ---
 
@@ -16,9 +17,9 @@ This note makes that bias exact with ten fixed scores that contain no label info
 
 ## Eleven cutoffs search one random ordering
 
-Number ten cases from lowest score to highest score. The score order is fixed before any labels are assigned. Exactly five cases are positive, but every one of the \(\binom{10}{5}=252\) balanced labelings is equally likely. Under this construction, the scores carry no information about the labels.
+Number ten cases from lowest score to highest score. The score order is fixed before any labels are assigned. Exactly five cases are positive, but every one of the \\(\binom{10}{5}=252\\) balanced labelings is equally likely. Under this construction, the scores carry no information about the labels.
 
-A threshold between adjacent scores can predict the highest \(k\) cases as positive, for \(k=0,1,\ldots,10\). These are eleven distinct decision rules. For each labeling, choose the value of \(k\) with the largest accuracy on those same ten cases.
+A threshold between adjacent scores can predict the highest \\(k\\) cases as positive, for \\(k=0,1,\ldots,10\\). These are eleven distinct decision rules. For each labeling, choose the value of \\(k\\) with the largest accuracy on those same ten cases.
 
 Exact enumeration gives this distribution:
 
@@ -33,9 +34,9 @@ Exact enumeration gives this distribution:
 
 The mean of the selected accuracies is
 
-\[
+\\[
 \frac{823}{1260} \approx 0.6532.
-\]
+\\]
 
 One of the 252 random labelings can even be separated perfectly by a threshold: all five negatives happen to receive the lower scores and all five positives the higher scores. That event is rare, but every labeling lets the selection procedure keep its most favorable cutoff.
 
@@ -71,15 +72,15 @@ This value is not a universal correction for threshold tuning. It belongs to ten
 
 ## A fixed cutoff has no advantage here
 
-For any fixed \(k\), the highest-scored group contains \(k/2\) positives on average. The remaining \(10-k\) cases contain \((10-k)/2\) negatives on average. The expected number of correct predictions is therefore
+For any fixed \\(k\\), the highest-scored group contains \\(k/2\\) positives on average. The remaining \\(10-k\\) cases contain \\((10-k)/2\\) negatives on average. The expected number of correct predictions is therefore
 
-\[
+\\[
 \frac{k}{2} + \frac{10-k}{2} = 5,
-\]
+\\]
 
 so the expected accuracy is 50% for every cutoff chosen without seeing the evaluated labels.
 
-The selected cutoff is also fixed before an independent second labeling is revealed. Conditional on any \(k\) chosen from the first sample, its expected accuracy on that second balanced sample is still 50%. Averaging over the threshold-selection procedure does not change the result.
+The selected cutoff is also fixed before an independent second labeling is revealed. Conditional on any \\(k\\) chosen from the first sample, its expected accuracy on that second balanced sample is still 50%. Averaging over the threshold-selection procedure does not change the result.
 
 The gap between 65.3% and 50% is selection bias. Each individual accuracy is an unbiased estimate for its fixed rule under this construction. The maximum of the eleven noisy estimates is not an unbiased estimate of the selected rule's future accuracy.
 

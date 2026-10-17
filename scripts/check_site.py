@@ -33,6 +33,7 @@ THESIS_SERIES = (
 )
 MIN_OPENING_PARAGRAPH_WORDS = 12
 MIN_OPENING_TOTAL_WORDS = 60
+MATHJAX_SOURCE = "https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"
 
 
 def fail(message: str) -> None:
@@ -48,7 +49,7 @@ def opening_prose_paragraphs(text: str) -> tuple[str, ...]:
     opening = re.split(r"(?m)^##\s+", body, maxsplit=1)[0]
     opening = re.sub(r"```.*?```|~~~.*?~~~", "", opening, flags=re.DOTALL)
     opening = re.sub(r"{%.*?%}|<!--.*?-->", "", opening, flags=re.DOTALL)
-    opening = re.sub(r"\\\[.*?\\\]", "", opening, flags=re.DOTALL)
+    opening = re.sub(r"\\\\\[.*?\\\\\]", "", opening, flags=re.DOTALL)
 
     paragraphs: list[str] = []
     for block in re.split(r"\n\s*\n", opening):
@@ -64,6 +65,46 @@ def opening_prose_paragraphs(text: str) -> tuple[str, ...]:
     return tuple(paragraphs)
 
 
+def math_markup_error(text: str) -> str | None:
+    """Validate Markdown-safe MathJax delimiters outside code spans and fences."""
+
+    parts = text.split("---", 2)
+    body = parts[2] if len(parts) == 3 else text
+    body = re.sub(r"```.*?```|~~~.*?~~~", "", body, flags=re.DOTALL)
+    body = re.sub(r"`+[^`\n]*`+", "", body)
+
+    markdown_escaped_tex = set('#{}!|_:+-.<>*()[]')
+    for match in re.finditer(r"(?<!\\)(\\+)(.)", body):
+        if match.group(2) in markdown_escaped_tex and len(match.group(1)) != 2:
+            return "TeX punctuation must use two source backslashes so Markdown preserves it"
+
+    if re.search(r"(?<!\\)\$\$", body):
+        return "display math must use the canonical escaped \\\\[...\\\\] delimiters"
+
+    tokens = re.findall(r"\\\\(?:\(|\)|\[|\])", body)
+    stack: list[str] = []
+    pairs = {")": "(", "]": "["}
+    for token in tokens:
+        delimiter = token[-1]
+        if delimiter in "([":
+            if stack:
+                return "math delimiters may not be nested"
+            stack.append(delimiter)
+        elif not stack or stack.pop() != pairs[delimiter]:
+            return f"unmatched math delimiter: \\\\{delimiter}"
+    if stack:
+        return f"unclosed math delimiter: \\\\{stack[-1]}"
+    return None
+
+
+def contains_math(text: str) -> bool:
+    parts = text.split("---", 2)
+    body = parts[2] if len(parts) == 3 else text
+    body = re.sub(r"```.*?```|~~~.*?~~~", "", body, flags=re.DOTALL)
+    body = re.sub(r"`+[^`\n]*`+", "", body)
+    return bool(re.search(r"\\\\(?:\(|\[)", body))
+
+
 def check_posts() -> None:
     for path in sorted(POSTS.glob("*.md")):
         text = path.read_text(encoding="utf-8")
@@ -73,6 +114,18 @@ def check_posts() -> None:
             fail(f"insecure internal link in {path.name}")
         if re.search(r"(?i)happy (coding|learning)!|excited to share", text):
             fail(f"promotional stock phrase in {path.name}")
+
+        math_error = math_markup_error(text)
+        if math_error:
+            fail(f"{math_error} in {path.name}")
+        declared_math = front_matter_value(text, "math")
+        uses_math = contains_math(text)
+        if uses_math and declared_math != "true":
+            fail(f"math markup requires 'math: true' in {path.name}")
+        if declared_math == "true" and not uses_math:
+            fail(f"math is enabled but unused in {path.name}")
+        if declared_math not in {None, "true"}:
+            fail(f"math front matter must be true or omitted in {path.name}")
 
         reviewed = front_matter_value(text, "context_reviewed")
         try:
@@ -143,6 +196,45 @@ def check_thesis_series() -> None:
 
     if sorted(orders) != list(range(1, len(THESIS_SERIES) + 1)) or len(set(orders)) != len(orders):
         fail("thesis-series order must be unique and contiguous")
+
+
+def check_math_system() -> None:
+    include = ROOT / "_includes" / "mathjax.html"
+    if not include.exists():
+        fail("MathJax include is missing")
+    include_text = include.read_text(encoding="utf-8")
+    for required in (
+        'inlineMath: [["\\\\(", "\\\\)"]]',
+        'displayMath: [["\\\\[", "\\\\]"]]',
+        'displayOverflow: "scroll"',
+        f'<script defer src="{MATHJAX_SOURCE}"></script>',
+    ):
+        if required not in include_text:
+            fail(f"MathJax include lost required configuration: {required}")
+
+    head = (ROOT / "_includes" / "head.html").read_text(encoding="utf-8")
+    if "{% if page.math %}{% include mathjax.html %}{% endif %}" not in head:
+        fail("MathJax is not conditionally loaded from page front matter")
+
+
+def check_repository_hygiene() -> None:
+    junk_names = re.compile(r"(?:^\.DS_Store$|^\._|~$|\.(?:bak|orig|rej|swp)$| 2\.[^.]+$)")
+    for path in ROOT.rglob("*"):
+        relative = path.relative_to(ROOT)
+        if {".git", "_site", "vendor"}.intersection(relative.parts):
+            continue
+        if path.is_file() and junk_names.search(path.name):
+            fail(f"repository junk file: {relative}")
+
+    public_text_files = [ROOT / name for name in ("index.md", "about.md", "engineering.md", "research.md")]
+    public_text_files.extend(sorted(POSTS.glob("*.md")))
+    placeholder = re.compile(r"\b(?:TODO|FIXME|XXX)\b|lorem ipsum", re.IGNORECASE)
+    for path in public_text_files:
+        text = path.read_text(encoding="utf-8")
+        if placeholder.search(text):
+            fail(f"placeholder text in {path.relative_to(ROOT)}")
+        if re.search(r"(?m)[ \t]+$", text):
+            fail(f"trailing whitespace in {path.relative_to(ROOT)}")
 
 
 def check_engineering_boundary() -> None:
@@ -305,8 +397,10 @@ def check_figure_system() -> None:
 def main() -> int:
     check_posts()
     check_thesis_series()
+    check_math_system()
     check_engineering_boundary()
     check_figure_system()
+    check_repository_hygiene()
     print("site content checks passed")
     return 0
 

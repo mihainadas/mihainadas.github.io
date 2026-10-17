@@ -6,6 +6,7 @@ last_modified_at: 2026-08-27
 post_type: research note
 description: "Why Romanian diacritic restoration needs context-sensitive examples, task-specific denominators, and a measure of unwanted edits."
 context_reviewed: 2026-09-20
+math: true
 tags: [romanian-nlp, evaluation, natural-language-processing]
 ---
 
@@ -25,14 +26,17 @@ A useful evaluation separates:
 - diacritic error rate;
 - unwanted changes to characters that should remain untouched.
 
-For the two primary measures, let \(P\) be character positions whose case-normalized, unaccented input is one of `a`, `i`, `s`, or `t`, including uppercase and legacy cedilla forms. Let \(U\) contain every other position. With an aligned clean reference:
+For the two primary measures, let \\(P\\) be character positions whose case-normalized, unaccented input is one of `a`, `i`, `s`, or `t`, including uppercase and legacy cedilla forms. Let \\(U\\) contain every other position. With an aligned clean reference:
 
-\[
-A_P = \frac{\#\{i \in P : \hat{y}_i = y_i\}}{|P|}, \qquad
-E_U = \frac{\#\{i \in U : \hat{y}_i \ne x_i\}}{|U|}.
-\]
+\\[
+A_P = \frac{\\#\\{i \in P : \hat{y}_i = y_i\\}}{|P|}.
+\\]
 
-The first score tests every place where a mark may be needed, including candidates that should remain plain. The second counts edits outside that candidate set. Insertions and deletions fail the aligned scorer. An empty \(P\) or \(U\) returns no score for that denominator instead of dividing by zero. The [executable implementation](/examples/diacritics_metrics.py) is covered by uppercase, empty-set, correct-restoration, and alignment tests in the site build.
+\\[
+E_U = \frac{\\#\\{i \in U : \hat{y}_i \ne x_i\\}}{|U|}.
+\\]
+
+The first score tests every place where a mark may be needed, including candidates that should remain plain. The second counts edits outside that candidate set. Insertions and deletions fail the aligned scorer. An empty \\(P\\) or \\(U\\) returns no score for that denominator instead of dividing by zero. The [executable implementation](/examples/diacritics_metrics.py) is covered by uppercase, empty-set, correct-restoration, and alignment tests in the site build.
 
 The last measure is especially important for generative models. A fluent output that silently rewrites a surname, normalizes a URL, or fixes unrelated spelling has violated a restoration-only contract.
 

@@ -8,6 +8,7 @@ last_modified_at: 2026-08-27 09:11:56 +0300
 post_type: research note
 description: "An open-weight judge panel was weak at item-level agreement yet useful for ranking systems in one fixed protocol."
 context_reviewed: 2026-09-20
+math: true
 tags: [evaluation, open-models, language-models]
 series: controlled-synthetic-narratives
 series_order: 4
@@ -18,7 +19,7 @@ The TinyFabulist evaluation study tested whether three open-weight language mode
 
 Those two uses require different evidence. Item-level agreement asks whether the judges assign similar labels to the same output. Rank agreement asks whether their aggregated scores order whole systems similarly.
 
-The three panel members disagreed on individual scores. After median aggregation, the panel's TF1 system ranking tracked o4-mini at Spearman \(\rho=0.93\) and Kendall \(\tau=0.78\). The fixed panel combined Granite 4.1 30B, EXAONE 3.5 32B, and Granite 3.3 8B. Across three tasks it ran 6,180 evaluations, with another 900 bias reruns. Item-level agreement remained weak: Krippendorff's alpha ranged from −0.34 to +0.12, and mean weighted kappa from −0.02 to +0.15.
+The three panel members disagreed on individual scores. After median aggregation, the panel's TF1 system ranking tracked o4-mini at Spearman \\(\rho=0.93\\) and Kendall \\(\tau=0.78\\). The fixed panel combined Granite 4.1 30B, EXAONE 3.5 32B, and Granite 3.3 8B. Across three tasks it ran 6,180 evaluations, with another 900 bias reruns. Item-level agreement remained weak: Krippendorff's alpha ranged from −0.34 to +0.12, and mean weighted kappa from −0.02 to +0.15.
 
 > **Evidence status.** The panel study was accepted by the thesis cutoff. The human-arbitration protocol remains proposal-stage and has not run.
 
@@ -38,7 +39,7 @@ The three panel members disagreed on individual scores. After median aggregation
 
 For individual items, the judges often used the rubric differently. That is not surprising in literary generation and translation: an answer can preserve meaning while losing style, or read fluently while changing an event. A single ordinal score compresses those disagreements.
 
-Aggregation changed the picture. Under the paper protocol, TF1 system rankings from the panel tracked the o4-mini reference at Spearman \(\rho=0.93\) and Kendall \(\tau=0.78\). A later composition analysis using the full panel produced \(\rho=0.952\) and \(\tau=0.822\). These are different protocols, so the two pairs should not be blended into one headline number.
+Aggregation changed the picture. Under the paper protocol, TF1 system rankings from the panel tracked the o4-mini reference at Spearman \\(\rho=0.93\\) and Kendall \\(\tau=0.78\\). A later composition analysis using the full panel produced \\(\rho=0.952\\) and \\(\tau=0.822\\). These are different protocols, so the two pairs should not be blended into one headline number.
 
 The defensible operating rule is narrow: use the panel for the tested TF1 model-selection protocol and report system-level rank agreement. Do not infer from that result that its item scores are reliable filters.
 

@@ -8,6 +8,20 @@ Every post must make sense to a reader who arrives without the repository, paper
 
 After a cold-reader review, add `context_reviewed: YYYY-MM-DD` to the front matter. `scripts/check_site.py` enforces the marker and the minimum opening structure. The check cannot decide whether an explanation is accurate or useful, so the marker records the required editorial judgment rather than replacing it.
 
+## Mathematics
+
+Add `math: true` to any post that contains TeX. The site then loads MathJax 4 only for that page. Use Markdown-safe delimiters with two source backslashes:
+
+```text
+Inline: \\(x^2 + y^2\\)
+
+\\[
+z = \sqrt{x^2 + y^2}
+\\]
+```
+
+Kramdown consumes a backslash before punctuation such as `#`, `{`, `}`, `!`, and `|`. Double that source backslash inside TeX as well, for example `\\#`, `\\{`, `\\}`, `\\!`, or `\\|`. The source and generated-site checks enforce the renderer flag, delimiter balance, Markdown-safe punctuation, and intact display blocks.
+
 ## Local checks
 
 ```sh

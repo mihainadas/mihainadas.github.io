@@ -5,6 +5,7 @@ date: 2026-09-21 09:42:25 +0300
 post_type: engineering note
 description: "An emulator's pseudorandom sound path needs a recurrence, period, seed, and mixer test before listening becomes useful."
 context_reviewed: 2026-09-21
+math: true
 tags: [systems, emulation, testing, audio]
 ---
 
@@ -37,9 +38,9 @@ MAME's [SAA1099 implementation](https://github.com/mamedev/mame/blob/d0f1c15a0f6
 
 For 18 stages, the maximum non-locking period is
 
-\[
+\\[
 2^{18} - 1 = 262{,}143.
-\]
+\\]
 
 The period test is small enough to run directly:
 

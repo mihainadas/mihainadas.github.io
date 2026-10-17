@@ -2,7 +2,7 @@
 
 import unittest
 
-from scripts.check_site import opening_prose_paragraphs
+from scripts.check_site import contains_math, math_markup_error, opening_prose_paragraphs
 
 
 class EditorialContextTests(unittest.TestCase):
@@ -38,6 +38,61 @@ print("not prose")
 ## Result
 """
         self.assertEqual(opening_prose_paragraphs(post), ())
+
+
+class MathMarkupTests(unittest.TestCase):
+    def test_accepts_markdown_safe_inline_and_display_delimiters(self) -> None:
+        post = r"""---
+title: Example
+---
+
+Inline \\(x^2\\) appears before the display.
+
+\\[
+y = x^2
+\\]
+"""
+        self.assertTrue(contains_math(post))
+        self.assertIsNone(math_markup_error(post))
+
+    def test_rejects_delimiters_markdown_would_strip(self) -> None:
+        post = r"""---
+title: Example
+---
+
+Inline \(x^2\) will not survive Kramdown.
+"""
+        self.assertEqual(
+            math_markup_error(post),
+            "TeX punctuation must use two source backslashes so Markdown preserves it",
+        )
+
+    def test_rejects_tex_punctuation_markdown_would_strip(self) -> None:
+        post = r"Text \\(\#\{i: y_i=1\}\\)"
+        self.assertEqual(
+            math_markup_error(post),
+            "TeX punctuation must use two source backslashes so Markdown preserves it",
+        )
+
+    def test_ignores_math_like_text_inside_code(self) -> None:
+        post = r"""---
+title: Example
+---
+
+Use `\(x\)` when documenting a delimiter.
+
+```text
+\[not rendered\]
+```
+"""
+        self.assertFalse(contains_math(post))
+        self.assertIsNone(math_markup_error(post))
+
+    def test_rejects_unbalanced_delimiters(self) -> None:
+        self.assertEqual(
+            math_markup_error(r"Text \\(x^2"),
+            r"unclosed math delimiter: \\(",
+        )
 
 
 if __name__ == "__main__":
