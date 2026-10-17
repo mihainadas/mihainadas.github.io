@@ -4,6 +4,10 @@ layout: default
 
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
+    {% assign post_section = '/research/' %}{% assign post_section_title = 'Research' %}
+    {% if page.post_type == 'engineering note' %}{% assign post_section = '/engineering/' %}{% assign post_section_title = 'Engineering' %}{% endif %}
+    {% if page.series == 'applied-paper-notes' %}{% assign post_section = '/papers/' %}{% assign post_section_title = 'Applied Papers' %}{% endif %}
+    <a class="section-back" href="{{ post_section | relative_url }}">← {{ post_section_title }}</a>
     <p class="post-meta">
       {% if page.post_type %}{{ page.post_type }} · {% endif %}
       {% if page.published_at %}
@@ -25,4 +29,25 @@ layout: default
   </div>
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+  <nav class="post-continuation" aria-labelledby="continue-heading">
+    <h2 id="continue-heading">Continue exploring</h2>
+    <ul>
+      {% assign related_count = 0 %}
+      {% assign related_posts = site.posts | where: "post_type", page.post_type %}
+      {% if page.series %}
+        {% assign series_posts = site.posts | where: "series", page.series %}
+        {% if series_posts.size > 1 %}{% assign related_posts = series_posts %}{% endif %}
+      {% endif %}
+      {% for candidate in related_posts %}
+        {% if candidate.url != page.url %}
+          {% if related_count < 2 %}
+          <li><a href="{{ candidate.url | relative_url }}">{{ candidate.title }}</a><span>{{ candidate.description }}</span></li>
+          {% assign related_count = related_count | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <li><a href="{{ post_section | relative_url }}">More {{ post_section_title | downcase }} →</a></li>
+      <li><a href="{{ '/archive/' | relative_url }}">Browse every note →</a></li>
+    </ul>
+  </nav>
 </article>

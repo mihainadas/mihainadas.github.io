@@ -7,8 +7,10 @@ import re
 import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from html.parser import HTMLParser
 from pathlib import Path
+from html import escape
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -84,6 +86,25 @@ def audit_feed_chronology(feed: str) -> None:
     if published_dates != sorted(published_dates, reverse=True):
         fail("feed entries are not ordered by publication timestamp")
 
+    expected = []
+    for _, source, text in published_sources():
+        stamp = next((front_matter_value(text, key) for key in ("feed_date", "published_at", "date") if front_matter_value(text, key)), None)
+        publication = datetime.fromisoformat(stamp)
+        if publication.tzinfo is None:
+            publication = publication.replace(tzinfo=ZoneInfo("Europe/Bucharest"))
+        if publication <= feed_updated:
+            expected.append((publication, front_matter_value(text, "title")))
+    limit_match = re.search(r"(?m)^\s*posts_limit:\s*(\d+)", (ROOT / "_config.yml").read_text(encoding="utf-8"))
+    limit = int(limit_match.group(1)) if limit_match else 20
+    actual_titles = {entry.findtext("atom:title", namespaces=namespace) for entry in root.findall("atom:entry", namespace)}
+    ordered = sorted(expected, key=lambda row: row[0], reverse=True)
+    # Publication times may tie at the cutoff. Require every strictly newer item.
+    cutoff = ordered[min(limit, len(ordered)) - 1][0]
+    required = {title for published, title in ordered if published > cutoff}
+    eligible = {title for published, title in ordered if published >= cutoff}
+    if not required.issubset(actual_titles) or not actual_titles.issubset(eligible) or len(actual_titles) != min(limit, len(ordered)):
+        fail("feed omits recent publications or includes older entries ahead of them")
+
 
 class FigureAudit(HTMLParser):
     def __init__(self) -> None:
@@ -136,17 +157,39 @@ def front_matter_value(text: str, key: str) -> str | None:
     return match.group(1).strip("\"'") if match else None
 
 
+def published_sources() -> list[tuple[datetime, Path, str]]:
+    """Use front-matter dates, not filename order, and omit future/draft posts."""
+    now = datetime.now(ZoneInfo("Europe/Bucharest"))
+    posts = []
+    for source in POSTS.glob("*.md"):
+        text = source.read_text(encoding="utf-8")
+        stamp = datetime.fromisoformat(front_matter_value(text, "date"))
+        if stamp.tzinfo is None:
+            stamp = stamp.replace(tzinfo=ZoneInfo("Europe/Bucharest"))
+        if stamp <= now and front_matter_value(text, "published") != "false" and front_matter_value(text, "draft") != "true":
+            posts.append((stamp, source, text))
+    return sorted(posts, key=lambda item: item[0], reverse=True)
+
+
 def audit_math_pages() -> None:
     loader = f'<script defer src="{MATHJAX_SOURCE}"></script>'
     math_pages = 0
-    for source in sorted(POSTS.glob("*.md")):
+    sources = [source for _, source, _ in published_sources()] + [p for p in sorted(ROOT.glob("*.md")) if front_matter_value(p.read_text(encoding="utf-8"), "layout")]
+    for source in sources:
         source_text = source.read_text(encoding="utf-8")
         post_date = front_matter_value(source_text, "date")
-        if not post_date or not re.fullmatch(r"\d{4}-\d{2}-\d{2}.*", post_date):
-            fail(f"post date is missing or invalid in {source.name}")
-        date_part = post_date[:10].replace("-", "/")
-        slug = source.stem[11:]
-        relative = f"{date_part}/{slug}.html"
+        if source.parent == POSTS:
+            if not post_date or not re.fullmatch(r"\d{4}-\d{2}-\d{2}.*", post_date):
+                fail(f"post date is missing or invalid in {source.name}")
+            date_part = post_date[:10].replace("-", "/")
+            slug = source.stem[11:]
+            relative = f"{date_part}/{slug}.html"
+        else:
+            permalink = front_matter_value(source_text, "permalink")
+            if permalink and permalink.endswith(".html"):
+                relative = permalink.lstrip("/")
+            else:
+                relative = permalink.strip("/") + "/index.html" if permalink else "index.html"
         rendered = read(relative)
         declared_math = front_matter_value(source_text, "math") == "true"
         if declared_math:
@@ -185,8 +228,9 @@ def main() -> int:
     audit_feed_chronology(feed)
     audit_math_pages()
 
-    issue_numbers = [int(value) for value in re.findall(r">(\d{3}):", papers)]
-    expected_issues = set(range(551, 641)) - {580, 586}
+    issue_numbers = [int(value) for value in re.findall(r'data-issue="(\d+)"', papers)]
+    groups = json.loads((ROOT / "_data" / "papers.json").read_text(encoding="utf-8"))
+    expected_issues = {paper["issue"] for group in groups for paper in group["papers"]}
     if len(issue_numbers) != len(expected_issues) or set(issue_numbers) != expected_issues:
         fail("rendered applied-papers map lost or duplicated an issue")
     if papers.count("Deep Research Needs an Evidence Budget") != 1:
@@ -195,6 +239,37 @@ def main() -> int:
         fail("applied-papers note body was not rendered")
     if "a-rubric-is-a-control-system" in sitemap:
         fail("unpublished applied-papers draft leaked into the sitemap")
+
+    notebooks = read("lab-notebooks/index.html")
+    if '<nav class="site-nav"' not in notebooks or "/lab-notebooks/" not in home:
+        fail("notebook collection lost the blog navigation or homepage route")
+    archive = read("archive/index.html")
+    post_records = published_sources()
+    if archive.count("data-filter-item") != len(post_records):
+        fail("archive lost a published post")
+    for rendered in (papers, archive):
+        if "data-filter-list" not in rendered or "data-status" not in rendered:
+            fail("discovery page lost its filter controls or accessible status")
+    latest_title = front_matter_value(post_records[0][2], "title")
+    now = re.search(r'<div class="now-latest">(.*?)</div>', home, re.DOTALL)
+    if not now or escape(latest_title, quote=False) not in now.group(1):
+        fail("homepage no longer shows the latest eligible note")
+    for thread_id, post_type in (("engineering", "engineering note"), ("research", "research note"), ("papers", "applied research note")):
+        block = re.search(rf'<article class="thread" data-thread="{thread_id}">(.*?)</article>', home, re.DOTALL)
+        expected_title = next(front_matter_value(text, "title") for _, _, text in post_records if front_matter_value(text, "post_type") == post_type)
+        if not block or escape(expected_title, quote=False) not in block.group(1):
+            fail(f"homepage thread {thread_id} lost its latest eligible note")
+    notebooks_data = json.loads((ROOT / "_data" / "notebooks.json").read_text(encoding="utf-8"))
+    for label in (f"{len(post_records)} field notes", f"{len(expected_issues)} papers mapped", f"{len(notebooks_data)} executable notebooks"):
+        if label not in home:
+            fail(f"homepage count disagrees with source data: {label}")
+    if '<meta property="og:image"' not in home or not (SITE / "assets/social-card.png").exists():
+        fail("social preview image is missing")
+    for _, post_source, text in post_records:
+        date_part = front_matter_value(text, "date")[:10].replace("-", "/")
+        rendered = read(f"{date_part}/{post_source.stem[11:]}.html")
+        if 'class="post-continuation"' not in rendered:
+            fail(f"post lacks onward navigation: {post_source.name}")
 
     theme_bootstrap = home.find('window.localStorage.getItem("mihainadas-theme")')
     stylesheet = home.find('/assets/main.css')
@@ -256,11 +331,10 @@ def main() -> int:
         fail("new article body was not rendered")
     if audit_figures("2026/08/27/three-emulator-bugs.html", article) != 1:
         fail("new article does not exercise the shared figure system exactly once")
-    if feed.count('<title type="html">Three Emulator Bugs, Three Different Tests</title>') != 1:
-        fail("global feed does not contain the new article exactly once")
-    judge_entry = atom_entry(feed, "The Panel Was Weak on Items and Useful for Ranking Systems")
-    if "<published>2026-08-27T09:11:56+03:00</published>" not in judge_entry:
-        fail("feed publishes the judge retrospective under its event date")
+    if '<title type="html">The Panel Was Weak on Items and Useful for Ranking Systems</title>' in feed:
+        judge_entry = atom_entry(feed, "The Panel Was Weak on Items and Useful for Ranking Systems")
+        if "<published>2026-08-27T09:11:56+03:00</published>" not in judge_entry:
+            fail("feed publishes the judge retrospective under its event date")
     for url in (
         "https://mihainadas.github.io/engineering/",
         "https://mihainadas.github.io/2026/08/27/three-emulator-bugs.html",
@@ -283,7 +357,6 @@ def main() -> int:
             fail(f"sitemap does not contain {public_url} exactly once")
         if title not in research:
             fail(f"research index is missing thesis-series title: {title}")
-        atom_entry(feed, title)
 
     for relative, text in (
         ("engineering/index.html", engineering),

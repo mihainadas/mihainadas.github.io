@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Research
+math: true
 permalink: /research/
 description: "A map of Mihai Nadăș's work on TinyFabulist, Romanian NLP, and open-weight evaluation."
 ---
@@ -37,7 +38,7 @@ Two supporting lines of work cut across the pipeline:
 - a survey of synthetic text and code generation ([arXiv](https://arxiv.org/abs/2503.14023));
 - Romanian diacritic restoration, including the InnoComp 2025 study published in Springer CCIS 2794 ([paper](https://doi.org/10.1007/978-3-032-12481-4_4), [preprint](https://arxiv.org/abs/2511.13182)).
 
-The open-weight panel now has one measured use: under the fixed TF1 protocol, its system ranking tracked o4-mini at Spearman \(\rho=0.93\) and Kendall \(\tau=0.78\). Item-level agreement remained weak, and the planned human arbitration has not run. I therefore use the panel for aggregate comparison under the tested protocol, not as a replacement for human review or as an automatic filter for individual texts.
+The open-weight panel now has one measured use: under the fixed TF1 protocol, its system ranking tracked o4-mini at Spearman \\(\rho=0.93\\) and Kendall \\(\tau=0.78\\). Item-level agreement remained weak, and the planned human arbitration has not run. I therefore use the panel for aggregate comparison under the tested protocol, not as a replacement for human review or as an automatic filter for individual texts.
 
 ## From the thesis draft
 

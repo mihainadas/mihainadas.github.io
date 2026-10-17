@@ -19,12 +19,22 @@ layout: null
   </author>
   {% endif %}
 
-  {% assign feed_posts = site.posts | where_exp: "post", "post.draft != true" | where_exp: "post", "post.feed_date" | sort: "feed_date" | reverse %}
+  {%- capture publication_order -%}
+    {%- for post in site.posts -%}
+      {%- unless post.draft -%}
+        {%- assign publication = post.feed_date | default: post.published_at | default: post.date -%}
+        {{- publication | date: '%s' -}}::{{- post.url -}}|
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {% assign feed_posts = publication_order | split: '|' | sort | reverse %}
   {% assign posts_limit = site.feed.posts_limit | default: 20 %}
-  {% for post in feed_posts limit: posts_limit %}
+  {% for entry in feed_posts limit: posts_limit %}
+  {% assign post_url = entry | split: '::' | last %}
+  {% assign post = site.posts | where: 'url', post_url | first %}
   <entry{% if post.lang %} xml:lang="{{ post.lang }}"{% endif %}>
     {% assign post_title = post.title | smartify | strip_html | normalize_whitespace | xml_escape %}
-    {% assign publication_date = post.feed_date %}
+    {% assign publication_date = post.feed_date | default: post.published_at | default: post.date %}
     {% assign update_date = post.last_modified_at | default: publication_date %}
     <title type="html">{{ post_title }}</title>
     <link href="{{ post.url | absolute_url }}" rel="alternate" type="text/html" title="{{ post_title }}" />

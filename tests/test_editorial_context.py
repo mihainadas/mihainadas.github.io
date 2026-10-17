@@ -1,8 +1,14 @@
 """Regression tests for the cold-reader opening contract."""
 
 import unittest
+import tempfile
+from contextlib import redirect_stderr
+from io import StringIO
+from pathlib import Path
+from unittest.mock import patch
 
 from scripts.check_site import contains_math, math_markup_error, opening_prose_paragraphs
+from scripts import check_site
 
 
 class EditorialContextTests(unittest.TestCase):
@@ -41,6 +47,23 @@ print("not prose")
 
 
 class MathMarkupTests(unittest.TestCase):
+    def test_root_pages_require_the_same_math_contract_as_posts(self) -> None:
+        original_root = check_site.ROOT
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "_includes").mkdir()
+            for name in ("head.html", "mathjax.html"):
+                (root / "_includes" / name).write_text((original_root / "_includes" / name).read_text())
+            source = root / "research.md"
+            for metadata, markup in (("", r"\\(x\\)"), ("math: true\n", r"\(x\)")):
+                source.write_text("---\nlayout: page\n" + metadata + "---\n" + markup)
+                with patch.object(check_site, "ROOT", root), redirect_stderr(StringIO()):
+                    with self.assertRaises(SystemExit):
+                        check_site.check_math_system()
+            source.write_text("---\nlayout: page\nmath: true\n---\n" + r"\\(x\\)")
+            with patch.object(check_site, "ROOT", root):
+                check_site.check_math_system()
+
     def test_accepts_markdown_safe_inline_and_display_delimiters(self) -> None:
         post = r"""---
 title: Example

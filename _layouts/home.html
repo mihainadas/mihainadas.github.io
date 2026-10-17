@@ -1,62 +1,76 @@
 ---
 layout: default
 ---
-
+{% assign newest = site.posts | first %}
+{% assign paper_count = 0 %}
+{% for theme in site.data.papers %}{% assign paper_count = paper_count | plus: theme.papers.size %}{% endfor %}
 <div class="home">
   <section class="hero">
     <div class="hero-main">
-      <p class="eyebrow">Technology executive · engineer · PhD researcher</p>
+      <p class="eyebrow">Engineering · AI research · technology leadership</p>
       <h1>Staying close to the implementation.</h1>
       <div class="hero-copy">{{ content }}</div>
       <p class="hero-links">
-        <a class="button-primary" href="{{ '/engineering/' | relative_url }}">Selected engineering</a>
-        <a href="{{ '/about/' | relative_url }}">How the threads connect</a>
+        <a class="button-primary" href="#recent-heading">Read the latest</a>
+        <a href="{{ '/about/' | relative_url }}">About my work →</a>
       </p>
     </div>
     <aside class="work-ledger" aria-labelledby="current-work-heading">
-      <h2 class="ledger-label" id="current-work-heading">Current work</h2>
-      <dl>
-        <div>
-          <dt>Operating</dt>
-          <dd>Managing Director · Computacenter Romania<br>Founding Partner &amp; CEO · N13 Ventures</dd>
-        </div>
-        <div>
-          <dt>Research</dt>
-          <dd>Small Romanian language models<br>Babeș-Bolyai University</dd>
-        </div>
-        <div>
-          <dt>Open source</dt>
-          <dd>PC emulation<br>Reproducible ML systems</dd>
-        </div>
-      </dl>
+      <h2 class="ledger-label" id="current-work-heading">On the desk</h2>
+      <div class="now-latest">
+        <p class="post-meta">Latest note · {{ newest.date | date: "%d %b %Y" }}</p>
+        <h3><a href="{{ newest.url | relative_url }}">{{ newest.title }}</a></h3>
+        <p>{{ newest.home_summary | default: newest.description }}</p>
+      </div>
+      <p class="now-focus">{{ site.data.now.focus }}</p>
+      <p class="review-date">Focus reviewed <time datetime="{{ site.data.now.reviewed }}">{{ site.data.now.reviewed | date: "%d %b %Y" }}</time></p>
     </aside>
+  </section>
+
+  <section aria-labelledby="threads-heading" class="thread-section">
+    <div class="section-heading"><h2 id="threads-heading">Follow a thread</h2><a href="{{ '/lab-notebooks/' | relative_url }}">Executable notebooks →</a></div>
+    <div class="thread-grid">
+      {% for thread in site.data.threads %}
+      {% assign thread_posts = site.posts | where: "post_type", thread.post_type %}
+      {% assign thread_latest = thread_posts | first %}
+      <article class="thread" data-thread="{{ thread.id }}">
+        <h3><a href="{{ thread.url | relative_url }}">{{ thread.title }} →</a></h3>
+        <p>{{ thread.description }}</p>
+        {% if thread_latest %}
+        <p class="post-meta">Latest · {{ thread_latest.date | date: "%d %b %Y" }}</p>
+        <a class="thread-latest" href="{{ thread_latest.url | relative_url }}">{{ thread_latest.title }}</a>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+    <p class="site-counts"><span>{{ site.posts.size }} field notes</span><span>{{ paper_count }} papers mapped</span><span>{{ site.data.notebooks.size }} executable notebooks</span></p>
+  </section>
+
+  <section aria-labelledby="recent-heading" class="recent-work">
+    <div class="section-heading"><h2 id="recent-heading">Recent work</h2><a href="{{ '/archive/' | relative_url }}">All notes →</a></div>
+    <div class="post-grid">
+      {% for post in site.posts limit:4 %}
+        {% include post-card.html post=post %}
+      {% endfor %}
+    </div>
   </section>
 
   <section aria-labelledby="selected-heading">
     <p class="eyebrow">Selected work</p>
     <h2 id="selected-heading">Start here</h2>
-    <div class="post-grid">
+    <div class="post-grid selected-grid">
       {% assign featured_posts = site.posts | where: "featured", true %}
       {% for post in featured_posts limit:4 %}
-      <article class="post-card">
-        <p class="post-meta">{% if post.published_at %}event {{ post.date | date: "%d %b %Y" }} · published {{ post.published_at | date: "%d %b %Y" }}{% else %}{{ post.date | date: "%d %b %Y" }}{% endif %}{% if post.post_type %} · {{ post.post_type }}{% endif %}</p>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <p>{{ post.description | default: post.excerpt | strip_html | truncate: 180 }}</p>
-      </article>
+        {% include post-card.html post=post %}
       {% endfor %}
     </div>
   </section>
 
   <section class="latest" aria-labelledby="latest-heading">
-    <p class="eyebrow">Research and engineering record</p>
     <h2 id="latest-heading">Project chronology</h2>
     <ol class="post-list">
-      {% for post in site.posts limit:8 %}
-      <li>
-        <span class="post-date">{% if post.published_at %}event {% endif %}{{ post.date | date: "%d %b %Y" }}</span>
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        {% if post.post_type %}<span class="post-type">{{ post.post_type }}</span>{% endif %}
-      </li>
+      {% for post in site.posts limit:6 offset:4 %}
+      <li><span class="post-date">{% if post.published_at %}event {% endif %}{{ post.date | date: "%d %b %Y" }}</span><a href="{{ post.url | relative_url }}">{{ post.title }}</a><span class="post-type">{{ post.post_type }}</span></li>
       {% endfor %}
     </ol>
     <p><a href="{{ '/archive/' | relative_url }}">Browse the complete archive →</a></p>

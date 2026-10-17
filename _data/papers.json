@@ -1,0 +1,658 @@
+[
+  {
+    "id": "evidence",
+    "label": "Research agents",
+    "title": "Evidence systems and research agents",
+    "intro": "These papers treat research as a sequence of search, reading, state management, verification, and stopping decisions. The business question is not whether an agent can produce a long report. It is whether the organization can inspect how the report acquired and tested its evidence.",
+    "papers": [
+      {
+        "issue": 640,
+        "title": "OpenResearcher",
+        "url": "https://ritvik19.medium.com/8995d77a1b9a",
+        "contribution": "Makes long research trajectories reproducible with a fixed corpus and explicit search, open, and find operations.",
+        "business": "Can a due-diligence run be replayed after a decision is challenged?"
+      },
+      {
+        "issue": 639,
+        "title": "OpenSeeker",
+        "url": "https://ritvik19.medium.com/ce56311ee04f",
+        "contribution": "Builds difficult multi-hop questions from web structure and compresses noisy search history.",
+        "business": "Can training cases require real evidence traversal instead of keyword matching?"
+      },
+      {
+        "issue": 638,
+        "title": "DRACO",
+        "url": "https://ritvik19.medium.com/ca9e3ffabbb8",
+        "contribution": "Evaluates research reports across factual accuracy, coverage, presentation, and citation quality.",
+        "business": "Does the acceptance test score the dimensions the decision owner actually needs?"
+      },
+      {
+        "issue": 637,
+        "title": "DeepSearchQA",
+        "url": "https://ritvik19.medium.com/f8e42f211c50",
+        "contribution": "Tests exhaustive, multi-step search where entity resolution and stopping are part of the task.",
+        "business": "Does the system stop because the answer set is complete or because its budget expired?"
+      },
+      {
+        "issue": 636,
+        "title": "DR Tulu",
+        "url": "https://ritvik19.medium.com/17f13ca39293",
+        "contribution": "Trains long-form research with rubrics that evolve as the policy discovers new evidence and failure modes.",
+        "business": "Can evaluation keep discriminating after the system learns yesterday's checklist?"
+      },
+      {
+        "issue": 635,
+        "title": "Tongyi DeepResearch",
+        "url": "https://ritvik19.medium.com/8366b11678a8",
+        "contribution": "Combines agentic mid-training, post-training, automatic data synthesis, and a compressed working memory.",
+        "business": "Which research state must remain verbatim, and which can be summarized safely?"
+      },
+      {
+        "issue": 634,
+        "title": "PokeeResearch",
+        "url": "https://ritvik19.medium.com/b6976532d436",
+        "contribution": "Isolates reward, RL algorithm, data curation, and error recovery as separate design choices.",
+        "business": "Is a weak result caused by the model, the training signal, the task mix, or brittle execution?"
+      },
+      {
+        "issue": 633,
+        "title": "SFR-DeepResearch",
+        "url": "https://ritvik19.medium.com/186281b33e3b",
+        "contribution": "Shows a single agent can combine web search, page reading, and Python under a compact tool interface.",
+        "business": "Is a multi-agent organization necessary, or is it hiding a simpler control problem?"
+      },
+      {
+        "issue": 632,
+        "title": "DeepResearcher",
+        "url": "https://ritvik19.medium.com/dbd4d21c23c4",
+        "contribution": "Trains research behavior against the noisy live web rather than only a closed retrieval corpus.",
+        "business": "Has the evaluation included blocked pages, stale snippets, and inconsistent sources?"
+      },
+      {
+        "issue": 631,
+        "title": "ReSearch",
+        "url": "https://ritvik19.medium.com/1f3ba010f95f",
+        "contribution": "Learns when to interleave reasoning and search without supervised reasoning traces.",
+        "business": "Does the agent search to resolve uncertainty, or merely because a workflow tells it to?"
+      },
+      {
+        "issue": 630,
+        "title": "Search-R1",
+        "url": "https://ritvik19.medium.com/614b480de319",
+        "contribution": "Uses outcome-based RL to teach multiple real-time searches inside a reasoning trajectory.",
+        "business": "Are search calls improving the answer enough to justify their latency and cost?"
+      },
+      {
+        "issue": 567,
+        "title": "Advancing Search Augmented Language Models",
+        "url": "https://ritvik19.medium.com/bceb21866e26",
+        "contribution": "Separates supervised deployment behavior from RL for accuracy and efficient tool use.",
+        "business": "Which requirements are hard guardrails, and which should be optimized from outcomes?"
+      },
+      {
+        "issue": 562,
+        "title": "Is Grep All You Need",
+        "url": "https://ritvik19.medium.com/5b10a6e92f77",
+        "contribution": "Finds that retrieval quality depends on the tool harness and presentation, not only the retrieval algorithm.",
+        "business": "Has the team compared the simplest exact-search baseline inside the actual user workflow?"
+      }
+    ]
+  },
+  {
+    "id": "evaluation",
+    "label": "Evaluation & safety",
+    "title": "Evaluation, governance, and safety",
+    "intro": "This cluster is about proxies. Benchmarks, rubrics, verifiers, safety classifiers, and privacy filters can make quality measurable, but every proxy creates a new surface for overfitting or omission.",
+    "papers": [
+      {
+        "issue": 629,
+        "title": "FRAMES",
+        "url": "https://ritvik19.medium.com/f14764317676",
+        "contribution": "Combines retrieval, multi-hop reasoning, and factual response quality in end-to-end RAG questions.",
+        "business": "Does a RAG test isolate retrieval failure from reasoning failure?"
+      },
+      {
+        "issue": 628,
+        "title": "CRAG",
+        "url": "https://ritvik19.medium.com/cff01593ce2d",
+        "contribution": "Adds diverse question types and simulated web and knowledge-graph APIs to factual QA.",
+        "business": "Does the test set include changing facts, unavailable facts, and false premises?"
+      },
+      {
+        "issue": 627,
+        "title": "FanOutQA",
+        "url": "https://ritvik19.medium.com/07b02a669eef",
+        "contribution": "Measures broad answer-set construction with human decompositions across many documents.",
+        "business": "Can the system enumerate a market completely without duplicating the same entity?"
+      },
+      {
+        "issue": 626,
+        "title": "MultiHop-RAG",
+        "url": "https://ritvik19.medium.com/f857b7472974",
+        "contribution": "Tests inference, comparison, temporal, and null questions that require several documents.",
+        "business": "Can the system say that no supported answer exists after a multi-source search?"
+      },
+      {
+        "issue": 621,
+        "title": "Artificial Hivemind",
+        "url": "https://ritvik19.medium.com/1615e8079c92",
+        "contribution": "Measures how model answers collapse diverse human preferences into similar responses.",
+        "business": "Is an ideation tool widening the option set or standardizing everyone on one safe answer?"
+      },
+      {
+        "issue": 617,
+        "title": "Unsupervised Process Reward Models",
+        "url": "https://ritvik19.medium.com/7ee981eb13c4",
+        "contribution": "Locates likely first errors in reasoning without step labels or final-answer verification.",
+        "business": "Can process monitoring find where a workflow first went wrong before damage propagates?"
+      },
+      {
+        "issue": 600,
+        "title": "Rubric Dropout",
+        "url": "https://ritvik19.medium.com/97c3ca77cae7",
+        "contribution": "Randomly hides rubric criteria during training so a policy cannot optimize one fixed checklist.",
+        "business": "Does performance survive when auditors vary the inspection criteria?"
+      },
+      {
+        "issue": 596,
+        "title": "Shieldstral",
+        "url": "https://ritvik19.medium.com/535b8ff3209b",
+        "contribution": "Frames multimodal moderation under configurable policies as binary question answering.",
+        "business": "Can policy changes be versioned independently from the content classifier?"
+      },
+      {
+        "issue": 588,
+        "title": "LLM-as-a-Verifier",
+        "url": "https://ritvik19.medium.com/58c8ab45fb3f",
+        "contribution": "Uses the verifier's score distribution instead of a single discrete judgment.",
+        "business": "Are borderline cases routed by calibrated uncertainty rather than a brittle pass or fail?"
+      },
+      {
+        "issue": 581,
+        "title": "Rubric Guided Self Distillation",
+        "url": "https://ritvik19.medium.com/bd61a188450f",
+        "contribution": "Distills rubric-conditioned behavior into a model that no longer needs a verifier on every call.",
+        "business": "Which quality controls can be internalized, and which still require independent review?"
+      },
+      {
+        "issue": 579,
+        "title": "POW3R",
+        "url": "https://ritvik19.medium.com/6fa98f57e4f9",
+        "contribution": "Reweights rubric criteria according to which ones still distinguish current outputs.",
+        "business": "Is optimization effort spent on unresolved quality gaps rather than already-saturated metrics?"
+      },
+      {
+        "issue": 578,
+        "title": "Reward Hacking in Rubric-Based RL",
+        "url": "https://ritvik19.medium.com/cfefd83ed729",
+        "contribution": "Shows that better rubric scores can coexist with worse broader quality.",
+        "business": "What holdout review would reveal checklist compliance without actual improvement?"
+      },
+      {
+        "issue": 572,
+        "title": "IFBench",
+        "url": "https://ritvik19.medium.com/959c7204cf10",
+        "contribution": "Tests instruction following on new, programmatically verifiable constraints.",
+        "business": "Does a workflow obey unfamiliar contractual formats or only templates seen in tuning?"
+      },
+      {
+        "issue": 566,
+        "title": "OpenAI Privacy Filter",
+        "url": "https://ritvik19.medium.com/04d7eae93107",
+        "contribution": "Uses an efficient long-context token classifier to find and redact personal information.",
+        "business": "Is privacy filtering measured for recall, over-redaction, context length, and local policy?"
+      },
+      {
+        "issue": 564,
+        "title": "How2Everything",
+        "url": "https://ritvik19.medium.com/baef4f7ae61f",
+        "contribution": "Builds data, a benchmark, and a judge for detecting critical errors in generated procedures.",
+        "business": "Can an operations assistant be tested for unsafe omissions rather than fluent wording?"
+      },
+      {
+        "issue": 563,
+        "title": "Likelihood-Based Reward Designs",
+        "url": "https://ritvik19.medium.com/e889106eff08",
+        "contribution": "Compares probability and log-probability rewards across verifiable and open-ended reasoning.",
+        "business": "Does the reward preserve meaningful differences, or collapse outcomes into a coarse binary signal?"
+      },
+      {
+        "issue": 555,
+        "title": "IH Challenge",
+        "url": "https://ritvik19.medium.com/cf2433051b7e",
+        "contribution": "Trains and evaluates obedience to instruction priority across system, developer, user, and tool roles.",
+        "business": "Can lower-trust content override policy or authorization in the deployed prompt stack?"
+      },
+      {
+        "issue": 553,
+        "title": "Rubrics as Rewards",
+        "url": "https://ritvik19.medium.com/229ff69f7355",
+        "contribution": "Turns instance-specific, interpretable criteria into reinforcement-learning rewards.",
+        "business": "Can domain experts inspect and amend the definition of a good result?"
+      }
+    ]
+  },
+  {
+    "id": "training",
+    "label": "Training & adaptation",
+    "title": "Training, curricula, and specialist agents",
+    "intro": "The common theme is allocation: which examples, traces, rewards, teachers, and specialist tasks deserve training compute. For a business, the practical unit is not the parameter count alone but the cost of acquiring a dependable capability.",
+    "papers": [
+      {
+        "issue": 625,
+        "title": "Nemotron Labs IMO 2026",
+        "url": "https://ritvik19.medium.com/73ce03261940",
+        "contribution": "Uses repeated natural-language proof generation, verification, and refinement without a formal prover.",
+        "business": "When does an expensive generate-check-refine loop beat one fast answer?"
+      },
+      {
+        "issue": 624,
+        "title": "GenCluster",
+        "url": "https://ritvik19.medium.com/8ad12cc83bac",
+        "contribution": "Clusters diverse candidate programs before ranking and submission.",
+        "business": "Can validation spend cover different solution families instead of near-duplicates?"
+      },
+      {
+        "issue": 623,
+        "title": "Nemotron 3 CC",
+        "url": "https://ritvik19.medium.com/6d6d3b72b060",
+        "contribution": "Joins problem curation, synthetic traces, SFT, RL, and test-time correction for competitive programming.",
+        "business": "Which stage contributes measurable reliability in an agentic software pipeline?"
+      },
+      {
+        "issue": 622,
+        "title": "Complete Reasoning Traces",
+        "url": "https://ritvik19.medium.com/9eb91bf0b897",
+        "contribution": "Finds that partial or endpoint traces can retain much of the post-training value of full traces.",
+        "business": "Are costly full process logs necessary, or would verified milestones carry the signal?"
+      },
+      {
+        "issue": 618,
+        "title": "SFT Conflicts, RL Coexists",
+        "url": "https://ritvik19.medium.com/1ecd4a2d9bd8",
+        "contribution": "Reports stronger cross-task interference in sequential SFT than in sparse RL updates.",
+        "business": "Does adding one capability erase another in the release regression suite?"
+      },
+      {
+        "issue": 616,
+        "title": "Is One Layer Enough",
+        "url": "https://ritvik19.medium.com/36b5241b379b",
+        "contribution": "Concentrates much of the measured RL gain in a small number of middle layers.",
+        "business": "Can adaptation scope be narrowed without losing the target behavior?"
+      },
+      {
+        "issue": 610,
+        "title": "TailSFT",
+        "url": "https://ritvik19.medium.com/4875d05e400f",
+        "contribution": "Focuses SFT on sequences the model has not yet covered rather than repeatedly fitting easy cases.",
+        "business": "Is the training queue reducing failure coverage or only average loss?"
+      },
+      {
+        "issue": 609,
+        "title": "TinyGSM",
+        "url": "https://ritvik19.medium.com/da8672bca027",
+        "contribution": "Uses large synthetic math data plus a verifier to train small generation systems.",
+        "business": "Can synthetic cases and automated checks substitute for scarce expert-written examples?"
+      },
+      {
+        "issue": 608,
+        "title": "TinyStories",
+        "url": "https://ritvik19.medium.com/0218b6d43763",
+        "contribution": "Constrains vocabulary and story structure so very small models expose learning behavior clearly.",
+        "business": "Can a reduced-domain prototype test the learning pipeline before full-scale spend?"
+      },
+      {
+        "issue": 607,
+        "title": "CLRS-Text",
+        "url": "https://ritvik19.medium.com/60a80a8e43ef#ee39",
+        "contribution": "Expresses algorithmic execution traces as text across classical tasks.",
+        "business": "Can process reasoning be evaluated against exact state transitions rather than prose quality?"
+      },
+      {
+        "issue": 606,
+        "title": "On-policy Distillation with Verifiable Reward",
+        "url": "https://ritvik19.medium.com/3f231794b5b4",
+        "contribution": "Combines token-level teacher guidance with trajectory-level correctness.",
+        "business": "Can dense coaching remain subordinate to the outcome that matters?"
+      },
+      {
+        "issue": 605,
+        "title": "Passive Skill Distillation",
+        "url": "https://ritvik19.medium.com/481e342aa9d1",
+        "contribution": "Extracts reusable procedural skills from agent trajectories and injects them as compact instructions.",
+        "business": "Which repeated workflow knowledge belongs in a playbook instead of the model weights?"
+      },
+      {
+        "issue": 602,
+        "title": "SOAR",
+        "url": "https://ritvik19.medium.com/7b56235c07c2",
+        "contribution": "Rewards a problem-generating teacher according to the student's improvement on hard cases.",
+        "business": "Can test generation be optimized for learning value rather than novelty alone?"
+      },
+      {
+        "issue": 601,
+        "title": "SCRL",
+        "url": "https://ritvik19.medium.com/c1d94c6f3b00",
+        "contribution": "Converts hard problems into verified subproblems ordered as a curriculum.",
+        "business": "Can a complex business process be taught through auditable intermediate competencies?"
+      },
+      {
+        "issue": 598,
+        "title": "Compress Distil",
+        "url": "https://ritvik19.medium.com/c5f78c8c8a18",
+        "contribution": "Rewrites long correct reasoning traces into shorter supervision before training a student.",
+        "business": "How much explanation cost can be removed without removing the decision signal?"
+      },
+      {
+        "issue": 597,
+        "title": "Leanstral",
+        "url": "https://ritvik19.medium.com/06f0927fe5b0",
+        "contribution": "Specializes general code agents for Lean proof work without a bespoke operating shell.",
+        "business": "When should a shared agent interface host a high-assurance specialist?"
+      },
+      {
+        "issue": 595,
+        "title": "Unsupervised On-Policy Self Distillation",
+        "url": "https://ritvik19.medium.com/13e21a1df42d",
+        "contribution": "Uses agreement among a model's own rollouts to create a corrective teaching signal.",
+        "business": "Can internal consensus improve a system without hiding correlated mistakes?"
+      },
+      {
+        "issue": 594,
+        "title": "TREK",
+        "url": "https://ritvik19.medium.com/da20a690b2ad",
+        "contribution": "Uses a short teacher-guided phase to expand the student's exploration before returning to RL.",
+        "business": "Is a weak learner missing knowledge, or merely failing to visit useful solution modes?"
+      },
+      {
+        "issue": 593,
+        "title": "Self-Distillation Fine-Tuning",
+        "url": "https://ritvik19.medium.com/651ba44d1163",
+        "contribution": "Teaches from demonstrations through a privileged self-teacher while the student trains on its own rollouts.",
+        "business": "Can new procedures be learned without a separate reward service or broad capability loss?"
+      },
+      {
+        "issue": 592,
+        "title": "Self-Distilled Reasoner",
+        "url": "https://ritvik19.medium.com/72bb42dd93ed",
+        "contribution": "Gives one model privileged answer information in the teacher role and removes it in the student role.",
+        "business": "What information may guide training but will not exist at production time?"
+      },
+      {
+        "issue": 591,
+        "title": "Generalized Knowledge Distillation",
+        "url": "https://ritvik19.medium.com/52bebe2e0252",
+        "contribution": "Applies teacher feedback to sequences sampled from the student rather than only fixed teacher outputs.",
+        "business": "Is the teacher correcting mistakes the deployed student actually makes?"
+      },
+      {
+        "issue": 589,
+        "title": "Weak-to-Strong On-Policy Distillation",
+        "url": "https://ritvik19.medium.com/6dd143fcdd0b",
+        "contribution": "Constructs a capability direction from contrasting weak models and transfers it to a stronger student.",
+        "business": "Can cheap specialist signals improve a stronger general system without copying a weak model wholesale?"
+      },
+      {
+        "issue": 587,
+        "title": "OpenThoughts Agent",
+        "url": "https://ritvik19.medium.com/567cddd67283",
+        "contribution": "Uses controlled ablations to identify which instructions, teachers, filters, and task sources matter for agent data.",
+        "business": "Has the data pipeline measured contribution by source rather than assuming more traces are better?"
+      },
+      {
+        "issue": 585,
+        "title": "VibeThinker-3B",
+        "url": "https://ritvik19.medium.com/a82a4fe1299f",
+        "contribution": "Combines curriculum SFT, multi-domain RL, and self-distillation in a compact reasoning model.",
+        "business": "What capability floor is achievable under a strict deployment-size budget?"
+      },
+      {
+        "issue": 584,
+        "title": "VibeThinker-1.5B",
+        "url": "https://ritvik19.medium.com/ef56288a0329",
+        "contribution": "Separates diverse solution discovery in SFT from reinforcement of correct paths in RL.",
+        "business": "Should exploration and reliability be optimized in different training stages?"
+      },
+      {
+        "issue": 577,
+        "title": "MAI-Thinking-1",
+        "url": "https://ritvik19.medium.com/e5afeca9bbfc",
+        "contribution": "Builds a large reasoning model with human-generated data and iterative empirical optimization.",
+        "business": "Is model provenance compatible with the organization's licensing and audit requirements?"
+      },
+      {
+        "issue": 576,
+        "title": "Aryabhata 2",
+        "url": "https://ritvik19.medium.com/9d3d23738731",
+        "contribution": "Applies phased RL to a cleaned curriculum for competitive-exam reasoning.",
+        "business": "Does a narrow expert model benefit from domain sequencing more than a mixed training pool?"
+      },
+      {
+        "issue": 560,
+        "title": "Apriel-1.5-OpenReasoner",
+        "url": "https://ritvik19.medium.com/5826103aac57",
+        "contribution": "Balances five reasoning domains with adaptive sampling and difficulty-aware length penalties.",
+        "business": "Can the training scheduler prevent one high-volume domain from consuming the model?"
+      },
+      {
+        "issue": 559,
+        "title": "Composer 2",
+        "url": "https://ritvik19.medium.com/9bc921210902",
+        "contribution": "Trains a coding agent in realistic software environments for long planning and multi-step execution.",
+        "business": "Does coding evaluation include repository navigation, recovery, and end-to-end task completion?"
+      },
+      {
+        "issue": 557,
+        "title": "Beyond Web",
+        "url": "https://ritvik19.medium.com/eb0483a21dff",
+        "contribution": "Rephrases targeted documents to make synthetic pretraining data denser and more diverse.",
+        "business": "Is synthetic data adding useful coverage or merely restating the same source distribution?"
+      },
+      {
+        "issue": 556,
+        "title": "The Art of Asking",
+        "url": "https://ritvik19.medium.com/604ba808ff26",
+        "contribution": "Optimizes translated prompts for naturalness, cultural fit, and difficulty across languages.",
+        "business": "Has a multilingual product localized the task itself, not only translated its words?"
+      },
+      {
+        "issue": 552,
+        "title": "Nemotron Cascade 2",
+        "url": "https://ritvik19.medium.com/1ac869c28c8c",
+        "contribution": "Combines multi-stage RL and on-policy distillation in an efficient mixture-of-experts model.",
+        "business": "Which staged training costs buy reusable capability across math, code, and agents?"
+      },
+      {
+        "issue": 551,
+        "title": "QED Nano",
+        "url": "https://ritvik19.medium.com/dd7f19dec9d7",
+        "contribution": "Trains a compact proof model with SFT, rubric rewards, and an iterative reasoning cache.",
+        "business": "Can formal-quality output be decomposed into drafting, checking, and memory controls?"
+      }
+    ]
+  },
+  {
+    "id": "architecture",
+    "label": "Architecture & efficiency",
+    "title": "Architecture, context, and deployment efficiency",
+    "intro": "These papers change where computation and parameters live. Their business relevance is a cost ledger: training cost, serving cost, task-specific storage, latency, and operational flexibility are different quantities.",
+    "papers": [
+      {
+        "issue": 620,
+        "title": "NoRA",
+        "url": "https://ritvik19.medium.com/18c1ed7abf2a",
+        "contribution": "Normalizes LoRA's down-projection to improve optimization while retaining exact mergeability.",
+        "business": "Does a cheaper adaptation method remain stable across tasks and release merges?"
+      },
+      {
+        "issue": 619,
+        "title": "Low-Rank Training",
+        "url": "https://ritvik19.medium.com/cc3f8c294de5",
+        "contribution": "Applies low-rank parameterization to feed-forward layers during pretraining, not only adaptation.",
+        "business": "Is the organization reducing training compute or only task-specific parameter count?"
+      },
+      {
+        "issue": 615,
+        "title": "YaRN",
+        "url": "https://ritvik19.medium.com/3eb0225c90db",
+        "contribution": "Extends RoPE context lengths with limited additional training.",
+        "business": "Does the long-context claim survive the document lengths and positions in production?"
+      },
+      {
+        "issue": 614,
+        "title": "NoPE",
+        "url": "https://ritvik19.medium.com/9a670429a736",
+        "contribution": "Challenges explicit positional encodings on length generalization tasks.",
+        "business": "Is the architecture feature improving the target workload or persisting by convention?"
+      },
+      {
+        "issue": 613,
+        "title": "ALiBi",
+        "url": "https://ritvik19.medium.com/66ff030750bf",
+        "contribution": "Adds distance-dependent attention bias instead of positional embeddings.",
+        "business": "Can longer inputs be supported without retraining the entire representation scheme?"
+      },
+      {
+        "issue": 612,
+        "title": "RoPE",
+        "url": "https://ritvik19.medium.com/5797f508073f",
+        "contribution": "Represents absolute position through rotation while exposing relative distance in attention.",
+        "business": "Which context-extension methods remain compatible with the deployed backbone?"
+      },
+      {
+        "issue": 611,
+        "title": "Position Encodings",
+        "url": "https://ritvik19.medium.com/3dafda9e6f47",
+        "contribution": "Compares the mechanisms that give a parallel Transformer token order.",
+        "business": "Is sequence order encoded in a way that matches extrapolation and latency requirements?"
+      },
+      {
+        "issue": 604,
+        "title": "Kimi K3",
+        "url": "https://ritvik19.medium.com/97c6b5e539bb",
+        "contribution": "Combines sparse activation, native multimodality, and very long context at large scale.",
+        "business": "Which claimed capability requires the full model, and which can be served by a smaller route?"
+      },
+      {
+        "issue": 603,
+        "title": "Kimi K2.5",
+        "url": "https://ritvik19.medium.com/2598a949ad61",
+        "contribution": "Jointly trains text and vision for an open multimodal agentic model.",
+        "business": "Does multimodality improve the actual workflow or add an expensive unused interface?"
+      },
+      {
+        "issue": 599,
+        "title": "Sparse Upcycling",
+        "url": "https://ritvik19.medium.com/804de5de9c18",
+        "contribution": "Converts a trained dense checkpoint into a sparse mixture-of-experts model.",
+        "business": "Can sunk pretraining cost be reused without multiplying serving complexity?"
+      },
+      {
+        "issue": 590,
+        "title": "Nemotron 3 Nano Omni",
+        "url": "https://ritvik19.medium.com/7761aa5c9e09",
+        "contribution": "Adds native audio, image, and video support to an efficient sparse backbone.",
+        "business": "Which modalities need one shared model, and which require separate quality controls?"
+      },
+      {
+        "issue": 583,
+        "title": "Mellum 2",
+        "url": "https://ritvik19.medium.com/7c59fdbfb6e6",
+        "contribution": "Uses sparse experts for code editing, debugging, tool use, and conversational programming.",
+        "business": "Does one coding model meet both interactive latency and agentic execution needs?"
+      },
+      {
+        "issue": 582,
+        "title": "Mellum",
+        "url": "https://ritvik19.medium.com/765aef2f7e6c",
+        "contribution": "Targets low-latency, multi-line IDE completion with a compact open model.",
+        "business": "Is the product optimizing for completion speed rather than benchmark breadth?"
+      },
+      {
+        "issue": 573,
+        "title": "EMO",
+        "url": "https://ritvik19.medium.com/9ab88479e1f2",
+        "contribution": "Encourages domain-specialized experts that can be composed or deployed selectively.",
+        "business": "Can unused capabilities be removed from a deployment without retraining the whole model?"
+      },
+      {
+        "issue": 571,
+        "title": "Olmo 3",
+        "url": "https://ritvik19.medium.com/1ee7134a4e67",
+        "contribution": "Releases models, data, training details, and checkpoints across general and reasoning variants.",
+        "business": "Does openness reduce vendor risk enough to offset self-hosting responsibility?"
+      },
+      {
+        "issue": 568,
+        "title": "Arcee Trinity",
+        "url": "https://ritvik19.medium.com/03b148275c8a",
+        "contribution": "Mixes local and global attention with sparse experts and explicit load balancing.",
+        "business": "Are throughput gains preserved under the organization's real request distribution?"
+      },
+      {
+        "issue": 565,
+        "title": "Sarvam 30B and 105B",
+        "url": "https://ritvik19.medium.com/fea8e76080fa",
+        "contribution": "Builds Indic-focused reasoning models with locally optimized tokenization.",
+        "business": "Does regional language coverage require a different tokenizer and data supply chain?"
+      },
+      {
+        "issue": 558,
+        "title": "Nemotron 3 Super",
+        "url": "https://ritvik19.medium.com/a85eaac06bc3",
+        "contribution": "Combines hybrid sequence layers, sparse experts, low precision, and multi-token prediction.",
+        "business": "Which optimization lowers total serving cost after hardware and software constraints are included?"
+      }
+    ]
+  },
+  {
+    "id": "data",
+    "label": "Data & retrieval",
+    "title": "Data and representation",
+    "intro": "This group concerns what the system stores, compares, and retrieves. The practical concern is whether the representation preserves the distinctions needed by a search, classification, or multimodal workflow.",
+    "papers": [
+      {
+        "issue": 575,
+        "title": "Gemini Embedding 2",
+        "url": "https://ritvik19.medium.com/a9e9ed849227",
+        "contribution": "Maps text, image, video, audio, and PDFs into one multilingual space with variable dimensions.",
+        "business": "Does one index improve cross-modal discovery without erasing modality-specific evidence?"
+      },
+      {
+        "issue": 574,
+        "title": "Jina Embeddings v5 Omni",
+        "url": "https://ritvik19.medium.com/1a08a156e52e",
+        "contribution": "Adds frozen modality encoders around a text embedding space and trains small connectors.",
+        "business": "Can new document types be added without rebuilding the entire retrieval stack?"
+      },
+      {
+        "issue": 570,
+        "title": "gzip and Scaling Laws",
+        "url": "https://ritvik19.medium.com/44c1d94b1213",
+        "contribution": "Uses compression as a proxy for data complexity when predicting scaling behavior.",
+        "business": "Can a cheap complexity measure improve data and compute planning before a training run?"
+      },
+      {
+        "issue": 569,
+        "title": "Text Classification with Gzip",
+        "url": "https://ritvik19.medium.com/ffda2859c6f4",
+        "contribution": "Combines normalized compression distance with nearest-neighbor classification.",
+        "business": "Has the team tested a transparent non-neural baseline before adopting a larger classifier?"
+      },
+      {
+        "issue": 561,
+        "title": "FinePhrase",
+        "url": "https://ritvik19.medium.com/bf43cd53d6b9",
+        "contribution": "Treats synthetic pretraining data as a recipe optimized through many controlled experiments.",
+        "business": "Are synthetic-data costs tied to ablations that show which transformations help?"
+      },
+      {
+        "issue": 554,
+        "title": "Jina Embeddings v5 Text",
+        "url": "https://ritvik19.medium.com/09ac59ff93b7",
+        "contribution": "Combines distillation and contrastive objectives for compact, multilingual, quantization-tolerant embeddings.",
+        "business": "Do retrieval tests include truncation, language mix, and the quantized production index?"
+      }
+    ]
+  }
+]

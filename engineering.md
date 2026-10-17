@@ -28,7 +28,7 @@ The [merged contribution record](https://github.com/search?q=author%3Amihainadas
 
 ## Model pipelines
 
-Model work appears here when it yields a public method rather than a project announcement. The notes below cover corpus-scale batching and provenance, low-rank adaptation, model design, and defensive local inference. Teaching material and smaller experiments live in the [notebook collection]({{ '/notebooks/' | relative_url }}); I keep them separate from research claims unless a notebook reproduces the relevant measurement.
+Model work appears here when it yields a public method rather than a project announcement. The notes below cover corpus-scale batching and provenance, low-rank adaptation, model design, and defensive local inference. Teaching material and smaller experiments live in the [notebook collection]({{ '/lab-notebooks/' | relative_url }}); I keep them separate from research claims unless a notebook reproduces the relevant measurement.
 
 ## Reading the record
 

@@ -1,0 +1,15 @@
+- id: engineering
+  title: Engineering
+  url: /engineering/
+  post_type: engineering note
+  description: Systems, emulator correctness, and experiments you can reproduce.
+- id: research
+  title: Research
+  url: /research/
+  post_type: research note
+  description: Romanian language models, synthetic narratives, and careful evaluation.
+- id: papers
+  title: Applied Papers
+  url: /papers/
+  post_type: applied research note
+  description: What research findings could change in business and operations.

@@ -7,7 +7,9 @@ description: "Mihai Nadăș is a technology executive, engineer, and PhD researc
 
 I am Mihai Dan Nadăș. My papers and open-source work usually appear under the shorter form, Mihai Nadăș.
 
-Today I lead Computacenter Romania. Alongside that role, I am a founding partner and CEO of N13 Ventures. The chronology below shows how that operating work grew out of engineering and now runs in parallel with doctoral research and open source.
+{% for role in site.data.now.roles %}{{ role.title }}, {{ role.organization }}{% unless forloop.last %}. {% endunless %}{% endfor %}. Alongside these roles, I pursue doctoral research and contribute to open source. The chronology below shows how that operating work grew out of engineering.
+
+<p class="review-date">Roles reviewed {{ site.data.now.reviewed | date: "%d %B %Y" }}.</p>
 
 {% include career-thread.html %}
 

@@ -10,7 +10,7 @@ After a cold-reader review, add `context_reviewed: YYYY-MM-DD` to the front matt
 
 ## Mathematics
 
-Add `math: true` to any post that contains TeX. The site then loads MathJax 4 only for that page. Use Markdown-safe delimiters with two source backslashes:
+Add `math: true` to any post or page that contains TeX. The site then loads MathJax 4 only for that page. Use Markdown-safe delimiters with two source backslashes:
 
 ```text
 Inline: \\(x^2 + y^2\\)
@@ -22,7 +22,21 @@ z = \sqrt{x^2 + y^2}
 
 Kramdown consumes a backslash before punctuation such as `#`, `{`, `}`, `!`, and `|`. Double that source backslash inside TeX as well, for example `\\#`, `\\{`, `\\}`, `\\!`, or `\\|`. The source and generated-site checks enforce the renderer flag, delimiter balance, Markdown-safe punctuation, and intact display blocks.
 
-## Local checks
+## Homepage and discovery
+
+The homepage derives its latest note, recent cards, chronology, and field-note count from published posts. `_data/threads.yml` maps the three homepage threads to existing `post_type` values. Optional `home_summary` overrides a post's `description`; publishing does not require duplicate homepage metadata. `featured: true` retains curated entry points independently of recent work.
+
+`_data/now.yml` is the source for the homepage focus and About-page operating roles. Review its contents before changing `reviewed`; that date records a human content review rather than a deployment. CI warns after 45 days without preventing unrelated publication. `_data/papers.json` supplies the five-theme paper map and paper count. `_data/notebooks.json` supplies the notebook collection and count. Keep new paper IDs unique and retain the original 88 records.
+
+The notebook collection lives at `/lab-notebooks/` because `/notebooks/` is served by a separate GitHub Pages project. Rendered notebooks keep their original project URLs. Update internal collection links to the new route, without changing rendered notebook URLs.
+
+Papers and Archive render their complete contents at build time. `assets/site.js` progressively adds local search, category filters, shareable query URLs, mobile menu behavior, and a contents disclosure for long articles. These features make no third-party API calls. With JavaScript unavailable, all records and navigation remain accessible.
+
+The RSS feed orders every eligible post by `feed_date`, then `published_at`, then `date`, using the first available value. `feed_date` is an optional historical override, not an inclusion requirement. Generated-site checks compare recent publications with the feed and homepage and retain checks for navigation, paper integrity, mathematics on pages and posts, and social metadata.
+
+The default social preview is `assets/social-card.png`. To regenerate it, run `scripts/render_social_card.py --font <installed-sans-serif-font>` in a Python environment with Pillow. Posts may supply `social_image` and `social_image_alt` for a specific preview. Keep preview files local and supply descriptive alternative text.
+
+## Running checks
 
 ```sh
 bundle install

@@ -1,0 +1,20 @@
+[
+  {
+    "title": "A perceptron you can audit",
+    "description": "A two-weight implementation with deterministic data, an update trace, and a held-out check.",
+    "rendered": "https://mihainadas.github.io/notebooks/perceptron_en.html",
+    "source": "https://github.com/mihainadas/notebooks/blob/main/perceptron/perceptron.ipynb"
+  },
+  {
+    "title": "NumPy versus a Python loop",
+    "description": "Repeated trials, medians and IQRs across four vector sizes, with equivalence assertions and environment disclosure.",
+    "rendered": "https://mihainadas.github.io/notebooks/numpy_vs_python.html",
+    "source": "https://github.com/mihainadas/notebooks/blob/main/numpy/numpy_vs_python.ipynb"
+  },
+  {
+    "title": "A logistic-regression baseline",
+    "description": "A scaled, stratified baseline with an explicit class mapping and variation across five folds.",
+    "rendered": "https://mihainadas.github.io/notebooks/logistic_regression.html",
+    "source": "https://github.com/mihainadas/notebooks/blob/main/logistic_regression/logistic_regression.ipynb"
+  }
+]

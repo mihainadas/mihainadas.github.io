@@ -1,0 +1,5 @@
+<article class="post-card">
+  <p class="post-meta">{{ include.post.post_type }} · {% if include.post.published_at %}event {% endif %}{{ include.post.date | date: "%d %b %Y" }}</p>
+  <h3><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h3>
+  <p>{{ include.post.home_summary | default: include.post.description | default: include.post.excerpt | strip_html | truncate: 230 }}</p>
+</article>

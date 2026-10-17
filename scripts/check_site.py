@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import ast
+import json
 import re
 import sys
 import xml.etree.ElementTree as ET
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -213,9 +215,33 @@ def check_math_system() -> None:
         if required not in include_text:
             fail(f"MathJax include lost required configuration: {required}")
 
+    # Root pages can contain equations too; they share the post renderer.
+    for source in sorted(ROOT.glob("*.md")):
+        text = source.read_text(encoding="utf-8")
+        if front_matter_value(text, "layout") is None:
+            continue
+        error = math_markup_error(text)
+        if error:
+            fail(f"{error} in {source.name}")
+        if contains_math(text) and front_matter_value(text, "math") != "true":
+            fail(f"math markup requires 'math: true' in {source.name}")
+
     head = (ROOT / "_includes" / "head.html").read_text(encoding="utf-8")
     if "{% if page.math %}{% include mathjax.html %}{% endif %}" not in head:
         fail("MathJax is not conditionally loaded from page front matter")
+
+
+def check_current_work() -> None:
+    now = (ROOT / "_data" / "now.yml").read_text(encoding="utf-8")
+    try:
+        reviewed = date.fromisoformat(front_matter_value(now, "reviewed") or "")
+    except ValueError:
+        fail("current-work review date must be an ISO date")
+    age = (datetime.now(ZoneInfo("Europe/Bucharest")).date() - reviewed).days
+    if age < 0:
+        fail("current-work review date is in the future")
+    if age > 45:
+        print(f"::warning::Current-work data was last reviewed {age} days ago; review _data/now.yml.")
 
 
 def check_repository_hygiene() -> None:
@@ -246,20 +272,20 @@ def check_applied_papers() -> None:
         fail("applied-papers map is missing")
     text = PAPER_MAP.read_text(encoding="utf-8")
     expected = set(range(551, 641)) - {580, 586}
-    issues = [int(value) for value in re.findall(r"\[(\d{3}):", text)]
-    if len(issues) != len(expected) or set(issues) != expected:
-        fail("applied-papers map must contain issues 551-640 except 580 and 586 exactly once")
-    if len(issues) != len(set(issues)):
-        fail("applied-papers map contains a duplicate issue")
-    for heading in (
-        "Evidence systems and research agents",
-        "Evaluation, governance, and safety",
-        "Training, curricula, and specialist agents",
-        "Architecture, context, and deployment efficiency",
-        "Data and representation",
-    ):
-        if f"## {heading}" not in text:
-            fail(f"applied-papers theme is missing: {heading}")
+    groups = json.loads((ROOT / "_data" / "papers.json").read_text(encoding="utf-8"))
+    issues = [paper["issue"] for group in groups for paper in group["papers"]]
+    if not expected.issubset(issues) or len(issues) != len(set(issues)):
+        fail("applied-papers map lost an original issue or contains duplicates")
+    if len(groups) != 5 or len({group["id"] for group in groups}) != 5:
+        fail("applied-papers map must retain five distinct themes")
+    for group in groups:
+        for paper in group["papers"]:
+            if not all(paper.get(key) for key in ("title", "contribution", "business")):
+                fail(f"paper {paper['issue']} is incomplete")
+            if not paper["url"].startswith("https://"):
+                fail(f"paper {paper['issue']} has an insecure source")
+    if "—" in json.dumps(groups, ensure_ascii=False):
+        fail("applied-papers data contains an em dash")
     if 'where: "series", "applied-paper-notes"' not in text:
         fail("applied-papers page no longer renders its article series")
     if "—" in text:
@@ -278,7 +304,7 @@ def check_applied_papers() -> None:
 
 def check_engineering_boundary() -> None:
     for path in ROOT.rglob("*"):
-        if not path.is_file() or path.suffix not in {".html", ".md", ".py", ".svg", ".yml", ".yaml"}:
+        if not path.is_file() or path.suffix not in {".html", ".md", ".py", ".svg", ".yml", ".yaml", ".json"}:
             continue
         if {".git", "_site", "vendor"}.intersection(path.relative_to(ROOT).parts):
             continue
@@ -437,6 +463,7 @@ def main() -> int:
     check_posts()
     check_thesis_series()
     check_math_system()
+    check_current_work()
     check_applied_papers()
     check_engineering_boundary()
     check_figure_system()
