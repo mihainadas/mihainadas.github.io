@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTS = ROOT / "_posts"
+PAPER_MAP = ROOT / "papers.md"
 PUBLIC_ENGINEERING_FILES = (
     ROOT / "index.md",
     ROOT / "about.md",
@@ -226,7 +227,10 @@ def check_repository_hygiene() -> None:
         if path.is_file() and junk_names.search(path.name):
             fail(f"repository junk file: {relative}")
 
-    public_text_files = [ROOT / name for name in ("index.md", "about.md", "engineering.md", "research.md")]
+    public_text_files = [
+        ROOT / name
+        for name in ("index.md", "about.md", "engineering.md", "research.md", "papers.md")
+    ]
     public_text_files.extend(sorted(POSTS.glob("*.md")))
     placeholder = re.compile(r"\b(?:TODO|FIXME|XXX)\b|lorem ipsum", re.IGNORECASE)
     for path in public_text_files:
@@ -235,6 +239,41 @@ def check_repository_hygiene() -> None:
             fail(f"placeholder text in {path.relative_to(ROOT)}")
         if re.search(r"(?m)[ \t]+$", text):
             fail(f"trailing whitespace in {path.relative_to(ROOT)}")
+
+
+def check_applied_papers() -> None:
+    if not PAPER_MAP.exists():
+        fail("applied-papers map is missing")
+    text = PAPER_MAP.read_text(encoding="utf-8")
+    expected = set(range(551, 641)) - {580, 586}
+    issues = [int(value) for value in re.findall(r"\[(\d{3}):", text)]
+    if len(issues) != len(expected) or set(issues) != expected:
+        fail("applied-papers map must contain issues 551-640 except 580 and 586 exactly once")
+    if len(issues) != len(set(issues)):
+        fail("applied-papers map contains a duplicate issue")
+    for heading in (
+        "Evidence systems and research agents",
+        "Evaluation, governance, and safety",
+        "Training, curricula, and specialist agents",
+        "Architecture, context, and deployment efficiency",
+        "Data and representation",
+    ):
+        if f"## {heading}" not in text:
+            fail(f"applied-papers theme is missing: {heading}")
+    if 'where: "series", "applied-paper-notes"' not in text:
+        fail("applied-papers page no longer renders its article series")
+    if "—" in text:
+        fail("applied-papers map contains an em dash")
+
+    series_posts = []
+    for path in sorted(POSTS.glob("*.md")):
+        post = path.read_text(encoding="utf-8")
+        if front_matter_value(post, "series") == "applied-paper-notes":
+            series_posts.append(path)
+            if "—" in post:
+                fail(f"applied-paper note contains an em dash: {path.name}")
+    if not series_posts:
+        fail("applied-papers series has no published notes")
 
 
 def check_engineering_boundary() -> None:
@@ -398,6 +437,7 @@ def main() -> int:
     check_posts()
     check_thesis_series()
     check_math_system()
+    check_applied_papers()
     check_engineering_boundary()
     check_figure_system()
     check_repository_hygiene()

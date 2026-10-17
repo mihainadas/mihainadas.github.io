@@ -180,8 +180,21 @@ def main() -> int:
     sitemap = read("sitemap.xml")
     theme_script = read("assets/theme.js")
     research = read("research/index.html")
+    papers = read("papers/index.html")
+    applied_note = read("2026/10/17/deep-research-needs-evidence-budget.html")
     audit_feed_chronology(feed)
     audit_math_pages()
+
+    issue_numbers = [int(value) for value in re.findall(r">(\d{3}):", papers)]
+    expected_issues = set(range(551, 641)) - {580, 586}
+    if len(issue_numbers) != len(expected_issues) or set(issue_numbers) != expected_issues:
+        fail("rendered applied-papers map lost or duplicated an issue")
+    if papers.count("Deep Research Needs an Evidence Budget") != 1:
+        fail("applied-papers page does not list the published note exactly once")
+    if "Four budgets make the process inspectable" not in applied_note:
+        fail("applied-papers note body was not rendered")
+    if "a-rubric-is-a-control-system" in sitemap:
+        fail("unpublished applied-papers draft leaked into the sitemap")
 
     theme_bootstrap = home.find('window.localStorage.getItem("mihainadas-theme")')
     stylesheet = home.find('/assets/main.css')
@@ -251,6 +264,8 @@ def main() -> int:
     for url in (
         "https://mihainadas.github.io/engineering/",
         "https://mihainadas.github.io/2026/08/27/three-emulator-bugs.html",
+        "https://mihainadas.github.io/papers/",
+        "https://mihainadas.github.io/2026/10/17/deep-research-needs-evidence-budget.html",
     ):
         if sitemap.count(url) != 1:
             fail(f"sitemap does not contain {url} exactly once")
