@@ -524,8 +524,8 @@ def audit_professional_platform(home: str) -> None:
 BRAND_PATHS = ['M7 25V7M25 7V25', 'M7 7L25 25']
 
 
-def audit_brand_symbol(markup: str) -> None:
-    """All identity exports retain the same passive, editable two-stroke mark."""
+def audit_brand_symbol(markup: str, expected_paths=None) -> None:
+    """Identity artwork stays passive and retains its exact checked geometry."""
     try:
         root = ET.fromstring(markup)
     except ET.ParseError:
@@ -540,8 +540,8 @@ def audit_brand_symbol(markup: str) -> None:
                 fail('brand symbol must not load or execute external content')
         if tag == 'path':
             paths.append(element.get('d'))
-    if root.tag.rsplit('}', 1)[-1] != 'svg' or paths != BRAND_PATHS:
-        fail('brand symbol geometry drifted from the folded N')
+    if root.tag.rsplit('}', 1)[-1] != 'svg' or paths != (BRAND_PATHS if expected_paths is None else expected_paths):
+        fail('brand symbol geometry drifted from its checked source')
 
 
 class BrandText(HTMLParser):
@@ -595,8 +595,10 @@ def audit_brand_header(text: str, lang: str) -> None:
         fail('masthead must not replace the name with artwork or restore the old publication suffix')
     symbols = re.findall(r'<svg\b.*?</svg>', title[2], re.DOTALL)
     if len(symbols) != 1 or 'aria-hidden="true"' not in symbols[0] or 'focusable="false"' not in symbols[0]:
-        fail('masthead needs one decorative, non-focusable folded N')
-    audit_brand_symbol(symbols[0])
+        fail('masthead needs one decorative, non-focusable forward stroke')
+    if 'class="brand-stroke"' not in symbols[0] or title[2].index(symbols[0]) < title[2].index('class="brand-name"'):
+        fail('the forward stroke belongs after the live name, never before it')
+    audit_brand_symbol(symbols[0], ['M2 28L10 4'])
     for class_name, letter in (('breve', 'ă'), ('comma', 'ș')):
         if f'<span class="brand-letter brand-letter--{class_name}">{letter}</span>' not in title[2]:
             fail('accent styling must preserve the real precomposed Romanian letters')

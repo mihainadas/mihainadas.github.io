@@ -14,9 +14,10 @@ class BrandTests(unittest.TestCase):
         home, descriptor = ('/ro/', 'Strategie, tehnologie și IA') if lang == 'ro' else ('/', 'Strategy, technology &amp; AI')
         return (
             '<header class="site-header"><a class="site-title" rel="author" '
-            f'href="{home}">' + (ROOT / '_includes/brand-mark.html').read_text() +
+            f'href="{home}"><span class="brand-signature">' +
             '<span class="brand-name">Mihai Nad<span class="brand-letter brand-letter--breve">ă</span>'
-            '<span class="brand-letter brand-letter--comma">ș</span></span>'
+            '<span class="brand-letter brand-letter--comma">ș</span></span>' +
+            (ROOT / '_includes/brand-stroke.html').read_text() + '</span>' +
             f'<span class="brand-descriptor">{descriptor}</span></a>'
             '<details class="navigation" open><summary>Menu</summary></details></header>'
         )
@@ -55,6 +56,26 @@ class BrandTests(unittest.TestCase):
 
     def test_mark_has_no_separate_keyboard_stop(self):
         self.rejects(self.header().replace('focusable="false"', 'focusable="true"'))
+
+    def test_stroke_must_follow_the_name(self):
+        stroke = (ROOT / '_includes/brand-stroke.html').read_text()
+        html = self.header().replace(stroke, '').replace('<span class="brand-signature">', stroke + '<span class="brand-signature">')
+        self.rejects(html)
+
+    def test_old_monogram_cannot_return_to_the_masthead(self):
+        stroke = (ROOT / '_includes/brand-stroke.html').read_text()
+        self.rejects(self.header().replace(stroke, (ROOT / '_includes/brand-mark.html').read_text()))
+
+    def test_forward_stroke_has_passive_exact_geometry(self):
+        stroke = (ROOT / '_includes/brand-stroke.html').read_text()
+        audit_brand_symbol(stroke, ['M2 28L10 4'])
+        self.rejects(self.header().replace('M2 28L10 4', 'M2 28L9 4'))
+
+    def test_motion_is_optional_and_never_loops(self):
+        css = (ROOT / '_sass/editorial.scss').read_text()
+        self.assertIn('@media (prefers-reduced-motion: reduce)', css)
+        self.assertIn('.brand-stroke { transition: none; }', css)
+        self.assertNotIn('animation:', css[css.index('.brand-stroke {'):css.index('.brand-symbol {')])
 
     def test_all_exports_share_the_geometry(self):
         for path in [ROOT / '_includes/brand-mark.html', ROOT / 'assets/favicon.svg', *sorted((ROOT / 'assets/brand').glob('*.svg'))]:

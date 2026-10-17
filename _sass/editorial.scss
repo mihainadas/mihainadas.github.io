@@ -92,6 +92,23 @@
 }
 
 .brand-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 0.22rem; }
+.brand-signature { display: inline-flex; align-items: center; gap: 0.55rem; }
+.brand-stroke {
+  display: block;
+  flex: 0 0 auto;
+  width: 12px;
+  height: 32px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.75;
+  transition: transform 180ms ease;
+  transform-origin: 50% 85%;
+}
+.site-title:hover .brand-stroke, .site-title:focus-visible .brand-stroke { transform: translateX(2px) rotate(3deg); }
+@media (prefers-reduced-motion: reduce) {
+  .brand-stroke { transition: none; }
+  .site-title:hover .brand-stroke, .site-title:focus-visible .brand-stroke { transform: none; }
+}
 .brand-symbol {
   display: block;
   flex: 0 0 auto;
@@ -127,6 +144,7 @@
 @media (forced-colors: active), print {
   .brand-font-ready .brand-letter { background: none; color: inherit; }
   .brand-symbol__fold { stroke: currentColor; }
+  .brand-stroke { stroke: currentColor; transition: none; transform: none !important; }
 }
 .brand-descriptor {
   font-family: Manrope, sans-serif;
@@ -149,6 +167,7 @@
   .site-title { gap: 0.4rem; }
   .brand-symbol { width: 24px; height: 24px; }
   .brand-name { font-size: 1.7rem; }
+  .brand-stroke { width: 10px; height: 28px; }
   .brand-descriptor { font-size: 0.625rem; letter-spacing: 0.05em; }
   .header-inner { gap: 0.5rem; }
   .header-actions { gap: 0.6rem; }
@@ -271,6 +290,7 @@
 .text-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.88rem; font-weight: 600; }
 .footer-name { display: flex; align-items: center; gap: 0.6rem; font-family: Newsreader, Georgia, serif; font-size: 1.5rem; font-weight: 500; }
 .footer-name .brand-symbol { width: 22px; height: 22px; margin-top: 0; }
+.footer-name .brand-stroke { width: 9px; height: 24px; }
 
 @media (min-width: 761px) and (max-width: 1000px) {
   .hero { gap: 2rem; }
