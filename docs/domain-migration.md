@@ -1,6 +1,19 @@
 # nadas.ro cutover
 
-Requested and activated by Mihai on 17 October 2026. The public configuration now uses `https://nadas.ro`, with the same GitHub repository and article paths. Domain ownership is verified, Pages is bound to the domain, and the four apex A records and `www` CNAME are saved. HTTPS provisioning and final new-host checks are still pending; do not describe the migration as fully verified until they pass.
+Requested, activated, and publicly verified on 17 October 2026. The primary address is `https://nadas.ro`, with the same GitHub repository and article paths. Domain ownership is verified, Pages is bound to the domain, and the four apex A records and `www` CNAME are saved. A trusted certificate covers both `nadas.ro` and `www.nadas.ro`; HTTPS enforcement is enabled.
+
+## Completed public verification
+
+The final checks used normal DNS resolution and certificate validation, not a DNS override or a TLS exception. Certificate provisioning and a separate stale negative answer on the local resolver path initially delayed verification. Both cleared without further DNS edits, domain-binding resets, or local network-setting changes.
+
+- The HTTPS apex returns the site. The `www` and old `mihainadas.github.io` addresses redirect to the apex. All twelve combinations of HTTP/HTTPS, those three hostnames, and home/deep-article paths ended at the expected HTTPS URL without loops. The observed redirects were direct 301 responses with paths preserved. The certificate includes both new names and expires on 15 January 2027. GitHub's API and visible Pages setting confirmed HTTPS enforcement.
+- All 62 HTML pages in the public sitemap passed canonical, social URL/image, Person identity, reciprocal language-alternate and mixed-resource checks. The professional record retained its ProfilePage relationship to the same person. Sitemap and robots discovery use the new HTTPS origin.
+- All 21 Atom identifiers match the reviewed generated feed and retain the fixed `feed_identity_url`. Feed discovery, article links and content bases use `https://nadas.ro`. The public résumé download and social image match the reviewed repository files byte for byte; neither was regenerated during final verification.
+- All three notebook destinations in `_data/notebooks.json` work through their original GitHub URLs and inherited `https://nadas.ro/notebooks/` project paths. Each old URL redirects to its corresponding HTTPS notebook. The site's own collection remains `/lab-notebooks/`; no notebook link or project repository was changed.
+- The live browser rendered mathematics on all thirteen math-bearing posts and both research-language pages without reported MathJax errors. Representative homepage/article checks passed on desktop and at 390-pixel mobile width in light and dark modes, including mobile Menu dismissal and no horizontal page overflow. The browser preference was restored to System and the temporary viewport override was removed. The public homepage had no broken images or mixed HTTP resources in the inspected state.
+- The existing Plausible property now reports that tracking is active. Its production-host, browser-choice and query-redaction boundaries remain unchanged. Verification visits are technical checks, not evidence of audience growth or qualified enquiries.
+
+Final verification did not change career facts, review dates, article bodies, translation signatures, DNS/mail records, account access, or affiliate/audio settings. Affiliate website-list and any future podcast-profile updates remain separate, permission-bound work; they are not implied by this migration's completion. The temporary HTTPS follow-up stops after the completion record passes the repository release gate and deploys.
 
 ## Confirmed starting state
 
