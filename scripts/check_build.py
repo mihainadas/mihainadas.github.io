@@ -214,6 +214,45 @@ def audit_math_pages() -> None:
         fail("generated site has no declared math pages")
 
 
+class PageAssets(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.images: list[dict] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "img":
+            self.images.append(dict(attrs))
+
+
+def audit_editorial_assets(home: str) -> None:
+    parser = PageAssets()
+    parser.feed(home)
+    images = [image for image in parser.images if (image.get("src") or "").startswith("/assets/editorial/")]
+    if len(images) != 2:
+        fail("homepage lost its two editorial studies")
+    for image in images:
+        if not image.get("alt") or image.get("width") != "1440" or image.get("height") != "960":
+            fail("editorial artwork lacks descriptive alt text or intrinsic dimensions")
+        variants = [entry.strip().split() for entry in image.get("srcset", "").split(",")]
+        if len(variants) != 3 or {entry[-1] for entry in variants if entry} != {"480w", "960w", "1440w"}:
+            fail("editorial artwork lost its responsive sources")
+        for entry in variants:
+            source = entry[0]
+            if not source.startswith("/assets/editorial/") or not source.endswith(".webp"):
+                fail("editorial artwork uses a remote or non-WebP source")
+            path = SITE / source.lstrip("/")
+            if not path.is_file() or path.stat().st_size > 200_000:
+                fail(f"editorial artwork is missing or exceeds 200 KB: {source}")
+        if "structure-" in image["src"] and (image.get("fetchpriority") != "high" or image.get("loading") == "lazy"):
+            fail("hero artwork must load eagerly with high priority")
+        if "signal-" in image["src"] and image.get("loading") != "lazy":
+            fail("below-fold artwork must load lazily")
+    for name in ("manrope-latin", "newsreader-latin", "newsreader-italic-latin"):
+        path = SITE / "assets" / "fonts" / f"{name}.woff2"
+        if not path.is_file() or path.stat().st_size > 100_000:
+            fail(f"self-hosted font is missing or exceeds 100 KB: {name}")
+
+
 def main() -> int:
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
@@ -227,6 +266,7 @@ def main() -> int:
     applied_note = read("2026/10/17/deep-research-needs-evidence-budget.html")
     audit_feed_chronology(feed)
     audit_math_pages()
+    audit_editorial_assets(home)
 
     issue_numbers = [int(value) for value in re.findall(r'data-issue="(\d+)"', papers)]
     groups = json.loads((ROOT / "_data" / "papers.json").read_text(encoding="utf-8"))

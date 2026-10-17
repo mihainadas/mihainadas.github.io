@@ -43,3 +43,4 @@ exclude:
   - README.md
   - scripts
   - vendor
+  - assets/editorial/README.md

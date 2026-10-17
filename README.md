@@ -34,7 +34,9 @@ Papers and Archive render their complete contents at build time. `assets/site.js
 
 The RSS feed orders every eligible post by `feed_date`, then `published_at`, then `date`, using the first available value. `feed_date` is an optional historical override, not an inclusion requirement. Generated-site checks compare recent publications with the feed and homepage and retain checks for navigation, paper integrity, mathematics on pages and posts, and social metadata.
 
-The default social preview is `assets/social-card.png`. To regenerate it, run `scripts/render_social_card.py --font <installed-sans-serif-font>` in a Python environment with Pillow. Posts may supply `social_image` and `social_image_alt` for a specific preview. Keep preview files local and supply descriptive alternative text.
+The default social preview is `assets/social-card.png`. To regenerate it, run `scripts/render_social_card.py --font MANROPE.ttf --display-font NEWSREADER.ttf --italic-font NEWSREADER-ITALIC.ttf` in a Python environment with Pillow, using the official font sources. It uses the local editorial artwork. Posts may supply `social_image` and `social_image_alt` for a specific preview. Keep preview files local and supply descriptive alternative text.
+
+The visual system uses self-hosted Manrope for reading and navigation, Newsreader for display typography, a warm-paper surface, and restrained vermilion accents. New component styles live in `_sass/editorial.scss`. Artwork provenance, the exact generation prompts, responsive encoding, and font-subsetting instructions are in [the editorial asset notes](assets/editorial/README.md). These decorative studies are separate from factual figures in `assets/figures/`; never present them as experimental evidence.
 
 ## Running checks
 

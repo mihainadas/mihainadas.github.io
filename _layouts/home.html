@@ -8,24 +8,35 @@ layout: default
   <section class="hero">
     <div class="hero-main">
       <p class="eyebrow">Engineering · AI research · technology leadership</p>
-      <h1>Staying close to the implementation.</h1>
+      <h1>Staying close to the <em>implementation.</em></h1>
       <div class="hero-copy">{{ content }}</div>
       <p class="hero-links">
         <a class="button-primary" href="#recent-heading">Read the latest</a>
         <a href="{{ '/about/' | relative_url }}">About my work →</a>
       </p>
     </div>
-    <aside class="work-ledger" aria-labelledby="current-work-heading">
+    <figure class="hero-art">
+      <img src="{{ '/assets/editorial/structure-960.webp' | relative_url }}"
+           srcset="{{ '/assets/editorial/structure-480.webp' | relative_url }} 480w, {{ '/assets/editorial/structure-960.webp' | relative_url }} 960w, {{ '/assets/editorial/structure-1440.webp' | relative_url }} 1440w"
+           sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1176px) 45vw, 520px"
+           width="1440" height="960" fetchpriority="high"
+           alt="Editorial artwork: folded ivory paper crossed by a vermilion thread on a charcoal ground.">
+      <figcaption><span>Study 01</span> Structure &amp; signal</figcaption>
+    </figure>
+  </section>
+
+  <aside class="work-ledger" aria-labelledby="current-work-heading">
       <h2 class="ledger-label" id="current-work-heading">On the desk</h2>
       <div class="now-latest">
         <p class="post-meta">Latest note · {{ newest.date | date: "%d %b %Y" }}</p>
         <h3><a href="{{ newest.url | relative_url }}">{{ newest.title }}</a></h3>
         <p>{{ newest.home_summary | default: newest.description }}</p>
       </div>
-      <p class="now-focus">{{ site.data.now.focus }}</p>
-      <p class="review-date">Focus reviewed <time datetime="{{ site.data.now.reviewed }}">{{ site.data.now.reviewed | date: "%d %b %Y" }}</time></p>
-    </aside>
-  </section>
+      <div class="desk-focus">
+        <p class="now-focus">{{ site.data.now.focus }}</p>
+        <p class="review-date">Focus reviewed <time datetime="{{ site.data.now.reviewed }}">{{ site.data.now.reviewed | date: "%d %b %Y" }}</time></p>
+      </div>
+  </aside>
 
   <section aria-labelledby="threads-heading" class="thread-section">
     <div class="section-heading"><h2 id="threads-heading">Follow a thread</h2><a href="{{ '/lab-notebooks/' | relative_url }}">Executable notebooks →</a></div>
@@ -34,6 +45,7 @@ layout: default
       {% assign thread_posts = site.posts | where: "post_type", thread.post_type %}
       {% assign thread_latest = thread_posts | first %}
       <article class="thread" data-thread="{{ thread.id }}">
+        <span class="thread-number" aria-hidden="true">0{{ forloop.index }}</span>
         <h3><a href="{{ thread.url | relative_url }}">{{ thread.title }} →</a></h3>
         <p>{{ thread.description }}</p>
         {% if thread_latest %}
@@ -52,6 +64,23 @@ layout: default
       {% for post in site.posts limit:4 %}
         {% include post-card.html post=post %}
       {% endfor %}
+    </div>
+  </section>
+
+  <section class="research-feature" aria-labelledby="research-feature-heading">
+    <figure>
+      <img src="{{ '/assets/editorial/signal-960.webp' | relative_url }}"
+           srcset="{{ '/assets/editorial/signal-480.webp' | relative_url }} 480w, {{ '/assets/editorial/signal-960.webp' | relative_url }} 960w, {{ '/assets/editorial/signal-1440.webp' | relative_url }} 1440w"
+           sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1176px) 45vw, 520px"
+           width="1440" height="960" loading="lazy" decoding="async"
+           alt="Editorial artwork: fine graphite traces and a copper-orange wire across layered paper.">
+      <figcaption><span>Study 02</span> Tracing the system</figcaption>
+    </figure>
+    <div class="research-feature-copy">
+      <p class="eyebrow">An ongoing research thread</p>
+      <h2 id="research-feature-heading">Small models.<br>Connected questions.</h2>
+      <p>TinyFabulist connects controlled story generation, English–Romanian translation, and compact Romanian language models. The research notes follow the data, the experiments, and the limits of what was measured.</p>
+      <a class="text-link" href="{{ '/research/' | relative_url }}">Explore the research →</a>
     </div>
   </section>
 
