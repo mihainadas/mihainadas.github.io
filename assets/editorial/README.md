@@ -20,6 +20,10 @@ Self-hosted Newsreader and Manrope variable fonts come from the official [Google
 
 The originals are the Newsreader regular and italic variable TTFs and Manrope regular variable TTF. Newsreader first uses `fontTools.varLib.instancer SOURCE opsz=32 wght=400:650 -o DISPLAY.ttf` to fix the optical size for headings and retain the weight range in use. All derivatives then use fonttools 4.60.1 with `--flavor=woff2 --unicodes=U+0000-024F,U+1E00-1EFF,U+2000-206F,U+20AC,U+2122,U+2190-2199 --layout-features='*'`.
 
+## Action shapes
+
+Buttons use a softly asymmetric rounded shape, not square corners or full capsules. The shared `--action-radius` is `18px 8px 18px 8px`, repeated across homepage, engagement and résumé actions and filter-reset buttons. Smaller theme choices and topic chips use `--control-radius` (`12px 8px 12px 8px`); search fields use the quieter `--field-radius` (`12px`). These are shared tokens in `assets/main.scss`, independent of theme. Do not restore the old square hero override or turn ordinary text links into buttons. The appearance trigger remains a circle because it is an icon control. Preserve focus outlines, minimum 44px targets, native semantics, wrapping and both themes. Reading surfaces, figures and evidence tables do not inherit the button shape.
+
 ## Personal signature
 
 The masthead uses the existing self-hosted Newsreader at weight 550, with restrained negative tracking and Romanian diacritics intact. Manrope provides the smaller localized “Strategy, technology & AI” descriptor. The name and descriptor remain selectable text; the full lockup is one link to the current language homepage.

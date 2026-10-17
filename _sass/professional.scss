@@ -4,7 +4,7 @@
 .professional-intro { max-width: 74ch; font-size: 1rem; line-height: 1.8; }
 .professional-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.5rem; margin: 1.6rem 0 0; font-size: 0.85rem; }
 .professional-actions a { display: inline-flex; align-items: center; min-height: 44px; }
-.professional-actions .button-primary, .professional-actions .button-primary:visited { padding: 0.65rem 1rem; background: var(--accent); color: var(--button-ink); text-decoration: none; }
+.professional-actions .button-primary, .professional-actions .button-primary:visited { padding: 0.65rem 1rem; background: var(--accent); color: var(--button-ink); text-decoration: none; border-radius: var(--action-radius); }
 .professional-actions .button-primary:hover { background: var(--accent-bright); }
 .business-page h2, .engagement-page h2, .board-page h2, .home-business h2 { font: 450 clamp(2rem, 3.8vw, 3rem)/1.08 Newsreader, Georgia, serif; letter-spacing: -0.03em; }
 .buyer-routes { margin: 0 0 3.5rem; }

@@ -217,7 +217,7 @@
 .hero h1 em { color: var(--accent); font-weight: inherit; }
 .hero-copy { font-size: 1rem; line-height: 1.75; max-width: 49ch; }
 .hero-links { font-size: 0.85rem; margin: 1.6rem 0 0; gap: 1.25rem; }
-.hero-links .button-primary { border-radius: 0; padding: 0.65rem 1rem; }
+.hero-links .button-primary { padding: 0.65rem 1rem; }
 .hero-art, .research-feature figure { margin: 0; min-width: 0; }
 .hero-art img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: #1c1c1b; }
 .hero-art { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
