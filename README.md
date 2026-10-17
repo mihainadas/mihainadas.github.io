@@ -4,7 +4,7 @@ Research and engineering notes published at [mihainadas.github.io](https://mihai
 
 ## Book selections and reviews
 
-The `/books/` shelf is data-driven from `_data/books.json`, with affiliate programs independently disabled by default in `_data/book_programs.json`. `/library/` groups Books, Applied Papers, and Notebooks without adding another primary navigation item. Book review posts retain the ordinary feed, archive, publication cap, and editorial gates. See [the operations guide](docs/books-operations.md) before drafting a review or activating referral links. It includes application preparation, cover provenance, and safeguards against unsupported personal recommendations.
+The `/books/` shelf is data-driven from `_data/books.json`, with per-program enrollment and tracking configuration in `_data/book_programs.json`. Links remain ordinary unless both the program and verified product link are explicitly activated. `/library/` groups Books, Applied Papers, and Notebooks without adding another primary navigation item. Book review posts retain the ordinary feed, archive, publication cap, and editorial gates. See [the operations guide](docs/books-operations.md) before drafting a review or activating referral links. It includes application preparation, cover provenance, and safeguards against unsupported personal recommendations.
 
 ## Editorial opening contract
 
