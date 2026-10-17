@@ -92,7 +92,7 @@
 }
 
 .brand-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 0.22rem; }
-.brand-signature { display: inline-flex; align-items: center; gap: 0.18rem; }
+.brand-signature { display: inline-flex; align-items: center; gap: 0.6rem; }
 .brand-stroke {
   display: block;
   flex: 0 0 auto;
@@ -104,6 +104,7 @@
   transform: translateY(-2px);
   transition: transform 160ms ease-out;
 }
+.brand-signature .brand-stroke { stroke-width: 3; }
 .site-title:hover .brand-stroke, .site-title:focus-visible .brand-stroke { transform: translate(1px, -2px); }
 @media (prefers-reduced-motion: reduce) {
   .brand-stroke { transition: none; }
@@ -168,6 +169,7 @@
   .brand-symbol { width: 24px; height: 24px; }
   .brand-name { font-size: 1.7rem; }
   .brand-stroke { width: 10px; height: 28px; }
+  .brand-signature .brand-stroke { stroke-width: 3.6; }
   .brand-descriptor { font-size: 0.625rem; letter-spacing: 0.05em; }
   .header-inner { gap: 0.5rem; }
   .header-actions { gap: 0.6rem; }

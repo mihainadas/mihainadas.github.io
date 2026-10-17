@@ -77,9 +77,13 @@ class BrandTests(unittest.TestCase):
         self.assertIn('.brand-stroke { transition: none; }', css)
         self.assertNotIn('animation:', css[css.index('.brand-stroke {'):css.index('.brand-symbol {')])
 
-    def test_signature_stays_close_single_and_quiet(self):
+    def test_signature_matches_footer_spacing_and_painted_weight(self):
         css = (ROOT / '_sass/editorial.scss').read_text()
-        self.assertIn('align-items: center; gap: 0.18rem;', css)
+        self.assertIn('.brand-signature { display: inline-flex; align-items: center; gap: 0.6rem; }', css)
+        self.assertIn('.footer-name { display: flex; align-items: center; gap: 0.6rem;', css)
+        self.assertIn('.brand-signature .brand-stroke { stroke-width: 3; }', css)
+        self.assertIn('.brand-signature .brand-stroke { stroke-width: 3.6; }', css)
+        self.assertIn('.footer-name .brand-stroke { width: 9px; height: 24px; }', css)
         self.assertIn('transition: transform 160ms ease-out;', css)
         self.assertIn('transform: translate(1px, -2px);', css)
         stroke = (ROOT / '_includes/brand-stroke.html').read_text()
