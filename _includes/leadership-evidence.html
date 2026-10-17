@@ -1,0 +1,7 @@
+<section class="leadership-evidence" aria-labelledby="leadership-evidence-heading">
+  <p class="eyebrow">An operating perspective</p><h2 id="leadership-evidence-heading">Experience behind the judgment.</h2>
+  <div class="leadership-grid">{% for organization in site.data.business.leadership_evidence %}{% assign role = site.data.profile.experience | where: 'organization', organization | first %}
+    <section><h3>{{ role.organization | escape }}</h3><p class="leadership-role">{{ role.title | escape }}</p><p class="post-meta">{{ role.period | escape }}</p><p>{{ role.detail | escape }}</p><a class="record-source" href="{{ role.source }}">Public role source</a></section>
+  {% endfor %}</div>
+  <p class="scope-note">These are roles, not endorsements or a claim that the organizations are advisory clients. <a href="{{ '/resume/' | relative_url }}">See the sourced professional record and résumé</a>, including the historical executive-board role and ongoing doctorate.</p>
+</section>

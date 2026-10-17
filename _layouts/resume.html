@@ -16,5 +16,6 @@ layout: default
       <nav class="profile-identities" aria-label="Professional identities">{% for identity in profile.identities %}<a href="{{ identity.url }}">{{ identity.label | escape }}</a>{% endfor %}</nav>
     </div>
   </div>
+  <aside class="resume-engagement-paths"><h2>Discuss a decision or a remit.</h2><p>For a defined AI investment or operating question, see the <a href="{{ '/work-with-me/#ai-value-execution-review' | relative_url }}">AI Value and Execution Review</a>. For chairs, founders and nomination teams, the <a href="{{ '/board-advisory/' | relative_url }}">board and strategic advisory page</a> sets out contribution areas, experience and responsibility boundaries.</p></aside>
   <p class="resume-boundary">{{ profile.boundary | escape }}</p>
 </article>

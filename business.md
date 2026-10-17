@@ -6,6 +6,6 @@ permalink: /business/
 description: "AI investment, software-led differentiation, and technology oversight: business questions connected to public engineering and research evidence."
 ---
 
-I write about the decisions behind technology investment: what a company should build, where AI might change the work, and what evidence should reach the people accountable for the result. My starting point is the combination of running technology organizations, writing software, and researching language models.
+An AI investment needs more than a promising demonstration. It needs a worthwhile business problem, a credible comparison with the alternatives, and an operating model that can carry the result beyond a pilot.
 
-This page connects those questions to the work already published here. The technical notes are evidence of methods and their limits, not proof of a return on investment in another industry. The business questions are the bridge: what would need to be true for the method to help your organization?
+I examine those decisions through technology leadership, engineering and AI research. The writing here makes the reasoning public: what a company should own, what it should buy, and what evidence should change its mind. The decision review is a way to apply that reasoning to a specific question; the notes themselves are not proof of a return on investment in your organization.

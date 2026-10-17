@@ -7,16 +7,18 @@ layout: default
 <div class="home">
   <section class="hero">
     <div class="hero-main">
-      <p class="eyebrow">{{ site.data.strategy.name }}</p>
-      <h1>Software gets easier.<br><em>Advantage doesn’t.</em></h1>
+      <p class="eyebrow">For CEOs, operating leaders &amp; investors</p>
+      <h1>Where should AI<br><em>change your business?</em></h1>
       <div class="hero-copy">{{ content }}</div>
       <p class="hero-links">
-        <a class="button-primary" href="{{ '/business/#operating-advantage' | relative_url }}">Explore the argument</a>
-        <a href="{{ '/work-with-me/' | relative_url }}">Work with me →</a>
+        <a class="button-primary" href="{{ '/work-with-me/#ai-value-execution-review' | relative_url }}">Explore the decision review</a>
+        <a href="{{ '/board-advisory/' | relative_url }}">Board &amp; advisory →</a>
       </p>
     </div>
     {% include media.html id="structure" class="hero-art" priority=true %}
   </section>
+
+  {% include buyer-routes.html heading="A decision worth getting right." %}
 
   <aside class="work-ledger" aria-labelledby="current-work-heading">
       <h2 class="ledger-label" id="current-work-heading">On the desk</h2>
@@ -32,7 +34,7 @@ layout: default
   </aside>
 
   <section class="home-business" aria-labelledby="home-business-heading">
-    <div><p class="eyebrow">Strategy, tested against the work</p><h2 id="home-business-heading">What should your<br>company own?</h2></div>
+    <div><p class="eyebrow">{{ site.data.strategy.name }}</p><h2 id="home-business-heading">Software gets easier.<br><em>Advantage doesn’t.</em></h2></div>
     <div><p>{{ site.data.strategy.thesis | escape }}</p><p>This is the thread connecting the business questions, engineering experiments, research, and reading shelf. The methods are public. Their business applicability still has to be tested.</p><p><a class="text-link" href="{{ '/business/' | relative_url }}">Explore AI &amp; business →</a><a class="text-link" href="{{ '/resume/' | relative_url }}">My professional record →</a></p>{% assign latest_business = site.posts | where: 'post_type', 'business note' | first %}{% if latest_business %}<p class="latest-business">Latest business essay · <a href="{{ latest_business.url | relative_url }}">{{ latest_business.title | escape }}</a></p>{% endif %}</div>
   </section>
 

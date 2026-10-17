@@ -16,6 +16,42 @@ ROOT = Path(__file__).resolve().parents[1]
 RESUME_INPUTS = {'_data/profile.json', 'scripts/render_resume.py', 'assets/media-sources/manrope.ttf', 'scripts/site_config.py'}
 
 
+def validate_advisory_data(business, profile, local_routes):
+    """Guard offer completeness and real evidence, not commercial success."""
+    review = business.get('review', {})
+    for key in ('id', 'title', 'promise', 'fit', 'not_fit', 'boundary'):
+        if not isinstance(review.get(key), str) or not review[key].strip():
+            raise ValueError(f'advisory review missing {key}')
+    if not re.fullmatch(r'[a-z][a-z0-9-]*', review['id']):
+        raise ValueError('advisory review needs a safe stable anchor')
+    inputs = review.get('inputs', [])
+    if not inputs or not all(isinstance(item, str) and item.strip() for item in inputs):
+        raise ValueError('advisory review needs stated inputs')
+    for group in ('outputs', 'steps'):
+        items = review.get(group, [])
+        if not items or not all(isinstance(item, dict) and all(isinstance(item.get(key), str) and item[key].strip() for key in ('title', 'detail')) for item in items):
+            raise ValueError(f'advisory review needs complete {group}')
+    if not {'/work-with-me/', '/board-advisory/'}.issubset(local_routes):
+        raise ValueError('advisory and board paths must resolve to public pages')
+    buyers = business.get('buyers', [])
+    if not buyers or len({item.get('id') for item in buyers}) != len(buyers):
+        raise ValueError('advisory buyer paths need unique IDs')
+    for buyer in buyers:
+        if not re.fullmatch(r'[a-z][a-z0-9-]*', buyer.get('id', '')) or not all(buyer.get(key) for key in ('audience', 'question', 'situation', 'action')):
+            raise ValueError('advisory buyer path is incomplete')
+        if buyer.get('url') != f'/work-with-me/#{review["id"]}':
+            raise ValueError('advisory buyer path must resolve to the scoped review')
+    organizations = business.get('leadership_evidence', [])
+    known = {role['organization'] for role in profile['experience']}
+    if not organizations or len(set(organizations)) != len(organizations) or not set(organizations).issubset(known):
+        raise ValueError('advisory leadership evidence must resolve to unique sourced career roles')
+    delivery = business.get('delivery', {})
+    if not all(delivery.get(key) for key in ('title', 'relationship', 'boundary', 'source', 'url')):
+        raise ValueError('advisory delivery needs a relationship disclosure and boundary')
+    if not all(delivery[key].startswith('https://') for key in ('source', 'url')):
+        raise ValueError('advisory delivery needs public HTTPS sources')
+
+
 def validate_professional(root=ROOT):
     profile = json.loads((root / '_data/profile.json').read_text(encoding='utf-8'))
     reviewed = date.fromisoformat(profile['reviewed'])
@@ -58,6 +94,7 @@ def validate_professional(root=ROOT):
         if re.search(r'\b(?:\d+|one|two|three|four|five)\s+(?:merged\s+(?:[\w.-]+\s+)?fix(?:es)?|fix(?:es)?|(?:merged\s+)?(?:pull\s+requests?|PRs?))\b', item['detail'], re.I):
             raise ValueError('executive evidence must lead with judgment, not implementation activity counts')
     business = json.loads((root / '_data/business.json').read_text(encoding='utf-8'))
+    validate_advisory_data(business, profile, local_routes)
     slugs = {path.stem[11:] for path in (root / '_posts').glob('*.md')}
     if len({theme['id'] for theme in business['themes']}) != len(business['themes']):
         raise ValueError('duplicate business theme ID')

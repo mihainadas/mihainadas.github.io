@@ -1,9 +1,9 @@
 ---
 layout: home
-title: "The operating advantage: AI, software, and business decisions"
-description: "Mihai Nadăș connects technology leadership, AI research, and software engineering to business decisions. Explore the work, research, books, and professional record."
+title: "AI strategy and operating judgment"
+description: "AI investment and software-led differentiation for CEOs, operating leaders and investors. Explore Mihai Nadăș’s decision review, board advisory interests and evidence-linked professional record."
 ---
 
-Software is becoming easier to build. Choosing what deserves to exist, making it work inside an organization, and turning it into a business advantage are different problems.
+I help leadership teams decide where AI and software could create business value, what to build or buy, and what it takes to make the change work.
 
-I lead technology organizations, write software, and research language models. These notes connect strategy to the implementation: what should we own, what should we buy, and what evidence should change our minds?
+My perspective combines running technology organizations, software engineering and ongoing AI research. Start with a decision you need to make, then examine the economics, the operating constraints and the evidence together.

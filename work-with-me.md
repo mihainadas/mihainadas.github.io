@@ -1,10 +1,10 @@
 ---
 layout: engagements
-title: Work with me
+title: AI strategy & decision review
 permalink: /work-with-me/
-description: "Discuss consulting, technology advisory, and board opportunities with Mihai Dan Nadăș. Start with the decision, remit, and evidence."
+description: "A scoped AI Value and Execution Review for executives and investors: alternatives, operating constraints, evidence gaps and investment gates. Explore fit and how to start."
 ---
 
-An AI investment, a software capability to own, a technology question for the board: each starts with a business decision. I am interested in work where engineering detail and commercial judgment need to meet.
+Before funding another AI pilot or commissioning more software, make the decision explicit: which business capability needs to change, what would justify the investment, and what must work beyond the prototype?
 
-My background combines technology operating roles, software engineering, and ongoing doctoral research in artificial intelligence. The formats below help scope a conversation. Engagements depend on fit, availability, confidentiality, and my existing responsibilities.
+I bring technology operating experience, software engineering and ongoing doctoral research to that question. The review below is a defined starting point, not a commitment to a large transformation programme. For a chair, founder or nomination team considering a board or ongoing advisory remit, there is a [separate path]({{ '/board-advisory/' | relative_url }}).

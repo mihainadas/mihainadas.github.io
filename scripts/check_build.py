@@ -11,7 +11,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from html.parser import HTMLParser
 from pathlib import Path
-from html import escape
+from html import escape, unescape
 from urllib.parse import urlsplit
 
 
@@ -428,16 +428,72 @@ def audit_unpublished_guidance() -> None:
             fail(f"internal publishing guidance leaked into the generated site: {relative}")
 
 
+def audit_private_program_references() -> None:
+    """Allow only the explicitly approved public commercial disclosures."""
+    disclosure_pages = {'work-with-me/index.html', 'board-advisory/index.html'}
+    public_links = {'https://klusai.com/', 'https://klusai.com/about/'}
+    for path in SITE.rglob('*'):
+        if not path.is_file() or path.suffix.lower() not in {'.html', '.xml', '.svg', '.js', '.css'}:
+            continue
+        text = path.read_text(encoding='utf-8')
+        relative = path.relative_to(SITE).as_posix()
+        # Public attribution is not permission to disclose private source or IDs.
+        if re.search(r'(?i)github\.com/klusai(?:/|$)|huggingface\.co/(?:datasets|models|spaces)/klusai(?:/|$)|\b(?:RES|KLU)-\d+\b', text):
+            fail(f'private program reference in generated artifact: {relative}')
+        if re.search(r'(?i)\bklusai\b', text):
+            if relative not in disclosure_pages:
+                fail(f'stealth program reference in generated artifact: {relative}')
+            urls = re.findall(r'(?:href|src)=[\"\x27]([^\"\x27]+)[\"\x27]', text, re.I)
+            if any('klusai' in url.lower() and url not in public_links for url in urls):
+                fail(f'unapproved KlusAI destination in public disclosure: {relative}')
+
+
+def audit_advisory_paths(home: str) -> None:
+    business = json.loads((ROOT / '_data/business.json').read_text(encoding='utf-8'))
+    review = business['review']
+    home = unescape(home)
+    engagement = unescape(read('work-with-me/index.html'))
+    board = unescape(read('board-advisory/index.html'))
+    offer_url = '/work-with-me/#' + review['id']
+    for target in (offer_url, '/board-advisory/'):
+        if target not in home:
+            fail(f'homepage lost its buyer decision path: {target}')
+    for buyer in business['buyers']:
+        if f'id="{buyer["id"]}"' not in home or buyer['question'] not in home:
+            fail('homepage lost a buyer situation')
+    if f'id="{review["id"]}"' not in engagement or review['title'] not in engagement:
+        fail('scoped advisory review is missing')
+    for text in (review['fit'], review['not_fit'], review['boundary'], *review['inputs']):
+        if text not in engagement:
+            fail('advisory review lost fit, inputs or boundaries')
+    for item in review['outputs'] + review['steps']:
+        if any(item[key] not in engagement for key in ('title', 'detail')):
+            fail('advisory review lost an output or scoping step')
+    delivery = business['delivery']
+    for text in (delivery['relationship'], delivery['boundary']):
+        if text not in engagement:
+            fail('advisory review lost its delivery relationship disclosure')
+    if delivery['source'] not in engagement or delivery['url'] not in engagement:
+        fail('advisory delivery sources are missing')
+    if 'data-board-boundary' not in board or 'id="board-conflicts-heading"' not in board or offer_url not in board:
+        fail('board path lost remit, conflict boundary or review cross-link')
+    for organization in business['leadership_evidence']:
+        if organization not in engagement or organization not in board:
+            fail('advisory paths lost sourced operating experience')
+
+
 def audit_professional_platform(home: str) -> None:
     profile = json.loads((ROOT / '_data/profile.json').read_text(encoding='utf-8'))
     business = json.loads((ROOT / '_data/business.json').read_text(encoding='utf-8'))
     hub = read('business/index.html')
     engagement = read('work-with-me/index.html')
     resume = read('resume/index.html')
-    for target in ('/business/', '/work-with-me/', '/resume/'):
+    board = read('board-advisory/index.html')
+    audit_advisory_paths(home)
+    for target in ('/business/', '/work-with-me/', '/resume/', '/board-advisory/'):
         if target not in home:
             fail(f'homepage lost its professional path: {target}')
-    for page in (home, hub, engagement, resume):
+    for page in (home, hub, engagement, resume, board):
         navigation = re.search(r'<nav class="site-nav".*?</nav>', page, re.DOTALL)
         if not navigation or navigation.group().count('class="page-link"') != 5:
             fail('English primary navigation must retain five compact destinations')
@@ -644,12 +700,7 @@ def main() -> int:
         ):
             fail(f"private program reference in generated page: {relative}")
 
-    for path in SITE.rglob("*"):
-        if not path.is_file() or path.suffix.lower() not in {".html", ".xml", ".svg", ".js", ".css"}:
-            continue
-        text = path.read_text(encoding="utf-8")
-        if re.search(r"(?i)\bklusai\b|github\.com/klusai(?:/|$)|huggingface\.co/(?:datasets|models|spaces)/klusai(?:/|$)", text):
-            fail(f"stealth program reference in generated artifact: {path.relative_to(SITE)}")
+    audit_private_program_references()
 
     print("generated site checks passed")
     return 0

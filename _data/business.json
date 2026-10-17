@@ -10,9 +10,35 @@
     {"industry": "Financial and regulated services", "question": "Which decisions need human approval, an inspectable record, and a reliable way to challenge the model?"},
     {"industry": "Industrial operations", "question": "What happens when a recommendation meets incomplete data, physical constraints, or an operator's exception?"}
   ],
-  "engagements": [
-    {"title": "Strategy and decision framing", "audience": "Executives and transformation leaders", "description": "A focused discussion of where AI or bespoke software could change a business capability, and where buying an established product is the better decision.", "output": "A scoped decision brief: alternatives, assumptions, evidence gaps, ownership, and a testable next step."},
-    {"title": "Technical and operating review", "audience": "Leadership teams assessing an AI initiative", "description": "Examine the path from prototype to an operating system: data, evaluation, integration, human review, maintenance, and failure handling.", "output": "An agreed review scope and evidence request, followed by findings and unresolved risks. Access and confidentiality are agreed before any review."},
-    {"title": "Board and advisory conversations", "audience": "Chairs, founders, investors, and nomination teams", "description": "Discuss the fit between your organization's needs and my technology leadership, executive-board, engineering, and research background.", "output": "A conversation about remit, decision rights, independence requirements, time commitment, and conflicts."}
-  ]
+  "buyers": [
+    {"id": "executive-decisions", "audience": "CEOs and operating leaders", "question": "Which AI investment deserves to go further?", "situation": "You have a promising pilot, an unclear business case, or a workflow that needs to change. The next decision is what to fund, buy, build or stop. A particular focus is document-intensive service businesses, where review work, exceptions and integration shape the economics.", "url": "/work-with-me/#ai-value-execution-review", "action": "Review a business decision"},
+    {"id": "portfolio-decisions", "audience": "Investors and portfolio leaders", "question": "Where does the opportunity survive contact with operations?", "situation": "You need to distinguish a plausible AI story from a capability a business can use and maintain. Start with one company, one workflow and a material decision before considering a wider portfolio programme.", "url": "/work-with-me/#ai-value-execution-review", "action": "Examine a portfolio-company decision"}
+  ],
+  "review": {
+    "id": "ai-value-execution-review",
+    "title": "AI Value and Execution Review",
+    "promise": "A focused review of one business decision, with a recommendation you can examine and a next step you can test.",
+    "fit": "For a leadership team with a pending investment or operating decision, a named decision owner, and access to the people and evidence needed to examine it.",
+    "not_fit": "Not a general AI introduction, an open-ended transformation programme, a compliance certification, or a promise to justify a preferred supplier.",
+    "inputs": ["The decision, its owner and timing, plus the current workflow and alternatives already considered.", "A baseline for cost, quality or service, including human review, exceptions and failure costs where relevant.", "Agreed access to stakeholders, relevant system constraints and a bounded evidence sample, subject to confidentiality and data-handling terms."],
+    "outputs": [
+      {"title": "A decision memo", "detail": "A recommendation and comparison of buy, build, partner and no-change options, with the evidence supporting each."},
+      {"title": "An assumptions and risks record", "detail": "What remains uncertain, what the recommendation depends on, who owns the decision, and the operating dependencies that could change it."},
+      {"title": "An investment gate", "detail": "A bounded next test, its baseline and acceptance criteria, and the conditions for continuing, changing direction or stopping."}
+    ],
+    "steps": [
+      {"title": "Agree the question", "detail": "Check fit and conflicts, then agree scope, fee, timetable, access and confidentiality in writing before work begins."},
+      {"title": "Examine the evidence", "detail": "Work through the workflow, economics, data, evaluation and operating constraints with the relevant people. Make missing evidence explicit."},
+      {"title": "Make the decision usable", "detail": "Discuss the findings with the decision owner, record the trade-offs and hand over the memo and next-test criteria. Delivery is a separate decision."}
+    ],
+    "boundary": "A review can recommend buying an established product, using another provider, or not building. It is not an implementation contract or a guarantee of financial, technical or regulatory outcomes. Engagements remain subject to fit, availability and existing responsibilities."
+  },
+  "leadership_evidence": ["Computacenter Romania", "METRO.digital Romania", "accesa.eu", "Yonder"],
+  "delivery": {
+    "title": "Advice first. Delivery by a separate decision.",
+    "relationship": "I am a founding partner of N13 Ventures, which backs KlusAI. That is a relevant commercial relationship if a review could lead to delivery work.",
+    "source": "https://klusai.com/about/",
+    "url": "https://klusai.com/",
+    "boundary": "KlusAI may be an option where its capabilities fit. Any proposal has a separate scope and agreement, and alternatives remain part of the decision. I will disclose relevant interests before supplier recommendations; where a conflict prevents an appropriate review, we should not proceed on that basis."
+  }
 }

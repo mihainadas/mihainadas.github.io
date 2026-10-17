@@ -136,6 +136,43 @@ class PlatformTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'does not resolve'):
             validate_professional(self.root)
 
+    def test_review_requires_concrete_outputs(self):
+        self.update_data('business', lambda data: data['review'].update(outputs=[]))
+        with self.assertRaisesRegex(ValueError, 'complete outputs'):
+            validate_professional(self.root)
+
+    def test_review_requires_non_fit_and_boundary(self):
+        for key in ('not_fit', 'boundary'):
+            self.update_data('business', lambda data: data['review'].update({key: ''}))
+            with self.assertRaisesRegex(ValueError, 'advisory review missing'):
+                validate_professional(self.root)
+            self.update_data('business', lambda data: data['review'].update({key: 'Restored for the next case.'}))
+
+    def test_buyer_paths_must_target_the_review(self):
+        self.update_data('business', lambda data: data['buyers'][0].update(url='/not-an-offer/'))
+        with self.assertRaisesRegex(ValueError, 'resolve to the scoped review'):
+            validate_professional(self.root)
+
+    def test_buyer_ids_are_unique(self):
+        self.update_data('business', lambda data: data['buyers'][1].update(id=data['buyers'][0]['id']))
+        with self.assertRaisesRegex(ValueError, 'unique IDs'):
+            validate_professional(self.root)
+
+    def test_operating_evidence_needs_a_sourced_role(self):
+        self.update_data('business', lambda data: data['leadership_evidence'].append('Invented client'))
+        with self.assertRaisesRegex(ValueError, 'sourced career roles'):
+            validate_professional(self.root)
+
+    def test_delivery_relationship_cannot_be_omitted(self):
+        self.update_data('business', lambda data: data['delivery'].update(relationship=''))
+        with self.assertRaisesRegex(ValueError, 'relationship disclosure'):
+            validate_professional(self.root)
+
+    def test_board_path_must_exist(self):
+        (self.root / 'board-advisory.md').unlink()
+        with self.assertRaisesRegex(ValueError, 'paths must resolve'):
+            validate_professional(self.root)
+
     def test_roles_must_agree_with_existing_about_record(self):
         self.update_data('profile', lambda data: data['experience'][0].update(organization='A different employer'))
         with self.assertRaisesRegex(ValueError, 'current roles disagree'):

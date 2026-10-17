@@ -372,7 +372,7 @@ def check_repository_hygiene() -> None:
 
     public_text_files = [
         ROOT / name
-        for name in ("index.md", "about.md", "engineering.md", "research.md", "papers.md", "business.md", "work-with-me.md", "resume.md")
+        for name in ("index.md", "about.md", "engineering.md", "research.md", "papers.md", "business.md", "work-with-me.md", "board-advisory.md", "resume.md")
     ]
     public_text_files.extend(sorted(POSTS.glob("*.md")))
     placeholder = re.compile(r"\b(?:TODO|FIXME|XXX)\b|lorem ipsum", re.IGNORECASE)

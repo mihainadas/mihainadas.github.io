@@ -3,11 +3,12 @@ layout: default
 ---
 <article class="business-page">
   <header class="professional-heading">
-    <p class="eyebrow">For people making technology decisions</p>
-    <h1>Better software.<br><em>Better business?</em></h1>
+    <p class="eyebrow">AI investment · differentiation · operating capability</p>
+    <h1>What deserves<br><em>the investment?</em></h1>
     <div class="professional-intro">{{ content }}</div>
-    <p class="professional-actions"><a class="button-primary" href="{{ '/work-with-me/' | relative_url }}">Discuss an engagement</a><a href="{{ '/resume/' | relative_url }}">Professional record →</a></p>
+    <p class="professional-actions"><a class="button-primary" href="{{ '/work-with-me/#ai-value-execution-review' | relative_url }}">Explore the decision review</a><a href="{{ '/board-advisory/' | relative_url }}">Board &amp; advisory →</a><a href="{{ '/resume/' | relative_url }}">Professional record →</a></p>
   </header>
+  {% include buyer-routes.html heading="Recognize the decision. Examine the options." %}
   <section class="strategy-thesis" id="operating-advantage" aria-labelledby="strategy-heading">
     <p class="eyebrow">The editorial thread</p>
     <h2 id="strategy-heading">{{ site.data.strategy.name }}</h2>

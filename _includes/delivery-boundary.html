@@ -1,0 +1,6 @@
+{% assign delivery = site.data.business.delivery %}
+<aside class="delivery-boundary" id="delivery-relationship" aria-labelledby="delivery-heading">
+  <p class="eyebrow">A disclosed commercial relationship</p><h2 id="delivery-heading">{{ delivery.title | escape }}</h2>
+  <p>{{ delivery.relationship | escape }} <a href="{{ delivery.source }}">Public relationship source</a>.</p>
+  <p>{{ delivery.boundary | escape }}</p><a class="text-link" href="{{ delivery.url }}">Explore KlusAI’s delivery capabilities →</a>
+</aside>

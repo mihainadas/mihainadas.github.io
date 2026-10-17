@@ -6,7 +6,43 @@
 .professional-actions a { display: inline-flex; align-items: center; min-height: 44px; }
 .professional-actions .button-primary, .professional-actions .button-primary:visited { padding: 0.65rem 1rem; background: var(--accent); color: var(--button-ink); text-decoration: none; }
 .professional-actions .button-primary:hover { background: var(--accent-bright); }
-.business-page h2, .engagement-page h2, .home-business h2 { font: 450 clamp(2rem, 3.8vw, 3rem)/1.08 Newsreader, Georgia, serif; letter-spacing: -0.03em; }
+.business-page h2, .engagement-page h2, .board-page h2, .home-business h2 { font: 450 clamp(2rem, 3.8vw, 3rem)/1.08 Newsreader, Georgia, serif; letter-spacing: -0.03em; }
+.buyer-routes { margin: 0 0 3.5rem; }
+.buyer-grid, .review-fit, .leadership-grid, .board-questions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; }
+.buyer-route { padding: 1.4rem 0 0; border-top: 1px solid var(--ink); }
+.buyer-route h3 { font: 450 1.8rem/1.15 Newsreader, Georgia, serif; letter-spacing: -0.02em; max-width: 27ch; }
+.buyer-route p:not(.eyebrow) { font-size: 0.9rem; max-width: 62ch; }
+.buyer-route .eyebrow { font-size: 0.64rem; }
+.buyer-route .text-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.83rem; }
+.buyer-routes > .scope-note { margin: 1rem 0 0; }
+.review-offer { padding: 2rem; background: var(--surface); border: 1px solid var(--line); margin-bottom: 3.5rem; }
+.review-offer .review-promise { font-size: 1.15rem; max-width: 66ch; }
+.review-fit { margin: 2rem 0; padding-block: 1.5rem; border-block: 1px solid var(--line); }
+.review-fit h3, .review-inputs h3, .review-offer > h3 { font-size: 1.05rem; font-weight: 700; }
+.review-fit p, .review-inputs li, .review-steps p { font-size: 0.88rem; }
+.review-offer h4 { font: 450 1.6rem/1.15 Newsreader, Georgia, serif; letter-spacing: -0.02em; margin: 0 0 0.7rem; }
+.review-inputs { margin: 2rem 0; max-width: 77ch; }
+.review-inputs li { margin-bottom: 0.6rem; }
+.review-steps { margin: 1rem 0 1.5rem 1.5rem; }
+.review-steps li { padding: 0.8rem 0 0.2rem 0.5rem; border-top: 1px solid var(--line); }
+.review-steps li::marker { color: var(--accent); font-size: 0.85rem; }
+.review-steps p { max-width: 78ch; }
+.leadership-evidence, .board-remits, .board-evidence { margin: 3.5rem 0; }
+.leadership-grid > section, .board-questions > div { padding-top: 1rem; border-top: 1px solid var(--line); }
+.leadership-grid h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.leadership-grid p { font-size: 0.85rem; }
+.leadership-grid .leadership-role { font-weight: 650; margin-bottom: 0.2rem; }
+.leadership-grid .post-meta { font-size: 0.7rem; }
+.delivery-boundary { border-left: 3px solid var(--accent); padding: 0.5rem 0 0.5rem 1.5rem; margin: 3rem 0; }
+.delivery-boundary h2 { font-size: 2rem; max-width: 30ch; }
+.delivery-boundary p { max-width: 80ch; font-size: 0.87rem; }
+.delivery-boundary .text-link { font-size: 0.85rem; }
+.board-questions { margin: 2rem 0; }
+.board-questions dt { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.7rem; }
+.board-questions dd { margin: 0; font-size: 0.9rem; }
+.resume-engagement-paths { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 1.5rem; }
+.resume-engagement-paths h2 { font-size: 1.1rem; }
+.resume-engagement-paths p { font-size: 0.85rem; max-width: 80ch; }
 .decision-row { display: grid; grid-template-columns: 1fr 1.35fr; gap: 3.5rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
 .decision-row h3 { font: 450 2rem/1.1 Newsreader, Georgia, serif; letter-spacing: -0.03em; max-width: 20ch; }
 .decision-row .eyebrow { font-size: 0.65rem; }
@@ -75,6 +111,12 @@
 .profile-identities a { display: inline-flex; align-items: center; min-height: 44px; }
 .resume-boundary { font-size: 0.75rem; color: var(--muted); padding-top: 1.5rem; border-top: 1px solid var(--line); margin-top: 1rem; }
 @media (max-width: 760px) {
+  .buyer-grid, .review-fit, .leadership-grid, .board-questions { grid-template-columns: 1fr; gap: 1.2rem; }
+  .review-offer { padding: 1.2rem; }
+  .review-offer .engagement-grid { margin-bottom: 2rem; }
+  .review-offer h2 { font-size: 2.1rem; }
+  .review-offer .review-promise { font-size: 1rem; }
+  .delivery-boundary { padding-left: 1rem; }
   .strategy-thesis { padding-left: 1.1rem; }
   .decision-row, .home-business, .resume-columns { grid-template-columns: 1fr; gap: 1rem; }
   .engagement-grid, .evidence-grid { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -87,6 +129,9 @@
   .business-diagram { max-width: 400px; margin-inline: auto; }
 }
 @media print {
+  .buyer-grid, .review-fit, .leadership-grid, .board-questions { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .review-offer { background: none; padding: 1rem; }
+  .review-steps li, .leadership-grid > section, .board-questions > div { break-inside: avoid; }
   .professional-actions, .professional-next { display: none; }
   .resume-columns { display: block; }
   .resume-heading, .resume-columns section, .resume-evidence { break-inside: avoid; }

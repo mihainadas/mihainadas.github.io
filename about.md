@@ -23,7 +23,7 @@ This site contains the technical record that does not fit cleanly into a CV, pap
 
 ## Elsewhere
 
-For a concise, evidence-linked view of my background, see the [professional record and downloadable résumé]({{ '/resume/' | relative_url }}). For consulting, advisory, or board-role discussions, [start with the decision or remit]({{ '/work-with-me/' | relative_url }}).
+For a concise, evidence-linked view of my background, see the [professional record and downloadable résumé]({{ '/resume/' | relative_url }}). For a pending AI investment or operating decision, explore the [AI Value and Execution Review]({{ '/work-with-me/#ai-value-execution-review' | relative_url }}). Chairs, founders and nomination teams can use the separate [board and strategic advisory path]({{ '/board-advisory/' | relative_url }}).
 
 - [GitHub](https://github.com/mihainadas)
 - [ORCID](https://orcid.org/0009-0003-3467-3262)

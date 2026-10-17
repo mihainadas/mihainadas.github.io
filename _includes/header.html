@@ -1,5 +1,5 @@
 {% assign section_url = page.url %}
-{% if page.url == '/work-with-me/' %}{% assign section_url = '/business/' %}{% endif %}
+{% if page.url == '/work-with-me/' or page.url == '/board-advisory/' %}{% assign section_url = '/business/' %}{% endif %}
 {% if page.url == '/resume/' %}{% assign section_url = '/about/' %}{% endif %}
 {% if page.layout == 'post' %}
   {% assign section_url = '/research/' %}
