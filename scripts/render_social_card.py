@@ -5,6 +5,11 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
+try:
+    from scripts.site_config import canonical_origin
+except ModuleNotFoundError:
+    from site_config import canonical_origin
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -38,7 +43,7 @@ def main() -> None:
     draw.text((60, 336), "implementation.", fill=accent, font=italic(78))
     draw.text((62, 475), "Engineering · AI research", fill=muted, font=font(23))
     draw.text((62, 514), "Applied papers", fill=muted, font=font(23))
-    draw.text((62, 568), "mihainadas.github.io", fill=accent, font=font(20))
+    draw.text((62, 568), canonical_origin().removeprefix('https://'), fill=accent, font=font(20))
     image.save(Path(__file__).resolve().parents[1] / "assets" / "social-card.png", optimize=True)
 
 

@@ -6,7 +6,7 @@ Requested by Mihai on 17 October 2026. Target: `https://nadas.ro`, with `www` an
 
 The clean checkout was fast-forwarded before preparation. Public DNS shows Namecheap FreeDNS nameservers, Google mail exchange records, and a Google SPF TXT record. The apex has no A/AAAA answer; `www` returns NXDOMAIN. No CAA or GitHub account-verification TXT answer was found in the inspected public records. These are dated observations, not a full DNS-zone export or proof of ownership.
 
-GitHub's Pages API reports legacy publishing, no custom domain, HTTPS enforced, and the current blog built successfully. Recheck current DNS and Pages settings before cutover. Namecheap is not signed in in the inspected browser session. Authentication and two-factor entry belong in the provider interface, not chat or repository files. Do not search unrelated secrets or password-manager vaults.
+GitHub's Pages API reports legacy publishing from `main` at the repository root, no custom domain, HTTPS enforced, and the current blog built successfully. Recheck current DNS and Pages settings before cutover. On 17 October, signed-in Namecheap inspection confirmed this account controls the FreeDNS zone. Its complete expanded host list contains the Google calendar/docs/mail aliases, SPF, DMARC, and Google DKIM record; a snapshot is retained in ignored local `vendor/` storage with the public Google MX values. No records were changed. GitHub's browser session still requires authentication for personal-account domain verification. Authentication and two-factor entry belong in the provider interface, not chat or repository files. Do not search unrelated secrets or password-manager vaults.
 
 ## Ready without changing the live address
 
@@ -24,7 +24,7 @@ python3 scripts/check_build.py --site-dir vendor/domain-preview --config vendor/
 BUNDLE_PATH=vendor/bundle bundle exec htmlproofer vendor/domain-preview --disable-external --enforce-https
 ```
 
-This is only a metadata and site-build rehearsal. It does not verify public DNS, a certificate, the future PDF's links, notebook redirects, or account registration. The production `_config.yml`, Pages domain setting, and DNS remain unchanged until coordinated cutover.
+This is only a metadata and site-build rehearsal. It does not verify public DNS, a certificate, the future PDF's links, notebook redirects, or account registration. The production `_config.yml`, Pages domain setting, and DNS remain unchanged until coordinated cutover. The résumé and social-card generators now derive their hostname from `_config.yml`; the résumé integrity gate rejects a stale public origin without treating unrelated configuration edits as career changes. Regenerate and visually inspect both assets after switching the origin.
 
 ## Cutover sequence
 

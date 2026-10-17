@@ -7,8 +7,13 @@ from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+try:
+    from scripts.site_config import canonical_origin
+except ModuleNotFoundError:
+    from site_config import canonical_origin
+
 ROOT = Path(__file__).resolve().parents[1]
-RESUME_INPUTS = {'_data/profile.json', 'scripts/render_resume.py', 'assets/media-sources/manrope.ttf'}
+RESUME_INPUTS = {'_data/profile.json', 'scripts/render_resume.py', 'assets/media-sources/manrope.ttf', 'scripts/site_config.py'}
 
 
 def validate_professional(root=ROOT):
@@ -71,6 +76,8 @@ def validate_professional(root=ROOT):
     record = json.loads((root / '_data/resume_build.json').read_text(encoding='utf-8'))
     if record['reviewed'] != profile['reviewed'] or set(record['inputs']) != RESUME_INPUTS:
         raise ValueError('resume build record does not describe the current profile and inputs')
+    if record.get('site_origin') != canonical_origin(root):
+        raise ValueError('downloadable resume is stale: regenerate after changing the site origin')
     for name, expected in record['inputs'].items():
         if hashlib.sha256((root / name).read_bytes()).hexdigest() != expected:
             raise ValueError(f'downloadable resume is stale: regenerate after changing {name}')

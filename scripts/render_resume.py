@@ -20,8 +20,13 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, KeepTogether
 
+try:
+    from scripts.site_config import canonical_origin
+except ModuleNotFoundError:
+    from site_config import canonical_origin
+
 ROOT = Path(__file__).resolve().parents[1]
-INPUTS = ("_data/profile.json", "scripts/render_resume.py", "assets/media-sources/manrope.ttf")
+INPUTS = ("_data/profile.json", "scripts/render_resume.py", "assets/media-sources/manrope.ttf", "scripts/site_config.py")
 
 
 def escape(value, entities=None):
@@ -34,7 +39,7 @@ def digest(path):
 
 
 def absolute(url):
-    return "https://mihainadas.github.io" + url if url.startswith("/") else url
+    return canonical_origin(ROOT) + url if url.startswith("/") else url
 
 
 def link(label, url):
@@ -116,7 +121,7 @@ def main():
         canvas.setDateFormatter(lambda *args: 'D:' + data['reviewed'].replace('-', '') + '000000Z')
         canvas.setFont("Manrope", 7)
         canvas.setFillColor(muted)
-        canvas.drawString(44, 28, "Mihai Dan Nadăș | mihainadas.github.io/resume/")
+        canvas.drawString(44, 28, "Mihai Dan Nadăș | " + canonical_origin(ROOT).removeprefix('https://') + "/resume/")
         canvas.drawRightString(551, 28, f"Reviewed {data['reviewed']} | {document.page}")
         canvas.restoreState()
 
@@ -126,7 +131,8 @@ def main():
     document.build(story, onFirstPage=frame, onLaterPages=frame)
     if document.page != 2:
         raise ValueError('Resume must remain two pages; revise and visually review the layout before publishing.')
-    record = {"reviewed": data["reviewed"], "inputs": {name: digest(ROOT / name) for name in INPUTS}, "pdf_sha256": digest(output)}
+    record = {"reviewed": data["reviewed"], "site_origin": canonical_origin(ROOT),
+              "inputs": {name: digest(ROOT / name) for name in INPUTS}, "pdf_sha256": digest(output)}
     (ROOT / "_data/resume_build.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     print("Generated " + str(output.relative_to(ROOT)))
 

@@ -46,7 +46,7 @@ python3 scripts/render_resume.py
 python3 scripts/check_professional.py
 ```
 
-This generates `assets/downloads/mihai-nadas-resume.pdf` and `_data/resume_build.json`. The record covers the profile, renderer, font, and PDF. A changed input without regeneration fails the normal source gate. Ordinary Jekyll/Pages builds publish the committed PDF without installing a PDF toolchain or using a remote service.
+This generates `assets/downloads/mihai-nadas-resume.pdf` and `_data/resume_build.json`. The record covers the profile, renderer, font, origin reader, configured public origin, and PDF. A changed input or domain without regeneration fails the normal source gate. Unrelated Jekyll configuration changes do not require a new PDF. A domain-only rebuild does not refresh the factual review date. Ordinary Jekyll/Pages builds publish the committed PDF without installing a PDF toolchain or using a remote service.
 
 Inspect every rendered PDF page after regeneration: layout, Romanian glyphs, selectable text, and links. Keep the concise two-page layout. The server-rendered HTML is the accessible primary version. The current ReportLab PDF is selectable and linked but not tagged; do not claim PDF/UA compliance. Store previews in ignored `vendor/`. Run every normal site check before release.
 

@@ -1,9 +1,11 @@
 {
   "reviewed": "2026-10-17",
+  "site_origin": "https://mihainadas.github.io",
   "inputs": {
     "_data/profile.json": "71af55f5ed8d127d498c4dac06eda2ea20c00045fa39f503972fedf999ef7a2f",
-    "scripts/render_resume.py": "91fad4062c98398f04fb70dd2c71840236b5bb00e0e81bd6279fb4ca6f55cd8b",
-    "assets/media-sources/manrope.ttf": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    "scripts/render_resume.py": "60067098aaedb25cedc6d2bee49e29d078364ae7fdb3e6917989195545e1fd10",
+    "assets/media-sources/manrope.ttf": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6",
+    "scripts/site_config.py": "35d578da54d78088647223ab1a790e22ec6cd18ebdbb562f9bbe8730f66db141"
   },
-  "pdf_sha256": "3fc7e41f025cdd57e1b22503105f62e6b229036d0e29e56eb2c886253aeaa14d"
+  "pdf_sha256": "9324847a9e2f71860abae4f30f2179f83004dfe90b84559cca133b09159d0586"
 }

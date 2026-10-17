@@ -20,6 +20,7 @@ class PlatformTests(unittest.TestCase):
         for folder in ('_data', '_posts', '_layouts', '_includes', 'assets/media', 'assets/editorial', 'assets/media-sources', 'assets/downloads', 'scripts'):
             shutil.copytree(ROOT / folder, self.root / folder)
         shutil.copy(ROOT / '_data/now.yml', self.root / '_data/now.yml')
+        shutil.copy(ROOT / '_config.yml', self.root / '_config.yml')
         for path in ROOT.glob('*.md'):
             shutil.copy(path, self.root / path.name)
 
@@ -111,6 +112,23 @@ class PlatformTests(unittest.TestCase):
     def test_corrupt_pdf_is_rejected(self):
         (self.root / 'assets/downloads/mihai-nadas-resume.pdf').write_bytes(b'not a PDF')
         with self.assertRaisesRegex(ValueError, 'PDF is missing, corrupt'):
+            validate_professional(self.root)
+
+    def test_domain_change_requires_pdf_regeneration(self):
+        path = self.root / '_config.yml'
+        path.write_text(path.read_text().replace('url: "https://mihainadas.github.io"', 'url: "https://nadas.ro"'))
+        with self.assertRaisesRegex(ValueError, 'changing the site origin'):
+            validate_professional(self.root)
+
+    def test_unrelated_config_change_does_not_stale_pdf(self):
+        path = self.root / '_config.yml'
+        path.write_text(path.read_text() + '\n# unrelated Jekyll setting\n')
+        validate_professional(self.root)
+
+    def test_changed_origin_reader_requires_pdf_regeneration(self):
+        path = self.root / 'scripts/site_config.py'
+        path.write_text(path.read_text() + '\n# changed reader\n')
+        with self.assertRaisesRegex(ValueError, 'resume is stale'):
             validate_professional(self.root)
 
     def test_unresolved_business_evidence_is_rejected(self):
