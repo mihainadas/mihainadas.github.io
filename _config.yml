@@ -41,6 +41,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - AGENTS.md
+  - .cursor
   - scripts
   - vendor
   - assets/editorial/README.md

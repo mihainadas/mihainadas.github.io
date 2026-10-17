@@ -1,0 +1,8 @@
+---
+description: Standing editorial, design, media, publishing, language, and referral agreements for this blog
+alwaysApply: true
+---
+
+Read and follow `AGENTS.md` and `docs/publishing-policy.md` before working in this repository. Follow the concrete mechanics in `README.md`, and the applicable book or editorial-asset guide linked by those instructions.
+
+These are repository-wide consistency rules, not authorization to expand the user's current task. Historical scheduler memory does not override the current policy or source code. Preserve the publishing limits and all existing quality gates.

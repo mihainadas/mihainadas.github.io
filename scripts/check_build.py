@@ -372,7 +372,14 @@ def audit_books(home: str) -> None:
         fail("book discovery metadata does not match the actual selected editions")
 
 
+def audit_unpublished_guidance() -> None:
+    for relative in ("AGENTS.md", "AGENTS.html", ".cursor", "docs"):
+        if (SITE / relative).exists():
+            fail(f"internal publishing guidance leaked into the generated site: {relative}")
+
+
 def main() -> int:
+    audit_unpublished_guidance()
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
     about = read("about/index.html")

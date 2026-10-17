@@ -2,6 +2,10 @@
 
 Research and engineering notes published at [mihainadas.github.io](https://mihainadas.github.io/).
 
+## Standing agreements
+
+Read [the publishing policy](docs/publishing-policy.md) before every manual or scheduled update. It consolidates the agreed editorial voice, cadence, research and book-review evidence, visual identity, hybrid media strategy, Romanian editions, affiliate boundaries, and release gates. `AGENTS.md` and the always-applied repository rule point to the same policy; scheduler memory holds dated status rather than competing standing instructions. These instruction files are excluded from the generated site.
+
 ## Book selections and reviews
 
 The `/books/` shelf is data-driven from `_data/books.json`, with per-program enrollment and tracking configuration in `_data/book_programs.json`. Links remain ordinary unless both the program and verified product link are explicitly activated. `/library/` groups Books, Applied Papers, and Notebooks without adding another primary navigation item. Book review posts retain the ordinary feed, archive, publication cap, and editorial gates. See [the operations guide](docs/books-operations.md) before drafting a review or activating referral links. It includes application preparation, cover provenance, and safeguards against unsupported personal recommendations.
