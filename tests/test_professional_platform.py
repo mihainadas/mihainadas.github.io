@@ -116,7 +116,7 @@ class PlatformTests(unittest.TestCase):
 
     def test_domain_change_requires_pdf_regeneration(self):
         path = self.root / '_config.yml'
-        path.write_text(path.read_text().replace('url: "https://mihainadas.github.io"', 'url: "https://nadas.ro"'))
+        path.write_text('url: "https://new-origin.example.org"\n')
         with self.assertRaisesRegex(ValueError, 'changing the site origin'):
             validate_professional(self.root)
 
