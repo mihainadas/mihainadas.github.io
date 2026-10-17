@@ -1,14 +1,14 @@
 # nadas.ro cutover
 
-Requested by Mihai on 17 October 2026. Target: `https://nadas.ro`, with `www` and the previous GitHub Pages address redirecting to it. This is a pending migration, not a claim that DNS or the live address has changed. Keep the GitHub repository and article paths.
+Requested and activated by Mihai on 17 October 2026. The public configuration now uses `https://nadas.ro`, with the same GitHub repository and article paths. Domain ownership is verified, Pages is bound to the domain, and the four apex A records and `www` CNAME are saved. HTTPS provisioning and final new-host checks are still pending; do not describe the migration as fully verified until they pass.
 
 ## Confirmed starting state
 
-The clean checkout was fast-forwarded before preparation. Public DNS shows Namecheap FreeDNS nameservers, Google mail exchange records, and a Google SPF TXT record. The apex has no A/AAAA answer; `www` returns NXDOMAIN. No CAA or GitHub account-verification TXT answer was found in the inspected public records. These are dated observations, not a full DNS-zone export or proof of ownership.
+Before activation, the clean checkout was fast-forwarded. Public DNS showed Namecheap FreeDNS nameservers, Google mail exchange records, and a Google SPF TXT record. The apex had no A/AAAA answer; `www` returned NXDOMAIN. No CAA or GitHub account-verification TXT answer was found. These describe the starting state, not the current web records.
 
-GitHub's Pages API reports legacy publishing from `main` at the repository root, no custom domain, HTTPS enforced, and the current blog built successfully. Recheck current DNS and Pages settings before cutover. On 17 October, signed-in Namecheap inspection confirmed this account controls the FreeDNS zone. Its complete expanded host list contains the Google calendar/docs/mail aliases, SPF, DMARC, and Google DKIM record; a snapshot is retained in ignored local `vendor/` storage with the public Google MX values. No records were changed. GitHub's browser session still requires authentication for personal-account domain verification. Authentication and two-factor entry belong in the provider interface, not chat or repository files. Do not search unrelated secrets or password-manager vaults.
+GitHub uses legacy publishing from `main` at the repository root. The original site had no custom domain and enforced HTTPS on the default hostname. Signed-in Namecheap inspection confirmed control of the FreeDNS zone. The complete expanded host list contained the Google calendar/docs/mail aliases, SPF, DMARC, and Google DKIM record; its snapshot is retained in ignored local `vendor/` storage with the original Google MX values. All six original host records, five MX records, and nameservers matched that snapshot after the web records were added. Authentication and two-factor entry belong in the provider interface, not chat or repository files. Do not search unrelated secrets or password-manager vaults.
 
-## Ready without changing the live address
+## Rehearsal and domain consistency
 
 The generated-site checks read the expected HTTPS origin from Jekyll configuration rather than hard-coding the old hostname. They reject stale canonicals, sitemap URLs, robots sitemap declarations, feed links, multilingual alternates, and professional identity links. Ordinary outbound citations and project notebook links are not globally rewritten or banned. Atom feed and post identifiers deliberately retain `feed_identity_url` while discovery and article links move to the new origin, following [RFC 4287 section 4.2.6](https://www.rfc-editor.org/rfc/rfc4287#section-4.2.6). Do not change those stable identifiers or cause every existing item to appear as a new publication during the move.
 
@@ -24,7 +24,7 @@ python3 scripts/check_build.py --site-dir vendor/domain-preview --config vendor/
 BUNDLE_PATH=vendor/bundle bundle exec htmlproofer vendor/domain-preview --disable-external --enforce-https
 ```
 
-This is only a metadata and site-build rehearsal. It does not verify public DNS, a certificate, the future PDF's links, notebook redirects, or account registration. The production `_config.yml`, Pages domain setting, and DNS remain unchanged until coordinated cutover. The résumé and social-card generators now derive their hostname from `_config.yml`; the résumé integrity gate rejects a stale public origin without treating unrelated configuration edits as career changes. Regenerate and visually inspect both assets after switching the origin.
+This is only a metadata and site-build rehearsal. It does not verify public DNS, a certificate, notebook redirects, or account registration. For a future migration, keep production configuration and DNS unchanged until coordinated cutover. The résumé and social-card generators derive their hostname from `_config.yml`; the résumé integrity gate rejects a stale public origin without treating unrelated configuration edits as career changes. Regenerate and visually inspect both assets after switching the origin. Normal production checks also require the source and generated `CNAME` to match the configured custom hostname, preventing an accidental loss of the Pages binding. A URL-only preview override does not modify that live binding.
 
 ## Cutover sequence
 

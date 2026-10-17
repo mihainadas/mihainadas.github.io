@@ -174,6 +174,13 @@ def site_origin() -> str:
 def audit_canonical_origin() -> None:
     """Reject a stale deployment host without banning valid outbound links."""
     origin = site_origin()
+    hostname = urlsplit(origin).hostname
+    # A branch-published custom domain needs its CNAME retained on every
+    # release. URL-only metadata rehearsals do not mutate that live binding.
+    if CONFIG_OVERRIDE is None and not hostname.endswith('.github.io'):
+        for location in (ROOT / 'CNAME', SITE / 'CNAME'):
+            if not location.is_file() or location.read_text(encoding='utf-8').strip() != hostname:
+                fail('custom-domain CNAME is missing or disagrees with site.url')
     for document in SITE.rglob('*.html'):
         metadata = LanguageMetadata()
         metadata.feed(document.read_text(encoding='utf-8'))

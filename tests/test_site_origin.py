@@ -22,6 +22,8 @@ class SiteOriginTests(unittest.TestCase):
             patcher.start()
             self.addCleanup(patcher.stop)
         (self.root / '_config.yml').write_text('url: "https://nadas.ro"\n')
+        (self.root / 'CNAME').write_text('nadas.ro\n')
+        (self.site / 'CNAME').write_text('nadas.ro\n')
         (self.site / 'index.html').write_text('<html><head><link rel="canonical" href="https://nadas.ro/"></head></html>')
         (self.site / 'sitemap.xml').write_text('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://nadas.ro/</loc></url></urlset>')
         (self.site / 'robots.txt').write_text('Sitemap: https://nadas.ro/sitemap.xml\n')
@@ -34,6 +36,26 @@ class SiteOriginTests(unittest.TestCase):
     def test_previous_origin_remains_supported(self):
         (self.root / '_config.yml').write_text('url: "https://mihainadas.github.io"\n')
         self.assertEqual(check_build.site_origin(), 'https://mihainadas.github.io')
+
+    def test_custom_domain_requires_source_cname(self):
+        (self.root / 'CNAME').unlink()
+        with redirect_stderr(StringIO()), self.assertRaises(SystemExit):
+            check_build.audit_canonical_origin()
+
+    def test_custom_domain_rejects_wrong_source_cname(self):
+        (self.root / 'CNAME').write_text('old.example.org\n')
+        with redirect_stderr(StringIO()), self.assertRaises(SystemExit):
+            check_build.audit_canonical_origin()
+
+    def test_custom_domain_requires_generated_cname(self):
+        (self.site / 'CNAME').unlink()
+        with redirect_stderr(StringIO()), self.assertRaises(SystemExit):
+            check_build.audit_canonical_origin()
+
+    def test_custom_domain_rejects_wrong_generated_cname(self):
+        (self.site / 'CNAME').write_text('old.example.org\n')
+        with redirect_stderr(StringIO()), self.assertRaises(SystemExit):
+            check_build.audit_canonical_origin()
 
     def test_trailing_slash_is_normalized(self):
         (self.root / '_config.yml').write_text("url: 'https://nadas.ro/'\n")
