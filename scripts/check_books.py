@@ -70,6 +70,15 @@ def validate_books(books, programs):
                 if key.startswith("amazon_"):
                     if parsed.hostname != domain or parse_qs(parsed.query).get("tag") != [program.get("tracking_id")]:
                         errors.append(f"{identifier}: Amazon store or assigned tag mismatch")
+                    asin = shop.get("asin", "")
+                    if not re.fullmatch(r"[A-Z0-9]{10}", asin) or not re.fullmatch(rf"/dp/{re.escape(asin)}(?:/ref=nosim)?/?", parsed.path):
+                        errors.append(f"{identifier}: affiliate link must use the verified product ASIN")
+                    if shop.get("product_url") != f"https://{domain}/dp/{asin}":
+                        errors.append(f"{identifier}: verified product source required")
+                    try:
+                        date.fromisoformat(shop.get("product_checked", ""))
+                    except (TypeError, ValueError):
+                        errors.append(f"{identifier}: actual product verification date required")
     if sum(book.get("featured") is True for book in books) != 1:
         errors.append("exactly one featured reading selection required")
     return errors

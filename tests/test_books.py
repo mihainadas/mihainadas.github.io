@@ -13,11 +13,18 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class BooksTests(unittest.TestCase):
     def setUp(self):
-        self.books = json.loads((ROOT / "_data/books.json").read_text())
-        self.programs = json.loads((ROOT / "_data/book_programs.json").read_text())
+        self.actual_books = json.loads((ROOT / "_data/books.json").read_text())
+        self.actual_programs = json.loads((ROOT / "_data/book_programs.json").read_text())
+        self.books = copy.deepcopy(self.actual_books)
+        self.programs = copy.deepcopy(self.actual_programs)
+        for program in self.programs.values():
+            program.update(active=False, tracking_id="")
+        for book in self.books:
+            for shop in book["shops"]:
+                shop["affiliate_url"] = ""
 
     def test_current_shelf_is_valid(self):
-        self.assertEqual(validate_books(self.books, self.programs), [])
+        self.assertEqual(validate_books(self.actual_books, self.actual_programs), [])
 
     def test_isbn_checksum(self):
         self.assertTrue(isbn_valid("9781603580557"))
@@ -45,6 +52,11 @@ class BooksTests(unittest.TestCase):
         self.programs["amazon_us"].update(active=True, tracking_id="test-20")
         self.books[0]["shops"][0]["affiliate_url"] = "https://www.amazon.com/dp/1603580557?tag=test-20"
         self.assertEqual(validate_books(self.books, self.programs), [])
+
+    def test_unverified_asin_fails(self):
+        self.programs["amazon_us"].update(active=True, tracking_id="test-20")
+        self.books[0]["shops"][0]["affiliate_url"] = "https://www.amazon.com/dp/B000000000?tag=test-20"
+        self.assertTrue(validate_books(self.books, self.programs))
 
     def test_hidden_ordinary_referral_fails(self):
         self.books[0]["shops"][0]["url"] += "&tag=test-20"

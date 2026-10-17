@@ -17,7 +17,7 @@
     "cover_checked": "2026-10-17",
     "featured": true,
     "shops": [
-      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781603580557", "affiliate_url": ""},
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781603580557", "affiliate_url": "https://www.amazon.com/dp/1603580557/ref=nosim?tag=mihainadas-20", "asin": "1603580557", "product_url": "https://www.amazon.com/dp/1603580557", "product_checked": "2026-10-17"},
       {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9781603580557", "affiliate_url": ""}
     ]
   },
@@ -38,7 +38,7 @@
     "cover_id": 13555875,
     "cover_checked": "2026-10-17",
     "shops": [
-      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781953953216", "affiliate_url": ""},
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781953953216", "affiliate_url": "https://www.amazon.com/dp/1953953212/ref=nosim?tag=mihainadas-20", "asin": "1953953212", "product_url": "https://www.amazon.com/dp/1953953212", "product_checked": "2026-10-17"},
       {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9781953953216", "affiliate_url": ""}
     ]
   },
@@ -59,7 +59,7 @@
     "cover_id": 10290182,
     "cover_checked": "2026-10-17",
     "shops": [
-      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9780578675862", "affiliate_url": ""},
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9780578675862", "affiliate_url": "https://www.amazon.com/dp/0578675862/ref=nosim?tag=mihainadas-20", "asin": "0578675862", "product_url": "https://www.amazon.com/dp/0578675862", "product_checked": "2026-10-17"},
       {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9780578675862", "affiliate_url": ""}
     ]
   },
@@ -101,7 +101,7 @@
     "cover_id": 14758534,
     "cover_checked": "2026-10-17",
     "shops": [
-      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781801819312", "affiliate_url": ""},
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781801819312", "affiliate_url": "https://www.amazon.com/dp/1801819319/ref=nosim?tag=mihainadas-20", "asin": "1801819319", "product_url": "https://www.amazon.com/dp/1801819319", "product_checked": "2026-10-17"},
       {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9781801819312", "affiliate_url": ""}
     ]
   }

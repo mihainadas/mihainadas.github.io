@@ -1,5 +1,5 @@
 {
-  "amazon_us": {"active": false, "tracking_id": ""},
+  "amazon_us": {"active": true, "tracking_id": "mihainadas-20"},
   "amazon_de": {"active": false, "tracking_id": ""},
   "romanian_books": {"active": false, "tracking_id": ""}
 }
