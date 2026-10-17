@@ -50,6 +50,8 @@ def validate_professional(root=ROOT):
     for item in profile['evidence']:
         if item['url'].startswith('/') and item['url'] not in local_routes:
             raise ValueError('professional evidence does not resolve to a public source page')
+        if re.search(r'\b(?:\d+|one|two|three|four|five)\s+(?:merged\s+(?:[\w.-]+\s+)?fix(?:es)?|fix(?:es)?|(?:merged\s+)?(?:pull\s+requests?|PRs?))\b', item['detail'], re.I):
+            raise ValueError('executive evidence must lead with judgment, not implementation activity counts')
     business = json.loads((root / '_data/business.json').read_text(encoding='utf-8'))
     slugs = {path.stem[11:] for path in (root / '_posts').glob('*.md')}
     if len({theme['id'] for theme in business['themes']}) != len(business['themes']):

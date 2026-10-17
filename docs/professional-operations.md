@@ -16,6 +16,8 @@ Publish a full introductory strategy essay through the normal post route when ca
 
 ## Reader paths
 
+Executive-facing copy leads with the judgment or capability a reader is assessing: engineering judgment, research-informed AI judgment, and evidence/accountability. Keep PR counts, merge status, bug-fix inventories, benchmark mechanics, and project acronyms in the linked technical work rather than using them as headline credentials on the engagement page or résumé. Abstraction must explain relevance, not inflate a small example into an enterprise outcome or replace precise career facts with generic self-praise. The evidence links remain available for readers who want the detail.
+
 - `/business/`: a decision-led map supported by existing writing. Three lenses: software-led differentiation, AI investment/adoption, and evidence/accountability. `_data/business.json` supplies the lenses, industry questions, and engagement formats.
 - `/work-with-me/`: scoping conversations, evidence, responsibility boundaries, and LinkedIn contact. No implied immediate availability, fixed fees, guaranteed savings, independent-director status, or employer representation.
 - `/resume/`: selected professional record with role sources and papers. `_data/profile.json` is shared by HTML and PDF. The two-page PDF is selective, not a complete history or a vacancy-specific application.

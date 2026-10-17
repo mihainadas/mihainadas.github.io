@@ -36,9 +36,9 @@
     {"title": "TF3-RO-50M: Training Compact Romanian Language Models from Scratch on Synthetic Moral Microfiction", "venue": "arXiv, 2026", "url": "https://arxiv.org/abs/2601.10410", "kind": "Preprint, co-authored"}
   ],
   "evidence": [
-    {"label": "Research programme", "url": "/research/", "detail": "TinyFabulist: controlled generation, literary translation, and compact Romanian models. Public papers, data, and code are linked with their limits."},
-    {"label": "Engineering contributions", "url": "/2026/08/27/three-emulator-bugs.html", "detail": "Three merged 86Box fixes, with distinct regression tests and links to the upstream pull requests. Public engineering evidence, not a client case study."},
-    {"label": "AI decision support", "url": "/2026/10/17/deep-research-needs-evidence-budget.html", "detail": "An evidence-budget design for inspecting research agents. A proposed operating model, not a measured client outcome."}
+    {"label": "Research-informed AI judgment", "url": "/research/", "detail": "Understanding how data, model design, and evaluation shape the strengths and limitations of AI systems."},
+    {"label": "Engineering judgment", "url": "/2026/08/27/three-emulator-bugs.html", "detail": "Diagnosing complex system failures, making assumptions testable, and verifying that changes preserve intended behavior."},
+    {"label": "Evidence and accountability", "url": "/2026/10/17/deep-research-needs-evidence-budget.html", "detail": "Making sources, uncertainty, and the limits of AI-assisted recommendations visible to the people responsible for a decision."}
   ],
   "identities": [
     {"label": "LinkedIn", "url": "https://www.linkedin.com/in/mihainadas"},

@@ -77,6 +77,11 @@ class PlatformTests(unittest.TestCase):
     def test_current_professional_record_passes(self):
         self.assertEqual(validate_professional(self.root)['name'], 'Mihai Dan Nadăș')
 
+    def test_executive_evidence_does_not_lead_with_pr_counts(self):
+        self.update_data('profile', lambda data: data['evidence'][1].update(detail='Three merged 86Box fixes, with distinct regression tests and links to the upstream pull requests.'))
+        with self.assertRaisesRegex(ValueError, 'implementation activity counts'):
+            validate_professional(self.root)
+
     def test_strategy_requires_a_primary_source(self):
         self.update_data('strategy', lambda data: data.update(source=''))
         with self.assertRaisesRegex(ValueError, 'primary source'):
