@@ -1,0 +1,5 @@
+{% assign cover_book = include.book %}
+<div class="book-cover" data-book-cover>
+  <span class="book-cover-fallback" aria-hidden="true"><span>{{ cover_book.title | escape }}</span><small>{{ cover_book.authors | escape }}</small></span>
+  <img src="https://covers.openlibrary.org/b/id/{{ cover_book.cover_id }}-{% if cover_book.featured %}L{% else %}M{% endif %}.jpg?default=false" width="180" height="270" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="Cover of {{ cover_book.title | escape }}" data-cover-image>
+</div>

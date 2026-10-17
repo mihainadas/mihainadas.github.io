@@ -1,0 +1,8 @@
+<div class="book-shops" aria-label="Find {{ include.book.title | escape }}">
+  {% for shop in include.book.shops %}
+    {% assign program = site.data.book_programs[shop.program] %}
+    {% assign paid_link = false %}
+    {% if program.active and shop.affiliate_url and shop.affiliate_url != '' %}{% assign paid_link = true %}{% endif %}
+    <a href="{% if paid_link %}{{ shop.affiliate_url | escape }}{% else %}{{ shop.url | escape }}{% endif %}"{% if paid_link %} rel="sponsored nofollow"{% endif %}>{{ shop.label | escape }}{% if paid_link %} <span>(paid link)</span>{% endif %} ↗</a>
+  {% endfor %}
+</div>

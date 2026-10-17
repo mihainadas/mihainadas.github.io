@@ -22,6 +22,15 @@
     return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
+  document.querySelectorAll("[data-cover-image]").forEach(function (image) {
+    function showFallback() {
+      image.hidden = true;
+      image.closest("[data-book-cover]").classList.add("cover-unavailable");
+    }
+    image.addEventListener("error", showFallback);
+    if (image.complete && image.naturalWidth === 0) { showFallback(); }
+  });
+
   document.querySelectorAll("[data-filter-list]").forEach(function (list) {
     var controls = list.querySelector(".filter-controls");
     var query = controls.querySelector("[data-query]");

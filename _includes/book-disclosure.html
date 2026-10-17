@@ -1,0 +1,13 @@
+{% assign paid_books = false %}
+{% assign amazon_books = false %}
+{% for book in site.data.books %}{% for shop in book.shops %}
+  {% assign program = site.data.book_programs[shop.program] %}
+  {% if program.active and shop.affiliate_url and shop.affiliate_url != '' %}
+    {% assign paid_books = true %}
+    {% if shop.program contains 'amazon_' %}{% assign amazon_books = true %}{% endif %}
+  {% endif %}
+{% endfor %}{% endfor %}
+<aside class="book-disclosure" aria-label="Book links disclosure">
+  {% if paid_books %}<p>Links marked “paid link” may earn a commission if you buy. Selection and criticism are independent of commission.</p>{% else %}<p>No affiliate links are active on this shelf. Shop links are ordinary ISBN searches, not guarantees of stock, price, shipping, or translation availability.</p>{% endif %}
+  {% if amazon_books %}<p>As an Amazon Associate I earn from qualifying purchases.</p>{% endif %}
+</aside>

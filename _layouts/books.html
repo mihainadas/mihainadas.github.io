@@ -1,0 +1,40 @@
+---
+layout: default
+---
+<article class="book-library">
+  <header class="books-heading"><p class="eyebrow">The reading shelf</p><h1>Ideas to<br> <em>work with.</em></h1><div class="books-intro">{{ content }}</div></header>
+  {% include book-disclosure.html %}
+  {% assign book_reviews = site.posts | where: 'post_type', 'book review' %}
+  {% if book_reviews.size > 0 %}
+  <section aria-labelledby="book-reviews-heading"><div class="section-heading"><h2 id="book-reviews-heading">Book reviews</h2><a href="{{ '/feed.xml' | relative_url }}">Follow via RSS →</a></div><div class="post-grid">{% for post in book_reviews %}{% include post-card.html post=post %}{% endfor %}</div></section>
+  {% endif %}
+  <section aria-labelledby="reading-selections-heading">
+    <div class="section-heading"><h2 id="reading-selections-heading">Choose by the question</h2><span class="post-meta">{{ site.data.books.size }} reading selections</span></div>
+    <div class="book-shelf">
+      {% for book in site.data.books %}
+      <article class="book-card{% if book.featured %} book-card--featured{% endif %}" id="{{ book.id }}" data-book-id="{{ book.id }}">
+        <figure class="book-portrait">{% include book-cover.html book=book %}<figcaption><a href="https://openlibrary.org/isbn/{{ book.isbn }}">Cover: Open Library</a></figcaption></figure>
+        <div class="book-card-copy">
+          <p class="eyebrow">{{ book.theme | escape }} · Reading selection</p>
+          <h3>{{ book.question | escape }}</h3>
+          <p class="book-title"><cite>{{ book.title | escape }}</cite><span>{{ book.subtitle | escape }}</span></p>
+          <p class="book-byline">{{ book.authors | escape }}</p>
+          <p>{{ book.summary | escape }}</p>
+          <dl class="book-fit"><div><dt>Read for</dt><dd>{{ book.audience | escape }}</dd></div><div><dt>Before you choose</dt><dd>{{ book.skip | escape }}</dd></div></dl>
+          <details class="book-edition"><summary>Edition &amp; source</summary><p>{{ book.edition | escape }}<br>ISBN {{ book.isbn }}<br><a href="{{ book.source_url | escape }}">{{ book.source_label | escape }} ↗</a></p></details>
+          {% include book-shops.html book=book %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="book-policy" aria-labelledby="book-policy-heading">
+    <h2 id="book-policy-heading">What earns a review</h2>
+    <p>A full review needs more than a useful premise. It should explain the argument, examine a specific passage or example, test where the idea travels into practice, and say where it stops helping. Any personal experience must come from the actual reading, not be inferred from a book's reputation.</p>
+    <p>The selections above use publisher descriptions and contents to judge relevance. They do not assign ratings or claim a full-book assessment. Review copies or other material relationships will be disclosed alongside a review.</p>
+    <h3>Buying from Romania</h3>
+    <p>Amazon Germany is a separate shop from Amazon US; check delivery and language at checkout. You can also search the edition's ISBN at <a href="https://carturesti.ro/">Cărturești</a> or <a href="https://www.libris.ro/">Libris</a>, or ask a library before buying. These are ordinary retailer links, not affiliate links. A Romanian translation, where available, has its own ISBN.</p>
+    <h3>About the covers</h3>
+    <p>Covers identify the selected editions and are embedded using <a href="https://openlibrary.org/dev/docs/api/covers">Open Library's documented cover service</a>. Cover artwork belongs to its respective rights holders. Loading an image contacts Open Library; no referral tag or page referrer is sent with that request. A title card remains if the image is unavailable.</p>
+  </section>
+</article>

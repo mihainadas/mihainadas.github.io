@@ -320,6 +320,58 @@ def audit_editorial_assets(home: str) -> None:
             fail(f"self-hosted font is missing or exceeds 100 KB: {name}")
 
 
+def audit_books(home: str) -> None:
+    books_page = read("books/index.html")
+    library = read("library/index.html")
+    books_data = json.loads((ROOT / "_data/books.json").read_text(encoding="utf-8"))
+    programs = json.loads((ROOT / "_data/book_programs.json").read_text(encoding="utf-8"))
+    if books_page.count('data-book-id=') != len(books_data):
+        fail("books shelf lost or duplicated a selection")
+    if books_page.count('data-cover-image') != len(books_data):
+        fail("books shelf lost its cover images")
+    if any(value not in library for value in ("/books/", "/papers/", "/lab-notebooks/")):
+        fail("Library does not connect all three collections")
+    if '/books/' not in home or 'id="home-books-heading"' not in home:
+        fail("homepage does not expose the reading shelf")
+    paid_count = 0
+    amazon_count = 0
+    from html import unescape
+    anchors = [
+        (unescape(url), attributes, re.sub(r"<[^>]+>", "", unescape(label)))
+        for url, attributes, label in re.findall(r'<a href="([^"]+)"([^>]*)>(.*?)</a>', books_page, re.DOTALL)
+    ]
+    for book in books_data:
+        if f'data-book-id="{book["id"]}"' not in books_page:
+            fail(f"missing reading selection: {book['id']}")
+        size = "L" if book.get("featured") else "M"
+        cover = f'https://covers.openlibrary.org/b/id/{book["cover_id"]}-{size}.jpg?default=false'
+        if cover not in books_page or f'https://openlibrary.org/isbn/{book["isbn"]}' not in books_page:
+            fail(f"missing edition-specific cover or credit: {book['id']}")
+        for shop in book["shops"]:
+            paid = bool(programs[shop["program"]]["active"] and shop["affiliate_url"])
+            expected = shop["affiliate_url"] if paid else shop["url"]
+            matches = [(attrs, label) for url, attrs, label in anchors if url == expected]
+            if len(matches) != 1:
+                fail(f"missing or duplicated shop link: {book['id']} {shop['label']}")
+            attrs, label = matches[0]
+            if paid and ('rel="sponsored nofollow"' not in attrs or '(paid link)' not in label):
+                fail("paid book link lacks sponsored relationship or visible disclosure")
+            paid_count += int(paid)
+            amazon_count += int(paid and shop["program"].startswith("amazon_"))
+    if bool(amazon_count) != ('As an Amazon Associate I earn from qualifying purchases.' in books_page):
+        fail("Amazon disclosure does not match actual live affiliate links")
+    if not paid_count and 'No affiliate links are active' not in books_page:
+        fail("unmonetized shelf lost its truthful link status")
+    for image in re.findall(r'<img\b[^>]*data-cover-image[^>]*>', books_page):
+        if any(value not in image for value in ('width="180"', 'height="270"', 'referrerpolicy="no-referrer"', 'loading="lazy"')):
+            fail("book cover lost dimensions, lazy loading, or referrer protection")
+    if '"@type": "Review"' in books_page or 'aggregateRating' in books_page:
+        fail("reading selections must not masquerade as full reviews or ratings")
+    shelf = next((record for record in json_ld_records("books/index.html", books_page) if record.get("@type") == "ItemList"), None)
+    if not shelf or {entry["item"]["isbn"] for entry in shelf["itemListElement"]} != {book["isbn"] for book in books_data}:
+        fail("book discovery metadata does not match the actual selected editions")
+
+
 def main() -> int:
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
@@ -335,6 +387,7 @@ def main() -> int:
     audit_math_pages()
     audit_editorial_assets(home)
     audit_localized_pages(feed, sitemap)
+    audit_books(home)
 
     issue_numbers = [int(value) for value in re.findall(r'data-issue="(\d+)"', papers)]
     groups = json.loads((ROOT / "_data" / "papers.json").read_text(encoding="utf-8"))

@@ -12,6 +12,11 @@ from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+try:
+    from scripts.check_books import check_books
+except ModuleNotFoundError:
+    from check_books import check_books
+
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTS = ROOT / "_posts"
@@ -566,6 +571,7 @@ def check_figure_system() -> None:
 
 
 def main() -> int:
+    check_books(ROOT, fail)
     check_posts()
     check_localization()
     check_thesis_series()

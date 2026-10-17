@@ -1,4 +1,74 @@
 /* A quiet reading surface with a more expressive editorial front door. */
+.books-heading { display: grid; grid-template-columns: 1fr 1.35fr; column-gap: 4rem; align-items: start; margin: 1rem 0 2rem; }
+.books-heading > .eyebrow { grid-column: 1 / -1; }
+.books-heading h1 { font-family: Newsreader, Georgia, serif; font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 450; letter-spacing: -0.04em; line-height: 1; }
+.books-heading h1 em { color: var(--accent); font-weight: inherit; }
+.books-intro { max-width: 64ch; font-size: 0.98rem; }
+.books-intro p { margin-bottom: 1rem; }
+.book-disclosure { border-left: 2px solid var(--accent); padding-left: 1rem; font-size: 0.8rem; color: var(--muted); margin: 1.5rem 0 3rem; max-width: 85ch; }
+.book-disclosure p { margin-bottom: 0.4rem; }
+.book-shelf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+.book-card { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 1.4rem; padding-top: 2rem; border-top: 1px solid var(--line-strong); scroll-margin-top: 7rem; }
+.book-card--featured { grid-column: 1 / -1; grid-template-columns: 240px minmax(0, 1fr); gap: 3rem; padding: 2.5rem; background: var(--surface); border: 1px solid var(--line); }
+.book-portrait { margin: 0; min-width: 0; }
+.book-cover { position: relative; aspect-ratio: 2 / 3; display: grid; place-items: center; }
+.book-cover img { position: relative; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(4px 7px 7px rgba(0, 0, 0, 0.2)); }
+.book-cover img[hidden] { display: none; }
+.book-cover-fallback { position: absolute; inset: 0; padding: 1rem; background: var(--paper); border: 1px solid var(--line); display: none; flex-direction: column; justify-content: space-between; gap: 1rem; font-family: Newsreader, Georgia, serif; font-size: 1rem; }
+.cover-unavailable .book-cover-fallback { display: flex; }
+.book-cover-fallback small { font: 0.6rem/1.5 Manrope, sans-serif; }
+.book-portrait figcaption { font-size: 0.7rem; color: var(--muted); margin-top: 1rem; text-align: center; }
+.book-portrait a { color: var(--muted); }
+.book-card-copy { min-width: 0; }
+.book-card .eyebrow { font-size: 0.66rem; margin-bottom: 0.8rem; }
+.book-card h3 { font: 450 clamp(1.7rem, 2.6vw, 2.2rem)/1.08 Newsreader, Georgia, serif; letter-spacing: -0.03em; margin: 0 0 1rem; text-wrap: balance; }
+.book-card--featured h3 { font-size: clamp(2rem, 3.7vw, 3rem); max-width: 20ch; }
+.book-title { font-size: 1rem; font-weight: 650; margin-bottom: 0.3rem; }
+.book-title cite { font-style: normal; }
+.book-title span { display: block; font-size: 0.78rem; font-weight: 450; color: var(--muted); }
+.book-byline { font-size: 0.8rem; color: var(--muted); }
+.book-card-copy > p:not(.book-title):not(.eyebrow):not(.book-byline) { font-size: 0.88rem; }
+.book-fit { margin: 1rem 0; font-size: 0.78rem; }
+.book-fit div + div { margin-top: 0.7rem; }
+.book-fit dt { font-weight: 700; }
+.book-fit dd { margin-left: 0; color: var(--copy-muted); }
+.book-edition { font-size: 0.74rem; margin-top: 1rem; }
+.book-edition summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; text-decoration: underline; text-underline-offset: 0.2em; }
+.book-edition summary::before { content: '+'; padding-right: 0.5rem; }
+.book-edition[open] summary::before { content: '−'; }
+.book-edition p { margin: 0.5rem 0 1rem; }
+.book-shops { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; }
+.book-shops a { min-height: 44px; display: inline-flex; align-items: center; font-size: 0.8rem; gap: 0.3rem; }
+.book-policy { margin-top: 4rem; max-width: 72ch; }
+.book-policy p { font-size: 0.88rem; }
+.book-policy h3 { margin-top: 1.7rem; font-size: 1rem; }
+.review-book { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 1.8rem; border-block: 1px solid var(--line); padding: 1.5rem 0; margin: 2rem 0; font-size: 0.8rem; }
+.home-books { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; border-top: 1px solid var(--ink); padding-top: 2.5rem; margin-top: 3rem; }
+.home-books h2 { font: 450 2.8rem/1.06 Newsreader, Georgia, serif; letter-spacing: -0.03em; }
+.home-books > div > p:not(.eyebrow) { max-width: 48ch; font-size: 0.9rem; }
+.home-books > div > a { font-size: 0.85rem; }
+.home-books ol { list-style: none; margin: 0; }
+.home-books li { border-bottom: 1px solid var(--line); padding: 0.8rem 0; }
+.home-books li:first-child { padding-top: 0; }
+.home-books li > span { display: block; color: var(--muted); font-size: 0.62rem; margin-bottom: 0.25rem; }
+.home-books li > a { font-size: 0.95rem; }
+.home-books li p { font-size: 0.78rem; margin: 0.3rem 0 0; color: var(--copy-muted); }
+@media (max-width: 960px) {
+  .book-shelf { grid-template-columns: 1fr; }
+  .book-card { grid-template-columns: 150px minmax(0, 1fr); gap: 2rem; }
+  .book-card--featured { grid-template-columns: 190px minmax(0, 1fr); padding: 1.5rem; }
+}
+@media (max-width: 640px) {
+  .books-heading, .home-books { grid-template-columns: 1fr; gap: 1rem; }
+  .books-heading h1 { margin-bottom: 0.8rem; }
+  .book-card, .book-card--featured { grid-template-columns: 1fr; padding: 1.5rem 0; gap: 1.5rem; }
+  .book-card--featured { padding: 1.2rem; }
+  .book-portrait { width: 145px; }
+  .book-card--featured .book-portrait { width: 170px; }
+  .book-shelf { gap: 0.5rem; }
+  .home-books { gap: 2rem; }
+  .review-book { grid-template-columns: 1fr; }
+}
 @font-face {
   font-family: Manrope;
   src: url("fonts/manrope-latin.woff2") format("woff2");

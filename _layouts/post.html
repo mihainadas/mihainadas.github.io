@@ -8,6 +8,7 @@ layout: default
     {% assign post_section = '/research/' %}{% assign post_section_title = 'Research' %}
     {% if page.post_type == 'engineering note' %}{% assign post_section = '/engineering/' %}{% assign post_section_title = 'Engineering' %}{% endif %}
     {% if page.series == 'applied-paper-notes' %}{% assign post_section = '/papers/' %}{% assign post_section_title = 'Applied Papers' %}{% endif %}
+    {% if page.post_type == 'book review' %}{% assign post_section = '/books/' %}{% assign post_section_title = 'Books' %}{% endif %}
     <a class="section-back" href="{{ post_section | relative_url }}">← {{ post_section_title }}</a>
     <p class="post-meta">
       {% if page.post_type %}{{ page.post_type }} · {% endif %}
@@ -26,6 +27,7 @@ layout: default
     {% include language-note.html %}
   </header>
 
+  {% if page.post_type == 'book review' %}{% include book-review-meta.html %}{% endif %}
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>

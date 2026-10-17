@@ -76,6 +76,19 @@
     "author": {"@id": {{ person_id | jsonify }}}
   }</script>
   {% endif %}
+  {% if page.layout == 'books' %}
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Books: reading selections",
+    "itemListElement": [{% for book in site.data.books %}
+      {"@type": "ListItem", "position": {{ forloop.index }}, "item": {
+        "@type": "Book", "name": {{ book.title | jsonify }}, "isbn": {{ book.isbn | jsonify }},
+        "inLanguage": "en", "url": {{ '/books/' | absolute_url | append: '#' | append: book.id | jsonify }}
+      }}{% unless forloop.last %},{% endunless %}{% endfor %}
+    ]
+  }</script>
+  {% endif %}
   {% assign asset_version = site.github.build_revision %}
   {% unless asset_version %}{% assign asset_version = site.time | date: '%s' %}{% endunless %}
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}?v={{ asset_version }}">

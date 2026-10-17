@@ -6,6 +6,7 @@
 {% elsif page.url == '/lab-notebooks/' %}
   {% assign section_url = '/engineering/' %}
 {% endif %}
+{% if page.url == '/books/' or page.url == '/papers/' or page.url == '/lab-notebooks/' or page.series == 'applied-paper-notes' or page.post_type == 'book review' %}{% assign section_url = '/library/' %}{% endif %}
 <header class="site-header" role="banner">
   <div class="wrapper header-inner">
     <a class="site-title" rel="author" href="{{ language_home | relative_url }}">
@@ -23,7 +24,6 @@
             {% assign nav_page = site.pages | where: "path", path | first %}
             {% if nav_page.title %}<a class="page-link" href="{{ nav_page.url | relative_url }}"{% if nav_page.url == section_url %} aria-current="{% if page.url == nav_page.url %}page{% else %}true{% endif %}"{% endif %}>{{ nav_page.nav_title | default: nav_page.title }}</a>{% endif %}
           {% endfor %}
-          <a class="page-link mobile-resource" href="{{ '/lab-notebooks/' | relative_url }}">Notebooks</a>
           {% endif %}
           <a class="page-link mobile-resource" href="{{ alternate_url | relative_url }}" lang="{{ ui.switch_lang }}" hreflang="{{ ui.switch_lang }}">{{ ui.switch }}</a>
         </nav>

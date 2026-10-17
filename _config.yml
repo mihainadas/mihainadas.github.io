@@ -16,7 +16,7 @@ show_excerpts: true
 header_pages:
   - engineering.md
   - research.md
-  - papers.md
+  - library.md
   - archive.md
   - about.md
 
@@ -44,3 +44,4 @@ exclude:
   - scripts
   - vendor
   - assets/editorial/README.md
+  - docs

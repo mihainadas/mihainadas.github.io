@@ -1,0 +1,6 @@
+{% assign reviewed_book = site.data.books | where: 'id', page.book_id | first %}
+<aside class="review-book" aria-label="Book under review">
+  <figure class="book-portrait">{% include book-cover.html book=reviewed_book %}<figcaption><a href="https://openlibrary.org/isbn/{{ reviewed_book.isbn }}">Cover: Open Library</a></figcaption></figure>
+  <div><p class="eyebrow">Book under review</p><p class="book-title"><cite>{{ reviewed_book.title | escape }}</cite></p><p>{{ reviewed_book.authors | escape }}<br>{{ reviewed_book.edition | escape }} · ISBN {{ reviewed_book.isbn }}</p><p>Reading basis: {{ page.reading_basis | escape }}. {{ page.material_relationship | escape }}</p><a href="{{ reviewed_book.source_url | escape }}">Publisher &amp; edition ↗</a>{% include book-shops.html book=reviewed_book %}</div>
+</aside>
+{% include book-disclosure.html %}

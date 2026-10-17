@@ -1,0 +1,108 @@
+[
+  {
+    "id": "thinking-in-systems",
+    "title": "Thinking in Systems",
+    "subtitle": "A Primer",
+    "authors": "Donella H. Meadows; edited by Diana Wright",
+    "edition": "Paperback, 2008",
+    "isbn": "9781603580557",
+    "theme": "Systems & decisions",
+    "question": "What keeps recreating the problem?",
+    "summary": "Meadows introduces stocks, flows, feedback, and delays. For a technology team, the useful reading question is how those structures might explain recurring backlogs or repeated interventions. That is an application to investigate, not evidence that a diagram will solve an operating problem.",
+    "audience": "Leaders and engineers facing a problem that returns after each local fix.",
+    "skip": "Choose something else if you need a step-by-step process-improvement manual.",
+    "source_url": "https://www.penguinrandomhouse.com/books/801035/thinking-in-systems-by-donella-meadows/",
+    "source_label": "Publisher description & edition",
+    "cover_id": 8166043,
+    "cover_checked": "2026-10-17",
+    "featured": true,
+    "shops": [
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781603580557", "affiliate_url": ""},
+      {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9781603580557", "affiliate_url": ""}
+    ]
+  },
+  {
+    "id": "scaling-people",
+    "title": "Scaling People",
+    "subtitle": "Tactics for Management and Company Building",
+    "authors": "Claire Hughes Johnson",
+    "edition": "Hardcover, 2023",
+    "isbn": "9781953953216",
+    "theme": "Technical leadership",
+    "question": "Which decisions still depend on you being in the room?",
+    "summary": "Hughes Johnson turns company building into explicit practices for hiring, feedback, and team development. The publisher also provides companion worksheets. The question for a technical leader is which practices would clarify ownership without adding another layer of process.",
+    "audience": "Managers whose teams have outgrown informal coordination.",
+    "skip": "Less relevant if your immediate problem is software architecture rather than organizational design.",
+    "source_url": "https://press.stripe.com/scaling-people",
+    "source_label": "Publisher & companion materials",
+    "cover_id": 13555875,
+    "cover_checked": "2026-10-17",
+    "shops": [
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781953953216", "affiliate_url": ""},
+      {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9781953953216", "affiliate_url": ""}
+    ]
+  },
+  {
+    "id": "working-in-public",
+    "title": "Working in Public",
+    "subtitle": "The Making and Maintenance of Open Source Software",
+    "authors": "Nadia Eghbal",
+    "edition": "Paperback, 2020",
+    "isbn": "9780578675862",
+    "theme": "Engineering & maintenance",
+    "question": "Who maintains the software everyone depends on?",
+    "summary": "Eghbal examines open-source production through the people doing the maintenance. Bring a dependency list to this reading: the business question is where sustained work comes from when software is freely available but its upkeep is not free.",
+    "audience": "Engineering leaders, maintainers, and teams making open-source dependency decisions.",
+    "skip": "Choose a security or licensing reference if you need a compliance checklist.",
+    "source_url": "https://press.stripe.com/working-in-public",
+    "source_label": "Publisher description",
+    "cover_id": 10290182,
+    "cover_checked": "2026-10-17",
+    "shops": [
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9780578675862", "affiliate_url": ""},
+      {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9780578675862", "affiliate_url": ""}
+    ]
+  },
+  {
+    "id": "nlp-with-transformers",
+    "title": "Natural Language Processing with Transformers",
+    "subtitle": "Building Language Applications with Hugging Face",
+    "authors": "Lewis Tunstall, Leandro von Werra, and Thomas Wolf",
+    "edition": "First edition, 2022; print ISBN below",
+    "isbn": "9781098103248",
+    "theme": "Applied machine learning",
+    "question": "Can you evaluate the whole language-model pipeline?",
+    "summary": "The workflow spans datasets, tokenization, training, and evaluation. It belongs here for readers moving from calling a model to understanding the surrounding system. The publisher's linked revised edition has a separate digital ISBN; match the edition before buying.",
+    "audience": "Python practitioners building and inspecting language applications.",
+    "skip": "The 2022 examples are not a guide to the latest library APIs. Check the accompanying code and current documentation before running them.",
+    "source_url": "https://www.oreilly.com/library/view/natural-language-processing/9781098136789/",
+    "source_label": "Publisher contents (revised edition)",
+    "cover_id": 14559602,
+    "cover_checked": "2026-10-17",
+    "shops": [
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781098103248", "affiliate_url": ""},
+      {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9781098103248", "affiliate_url": ""}
+    ]
+  },
+  {
+    "id": "machine-learning-pytorch-scikit-learn",
+    "title": "Machine Learning with PyTorch and Scikit-Learn",
+    "subtitle": "Develop machine learning and deep learning models with Python",
+    "authors": "Sebastian Raschka, Yuxi Liu, and Vahid Mirjalili",
+    "edition": "First edition, 2022",
+    "isbn": "9781801819312",
+    "theme": "Applied machine learning",
+    "question": "What should you check before adding model complexity?",
+    "summary": "A broad route through classical and neural methods, with preprocessing and model evaluation in the same workflow. Read it with a baseline to improve, rather than treating every new model family as a reason to replace what already works.",
+    "audience": "Python readers who want a bridge from classical machine learning to neural models.",
+    "skip": "Not the shortest route for a nontechnical executive. Library versions also need checking against this 2022 edition.",
+    "source_url": "https://www.packtpub.com/en-ie/product/machine-learning-with-pytorch-and-scikit-learn-9781801819312",
+    "source_label": "Publisher contents & edition",
+    "cover_id": 14758534,
+    "cover_checked": "2026-10-17",
+    "shops": [
+      {"label": "Amazon US", "program": "amazon_us", "url": "https://www.amazon.com/s?k=9781801819312", "affiliate_url": ""},
+      {"label": "Amazon Germany", "program": "amazon_de", "url": "https://www.amazon.de/s?k=9781801819312", "affiliate_url": ""}
+    ]
+  }
+]

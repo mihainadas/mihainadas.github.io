@@ -10,6 +10,7 @@
       <a href="https://www.linkedin.com/in/mihainadas" rel="me">LinkedIn</a>
       <a href="https://orcid.org/0009-0003-3467-3262" rel="me">ORCID</a>
       <a href="{{ '/lab-notebooks/' | relative_url }}">{{ ui.notebooks }}</a>
+      <a href="{{ '/books/' | relative_url }}">{% if current_lang == 'ro' %}Cărți (EN){% else %}Books{% endif %}</a>
       <a href="{{ '/feed.xml' | relative_url }}">{{ ui.feed }}</a>
       <a href="{{ alternate_url | relative_url }}" lang="{{ ui.switch_lang }}" hreflang="{{ ui.switch_lang }}">{{ ui.switch }}</a>
     </nav>

@@ -95,6 +95,11 @@ layout: default
     </div>
   </section>
 
+  <section class="home-books" aria-labelledby="home-books-heading">
+    <div><p class="eyebrow">The reading shelf</p><h2 id="home-books-heading">A better question<br>for the next decision.</h2><p>Systems, technical leadership, and machine learning. A small shelf organized around the problems a book might help you think through.</p><a href="{{ '/books/' | relative_url }}">Explore the books →</a></div>
+    <ol>{% for book in site.data.books limit:3 %}<li><span>{{ book.theme | escape }}</span><a href="{{ '/books/' | relative_url }}#{{ book.id }}">{{ book.title | escape }}</a><p>{{ book.question | escape }}</p></li>{% endfor %}</ol>
+  </section>
+
   <section class="latest" aria-labelledby="latest-heading">
     <h2 id="latest-heading">Project chronology</h2>
     <ol class="post-list">
