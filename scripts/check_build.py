@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -11,10 +12,12 @@ from zoneinfo import ZoneInfo
 from html.parser import HTMLParser
 from pathlib import Path
 from html import escape
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "_site"
+CONFIG_OVERRIDE = None
 POSTS = ROOT / "_posts"
 MATHJAX_SOURCE = "https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"
 THESIS_POSTS = (
@@ -157,6 +160,46 @@ def front_matter_value(text: str, key: str) -> str | None:
     return match.group(1).strip("\"'") if match else None
 
 
+def site_origin() -> str:
+    """Use the production Jekyll origin, not a hostname copied into tests."""
+    config = CONFIG_OVERRIDE or ROOT / '_config.yml'
+    value = front_matter_value(config.read_text(encoding='utf-8'), 'url') or ''
+    parts = urlsplit(value)
+    if (parts.scheme != 'https' or not parts.hostname or parts.username or parts.password
+            or parts.port or parts.path not in ('', '/') or parts.query or parts.fragment):
+        fail('production site.url must be a bare HTTPS origin')
+    return value.rstrip('/')
+
+
+def audit_canonical_origin() -> None:
+    """Reject a stale deployment host without banning valid outbound links."""
+    origin = site_origin()
+    for document in SITE.rglob('*.html'):
+        metadata = LanguageMetadata()
+        metadata.feed(document.read_text(encoding='utf-8'))
+        if len(metadata.canonicals) != 1 or not metadata.canonicals[0].startswith(origin + '/'):
+            fail(f'generated page has a stale or missing canonical origin: {document.relative_to(SITE)}')
+    sitemap = ET.fromstring(read('sitemap.xml'))
+    for location in sitemap.findall('{*}url/{*}loc'):
+        if not (location.text or '').startswith(origin + '/'):
+            fail('sitemap contains a stale site origin')
+    if f'Sitemap: {origin}/sitemap.xml' not in read('robots.txt'):
+        fail('robots.txt advertises the wrong sitemap origin')
+    feed = ET.fromstring(read('feed.xml'))
+    atom = '{http://www.w3.org/2005/Atom}'
+    config = (ROOT / '_config.yml').read_text(encoding='utf-8')
+    identity_origin = front_matter_value(config, 'feed_identity_url') or origin
+    for identity in feed.iter(atom + 'id'):
+        if not (identity.text or '').startswith(identity_origin + '/'):
+            fail('Atom identity changed during a domain migration')
+    for node in feed.iter(atom + 'link'):
+        if node.get('rel') in ('self', 'alternate') and not node.get('href', '').startswith(origin + '/'):
+            fail('feed discovery or article link contains a stale site origin')
+    for content in feed.iter(atom + 'content'):
+        if not content.get('{http://www.w3.org/XML/1998/namespace}base', '').startswith(origin + '/'):
+            fail('feed content uses a stale site origin')
+
+
 def published_sources() -> list[tuple[datetime, Path, str]]:
     """Use front-matter dates, not filename order, and omit future/draft posts."""
     now = datetime.now(ZoneInfo("Europe/Bucharest"))
@@ -255,7 +298,7 @@ def audit_localized_pages(feed: str, sitemap: str) -> None:
         original_text = original.read_text(encoding="utf-8")
         english_url = front_matter_value(source_text, "translation_source_url")
         romanian_url = front_matter_value(source_text, "permalink")
-        alternates = {"en": "https://mihainadas.github.io" + english_url, "ro": "https://mihainadas.github.io" + romanian_url}
+        alternates = {"en": site_origin() + english_url, "ro": site_origin() + romanian_url}
         for lang, url in (("en", english_url), ("ro", romanian_url)):
             relative = url.lstrip("/") + ("index.html" if url.endswith("/") else "")
             rendered = read(relative)
@@ -276,7 +319,7 @@ def audit_localized_pages(feed: str, sitemap: str) -> None:
             if alternates["ro"] in feed:
                 fail("Romanian edition was duplicated in the English feed")
     landing = read("ro/index.html")
-    audit_localized_html(landing, "ro", "https://mihainadas.github.io/ro/", {})
+    audit_localized_html(landing, "ro", site_origin() + "/ro/", {})
     if len(notes) < 2 or any(escape(title, quote=False) not in landing for title in notes):
         fail("Romanian landing page lost a published edition")
 
@@ -407,7 +450,7 @@ def audit_professional_platform(home: str) -> None:
         if escape(role['organization'], quote=False) not in resume or escape(role['period'], quote=False) not in resume:
             fail('professional record does not render the selected career data')
     record = next((item for item in json_ld_records('resume/index.html', resume) if item.get('@type') == 'ProfilePage'), None)
-    if not record or record.get('mainEntity', {}).get('@id') != 'https://mihainadas.github.io/#mihai-nadas':
+    if not record or record.get('mainEntity', {}).get('@id') != site_origin() + '/#mihai-nadas':
         fail('resume metadata is not connected to the canonical public identity')
     original = ROOT / 'assets/downloads/mihai-nadas-resume.pdf'
     rendered = SITE / 'assets/downloads/mihai-nadas-resume.pdf'
@@ -417,6 +460,7 @@ def audit_professional_platform(home: str) -> None:
 
 def main() -> int:
     audit_unpublished_guidance()
+    audit_canonical_origin()
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
     about = read("about/index.html")
@@ -557,12 +601,13 @@ def main() -> int:
         judge_entry = atom_entry(feed, "The Panel Was Weak on Items and Useful for Ranking Systems")
         if "<published>2026-08-27T09:11:56+03:00</published>" not in judge_entry:
             fail("feed publishes the judge retrospective under its event date")
-    for url in (
-        "https://mihainadas.github.io/engineering/",
-        "https://mihainadas.github.io/2026/08/27/three-emulator-bugs.html",
-        "https://mihainadas.github.io/papers/",
-        "https://mihainadas.github.io/2026/10/17/deep-research-needs-evidence-budget.html",
+    for route in (
+        "/engineering/",
+        "/2026/08/27/three-emulator-bugs.html",
+        "/papers/",
+        "/2026/10/17/deep-research-needs-evidence-budget.html",
     ):
+        url = site_origin() + route
         if sitemap.count(url) != 1:
             fail(f"sitemap does not contain {url} exactly once")
 
@@ -574,7 +619,7 @@ def main() -> int:
             fail(f"thesis-series navigation missing in {relative}")
         if audit_figures(relative, rendered) != 1:
             fail(f"thesis-series figure missing or duplicated in {relative}")
-        public_url = f"https://mihainadas.github.io/{relative}"
+        public_url = f"{site_origin()}/{relative}"
         if sitemap.count(public_url) != 1:
             fail(f"sitemap does not contain {public_url} exactly once")
         if title not in research:
@@ -604,4 +649,12 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--site-dir', type=Path, help='Inspect an isolated preview build instead of _site')
+    parser.add_argument('--config', type=Path, help='Expected URL configuration for an isolated preview build')
+    arguments = parser.parse_args()
+    if arguments.site_dir:
+        SITE = arguments.site_dir.resolve()
+    if arguments.config:
+        CONFIG_OVERRIDE = arguments.config.resolve()
     sys.exit(main())

@@ -65,6 +65,8 @@ Kramdown consumes a backslash before punctuation such as `#`, `{`, `}`, `!`, and
 
 ## Homepage and discovery
 
+For a coordinated custom-domain change, follow [the cutover guide](docs/domain-migration.md). Keep the working production origin until DNS access, ownership verification, repository changes, and rollback are ready. The generated-site checks derive their expected origin from `_config.yml`; isolated previews can use `--site-dir` and a URL-only `--config` override without changing the live site. Preserve `feed_identity_url`: stable Atom identifiers are distinct from the discovery and article links that should move with the public hostname.
+
 The homepage derives its latest note, recent cards, chronology, and field-note count from published posts. `_data/threads.yml` maps the three homepage threads to existing `post_type` values. Optional `home_summary` overrides a post's `description`; publishing does not require duplicate homepage metadata. `featured: true` retains curated entry points independently of recent work.
 
 `_data/now.yml` is the source for the homepage focus and About-page operating roles. Review its contents before changing `reviewed`; that date records a human content review rather than a deployment. CI warns after 45 days without preventing unrelated publication. `_data/papers.json` supplies the five-theme paper map and paper count. `_data/notebooks.json` supplies the notebook collection and count. Keep new paper IDs unique and retain the original 88 records.
