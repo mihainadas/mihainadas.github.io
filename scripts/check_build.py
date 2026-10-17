@@ -606,17 +606,39 @@ def audit_brand_header(text: str, lang: str) -> None:
         fail('navigation must remain available without JavaScript')
 
 
+def audit_favicon(markup: str) -> None:
+    """The tab icon uses the signature stroke, not the retired monogram."""
+    audit_brand_symbol(markup, ['M2 28L10 4'])
+    root = ET.fromstring(markup)
+    children = list(root)
+    if root.get('viewBox') != '0 0 64 64' or root.get('aria-label') != 'Mihai Nadăș, forward stroke' or len(children) != 2:
+        fail('favicon must retain its square canvas and accessible identity')
+    background, group = children
+    if background.tag.rsplit('}', 1)[-1] != 'rect' or dict(background.attrib) != {'width': '64', 'height': '64', 'rx': '12', 'fill': '#0b0f10'}:
+        fail('favicon needs its fixed charcoal rounded-square background')
+    if group.tag.rsplit('}', 1)[-1] != 'g' or dict(group.attrib) != {'transform': 'translate(23 8) scale(1.5)', 'fill': 'none', 'stroke-width': '4', 'stroke-linecap': 'square'}:
+        fail('favicon stroke must keep its centered small-size geometry')
+    if len(group) != 1 or dict(group[0].attrib) != {'d': 'M2 28L10 4', 'stroke': '#ed9478'}:
+        fail('favicon must contain one static vermilion stroke')
+
+
 def audit_shared_brand() -> None:
-    for relative in ('assets/brand/nadas-mark.svg', 'assets/brand/nadas-mark-inverse.svg', 'assets/brand/nadas-mark-mono.svg', 'assets/favicon.svg'):
+    for relative in ('assets/brand/nadas-mark.svg', 'assets/brand/nadas-mark-inverse.svg', 'assets/brand/nadas-mark-mono.svg'):
         audit_brand_symbol(read(relative))
         if read(relative) != (ROOT / relative).read_text(encoding='utf-8'):
             fail(f'brand export not published intact: {relative}')
+    favicon = read('assets/favicon.svg')
+    audit_favicon(favicon)
+    if favicon != (ROOT / 'assets/favicon.svg').read_text(encoding='utf-8'):
+        fail('favicon not published intact')
     for document in SITE.rglob('*.html'):
         text = document.read_text(encoding='utf-8')
         if 'class="site-footer h-card"' not in text:
             continue
         language = re.search(r'<html[^>]+lang="([^"]+)"', text)
         audit_brand_header(text, language[1] if language else '')
+        if not re.search(r'<link rel="icon" type="image/svg\+xml" href="/assets/favicon\.svg\?v=[^"\s]+">', text):
+            fail('page is missing the versioned shared favicon')
 
 
 def audit_analytics() -> None:

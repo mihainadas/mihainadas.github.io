@@ -4,7 +4,7 @@ from io import StringIO
 import unittest
 from pathlib import Path
 
-from scripts.check_build import audit_brand_header, audit_brand_symbol
+from scripts.check_build import audit_brand_header, audit_brand_symbol, audit_favicon
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -87,8 +87,22 @@ class BrandTests(unittest.TestCase):
         self.assertNotIn('stroke-pixel', (ROOT / 'assets/site.js').read_text())
 
     def test_all_exports_share_the_geometry(self):
-        for path in [ROOT / '_includes/brand-mark.html', ROOT / 'assets/favicon.svg', *sorted((ROOT / 'assets/brand').glob('*.svg'))]:
+        for path in [ROOT / '_includes/brand-mark.html', *sorted((ROOT / 'assets/brand').glob('*.svg'))]:
             audit_brand_symbol(path.read_text())
+
+    def test_favicon_reuses_the_signature_stroke(self):
+        audit_favicon((ROOT / 'assets/favicon.svg').read_text())
+
+    def test_favicon_rejects_monogram_and_small_size_drift(self):
+        icon = (ROOT / 'assets/favicon.svg').read_text()
+        for changed in (icon.replace('M2 28L10 4', 'M7 7L25 25'), icon.replace('stroke-width="4"', 'stroke-width="2"'), icon.replace('translate(23 8)', 'translate(30 8)'), icon.replace('#0b0f10', '#ffffff'), icon.replace('#ed9478', '#000000')):
+            with self.subTest(changed=changed), redirect_stderr(StringIO()), self.assertRaises(SystemExit):
+                audit_favicon(changed)
+
+    def test_favicon_rejects_active_content(self):
+        icon = (ROOT / 'assets/favicon.svg').read_text().replace('</svg>', '<animate/></svg>')
+        with redirect_stderr(StringIO()), self.assertRaises(SystemExit):
+            audit_favicon(icon)
 
     def test_export_geometry_drift_is_rejected(self):
         markup = (ROOT / 'assets/brand/nadas-mark.svg').read_text().replace('M7 7L25 25', 'M7 7L24 24')

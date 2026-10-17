@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mihai Nadăș, folded N">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mihai Nadăș, forward stroke">
   <rect width="64" height="64" rx="12" fill="#0b0f10"/>
-  <g transform="translate(8 8) scale(1.5)" fill="none" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter">
-    <path d="M7 25V7M25 7V25" stroke="#f2f0e8"/>
-    <path d="M7 7L25 25" stroke="#ed9478"/>
+  <g transform="translate(23 8) scale(1.5)" fill="none" stroke-width="4" stroke-linecap="square">
+    <path d="M2 28L10 4" stroke="#ed9478"/>
   </g>
 </svg>
