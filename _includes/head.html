@@ -105,6 +105,6 @@
   <script src="{{ '/assets/site.js' | relative_url }}?v={{ asset_version }}" defer></script>
   {% if page.math %}{% include mathjax.html %}{% endif %}
   {% include analytics.html %}
-  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}?v={{ asset_version }}">
   {%- feed_meta -%}
 </head>

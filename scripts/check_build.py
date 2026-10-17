@@ -521,6 +521,38 @@ def audit_professional_platform(home: str) -> None:
         fail('generated site does not contain the current resume PDF')
 
 
+def audit_brand_header(text: str, lang: str) -> None:
+    """The shared identity stays live, legible text with a localized home link."""
+    expected = {
+        'en': ('/', 'Strategy, technology & AI'),
+        'ro': ('/ro/', 'Strategie, tehnologie și IA'),
+    }
+    if lang not in expected:
+        fail(f'unsupported masthead language: {lang}')
+    home, descriptor = expected[lang]
+    header = re.search(r'<header class="site-header".*?</header>', text, re.DOTALL)
+    title = re.search(r'<a class="site-title"[^>]*href="([^"]+)"[^>]*>(.*?)</a>', header.group() if header else '', re.DOTALL)
+    if not title or title[1] != home:
+        fail('masthead must link to its language homepage')
+    for class_name, value in (('brand-name', 'Mihai Nadăș'), ('brand-descriptor', descriptor)):
+        parts = re.findall(rf'<span class="{class_name}">(.*?)</span>', title[2], re.DOTALL)
+        if len(parts) != 1 or unescape(parts[0]).strip() != value:
+            fail(f'masthead lost its live localized {class_name}')
+    if re.search(r'<(?:img|svg)\b|site-mark', title[2]):
+        fail('masthead must not replace the name with artwork or restore the old publication suffix')
+    if '<details class="navigation" open>' not in header.group():
+        fail('navigation must remain available without JavaScript')
+
+
+def audit_shared_brand() -> None:
+    for document in SITE.rglob('*.html'):
+        text = document.read_text(encoding='utf-8')
+        if 'class="site-footer h-card"' not in text:
+            continue
+        language = re.search(r'<html[^>]+lang="([^"]+)"', text)
+        audit_brand_header(text, language[1] if language else '')
+
+
 def audit_analytics() -> None:
     """Release builds retain one guarded loader and an accessible disclosure."""
     expected = int(site_origin() == 'https://nadas.ro')
@@ -552,6 +584,7 @@ def main() -> int:
     audit_unpublished_guidance()
     audit_canonical_origin()
     audit_analytics()
+    audit_shared_brand()
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
     about = read("about/index.html")

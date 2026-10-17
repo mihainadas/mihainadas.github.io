@@ -1,4 +1,5 @@
 en:
+  brand_descriptor: Strategy, technology & AI
   menu: Menu
   skip: Skip to content
   content: Content
@@ -23,6 +24,7 @@ en:
   og_locale: en_US
   image_alt: "Mihai Nadăș: field notes on engineering, AI research, and applied papers."
 ro:
+  brand_descriptor: Strategie, tehnologie și IA
   menu: Meniu
   skip: Sari la conținut
   content: Conținut

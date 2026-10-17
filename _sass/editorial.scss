@@ -91,13 +91,50 @@
   font-display: swap;
 }
 
-.site-title { font-family: Newsreader, Georgia, serif; font-size: 1.3rem; font-weight: 600; }
-.site-mark { font-family: Manrope, sans-serif; font-size: 0.78rem; margin-left: 0.25rem; }
+.brand-name {
+  font-family: Newsreader, Georgia, serif;
+  font-size: 1.95rem;
+  font-weight: 550;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+.brand-name::after {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-left: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.brand-descriptor {
+  font-family: Manrope, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 550;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copy-muted);
+}
 .site-header { border-top: 3px solid var(--ink); }
 .site-nav .page-link { font-weight: 550; }
 .header-language { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.8rem; color: var(--ink); text-decoration: none; }
 .header-language:visited { color: var(--ink); }
 .header-language:hover { color: var(--accent); }
+@media (max-width: 880px) {
+  .header-language { display: none; }
+}
+@media (max-width: 480px) {
+  .brand-name { font-size: 1.7rem; }
+  .brand-descriptor { font-size: 0.625rem; letter-spacing: 0.05em; }
+  .header-inner { gap: 0.5rem; }
+  .header-actions { gap: 0.6rem; }
+}
+@media (max-width: 359px) {
+  .brand-name { font-size: 1.5rem; }
+  .brand-descriptor { font-size: 0.5625rem; letter-spacing: 0.035em; }
+  .header-actions { gap: 0.4rem; }
+}
 .language-note { font-size: 0.82rem; color: var(--muted); margin: 1rem 0 0; }
 .edition-note { font-size: 0.76rem; color: var(--muted); max-width: 64ch; margin: 0.8rem 0 0; }
 .reader-feedback { border-top: 1px solid var(--line); max-width: 72ch; padding-top: 1.5rem; margin-top: 3rem; }
@@ -230,8 +267,6 @@
   .research-feature h2 { font-size: 3rem; }
 }
 @media (max-width: 640px) {
-  .header-language { display: none; }
-  .site-title { font-size: 1.2rem; }
   .hero { padding-top: 0; }
   .hero .eyebrow { font-size: 0.57rem; }
   .hero h1 { font-size: clamp(2.9rem, 12.5vw, 4rem); margin: 0.9rem 0 1.2rem; }

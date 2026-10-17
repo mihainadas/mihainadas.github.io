@@ -196,7 +196,7 @@ h3 { letter-spacing: -0.025em; }
   border-bottom: 1px solid var(--header-line);
   border-top: 0;
   min-height: auto;
-  padding: 1.1rem 0;
+  padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -211,27 +211,29 @@ h3 { letter-spacing: -0.025em; }
 }
 
 .header-inner::after, .footer-grid::after { display: none; }
+.header-inner { gap: 2rem; }
 
 .site-title {
-  align-items: baseline;
+  align-items: flex-start;
   color: var(--ink) !important;
   display: inline-flex;
-  font-size: 1rem;
-  font-weight: 680;
-  gap: 0.35rem;
-  letter-spacing: -0.01em;
+  flex-direction: column;
+  gap: 0.22rem;
+  justify-content: center;
+  min-height: 48px;
   text-decoration: none;
-  line-height: 1.2;
+  line-height: 1;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-.site-mark { color: var(--accent); font-weight: 480; }
+.site-title:hover { text-decoration: none; }
+.site-title:hover .brand-name { color: var(--accent); }
 
 .header-actions {
   align-items: center;
   display: flex;
-  gap: 1.4rem;
+  gap: 1.15rem;
 }
 
 .site-nav {
@@ -239,7 +241,7 @@ h3 { letter-spacing: -0.025em; }
   border: 0;
   display: flex;
   float: none;
-  gap: 1.35rem;
+  gap: 1rem;
   line-height: inherit;
   position: static;
 }
@@ -753,20 +755,10 @@ summary { cursor: pointer; }
 .archive-month h2 { font-size: 1.5rem; }
 .applied-notes { max-width: 780px; }
 
-@media (min-width: 641px) and (max-width: 1040px) {
-  .header-inner { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
-  .header-actions { width: 100%; justify-content: space-between; gap: 0.75rem; }
-  .site-header { padding: 0.75rem 0 0.5rem; }
-  .site-nav { gap: clamp(0.7rem, 2vw, 1.35rem); }
-}
-
 @media (max-width: 720px) {
   body { font-size: 16px; }
   .wrapper { padding-left: 20px; padding-right: 20px; }
   .footer-grid { align-items: flex-start; flex-direction: column; gap: 0.9rem; }
-  .site-header { position: static; }
-  .site-nav { display: flex; flex-wrap: wrap; gap: 0 1rem; max-width: 100%; overflow-x: visible; }
-  .site-nav .page-link { flex: 0 0 auto; margin: 0; }
   .page-content { padding: 2.5rem 0 4rem; }
   .hero { margin-bottom: 2.5rem; padding: 0.25rem 0 2rem; }
   .hero h1 { font-size: clamp(2.2rem, 11vw, 3.2rem); }
@@ -790,19 +782,20 @@ summary { cursor: pointer; }
   .career-thread li:last-child { padding-bottom: 0; }
 }
 
-@media (max-width: 640px) {
-  .site-header { padding: 0.65rem 0; }
-  .header-inner { align-items: center; flex-direction: row; gap: 0.5rem; }
-  .site-title { font-size: 0.94rem; gap: 0.25rem; }
-  .site-mark { display: none; }
-  .header-actions { flex-direction: row; gap: 0.6rem; width: auto; align-items: center; }
+// Keep this breakpoint synchronized with the progressive enhancement in site.js.
+@media (max-width: 880px) {
+  .site-header { padding: 0.75rem 0; position: relative; }
+  .header-inner { gap: 0.75rem; }
+  .header-actions { gap: 0.75rem; }
   .navigation summary { display: flex; align-items: center; min-height: 44px; font-size: 0.88rem; font-weight: 600; }
   .navigation summary::after { content: '+'; margin-left: 0.4rem; }
   .navigation[open] summary::after { content: '−'; }
   .navigation .site-nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); border-bottom: 1px solid var(--line-strong); padding: 0.8rem 20px 1.2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1rem; width: 100%; }
-  .site-header { position: relative; }
   .site-nav .mobile-resource { display: inline-flex; }
   .site-nav .page-link { min-height: 44px; }
+}
+
+@media (max-width: 640px) {
   .thread-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .thread .post-meta { margin-top: 0.75rem; }
   .section-heading { gap: 0.6rem; }

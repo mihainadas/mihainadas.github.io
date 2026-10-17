@@ -3,7 +3,7 @@
 
   var menu = document.querySelector(".navigation");
   if (menu) {
-    var mobileMenu = window.matchMedia("(max-width: 640px)");
+    var mobileMenu = window.matchMedia("(max-width: 880px)");
     function setMenuMode() { menu.open = !mobileMenu.matches; }
     setMenuMode();
     mobileMenu.addEventListener("change", setMenuMode);
