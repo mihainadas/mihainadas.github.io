@@ -22,11 +22,25 @@ The originals are the Newsreader regular and italic variable TTFs and Manrope re
 
 ## Personal signature
 
-The masthead uses the existing self-hosted Newsreader at weight 550, with restrained negative tracking and Romanian diacritics intact. Manrope provides the smaller localized “Strategy, technology & AI” descriptor. A CSS vermilion dot is decorative and adds no spoken punctuation. The name and descriptor remain selectable text; the full lockup is one link to the current language homepage.
+The masthead uses the existing self-hosted Newsreader at weight 550, with restrained negative tracking and Romanian diacritics intact. Manrope provides the smaller localized “Strategy, technology & AI” descriptor. The name and descriptor remain selectable text; the full lockup is one link to the current language homepage.
 
 Three code-native treatments were compared in the homepage on 17 October 2026: the editorial signature, an MN badge beside the name, and an architectural Manrope lockup with a vertical accent rule. The editorial signature was selected for its continuity with the display typography, stronger personal-name hierarchy, and simpler small-screen silhouette. The badge crowded the identity and the sans-serif treatment felt more corporate than personal. These are design judgments, not audience-test results.
 
-The small-size `assets/favicon.svg` is an original passive MN line drawing in charcoal, warm ivory and vermilion. It is not a raster asset or an extra font dependency. Keep it separate from the masthead rather than placing a competing symbol beside the name. Header sizing, compact-navigation behavior, light/dark rendering and both language versions must be checked together when this component changes.
+The later user-directed refinement keeps that editorial signature and adds a discreet folded N, replacing the first version's dot and MN favicon. The N refers to Nadăș; its vermilion diagonal connects two upright strokes and echoes the folded-paper/thread artwork. This is a visual association, not a proprietary theory, evidence diagram, trademark clearance or claim of uniqueness.
+
+Only the accent strokes of ă and ș are muted in the masthead. The source retains the two precomposed Unicode letters, not an ASCII name with simulated accents. CSS background clipping paints the upper 24% of ă and lower 22% of ș in `--muted`, leaving the base glyphs in full ink. These boundaries were checked against the retained Newsreader's accent/base separation at weight 550 and reviewed in the actual header. `site.js` activates the calibrated paint only after the Font Loading API confirms that Newsreader loaded; fallback fonts and no-JavaScript readers keep ordinary full-ink text. Change the font only with a fresh visual review. Forced-color and print rules also disable the paint. Copy, accessible text and identity metadata preserve the spelling. Do not extend accent muting to Romanian content.
+
+### Folded N: reusable identity assets
+
+- `_includes/brand-mark.html`: inline, theme-aware header/footer component, decorative and non-focusable beside the written name.
+- `assets/brand/nadas-mark.svg`: transparent charcoal/vermilion master for light surfaces.
+- `assets/brand/nadas-mark-inverse.svg`: transparent ivory/vermilion export for dark surfaces.
+- `assets/brand/nadas-mark-mono.svg`: single-color export for restrained print and one-ink applications.
+- `assets/favicon.svg`: the same geometry on a charcoal rounded square, checked at 16, 32 and 64 pixels.
+
+These are original editable passive SVGs, not generated raster assets, font glyphs or externally licensed logos. The two path geometries must remain identical across the inline component and exports; release tests reject drift and active content. Retain that reproducible source and the existing palette. No new font, script, image service, animation or tracking is required.
+
+Use the symbol sparingly as an identity signature: masthead, footer, favicon, or the corner of a future reviewed presentation/social template. Keep its proportions and transparent clearspace; the 32-unit viewBox includes at least 5 units around the strokes. Use at least 24 CSS pixels for the standalone mark in normal content; the favicon is the small-size exception. Do not tile it, use it as a bullet on every section, imply certification, or place it inside scientific diagrams. Written names remain the accessible identity. Header sizing, compact navigation, both themes and both language versions must be reviewed together when the lockup changes.
 
 ## Design references
 

@@ -214,11 +214,11 @@ h3 { letter-spacing: -0.025em; }
 .header-inner { gap: 2rem; }
 
 .site-title {
+  --brand-letter-ink: var(--ink);
   align-items: flex-start;
   color: var(--ink) !important;
   display: inline-flex;
-  flex-direction: column;
-  gap: 0.22rem;
+  gap: 0.6rem;
   justify-content: center;
   min-height: 48px;
   text-decoration: none;
@@ -227,7 +227,7 @@ h3 { letter-spacing: -0.025em; }
   flex-shrink: 0;
 }
 
-.site-title:hover { text-decoration: none; }
+.site-title:hover { --brand-letter-ink: var(--accent); text-decoration: none; }
 .site-title:hover .brand-name { color: var(--accent); }
 
 .header-actions {

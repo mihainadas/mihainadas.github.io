@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img" aria-label="Nadăș folded N mark, monochrome">
+  <g fill="none" stroke="#171b1c" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M7 25V7M25 7V25"/>
+    <path d="M7 7L25 25"/>
+  </g>
+</svg>

@@ -1,6 +1,16 @@
 (function () {
   "use strict";
 
+  // The accent paint is calibrated to Newsreader, never to a fallback font.
+  // Without fonts or JavaScript the complete name simply stays in full ink.
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load('550 1em Newsreader', 'Mihai Nadăș').then(function (faces) {
+      if (faces.length > 0 && faces.every(function (face) { return face.status === 'loaded'; })) {
+        document.documentElement.classList.add('brand-font-ready');
+      }
+    }).catch(function () { /* Keep ordinary readable text on font failure. */ });
+  }
+
   var menu = document.querySelector(".navigation");
   if (menu) {
     var mobileMenu = window.matchMedia("(max-width: 880px)");

@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mihai Nadăș, MN">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mihai Nadăș, folded N">
   <rect width="64" height="64" rx="12" fill="#0b0f10"/>
-  <path d="M10 45V19L20 34L30 19V45M37 45V19L54 45V19" fill="none" stroke="#f2f0e8" stroke-width="3.5" stroke-linejoin="round"/>
-  <circle cx="54" cy="54" r="2.5" fill="#ed9478"/>
+  <g transform="translate(8 8) scale(1.5)" fill="none" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M7 25V7M25 7V25" stroke="#f2f0e8"/>
+    <path d="M7 7L25 25" stroke="#ed9478"/>
+  </g>
 </svg>

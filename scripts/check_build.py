@@ -521,8 +521,60 @@ def audit_professional_platform(home: str) -> None:
         fail('generated site does not contain the current resume PDF')
 
 
+BRAND_PATHS = ['M7 25V7M25 7V25', 'M7 7L25 25']
+
+
+def audit_brand_symbol(markup: str) -> None:
+    """All identity exports retain the same passive, editable two-stroke mark."""
+    try:
+        root = ET.fromstring(markup)
+    except ET.ParseError:
+        fail('brand symbol must be valid SVG')
+    paths = []
+    for element in root.iter():
+        tag = element.tag.rsplit('}', 1)[-1]
+        if tag not in ('svg', 'g', 'path', 'rect'):
+            fail('brand symbol contains non-passive or unexpected artwork')
+        for key, value in element.attrib.items():
+            if key.lower().startswith('on') or 'href' in key.lower() or 'url(' in value.lower():
+                fail('brand symbol must not load or execute external content')
+        if tag == 'path':
+            paths.append(element.get('d'))
+    if root.tag.rsplit('}', 1)[-1] != 'svg' or paths != BRAND_PATHS:
+        fail('brand symbol geometry drifted from the folded N')
+
+
+class BrandText(HTMLParser):
+    """Read visible Unicode text through the accent-only styling spans."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.fields = {'brand-name': [], 'brand-descriptor': []}
+        self.active = None
+        self.depth = 0
+
+    def handle_starttag(self, tag, attributes):
+        if self.active is not None:
+            self.depth += 1
+        elif tag == 'span':
+            key = dict(attributes).get('class')
+            if key in self.fields:
+                self.active = key
+                self.depth = 1
+                self.fields[key].append('')
+
+    def handle_data(self, data):
+        if self.active is not None:
+            self.fields[self.active][-1] += data
+
+    def handle_endtag(self, tag):
+        if self.active is not None:
+            self.depth -= 1
+            if self.depth == 0:
+                self.active = None
+
+
 def audit_brand_header(text: str, lang: str) -> None:
-    """The shared identity stays live, legible text with a localized home link."""
+    """The shared identity stays live text with a localized home link."""
     expected = {
         'en': ('/', 'Strategy, technology & AI'),
         'ro': ('/ro/', 'Strategie, tehnologie și IA'),
@@ -534,17 +586,29 @@ def audit_brand_header(text: str, lang: str) -> None:
     title = re.search(r'<a class="site-title"[^>]*href="([^"]+)"[^>]*>(.*?)</a>', header.group() if header else '', re.DOTALL)
     if not title or title[1] != home:
         fail('masthead must link to its language homepage')
+    parser = BrandText()
+    parser.feed(title[2])
     for class_name, value in (('brand-name', 'Mihai Nadăș'), ('brand-descriptor', descriptor)):
-        parts = re.findall(rf'<span class="{class_name}">(.*?)</span>', title[2], re.DOTALL)
-        if len(parts) != 1 or unescape(parts[0]).strip() != value:
+        if parser.fields[class_name] != [value]:
             fail(f'masthead lost its live localized {class_name}')
-    if re.search(r'<(?:img|svg)\b|site-mark', title[2]):
+    if re.search(r'<img\b|site-mark', title[2]):
         fail('masthead must not replace the name with artwork or restore the old publication suffix')
+    symbols = re.findall(r'<svg\b.*?</svg>', title[2], re.DOTALL)
+    if len(symbols) != 1 or 'aria-hidden="true"' not in symbols[0] or 'focusable="false"' not in symbols[0]:
+        fail('masthead needs one decorative, non-focusable folded N')
+    audit_brand_symbol(symbols[0])
+    for class_name, letter in (('breve', 'ă'), ('comma', 'ș')):
+        if f'<span class="brand-letter brand-letter--{class_name}">{letter}</span>' not in title[2]:
+            fail('accent styling must preserve the real precomposed Romanian letters')
     if '<details class="navigation" open>' not in header.group():
         fail('navigation must remain available without JavaScript')
 
 
 def audit_shared_brand() -> None:
+    for relative in ('assets/brand/nadas-mark.svg', 'assets/brand/nadas-mark-inverse.svg', 'assets/brand/nadas-mark-mono.svg', 'assets/favicon.svg'):
+        audit_brand_symbol(read(relative))
+        if read(relative) != (ROOT / relative).read_text(encoding='utf-8'):
+            fail(f'brand export not published intact: {relative}')
     for document in SITE.rglob('*.html'):
         text = document.read_text(encoding='utf-8')
         if 'class="site-footer h-card"' not in text:

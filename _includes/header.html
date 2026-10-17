@@ -13,8 +13,11 @@
 <header class="site-header" role="banner">
   <div class="wrapper header-inner">
     <a class="site-title" rel="author" href="{{ language_home | relative_url }}">
-      <span class="brand-name">Mihai Nadăș</span>
-      <span class="brand-descriptor">{{ ui.brand_descriptor | escape }}</span>
+      {% include brand-mark.html %}
+      <span class="brand-copy">
+        <span class="brand-name">Mihai Nad<span class="brand-letter brand-letter--breve">ă</span><span class="brand-letter brand-letter--comma">ș</span></span>
+        <span class="brand-descriptor">{{ ui.brand_descriptor | escape }}</span>
+      </span>
     </a>
     <div class="header-actions">
       <details class="navigation" open>

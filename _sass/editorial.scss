@@ -91,6 +91,20 @@
   font-display: swap;
 }
 
+.brand-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 0.22rem; }
+.brand-symbol {
+  display: block;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  margin-top: 0.22rem;
+  fill: none;
+  stroke-width: 2.25;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+.brand-symbol__frame { stroke: currentColor; }
+.brand-symbol__fold { stroke: var(--accent); }
 .brand-name {
   font-family: Newsreader, Georgia, serif;
   font-size: 1.95rem;
@@ -98,14 +112,21 @@
   letter-spacing: -0.035em;
   line-height: 1.12;
 }
-.brand-name::after {
-  content: '';
-  display: inline-block;
-  width: 4px;
-  height: 4px;
-  margin-left: 4px;
-  border-radius: 50%;
-  background: var(--accent);
+.brand-letter { color: var(--brand-letter-ink); }
+// Paint only the accent zones of intact precomposed letters. Copy and speech
+// still receive ă and ș, never ASCII stand-ins or duplicate overlay characters.
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .brand-font-ready .brand-letter {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .brand-font-ready .brand-letter--breve { background-image: linear-gradient(to bottom, var(--muted) 24%, var(--brand-letter-ink) 24%); }
+  .brand-font-ready .brand-letter--comma { background-image: linear-gradient(to bottom, var(--brand-letter-ink) 78%, var(--muted) 78%); }
+}
+@media (forced-colors: active), print {
+  .brand-font-ready .brand-letter { background: none; color: inherit; }
+  .brand-symbol__fold { stroke: currentColor; }
 }
 .brand-descriptor {
   font-family: Manrope, sans-serif;
@@ -125,6 +146,8 @@
   .header-language { display: none; }
 }
 @media (max-width: 480px) {
+  .site-title { gap: 0.4rem; }
+  .brand-symbol { width: 24px; height: 24px; }
   .brand-name { font-size: 1.7rem; }
   .brand-descriptor { font-size: 0.625rem; letter-spacing: 0.05em; }
   .header-inner { gap: 0.5rem; }
@@ -246,7 +269,8 @@
 .research-feature h2 { font-size: clamp(2.5rem, 4.5vw, 4rem); line-height: 1.02; margin: 0.8rem 0 1.3rem; }
 .research-feature-copy > p:not(.eyebrow) { font-size: 0.93rem; }
 .text-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.88rem; font-weight: 600; }
-.footer-name { font-family: Newsreader, Georgia, serif; font-size: 1.5rem; font-weight: 500; }
+.footer-name { display: flex; align-items: center; gap: 0.6rem; font-family: Newsreader, Georgia, serif; font-size: 1.5rem; font-weight: 500; }
+.footer-name .brand-symbol { width: 22px; height: 22px; margin-top: 0; }
 
 @media (min-width: 761px) and (max-width: 1000px) {
   .hero { gap: 2rem; }
