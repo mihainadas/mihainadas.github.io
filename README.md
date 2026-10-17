@@ -1,6 +1,6 @@
 # mihainadas.github.io
 
-Research and engineering notes published at [mihainadas.github.io](https://mihainadas.github.io/).
+Mihai Nadăș's personal site, published at [nadas.ro](https://nadas.ro/) and hosted by GitHub Pages.
 
 ## Standing agreements
 
