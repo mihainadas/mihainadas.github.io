@@ -521,9 +521,37 @@ def audit_professional_platform(home: str) -> None:
         fail('generated site does not contain the current resume PDF')
 
 
+def audit_analytics() -> None:
+    """Release builds retain one guarded loader and an accessible disclosure."""
+    expected = int(site_origin() == 'https://nadas.ro')
+    privacy = read('privacy/index.html')
+    for required in ('https://plausible.io/data-policy', 'Do Not Track', 'Global Privacy Control'):
+        if required not in privacy:
+            fail('privacy notice lost its analytics processing or browser-choice disclosure')
+    for document in SITE.rglob('*.html'):
+        text = document.read_text(encoding='utf-8')
+        if 'class="site-footer h-card"' not in text:
+            continue  # Redirect-only documents do not use the shared layout.
+        if text.count('<script id="analytics-bootstrap">') != expected:
+            fail(f'analytics loader missing, duplicated or enabled on an alternate origin: {document.relative_to(SITE)}')
+        if 'href="/privacy/"' not in text:
+            fail(f'privacy footer link missing: {document.relative_to(SITE)}')
+        if expected:
+            for guard in ('window.location.hostname !== "nadas.ro"', 'window.location.protocol !== "https:"',
+                          'window.navigator.doNotTrack === "1"', 'window.navigator.globalPrivacyControl === true',
+                          'outboundLinks: false, fileDownloads: false, formSubmissions: false',
+                          'payload.u = window.location.origin + window.location.pathname',
+                          'new URL(payload.r).origin'):
+                if guard not in text:
+                    fail(f'analytics privacy guard missing: {document.relative_to(SITE)}')
+        if re.search(r'<script[^>]+src=["\']https://plausible\.io/', text):
+            fail('unguarded Plausible script would contact the provider from previews')
+
+
 def main() -> int:
     audit_unpublished_guidance()
     audit_canonical_origin()
+    audit_analytics()
     engineering = read("engineering/index.html")
     article = read("2026/08/27/three-emulator-bugs.html")
     about = read("about/index.html")

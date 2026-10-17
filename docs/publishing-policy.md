@@ -64,6 +64,7 @@ Confirmed by Mihai on 17 October 2026. This is the canonical agreement for futur
 - The homepage stays alive through real published posts and collection data. Preserve latest notes, thread mappings, recent work, curated starting points, counts, and chronology. No fake activity, randomized recency, fabricated counters, or dates refreshed by deployment alone.
 - Preserve full server-rendered content, stable URLs, the feed, sitemap, canonical URLs, accurate language metadata, social previews, author identity, and public source links. Structured data must describe actual content. Do not invent ratings or reviews, promise inclusion in ChatGPT/search results, or weaken crawl/access settings for cosmetic reasons.
 - Keep the notebook collection at `/lab-notebooks/`; `/notebooks/` is a separate project route. Preserve its actual rendered notebook destinations.
+- Preserve the approved production-only Plausible integration and visible `/privacy/` disclosure. Local previews, alternate hosts, Do Not Track and Global Privacy Control must not load it. Keep enhanced click/download/form tracking disabled and do not add custom events, personal properties, a blocker-bypass proxy, public dashboards or account/billing changes without further approval. See the README for implementation and verification; traffic is not evidence of qualified commercial demand.
 
 ## Media: durable foundation, article-specific evidence
 
@@ -98,7 +99,7 @@ python3 -m unittest discover -s tests
 BUNDLE_PATH=vendor/bundle bundle exec htmlproofer ./_site --disable-external --enforce-https
 node --check assets/site.js
 node --check assets/theme.js
-node --test tests/theme.test.cjs
+node --test tests/*.test.cjs
 git diff --check
 ```
 

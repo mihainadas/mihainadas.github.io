@@ -93,12 +93,18 @@ The reusable media catalogue is `_data/media.json`. Use `{% include media.html i
 
 `check_site.py` invokes both the media and professional validators. Tests cover missing/unsafe/unregistered assets, SVG safety, dimensions, retained-master changes, unresolved business evidence, current-role consistency, ongoing degree status, stale PDF inputs, and altered downloads. Generated checks cover navigation, public pathways, ProfilePage identity, the mobile diagram, PDF publication, and excluded internal material.
 
+## Analytics and privacy
+
+`_includes/analytics.html` installs the registered Plausible script only in production builds with the exact `https://nadas.ro` origin. A runtime HTTPS/hostname allowlist also prevents production-built local previews from contacting Plausible. Do Not Track and Global Privacy Control suppress loading. Explicit initialization overrides disable remotely configured outbound-link, download and form tracking; no custom events or properties are added. `transformRequest` removes all page queries/fragments (including search terms and campaign tags) and reduces referrers to origins before transmission. Keep these boundaries and the `/privacy/` notice current when changing analytics. Do not add a proxy to bypass blockers, goals, extra collection, shared dashboards, or account/billing changes without approval.
+
+Run `node --test tests/*.test.cjs` for analytics guards as well as appearance controls. Use `JEKYLL_ENV=production` for the release build; ordinary development builds omit analytics entirely. A deployment or script presence does not prove collection: verify through Plausible's installation test on the real HTTPS origin and report any DNS/certificate blocker.
+
 ## Running checks
 
 ```sh
 bundle install
 python3 scripts/check_site.py
-bundle exec jekyll build --strict_front_matter
+JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter
 python3 scripts/check_build.py
 bundle exec htmlproofer ./_site --disable-external --enforce-https
 ```

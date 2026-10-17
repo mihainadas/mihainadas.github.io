@@ -14,6 +14,7 @@
       <a href="{{ '/archive/' | relative_url }}">{% if current_lang == 'ro' %}Arhivă (EN){% else %}Archive{% endif %}</a>
       <a href="{{ '/resume/' | relative_url }}">{% if current_lang == 'ro' %}CV (EN){% else %}Résumé{% endif %}</a>
       <a href="{{ '/feed.xml' | relative_url }}">{{ ui.feed }}</a>
+      <a href="{{ '/privacy/' | relative_url }}">{% if current_lang == 'ro' %}Confidențialitate (EN){% else %}Privacy{% endif %}</a>
       <a href="{{ alternate_url | relative_url }}" lang="{{ ui.switch_lang }}" hreflang="{{ ui.switch_lang }}">{{ ui.switch }}</a>
     </nav>
   </div>

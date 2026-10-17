@@ -1,0 +1,39 @@
+{% if jekyll.environment == 'production' and site.url == 'https://nadas.ro' %}
+<script id="analytics-bootstrap">
+  (function () {
+    "use strict";
+    // Never send preview traffic, even when serving a production build locally.
+    if (window.location.hostname !== "nadas.ro" || window.location.protocol !== "https:" ||
+        window.navigator.doNotTrack === "1" || window.navigator.globalPrivacyControl === true ||
+        document.getElementById("plausible-tracker")) {
+      return;
+    }
+    window.plausible = window.plausible || function () {
+      (window.plausible.q = window.plausible.q || []).push(arguments);
+    };
+    window.plausible.init = window.plausible.init || function (options) {
+      window.plausible.o = options || {};
+    };
+    // Explicit overrides keep remotely configured enhanced measurements off.
+    window.plausible.init({
+      outboundLinks: false, fileDownloads: false, formSubmissions: false,
+      transformRequest: function (payload) {
+        // Archive/paper searches use URL queries. Remove them before transmission,
+        // not just when the provider stores or displays the event.
+        payload.u = window.location.origin + window.location.pathname;
+        try {
+          payload.r = payload.r ? new URL(payload.r).origin : null;
+        } catch (error) {
+          payload.r = null;
+        }
+        return payload;
+      }
+    });
+    var tracker = document.createElement("script");
+    tracker.id = "plausible-tracker";
+    tracker.async = true;
+    tracker.src = "https://plausible.io/js/pa-gSE5BAIvwmxkbBbrt7gz3.js";
+    document.head.appendChild(tracker);
+  }());
+</script>
+{% endif %}
