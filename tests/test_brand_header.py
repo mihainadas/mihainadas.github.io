@@ -77,6 +77,15 @@ class BrandTests(unittest.TestCase):
         self.assertIn('.brand-stroke { transition: none; }', css)
         self.assertNotIn('animation:', css[css.index('.brand-stroke {'):css.index('.brand-symbol {')])
 
+    def test_signature_stays_close_single_and_quiet(self):
+        css = (ROOT / '_sass/editorial.scss').read_text()
+        self.assertIn('align-items: center; gap: 0.18rem;', css)
+        self.assertIn('transition: transform 160ms ease-out;', css)
+        self.assertIn('transform: translate(1px, -2px);', css)
+        stroke = (ROOT / '_includes/brand-stroke.html').read_text()
+        self.assertEqual(stroke.count('<path '), 1)
+        self.assertNotIn('stroke-pixel', (ROOT / 'assets/site.js').read_text())
+
     def test_all_exports_share_the_geometry(self):
         for path in [ROOT / '_includes/brand-mark.html', ROOT / 'assets/favicon.svg', *sorted((ROOT / 'assets/brand').glob('*.svg'))]:
             audit_brand_symbol(path.read_text())
