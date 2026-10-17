@@ -7,22 +7,15 @@ layout: default
 <div class="home">
   <section class="hero">
     <div class="hero-main">
-      <p class="eyebrow">Engineering · AI research · technology leadership</p>
-      <h1>Staying close to the <em>implementation.</em></h1>
+      <p class="eyebrow">Engineering · AI research · business</p>
+      <h1>From systems<br>to <em>decisions.</em></h1>
       <div class="hero-copy">{{ content }}</div>
       <p class="hero-links">
         <a class="button-primary" href="#recent-heading">Read the latest</a>
-        <a href="{{ '/about/' | relative_url }}">About my work →</a>
+        <a href="{{ '/work-with-me/' | relative_url }}">Work with me →</a>
       </p>
     </div>
-    <figure class="hero-art">
-      <img src="{{ '/assets/editorial/structure-960.webp' | relative_url }}"
-           srcset="{{ '/assets/editorial/structure-480.webp' | relative_url }} 480w, {{ '/assets/editorial/structure-960.webp' | relative_url }} 960w, {{ '/assets/editorial/structure-1440.webp' | relative_url }} 1440w"
-           sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1176px) 45vw, 520px"
-           width="1440" height="960" fetchpriority="high"
-           alt="Editorial artwork: folded ivory paper crossed by a vermilion thread on a charcoal ground.">
-      <figcaption><span>Study 01</span> Structure &amp; signal</figcaption>
-    </figure>
+    {% include media.html id="structure" class="hero-art" priority=true %}
   </section>
 
   <aside class="work-ledger" aria-labelledby="current-work-heading">
@@ -37,6 +30,11 @@ layout: default
         <p class="review-date">Focus reviewed <time datetime="{{ site.data.now.reviewed }}">{{ site.data.now.reviewed | date: "%d %b %Y" }}</time></p>
       </div>
   </aside>
+
+  <section class="home-business" aria-labelledby="home-business-heading">
+    <div><p class="eyebrow">The business side</p><h2 id="home-business-heading">What changes<br>when building gets easier?</h2></div>
+    <div><p>More software is not an advantage by itself. The question is which capability a company should own, how AI changes the work, and what evidence justifies the investment.</p><p><a class="text-link" href="{{ '/business/' | relative_url }}">Explore AI &amp; business →</a><a class="text-link" href="{{ '/resume/' | relative_url }}">My professional record →</a></p>{% assign latest_business = site.posts | where: 'post_type', 'business note' | first %}{% if latest_business %}<p class="latest-business">Latest business essay · <a href="{{ latest_business.url | relative_url }}">{{ latest_business.title | escape }}</a></p>{% endif %}</div>
+  </section>
 
   <section aria-labelledby="threads-heading" class="thread-section">
     <div class="section-heading"><h2 id="threads-heading">Follow a thread</h2><a href="{{ '/lab-notebooks/' | relative_url }}">Executable notebooks →</a></div>
@@ -68,14 +66,7 @@ layout: default
   </section>
 
   <section class="research-feature" aria-labelledby="research-feature-heading">
-    <figure>
-      <img src="{{ '/assets/editorial/signal-960.webp' | relative_url }}"
-           srcset="{{ '/assets/editorial/signal-480.webp' | relative_url }} 480w, {{ '/assets/editorial/signal-960.webp' | relative_url }} 960w, {{ '/assets/editorial/signal-1440.webp' | relative_url }} 1440w"
-           sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1176px) 45vw, 520px"
-           width="1440" height="960" loading="lazy" decoding="async"
-           alt="Editorial artwork: fine graphite traces and a copper-orange wire across layered paper.">
-      <figcaption><span>Study 02</span> Tracing the system</figcaption>
-    </figure>
+    {% include media.html id="signal" %}
     <div class="research-feature-copy">
       <p class="eyebrow">An ongoing research thread</p>
       <h2 id="research-feature-heading">Small models.<br>Connected questions.</h2>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="640" viewBox="0 0 360 640" role="img" aria-labelledby="title desc">
+  <title id="title">A decision and evidence loop</title>
+  <desc id="desc">Frame the decision, test alternatives, and review evidence. Revisit or stop with an explicit owner, uncertainty, and stopping rule. A proposed working model, not measured results.</desc>
+  <rect width="360" height="640" fill="#171b1c"/>
+  <g fill="none" stroke="#797d75" stroke-width="2"><path d="M190 155V190M190 320V355"/><path d="M315 420H338V80H315"/></g>
+  <g fill="#ed9478"><path d="m184 181 6 12 6-12zM184 346l6 12 6-12zM319 74l-12 6 12 6z"/></g>
+  <g fill="#242b2b" stroke="#797d75"><rect x="25" y="25" width="290" height="130"/><rect x="25" y="190" width="290" height="130"/><rect x="25" y="355" width="290" height="130"/></g>
+  <g font-family="Arial, sans-serif" fill="#f7f4ec"><g font-size="13" fill="#ed9478"><text x="46" y="56">01 / FRAME</text><text x="46" y="221">02 / TEST</text><text x="46" y="386">03 / REVIEW</text></g><g font-size="24"><text x="46" y="94">The decision</text><text x="46" y="259">The alternatives</text><text x="46" y="424">The evidence</text></g><g font-size="15" fill="#c7cdc6"><text x="46" y="124">What needs to change?</text><text x="46" y="289">What would justify it?</text><text x="46" y="454">What remains uncertain?</text></g><g text-anchor="middle"><text x="180" y="531" font-size="14" fill="#ed9478">REVISIT, CHANGE COURSE, OR STOP</text><text x="180" y="575" font-size="15">Explicit owner · Declared uncertainty</text><text x="180" y="602" font-size="15">Stopping rule</text></g></g>
+</svg>

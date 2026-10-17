@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "title": "Structure & signal", "label": "Study 01", "kind": "decorative", "created": "2026-10-17",
+    "src": "/assets/editorial/structure-960.webp", "width": 1440, "height": 960,
+    "alt": "Editorial artwork: folded ivory paper crossed by a vermilion thread on a charcoal ground.",
+    "caption": "Structure & signal",
+    "variants": [{"src": "/assets/editorial/structure-480.webp", "width": 480, "height": 320}, {"src": "/assets/editorial/structure-960.webp", "width": 960, "height": 640}, {"src": "/assets/editorial/structure-1440.webp", "width": 1440, "height": 960}],
+    "provenance": "Generated editorial still life; exact prompt retained in assets/editorial/README.md. Not a real object or research photograph.",
+    "rights": "Created for this site; no third-party branded material requested. No public-domain or exclusivity claim.",
+    "usage": "Homepage and relevant section introductions only. Never present as scientific evidence.",
+    "source_status": "Best retained raster is the checked-in 1440-pixel WebP. The original generation file is not retained in this checkout; do not claim lossless regeneration.",
+    "master": "/assets/editorial/structure-1440.webp", "master_sha256": "f7158e54c2cdbab84689ac7a8c5be2690c22ab9a3acd709b85f12594393cd517"
+  },
+  "signal": {
+    "title": "Tracing the system", "label": "Study 02", "kind": "decorative", "created": "2026-10-17",
+    "src": "/assets/editorial/signal-960.webp", "width": 1440, "height": 960,
+    "alt": "Editorial artwork: fine graphite traces and a copper-orange wire across layered paper.",
+    "caption": "Tracing the system",
+    "variants": [{"src": "/assets/editorial/signal-480.webp", "width": 480, "height": 320}, {"src": "/assets/editorial/signal-960.webp", "width": 960, "height": 640}, {"src": "/assets/editorial/signal-1440.webp", "width": 1440, "height": 960}],
+    "provenance": "Generated editorial still life; exact prompt retained in assets/editorial/README.md. Not a functioning circuit.",
+    "rights": "Created for this site; no third-party branded material requested. No public-domain or exclusivity claim.",
+    "usage": "Research section introductions. Never illustrate a claimed hardware measurement.",
+    "source_status": "Best retained raster is the checked-in 1440-pixel WebP. The original generation file is not retained in this checkout; do not claim lossless regeneration.",
+    "master": "/assets/editorial/signal-1440.webp", "master_sha256": "69e1967341134f490e88dd82e8d470449cefd02be767c455b1d0ea0b9bacc557"
+  },
+  "decision-loop": {
+    "title": "A decision and evidence loop", "label": "Working model", "kind": "conceptual", "created": "2026-10-17",
+    "src": "/assets/media/decision-loop.svg", "width": 960, "height": 360,
+    "mobile_src": "/assets/media/decision-loop-mobile.svg", "mobile_width": 360, "mobile_height": 640,
+    "alt": "A proposed decision loop: frame the decision, test the alternatives, review the evidence, then revisit the decision. Ownership, uncertainty, and a stopping rule remain explicit.",
+    "caption": "A proposed working model, not a measured business result.",
+    "provenance": "Original editable SVG compositions created for this site. No empirical values or third-party illustrations.",
+    "rights": "Site-original diagram; retain the distinction between proposal and evidence when adapting.",
+    "usage": "Business framing and decision-process explanations. Adapt the labels only after checking the article's actual argument.",
+    "source_status": "The SVG files are the complete editable source; no external fonts, images, scripts, or rendering service required."
+  }
+}

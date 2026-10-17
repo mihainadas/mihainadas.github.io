@@ -14,8 +14,12 @@ from zoneinfo import ZoneInfo
 
 try:
     from scripts.check_books import check_books
+    from scripts.check_media import validate_media
+    from scripts.check_professional import validate_professional
 except ModuleNotFoundError:
     from check_books import check_books
+    from check_media import validate_media
+    from check_professional import validate_professional
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -366,7 +370,7 @@ def check_repository_hygiene() -> None:
 
     public_text_files = [
         ROOT / name
-        for name in ("index.md", "about.md", "engineering.md", "research.md", "papers.md")
+        for name in ("index.md", "about.md", "engineering.md", "research.md", "papers.md", "business.md", "work-with-me.md", "resume.md")
     ]
     public_text_files.extend(sorted(POSTS.glob("*.md")))
     placeholder = re.compile(r"\b(?:TODO|FIXME|XXX)\b|lorem ipsum", re.IGNORECASE)
@@ -571,6 +575,11 @@ def check_figure_system() -> None:
 
 
 def main() -> int:
+    try:
+        validate_media(ROOT)
+        validate_professional(ROOT)
+    except (ValueError, KeyError, OSError) as error:
+        fail(str(error))
     check_books(ROOT, fail)
     check_posts()
     check_localization()

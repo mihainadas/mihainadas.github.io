@@ -1,0 +1,89 @@
+.professional-heading { padding: 0.5rem 0 3rem; border-bottom: 1px solid var(--ink); margin-bottom: 3rem; }
+.professional-heading h1 { font: 450 clamp(3rem, 6vw, 5.4rem)/1.02 Newsreader, Georgia, serif; letter-spacing: -0.04em; margin: 1rem 0 2rem; }
+.professional-heading h1 em { color: var(--accent); font-weight: inherit; }
+.professional-intro { max-width: 74ch; font-size: 1rem; line-height: 1.8; }
+.professional-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.5rem; margin: 1.6rem 0 0; font-size: 0.85rem; }
+.professional-actions a { display: inline-flex; align-items: center; min-height: 44px; }
+.professional-actions .button-primary, .professional-actions .button-primary:visited { padding: 0.65rem 1rem; background: var(--accent); color: var(--button-ink); text-decoration: none; }
+.professional-actions .button-primary:hover { background: var(--accent-bright); }
+.business-page h2, .engagement-page h2, .home-business h2 { font: 450 clamp(2rem, 3.8vw, 3rem)/1.08 Newsreader, Georgia, serif; letter-spacing: -0.03em; }
+.decision-row { display: grid; grid-template-columns: 1fr 1.35fr; gap: 3.5rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
+.decision-row h3 { font: 450 2rem/1.1 Newsreader, Georgia, serif; letter-spacing: -0.03em; max-width: 20ch; }
+.decision-row .eyebrow { font-size: 0.65rem; }
+.decision-row p, .industry-lenses > p { font-size: 0.93rem; }
+.decision-test { border-left: 2px solid var(--accent); padding-left: 1rem; }
+.evidence-links { list-style: none; margin: 1.4rem 0 0; }
+.evidence-links li { margin-top: 0.8rem; font-size: 0.84rem; }
+.evidence-links span { display: block; color: var(--muted); font-size: 0.68rem; margin-top: 0.2rem; }
+.business-diagram { margin: 3.5rem 0; }
+.business-diagram img { display: block; width: 100%; height: auto; }
+.business-diagram figcaption { font-size: 0.75rem; color: var(--muted); margin-top: 0.8rem; }
+.business-diagram figcaption span { color: var(--accent); margin-right: 1rem; }
+.industry-lenses { margin: 3rem 0; }
+.industry-lenses dl { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 3rem; margin: 2rem 0; }
+.industry-lenses dl > div { border-top: 1px solid var(--line); padding-top: 1rem; }
+.industry-lenses dt { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.6rem; }
+.industry-lenses dd { margin: 0; font-size: 0.9rem; }
+.professional-next, .contact-brief { padding: 2rem; margin: 3rem 0 0; background: var(--surface); border: 1px solid var(--line); }
+.professional-next p, .contact-brief > p { max-width: 72ch; }
+.professional-next .text-link, .home-business .text-link { margin-right: 1.5rem; }
+.engagement-grid, .evidence-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.engagement-grid > section { border-top: 2px solid var(--accent); padding-top: 1.2rem; }
+.engagement-grid h3 { font: 450 1.8rem/1.15 Newsreader, Georgia, serif; letter-spacing: -0.03em; }
+.engagement-grid p { font-size: 0.88rem; }
+.engagement-grid .eyebrow { font-size: 0.62rem; }
+.scope-note { color: var(--muted); font-size: 0.78rem !important; }
+.engagement-evidence { margin: 3.5rem 0; }
+.evidence-grid > div { border-top: 1px solid var(--line); padding-top: 1rem; }
+.evidence-grid h3 { font-size: 1rem; }
+.evidence-grid p { font-size: 0.85rem; }
+.home-business { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3.5rem; border-bottom: 1px solid var(--line); padding-bottom: 2rem; margin: -1rem 0 3.5rem; }
+.home-business h2 { font-size: 2.65rem; }
+.home-business > div > p:not(.eyebrow) { font-size: 0.93rem; }
+.home-business .latest-business { font-size: 0.78rem; border-top: 1px solid var(--line); padding-top: 0.8rem; }
+.resume-heading { border-bottom: 2px solid var(--accent); padding-bottom: 2rem; margin-bottom: 2rem; }
+.resume-heading h1 { font: 450 clamp(2.8rem, 5.2vw, 4.8rem)/1.05 Newsreader, Georgia, serif; letter-spacing: -0.04em; margin-bottom: 0.8rem; }
+.resume-headline { font-size: 1.2rem; font-weight: 600; }
+.resume-heading > p:not(.eyebrow):not(.resume-headline) { max-width: 80ch; font-size: 0.95rem; }
+.resume-heading .resume-location { font-size: 0.75rem !important; color: var(--muted); }
+.resume-columns { display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; }
+.resume-columns h2 { font-size: 1.05rem; font-weight: 750; letter-spacing: -0.03em; border-bottom: 1px solid var(--line); padding-bottom: 0.7rem; margin: 0 0 1.5rem; }
+.resume-columns > div > section { margin-bottom: 2.5rem; }
+.resume-role { margin-bottom: 1.6rem; }
+.resume-role h3, .resume-evidence h3 { font-size: 1rem; margin: 0 0 0.3rem; }
+.resume-role .eyebrow { font-size: 0.64rem; margin-bottom: 0.3rem; }
+.resume-role p, .resume-evidence p, .resume-columns li { font-size: 0.85rem; margin-bottom: 0.5rem; }
+.resume-role .resume-organization { font-weight: 650; }
+.record-source { font-size: 0.68rem; }
+.resume-subroles { margin: 0.8rem 0 0.6rem 1rem; }
+.resume-subroles span { display: block; color: var(--muted); font-size: 0.73rem; }
+.resume-publications { margin-left: 1.2rem; }
+.resume-publications li { margin-bottom: 1rem; }
+.resume-publications span { display: block; font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
+.resume-evidence { margin-bottom: 1.4rem; }
+.profile-identities { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; font-size: 0.8rem; }
+.profile-identities a { display: inline-flex; align-items: center; min-height: 44px; }
+.resume-boundary { font-size: 0.75rem; color: var(--muted); padding-top: 1.5rem; border-top: 1px solid var(--line); margin-top: 1rem; }
+@media (max-width: 760px) {
+  .decision-row, .home-business, .resume-columns { grid-template-columns: 1fr; gap: 1rem; }
+  .engagement-grid, .evidence-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .engagement-grid h3 { font-size: 1.65rem; }
+  .professional-heading { padding-bottom: 2rem; margin-bottom: 2rem; }
+  .professional-heading h1 { font-size: clamp(2.6rem, 10vw, 4rem); }
+  .decision-row { padding: 1.5rem 0; }
+  .professional-next, .contact-brief { padding: 1.3rem; }
+  .industry-lenses dl { grid-template-columns: 1fr; gap: 1.2rem; }
+  .business-diagram { max-width: 400px; margin-inline: auto; }
+}
+@media print {
+  .professional-actions, .professional-next { display: none; }
+  .resume-columns { display: block; }
+  .resume-heading, .resume-columns section, .resume-evidence { break-inside: avoid; }
+  .resume-heading h1 { font-size: 30pt; }
+  .resume-headline { font-size: 13pt; }
+  .resume-heading { margin-bottom: 1rem; padding-bottom: 1rem; }
+  .resume-columns h2 { margin-top: 1.5rem; }
+  .resume-role { margin-bottom: 1rem; }
+  .resume-role p, .resume-columns li { font-size: 10pt; }
+  .resume-boundary, .scope-note, .resume-location, .resume-publications span { color: #444 !important; }
+}

@@ -79,6 +79,16 @@ The default social preview is `assets/social-card.png`. To regenerate it, run `s
 
 The visual system uses self-hosted Manrope for reading and navigation, Newsreader for display typography, a warm-paper surface, and restrained vermilion accents. New component styles live in `_sass/editorial.scss`. Artwork provenance, the exact generation prompts, responsive encoding, and font-subsetting instructions are in [the editorial asset notes](assets/editorial/README.md). These decorative studies are separate from factual figures in `assets/figures/`; never present them as experimental evidence.
 
+## Business, professional record, and reusable media
+
+The site has a business reader path at `/business/`, engagement scoping at `/work-with-me/`, and an evidence-linked professional record at `/resume/`. Five primary navigation items keep the Library grouping; Archive and Résumé remain accessible from the footer. Business themes and proposed engagement formats live in `_data/business.json`. The Business page resolves its supporting notes from actual post slugs and automatically lists future `business note` posts. New business essays use the same original-post cadence and editorial gates as every other article.
+
+`_data/profile.json` drives both the résumé page and `scripts/render_resume.py`. To regenerate the committed two-page download, use the separate pinned `requirements-resume.txt`; retain the local OFL Manrope source and license in the excluded `assets/media-sources/` folder. `_data/resume_build.json` records input/PDF hashes so an outdated download fails the ordinary source check. Inspect both PDF pages after regeneration. The HTML record remains the accessible primary version; the PDF is not tagged. Career facts change only with verified evidence, not an automatic date refresh. See [professional operations](docs/professional-operations.md) for sources, current limitations, and the business/book editorial queue.
+
+The reusable media catalogue is `_data/media.json`. Use `{% include media.html id="signal" %}` for an appropriate editorial asset; it supplies dimensions, responsive variants, alt text, caption, and loading. The homepage consumes this same component. Editable desktop/mobile conceptual diagrams live in `assets/media/`; scientific evidence stays in the existing per-article `assets/figures/` system. The catalogue records provenance, usage boundaries, rights basis, and retained-source status. Do not regenerate decoration every run or claim that retained WebPs are lossless originals. Read [the media library guide](assets/media/README.md) before adding reusable assets.
+
+`check_site.py` invokes both the media and professional validators. Tests cover missing/unsafe/unregistered assets, SVG safety, dimensions, retained-master changes, unresolved business evidence, current-role consistency, ongoing degree status, stale PDF inputs, and altered downloads. Generated checks cover navigation, public pathways, ProfilePage identity, the mobile diagram, PDF publication, and excluded internal material.
+
 ## Running checks
 
 ```sh

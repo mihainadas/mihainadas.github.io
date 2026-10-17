@@ -1,0 +1,18 @@
+{
+  "themes": [
+    {"id": "differentiation", "title": "What should the business own?", "question": "Software as a source of differentiation", "description": "If more software becomes practical to build, which customer experience or operating capability is worth making distinctive? Start with the workflow, its data, and who will maintain it, not a target for lines of code.", "test": "Name the advantage, its owner, the buy-or-build alternative, and the ongoing cost of keeping it useful.", "posts": ["three-emulator-bugs", "test-the-state-space-not-the-noise"]},
+    {"id": "investment", "title": "What would justify the investment?", "question": "AI economics and adoption", "description": "A model benchmark is not a business case. Connect task quality, human review, integration, failure costs, and the ability to stop an experiment before deciding whether a smaller model or a new workflow helps.", "test": "Specify the baseline, total workflow cost, acceptance test, and a reason to stop before the pilot starts.", "posts": ["merging-lora-removes-branch-not-parameters", "perplexity-has-a-tokenizer-in-its-denominator"]},
+    {"id": "oversight", "title": "What evidence reaches the decision-maker?", "question": "Risk, governance, and accountability", "description": "A persuasive report and a high evaluation score can conceal weak evidence. Make sources, uncertainty, decision rights, and escalation visible before an AI-assisted recommendation becomes an operating decision.", "test": "Trace a material claim to its source and identify who can challenge, approve, or reverse the decision.", "posts": ["deep-research-needs-evidence-budget", "test-set-cannot-choose-threshold"]}
+  ],
+  "industry_questions": [
+    {"industry": "Professional services", "question": "Which parts of analysis can be accelerated without losing the evidence trail or expert accountability?"},
+    {"industry": "Retail and distribution", "question": "Where would a distinctive planning or service workflow matter more than another generic interface?"},
+    {"industry": "Financial and regulated services", "question": "Which decisions need human approval, an inspectable record, and a reliable way to challenge the model?"},
+    {"industry": "Industrial operations", "question": "What happens when a recommendation meets incomplete data, physical constraints, or an operator's exception?"}
+  ],
+  "engagements": [
+    {"title": "Strategy and decision framing", "audience": "Executives and transformation leaders", "description": "A focused discussion of where AI or bespoke software could change a business capability, and where buying an established product is the better decision.", "output": "A scoped decision brief: alternatives, assumptions, evidence gaps, ownership, and a testable next step."},
+    {"title": "Technical and operating review", "audience": "Leadership teams assessing an AI initiative", "description": "Examine the path from prototype to an operating system: data, evaluation, integration, human review, maintenance, and failure handling.", "output": "An agreed review scope and evidence request, followed by findings and unresolved risks. Access and confidentiality are agreed before any review."},
+    {"title": "Board and advisory conversations", "audience": "Chairs, founders, investors, and nomination teams", "description": "Discuss the fit between your organization's needs and my technology leadership, executive-board, engineering, and research background.", "output": "A conversation about remit, decision rights, independence requirements, time commitment, and conflicts."}
+  ]
+}

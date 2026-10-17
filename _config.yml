@@ -16,8 +16,8 @@ show_excerpts: true
 header_pages:
   - engineering.md
   - research.md
+  - business.md
   - library.md
-  - archive.md
   - about.md
 
 github_username: mihainadas
@@ -40,10 +40,15 @@ defaults:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - requirements-post-examples.txt
+  - requirements-resume.txt
   - README.md
   - AGENTS.md
   - .cursor
   - scripts
+  - tests
   - vendor
   - assets/editorial/README.md
+  - assets/media/README.md
+  - assets/media-sources
   - docs

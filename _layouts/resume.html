@@ -1,0 +1,20 @@
+---
+layout: default
+---
+{% assign profile = site.data.profile %}
+<article class="resume-page">
+  <header class="resume-heading"><p class="eyebrow">Selected professional record</p><h1>{{ profile.name | escape }}</h1><p class="resume-headline">{{ profile.headline | escape }}</p><p>{{ profile.summary | escape }}</p><p class="resume-location">{{ profile.location | escape }} · Public profile reviewed <time datetime="{{ profile.reviewed }}">{{ profile.reviewed | date: '%d %B %Y' }}</time></p><div class="professional-actions"><a class="button-primary" href="{{ '/assets/downloads/mihai-nadas-resume.pdf' | relative_url }}" download>Download résumé (PDF)</a><a href="{{ profile.contact_url }}">{{ profile.contact_label }}</a><a href="{{ '/work-with-me/' | relative_url }}">Engagements →</a></div></header>
+  <div class="resume-columns">
+    <div>
+      <section aria-labelledby="experience-heading"><h2 id="experience-heading">Selected leadership experience</h2>{% for role in profile.experience %}<section class="resume-role"><p class="eyebrow">{{ role.period | escape }}</p><h3>{{ role.title | escape }}</h3><p class="resume-organization">{{ role.organization | escape }}</p><p>{{ role.detail | escape }}</p>{% if role.roles %}<ul class="resume-subroles">{% for position in role.roles %}<li><strong>{{ position.title | escape }}</strong><span>{{ position.period | escape }}</span></li>{% endfor %}</ul>{% endif %}<a class="record-source" href="{{ role.source }}">Public role source{% if role.date_source %} (role){% endif %}</a>{% if role.date_source %} · <a class="record-source" href="{{ role.date_source }}">Dates</a>{% endif %}</section>{% endfor %}</section>
+      <section aria-labelledby="education-heading"><h2 id="education-heading">Education and research</h2>{% for item in profile.education %}<div class="resume-role"><h3>{{ item.qualification | escape }}</h3><p>{{ item.institution | escape }}{% if item.period != '' %}<br>{{ item.period | escape }}{% endif %}</p><p class="scope-note">{{ item.status | escape }} · <a href="{{ item.source }}">Source</a></p></div>{% endfor %}<p class="scope-note">{{ profile.development | escape }} <a href="{{ profile.development_source }}">Source</a></p></section>
+    </div>
+    <div>
+      <section aria-labelledby="profile-focus"><h2 id="profile-focus">Discussion areas</h2><ul>{% for interest in profile.interests %}<li>{{ interest | escape }}</li>{% endfor %}</ul></section>
+      <section aria-labelledby="profile-evidence"><h2 id="profile-evidence">Public work</h2>{% for item in profile.evidence %}<div class="resume-evidence"><h3><a href="{{ item.url | relative_url }}">{{ item.label | escape }}</a></h3><p>{{ item.detail | escape }}</p></div>{% endfor %}</section>
+      <section aria-labelledby="profile-publications"><h2 id="profile-publications">Selected publications</h2><ol class="resume-publications">{% for paper in profile.publications %}<li><a href="{{ paper.url }}">{{ paper.title | escape }}</a><span>{{ paper.venue | escape }} · {{ paper.kind | escape }}</span></li>{% endfor %}</ol><a href="{{ '/research/' | relative_url }}">Full research context and resources →</a></section>
+      <nav class="profile-identities" aria-label="Professional identities">{% for identity in profile.identities %}<a href="{{ identity.url }}">{{ identity.label | escape }}</a>{% endfor %}</nav>
+    </div>
+  </div>
+  <p class="resume-boundary">{{ profile.boundary | escape }}</p>
+</article>

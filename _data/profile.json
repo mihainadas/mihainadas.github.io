@@ -1,0 +1,50 @@
+{
+  "name": "Mihai Dan Nadăș",
+  "publishing_name": "Mihai Nadăș",
+  "location": "Cluj-Napoca, Romania",
+  "reviewed": "2026-10-17",
+  "headline": "Technology leadership, grounded in engineering",
+  "summary": "Technology executive with experience in managing-director, CTO, operations, and executive-board roles. I combine software engineering and organizational leadership with ongoing doctoral research in artificial intelligence, connecting implementation detail to investment, operating, and oversight decisions.",
+  "contact_url": "https://www.linkedin.com/in/mihainadas",
+  "contact_label": "Contact on LinkedIn",
+  "interests": ["AI strategy and investment decisions", "Software-led business differentiation", "Technology operating models", "AI evaluation and oversight"],
+  "experience": [
+    {"title": "Managing Director", "organization": "Computacenter Romania", "period": "July 2021 to present", "current": true, "source": "https://www.linkedin.com/in/mihainadas", "detail": "Leading the Romanian technology organization and its professional-services centre of excellence."},
+    {"title": "Founding Partner & CEO", "organization": "N13 Ventures", "period": "June 2021 to present", "current": true, "source": "https://www.n13.ro/about", "detail": "Digital ventures and applied AI, connecting research, production engineering, and operating models.", "date_source": "https://www.linkedin.com/in/mihainadas"},
+    {"title": "Managing Director", "organization": "METRO.digital Romania", "period": "July 2020 to June 2021", "current": false, "source": "https://www.linkedin.com/in/mihainadas", "detail": "Software and technology organization serving the wholesale business."},
+    {"title": "Managing Director", "organization": "METRO SYSTEMS Romania", "period": "July 2020 to March 2021", "current": false, "source": "https://www.linkedin.com/in/mihainadas", "detail": "Leadership during the carve-out involving Wipro and the transition to METRO.digital. The two METRO role periods overlap."},
+    {"title": "Executive leadership", "organization": "accesa.eu", "period": "April 2017 to July 2020", "current": false, "source": "https://www.linkedin.com/in/mihainadas", "detail": "Operations leadership followed by co-CEO and country managing-director responsibilities.", "roles": [
+      {"title": "Director of Operations (COO)", "period": "April 2017 to January 2020"},
+      {"title": "Member of the Executive Board", "period": "September 2018 to July 2020"},
+      {"title": "Co-CEO, Professional Services; Country Managing Director, Romania", "period": "February 2020 to July 2020"}
+    ]},
+    {"title": "Managing Director", "organization": "Yonder", "period": "October 2015 to April 2017", "current": false, "source": "https://www.linkedin.com/in/mihainadas", "detail": "Software services leadership focused on Western European and North American software-product companies; earlier roles included engineering, project management, and technology leadership.", "roles": [
+      {"title": "Chief Technology Officer", "period": "September 2011 to October 2015"},
+      {"title": "Business Unit Director", "period": "May 2014 to October 2015"}
+    ]}
+  ],
+  "education": [
+    {"qualification": "Doctoral research in artificial intelligence", "institution": "Babeș-Bolyai University", "period": "October 2023 to present", "status": "In progress, not an awarded degree", "source": "https://orcid.org/0009-0003-3467-3262"},
+    {"qualification": "B.Sc. and M.Sc., Computer Science", "institution": "Babeș-Bolyai University", "period": "B.Sc. 2005–2008; M.Sc. study 2008–2010", "status": "Degrees recorded in ORCID; LinkedIn lists Intelligent Systems as the master's programme", "source": "https://orcid.org/0009-0003-3467-3262"}
+  ],
+  "development": "Aspen Institute Romania, Young Leaders Program, 2012. Additional graduate study in Management of Business Development, 2008–2010, listed on LinkedIn.",
+  "development_source": "https://www.linkedin.com/in/mihainadas/details/education/",
+  "publications": [
+    {"title": "Synthetic Data Generation Using Large Language Models: Advances in Text and Code", "venue": "IEEE Access, 2025", "url": "https://doi.org/10.1109/ACCESS.2025.3589503", "kind": "Journal article, co-authored"},
+    {"title": "Building Large-Scale English–Romanian Literary Translation Resources with Open Models", "venue": "Frontiers in Artificial Intelligence, 2026", "url": "https://doi.org/10.3389/frai.2026.1807431", "kind": "Journal article, co-authored"},
+    {"title": "TF1-EN-3M: Three Million Synthetic Moral Fables for Training Small, Open Language Models", "venue": "arXiv, 2025", "url": "https://arxiv.org/abs/2504.20605", "kind": "Preprint, co-authored"},
+    {"title": "TF3-RO-50M: Training Compact Romanian Language Models from Scratch on Synthetic Moral Microfiction", "venue": "arXiv, 2026", "url": "https://arxiv.org/abs/2601.10410", "kind": "Preprint, co-authored"}
+  ],
+  "evidence": [
+    {"label": "Research programme", "url": "/research/", "detail": "TinyFabulist: controlled generation, literary translation, and compact Romanian models. Public papers, data, and code are linked with their limits."},
+    {"label": "Engineering contributions", "url": "/2026/08/27/three-emulator-bugs.html", "detail": "Three merged 86Box fixes, with distinct regression tests and links to the upstream pull requests. Public engineering evidence, not a client case study."},
+    {"label": "AI decision support", "url": "/2026/10/17/deep-research-needs-evidence-budget.html", "detail": "An evidence-budget design for inspecting research agents. A proposed operating model, not a measured client outcome."}
+  ],
+  "identities": [
+    {"label": "LinkedIn", "url": "https://www.linkedin.com/in/mihainadas"},
+    {"label": "GitHub", "url": "https://github.com/mihainadas"},
+    {"label": "ORCID", "url": "https://orcid.org/0009-0003-3467-3262"},
+    {"label": "DBLP", "url": "https://dblp.org/pid/402/3758.html"}
+  ],
+  "boundary": "This is a selected public professional record, not a complete employment history. Writing and proposed engagement topics express my own views, not those of my employers or partners. Any outside engagement is subject to availability, conflicts, and applicable responsibilities."
+}

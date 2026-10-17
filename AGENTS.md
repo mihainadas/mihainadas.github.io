@@ -5,6 +5,7 @@ Before planning, researching, drafting, or editing this repository, read:
 1. `docs/publishing-policy.md`: the standing editorial, publishing, visual, media, language, research, and referral rules.
 2. `README.md`: exact authoring conventions, mathematics, translation checks, figures, and site mechanics.
 3. For books or shop links, `docs/books-operations.md`; for decorative assets or typography, `assets/editorial/README.md`.
+4. For reusable media, `assets/media/README.md`; for business positioning, career data, or the résumé, `docs/professional-operations.md`.
 
 Apply these rules to every manual and scheduled update. Do not rely on chat history or a historical automation-memory entry in place of the current files. A policy reference is not permission to broaden the current task, change a schedule, weaken a check, or submit an account, agreement, tax, banking, or payment action.
 

@@ -23,6 +23,8 @@ This site contains the technical record that does not fit cleanly into a CV, pap
 
 ## Elsewhere
 
+For a concise, evidence-linked view of my background, see the [professional record and downloadable résumé]({{ '/resume/' | relative_url }}). For consulting, advisory, or board-role discussions, [start with the decision or remit]({{ '/work-with-me/' | relative_url }}).
+
 - [GitHub](https://github.com/mihainadas)
 - [ORCID](https://orcid.org/0009-0003-3467-3262)
 - [DBLP bibliography](https://dblp.org/pid/402/3758.html)

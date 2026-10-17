@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<article class="business-page">
+  <header class="professional-heading">
+    <p class="eyebrow">For people making technology decisions</p>
+    <h1>Better software.<br><em>Better business?</em></h1>
+    <div class="professional-intro">{{ content }}</div>
+    <p class="professional-actions"><a class="button-primary" href="{{ '/work-with-me/' | relative_url }}">Discuss an engagement</a><a href="{{ '/resume/' | relative_url }}">Professional record →</a></p>
+  </header>
+  <section aria-labelledby="business-questions" class="business-questions">
+    <p class="eyebrow">Three decision lenses</p>
+    <h2 id="business-questions">Start with what needs to change.</h2>
+    {% for theme in site.data.business.themes %}
+    <section class="decision-row" id="{{ theme.id }}">
+      <div><p class="eyebrow">0{{ forloop.index }} / {{ theme.question | escape }}</p><h3>{{ theme.title | escape }}</h3></div>
+      <div><p>{{ theme.description | escape }}</p><p class="decision-test"><strong>A useful test:</strong> {{ theme.test | escape }}</p><ul class="evidence-links">{% for slug in theme.posts %}{% assign note = site.posts | where: 'slug', slug | first %}{% if note %}<li><a href="{{ note.url | relative_url }}">{{ note.title | escape }}</a><span>{{ note.post_type | escape }} · {{ note.date | date: '%b %Y' }}</span></li>{% endif %}{% endfor %}</ul></div>
+    </section>
+    {% endfor %}
+  </section>
+  {% include media.html id="decision-loop" class="business-diagram" %}
+  <section class="industry-lenses" aria-labelledby="industry-heading">
+    <h2 id="industry-heading">The industry changes the question.</h2>
+    <p>These are questions to investigate, not claims of sector-specific results or client engagements.</p>
+    <dl>{% for lens in site.data.business.industry_questions %}<div><dt>{{ lens.industry | escape }}</dt><dd>{{ lens.question | escape }}</dd></div>{% endfor %}</dl>
+  </section>
+  {% assign business_notes = site.posts | where: 'post_type', 'business note' %}
+  {% if business_notes.size > 0 %}<section aria-labelledby="business-notes-heading"><h2 id="business-notes-heading">Business essays</h2><div class="post-grid">{% for post in business_notes %}{% include post-card.html post=post %}{% endfor %}</div></section>{% endif %}
+  <aside class="professional-next"><h2>Bring a decision, not an AI slogan.</h2><p>If you are weighing an investment, an operating change, or a board/advisory remit, start with the decision and the evidence you have.</p><a class="text-link" href="{{ '/work-with-me/' | relative_url }}">How to start a conversation →</a><a class="text-link" href="{{ '/papers/' | relative_url }}">Explore the research map →</a></aside>
+</article>

@@ -23,7 +23,7 @@ class PublishingPolicyTests(unittest.TestCase):
         self.assertIn("alwaysApply: true", rule.split("---", 2)[1])
 
     def test_required_operating_guides_exist(self):
-        for relative in ("docs/publishing-policy.md", "README.md", "docs/books-operations.md", "assets/editorial/README.md"):
+        for relative in ("docs/publishing-policy.md", "README.md", "docs/books-operations.md", "assets/editorial/README.md", "assets/media/README.md", "docs/professional-operations.md"):
             self.assertTrue((ROOT / relative).is_file(), relative)
 
     def test_jekyll_excludes_guidance(self):

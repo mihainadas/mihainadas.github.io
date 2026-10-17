@@ -1,8 +1,11 @@
 {% assign section_url = page.url %}
+{% if page.url == '/work-with-me/' %}{% assign section_url = '/business/' %}{% endif %}
+{% if page.url == '/resume/' %}{% assign section_url = '/about/' %}{% endif %}
 {% if page.layout == 'post' %}
   {% assign section_url = '/research/' %}
   {% if page.post_type == 'engineering note' %}{% assign section_url = '/engineering/' %}{% endif %}
   {% if page.series == 'applied-paper-notes' %}{% assign section_url = '/papers/' %}{% endif %}
+  {% if page.post_type == 'business note' %}{% assign section_url = '/business/' %}{% endif %}
 {% elsif page.url == '/lab-notebooks/' %}
   {% assign section_url = '/engineering/' %}
 {% endif %}

@@ -373,9 +373,46 @@ def audit_books(home: str) -> None:
 
 
 def audit_unpublished_guidance() -> None:
-    for relative in ("AGENTS.md", "AGENTS.html", ".cursor", "docs"):
+    for relative in ("AGENTS.md", "AGENTS.html", ".cursor", "docs", "tests", "assets/media-sources", "assets/media/README.md", "assets/media/README.html"):
         if (SITE / relative).exists():
             fail(f"internal publishing guidance leaked into the generated site: {relative}")
+
+
+def audit_professional_platform(home: str) -> None:
+    profile = json.loads((ROOT / '_data/profile.json').read_text(encoding='utf-8'))
+    business = json.loads((ROOT / '_data/business.json').read_text(encoding='utf-8'))
+    hub = read('business/index.html')
+    engagement = read('work-with-me/index.html')
+    resume = read('resume/index.html')
+    for target in ('/business/', '/work-with-me/', '/resume/'):
+        if target not in home:
+            fail(f'homepage lost its professional path: {target}')
+    for page in (home, hub, engagement, resume):
+        navigation = re.search(r'<nav class="site-nav".*?</nav>', page, re.DOTALL)
+        if not navigation or navigation.group().count('class="page-link"') != 5:
+            fail('English primary navigation must retain five compact destinations')
+    for theme in business['themes']:
+        if f'id="{theme["id"]}"' not in hub:
+            fail('business hub lost a decision theme')
+        for slug in theme['posts']:
+            if f'/{slug}.html' not in hub:
+                fail(f'business hub failed to render evidence for {slug}')
+    if 'data-media-id="decision-loop"' not in hub or 'decision-loop-mobile.svg' not in hub:
+        fail('business hub lost its accessible mobile diagram')
+    if 'Download résumé (PDF)' not in resume or '/assets/downloads/mihai-nadas-resume.pdf' not in resume:
+        fail('public professional record lost the downloadable resume')
+    if profile['reviewed'] not in resume or 'In progress, not an awarded degree' not in resume:
+        fail('professional record lost its factual review date or ongoing doctorate status')
+    for role in profile['experience']:
+        if escape(role['organization'], quote=False) not in resume or escape(role['period'], quote=False) not in resume:
+            fail('professional record does not render the selected career data')
+    record = next((item for item in json_ld_records('resume/index.html', resume) if item.get('@type') == 'ProfilePage'), None)
+    if not record or record.get('mainEntity', {}).get('@id') != 'https://mihainadas.github.io/#mihai-nadas':
+        fail('resume metadata is not connected to the canonical public identity')
+    original = ROOT / 'assets/downloads/mihai-nadas-resume.pdf'
+    rendered = SITE / 'assets/downloads/mihai-nadas-resume.pdf'
+    if not rendered.is_file() or original.read_bytes() != rendered.read_bytes():
+        fail('generated site does not contain the current resume PDF')
 
 
 def main() -> int:
@@ -395,6 +432,7 @@ def main() -> int:
     audit_editorial_assets(home)
     audit_localized_pages(feed, sitemap)
     audit_books(home)
+    audit_professional_platform(home)
 
     issue_numbers = [int(value) for value in re.findall(r'data-issue="(\d+)"', papers)]
     groups = json.loads((ROOT / "_data" / "papers.json").read_text(encoding="utf-8"))
